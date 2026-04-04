@@ -3,45 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUTRITION, INVESTED • Andrew Rios</title>
+    <title>NUTRITION, INVESTED | Free Download</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', system_ui, sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
     </style>
 </head>
-<body class="bg-zinc-950 text-white min-h-screen flex items-center justify-center p-6">
-    <div class="max-w-md mx-auto text-center">
+<body class="bg-slate-50 min-h-screen flex items-center justify-center py-12 px-4">
+    <div class="max-w-md w-full text-center">
         
-        <!-- Book Cover - Clickable to open PDF (now using .png) -->
-        <a href="ebook.pdf" target="_blank" class="block group transition-transform hover:scale-105 duration-300">
-            <img src="cover.png" alt="Nutrition, Invested by Andrew Rios" 
-                 class="w-full rounded-3xl shadow-2xl border border-zinc-800 group-active:scale-95">
+        <!-- Title -->
+        <h1 class="text-5xl font-bold tracking-tight text-emerald-700 mb-2">NUTRITION,</h1>
+        <h1 class="text-5xl font-bold tracking-tight text-emerald-700 mb-8">INVESTED</h1>
+
+        <!-- Clickable Book Cover (opens modal) -->
+        <div class="mb-8 flex justify-center cursor-pointer" onclick="openPdfModal()">
+            <img src="cover.jpg" 
+                 alt="Nutrition, Invested by Andrew Rios"
+                 class="mx-auto shadow-2xl rounded-2xl transition-transform hover:scale-105 duration-300"
+                 style="max-height: 520px; width: auto; max-width: 100%;">
+        </div>
+
+        <!-- Author + Subtitle -->
+        <p class="text-xl font-medium text-gray-800 mb-1">ANDREW RIOS</p>
+        <p class="text-emerald-600 font-medium mb-8">THE TACTICAL GUIDE TO KICKSTART YOUR HEALTH WITH NUTRITION</p>
+
+        <!-- Free Download Button (always visible at bottom) -->
+        <a href="nutrition-invested.pdf" 
+           download="Nutrition_Invested_Andrew_Rios.pdf"
+           class="inline-flex items-center px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xl font-semibold rounded-2xl shadow-lg hover:shadow-xl active:scale-95 transition-all">
+            📥 Free Download PDF
         </a>
 
-        <!-- Title & Subtitle -->
-        <h1 class="text-5xl font-bold tracking-tighter mt-10 leading-none text-emerald-400">
-            NUTRITION,<br>INVESTED
-        </h1>
-        <p class="text-xl text-zinc-400 mt-3">THE TACTICAL GUIDE TO KICKSTART YOUR HEALTH WITH NUTRITION</p>
-        <p class="text-emerald-300 font-medium mt-1">ANDREW RIOS</p>
-
-        <!-- Download Button -->
-        <a href="ebook.pdf" target="_blank"
-           class="mt-12 inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-lg px-10 py-5 rounded-2xl transition-all active:scale-95 shadow-lg shadow-emerald-500/30">
-            <span>DOWNLOAD FREE PDF</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v-4m0 0l4 4m-4-4l4-4m12 0v4m0 0l-4-4m4 4l-4 4" />
-            </svg>
-        </a>
-
-        <p class="text-xs text-zinc-500 mt-8">Instant download • No signup • Works on any device</p>
-
-        <!-- Footer -->
-        <footer class="mt-16 text-xs text-zinc-500">
-            Made with ❤️ on GitHub Pages • 
-            <a href="https://github.com/andrewsportal/nutrition-invested" class="hover:text-zinc-300">View source</a>
-        </footer>
+        <p class="mt-6 text-sm text-gray-500">
+            Click the cover to preview the full book • Download button saves the file
+        </p>
     </div>
+
+    <!-- PDF Modal (full optimized viewer on same page) -->
+    <div id="pdfModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[95vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b">
+                <div class="font-semibold text-gray-800">Nutrition, Invested – Full Preview</div>
+                <button onclick="closePdfModal()" 
+                        class="text-gray-500 hover:text-gray-800 text-3xl leading-none pb-1">×</button>
+            </div>
+
+            <!-- PDF Viewer -->
+            <div class="flex-1 overflow-hidden p-4">
+                <iframe id="pdfFrame" 
+                        src="nutrition-invested.pdf"
+                        class="w-full h-full rounded-2xl border-0"
+                        style="min-height: 80vh;"></iframe>
+            </div>
+
+            <!-- Modal Footer (optional extra download) -->
+            <div class="px-6 py-4 border-t flex justify-end">
+                <a href="nutrition-invested.pdf" 
+                   download="Nutrition_Invested_Andrew_Rios.pdf"
+                   class="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-lg font-medium">
+                    📥 Download Full PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPdfModal() {
+            document.getElementById('pdfModal').classList.remove('hidden');
+            document.getElementById('pdfFrame').src = 'nutrition-invested.pdf'; // reloads fresh
+        }
+        
+        function closePdfModal() {
+            document.getElementById('pdfModal').classList.add('hidden');
+        }
+        
+        // Close modal when clicking outside the content area
+        document.getElementById('pdfModal').addEventListener('click', function(e) {
+            if (e.target === this) closePdfModal();
+        });
+    </script>
 </body>
 </html>
