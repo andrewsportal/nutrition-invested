@@ -4,23 +4,14 @@
   <!-- Clickable Book Cover -->
   <img 
     id="book-cover"
-    src="YOUR-BOOK-COVER-IMAGE.jpg" 
+    src="cover.JPEG" 
     alt="Nutrition, Invested by Andrew Rios"
     style="width: 100%; max-width: 420px; height: auto; cursor: pointer; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); border-radius: 12px;">
   
-  <h1 style="font-size: 2.8rem; color: #006400; margin: 35px 0 12px; line-height: 1.1;">
-    NUTRITION,<br>INVESTED
-  </h1>
-  
-  <p style="font-size: 1.15rem; font-weight: 600; max-width: 420px; margin: 0 auto 8px;">
-    THE TACTICAL GUIDE TO KICKSTART YOUR HEALTH WITH NUTRITION
-  </p>
-  <p style="font-size: 1.4rem; color: #222; margin-bottom: 35px;">ANDREW RIOS</p>
-
   <!-- Green Download Button -->
-  <a href="YOUR-PDF-FILE.pdf" 
+  <a href="nutrition-invested.pdf" 
      download="Nutrition-Invested-Andrew-Rios.pdf"
-     style="display: inline-block; background: #00b140; color: white; padding: 18px 40px; font-size: 1.25rem; font-weight: 700; border-radius: 50px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,177,64,0.35);">
+     style="display: inline-block; margin-top: 30px; background: #00b140; color: white; padding: 18px 40px; font-size: 1.25rem; font-weight: 700; border-radius: 50px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,177,64,0.35);">
     📄 Free Download PDF
   </a>
 </div>
@@ -31,17 +22,17 @@
 
   <div style="position: relative; max-width: 92%; max-height: 92vh; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4);">
     
-    <!-- Top bar exactly like in your video -->
+    <!-- Top bar -->
     <div style="padding: 12px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
       <h3 style="margin: 0; font-size: 1.3rem; font-weight: 600;">Full Book Preview</h3>
       <button onclick="closePreview()" 
               style="background: none; border: none; font-size: 32px; line-height: 1; cursor: pointer; padding: 0 8px;">×</button>
     </div>
     
-    <!-- The image – now properly contained (this fixes the bug) -->
+    <!-- The image – properly contained (no more scrolling/cropping on mobile) -->
     <div style="padding: 20px; text-align: center; max-height: calc(92vh - 65px); overflow: hidden;">
       <img id="modal-image" 
-           src="YOUR-BOOK-COVER-IMAGE.jpg" 
+           src="cover.JPEG" 
            alt="Full Book Preview"
            style="max-width: 100%; max-height: 78vh; height: auto; object-fit: contain; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border-radius: 8px;">
     </div>
