@@ -1,161 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>Nutrition, Invested</title>
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Nutrition, Invested</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      background: #e8e8e8;
-      overflow: hidden;
-    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #e8e8e8;
+      overflow: hidden;
+    }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100dvh;
-      padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
-    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100dvh;
+      padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
+    }
 
-    .cover-wrapper {
-      width: 100%;
-      max-height: calc(100dvh - 120px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .cover-wrapper {
+      width: 100%;
+      max-height: calc(100dvh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    .cover-wrapper img {
-      display: block;
-      width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      border-radius: 0;
-      /* No box-shadow — the cover artwork has its own natural shadow baked in */
-    }
+    .cover-wrapper img {
+      display: block;
+      width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 0;
+      /* No box-shadow — the cover artwork has its own natural shadow baked in */
+    }
 
-    .download-btn {
-      flex-shrink: 0;
-      width: 100%;
-      max-width: 480px;
-      background: #00b140;
-      color: #ffffff;
-      border: none;
-      border-radius: 50px;
-      margin-top: 20px;
-      padding: 18px 24px;
-      font-size: clamp(1rem, 4vw, 1.2rem);
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 10px 28px rgba(0, 177, 64, 0.35);
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
+    .download-btn {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #00b140;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      margin-top: 20px;
+      padding: 18px 24px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0, 177, 64, 0.35);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    .download-btn:active {
-      transform: scale(0.97);
-      box-shadow: 0 5px 14px rgba(0, 177, 64, 0.25);
-    }
+    .download-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 5px 14px rgba(0, 177, 64, 0.25);
+    }
 
-    .toast {
-      position: fixed;
-      bottom: calc(80px + env(safe-area-inset-bottom, 0px));
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: rgba(0,0,0,0.78);
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 30px;
-      font-size: 0.88rem;
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 999;
-    }
+    .toast {
+      position: fixed;
+      bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0,0,0,0.78);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-  </style>
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
 <body>
 
-  <div class="cover-wrapper">
-    <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
-  </div>
+  <div class="cover-wrapper">
+    <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
+  </div>
 
-  <button class="download-btn" onclick="downloadPDF()">
-    FREE DOWNLOAD (PDF)
-  </button>
+  <button class="download-btn" onclick="downloadPDF()">
+    FREE DOWNLOAD (PDF)
+  </button>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast"></div>
 
-  <script>
-    function showToast(msg, duration = 3000) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), duration);
-    }
+  <script>
+    function showToast(msg, duration = 3000) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), duration);
+    }
 
-    function downloadPDF() {
-      const pdfUrl = 'nutrition-invested.pdf';
-      const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
+    function downloadPDF() {
+      const pdfUrl = 'nutrition-invested.pdf';
+      const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
 
-      showToast('Preparing your download…');
+      showToast('Preparing your download…');
 
-      fetch(pdfUrl, { cache: 'no-store' })
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to load PDF');
-          return response.blob();
-        })
-        .then(blob => {
-          const pdfBlob = new Blob([blob], { type: 'application/pdf' });
-          const url = URL.createObjectURL(pdfBlob);
+      fetch(pdfUrl, { cache: 'no-store' })
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load PDF');
+          return response.blob();
+        })
+        .then(blob => {
+          const pdfBlob = new Blob([blob], { type: 'application/pdf' });
+          const url = URL.createObjectURL(pdfBlob);
 
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = fileName;
-          link.style.display = 'none';
-          document.body.appendChild(link);
-          link.click();
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = fileName;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
 
-          setTimeout(() => {
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-          }, 1000);
+          setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+          }, 1000);
 
-          showToast('✓ Download started — check your Files app');
-        })
-        .catch(err => {
-          console.error(err);
-          const link = document.createElement('a');
-          link.href = pdfUrl + '?dl=1';
-          link.download = fileName;
-          link.style.display = 'none';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          showToast('Download started');
-        });
-    }
-  </script>
+          showToast('✓ Download started — check your Files app');
+        })
+        .catch(err => {
+          console.error(err);
+          const link = document.createElement('a');
+          link.href = pdfUrl + '?dl=1';
+          link.download = fileName;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          showToast('Download started');
+        });
+    }
+  </script>
 
 </body>
 </html>
