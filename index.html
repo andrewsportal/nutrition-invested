@@ -1,22 +1,22 @@
-<!-- === BOOK PROMOTION SECTION === -->
-<div style="text-align: center; max-width: 600px; margin: 40px auto; padding: 0 20px;">
-  
-  <!-- Clickable Book Cover -->
+<!-- === BOOK PROMOTION SECTION (FULL-SCREEN MOBILE HERO) === -->
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; padding: 20px 20px 40px; box-sizing: border-box; margin: 0; background: #ffffff;">
+
+  <!-- Clickable Book Cover – now takes up almost the entire screen -->
   <img 
     id="book-cover"
     src="cover.JPEG" 
     alt="Nutrition, Invested by Andrew Rios"
-    style="width: 100%; max-width: 420px; height: auto; cursor: pointer; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); border-radius: 12px;">
-  
-  <!-- Green Download Button -->
+    style="width: 100%; max-width: 520px; height: auto; max-height: 68vh; cursor: pointer; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); border-radius: 12px; margin-bottom: 24px;">
+
+  <!-- Bigger & Bolder Download Button – sits right below the cover -->
   <a href="nutrition-invested.pdf" 
      download="Nutrition-Invested-Andrew-Rios.pdf"
-     style="display: inline-block; margin-top: 30px; background: #00b140; color: white; padding: 18px 40px; font-size: 1.25rem; font-weight: 700; border-radius: 50px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,177,64,0.35);">
-    📄 Free Download PDF
+     style="display: inline-block; background: #00b140; color: white; padding: 24px 56px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; border-radius: 50px; text-decoration: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;">
+    FREE DOWNLOAD (PDF)
   </a>
 </div>
 
-<!-- === FIXED FULL BOOK PREVIEW MODAL === -->
+<!-- === FIXED FULL BOOK PREVIEW MODAL (unchanged) === -->
 <div id="preview-modal" 
      style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; align-items: center; justify-content: center; overflow: hidden;">
 
@@ -29,7 +29,7 @@
               style="background: none; border: none; font-size: 32px; line-height: 1; cursor: pointer; padding: 0 8px;">×</button>
     </div>
     
-    <!-- The image – properly contained (no more scrolling/cropping on mobile) -->
+    <!-- The image – properly contained -->
     <div style="padding: 20px; text-align: center; max-height: calc(92vh - 65px); overflow: hidden;">
       <img id="modal-image" 
            src="cover.JPEG" 
