@@ -111,14 +111,7 @@ body {
   <div class="toast" id="toast"></div>
 
   <script>
-    // ─── REPLACE THIS WITH YOUR ACTUAL GOOGLE DRIVE FILE ID ───────────────────
-    // How to find it: your Drive share link looks like:
-    // https://drive.google.com/file/d/FILE_ID/view?usp=sharing
-    //                                   ↑ copy just this part
-    const GOOGLE_DRIVE_FILE_ID = 'https://drive.google.com/file/d/1NduU7Jk74s5YcqB0WRNcEt0amUQd9pnh/view?usp=drivesdk';
-    // ──────────────────────────────────────────────────────────────────────────
-
-    const pdfUrl = 'https://drive.google.com/uc?export=download&id=' + GOOGLE_DRIVE_FILE_ID;
+    const pdfUrl = 'https://drive.google.com/uc?export=download&id=1NduU7Jk74s5YcqB0WRNcEt0amUQd9pnh';
 
     function showToast(msg, duration = 4500) {
       const t = document.getElementById('toast');
