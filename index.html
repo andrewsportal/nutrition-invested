@@ -1,26 +1,27 @@
-<!-- === BOOK PROMOTION SECTION (FULL-SCREEN MOBILE HERO – NO SCROLL) === -->
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; padding: 10px 20px 30px; box-sizing: border-box; margin: 0; background: #ffffff;">
+<!-- === BOOK PROMOTION SECTION (TRUE FULL-SCREEN ON iPHONE SAFARI) === -->
+<div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px 20px 30px; box-sizing: border-box; margin: 0; background: #ffffff;">
 
-  <!-- Book Cover – fills the entire screen (no corners cut off) -->
+  <!-- Book Cover – MAXIMUM size (fills almost the entire screen) -->
+  <!-- Sharp corners, no clipping, not clickable -->
   <img 
     src="cover.JPEG" 
     alt="Nutrition, Invested by Andrew Rios"
-    style="width: 100%; max-width: 540px; height: auto; max-height: 78vh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 28px;">
+    style="width: 100%; max-width: 560px; height: auto; max-height: 85dvh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 20px;">
 
-  <!-- Download Button – now uses stronger method to force actual save on iPhone Safari -->
+  <!-- Download Button – stays visible right below the cover -->
   <button onclick="forceDownloadPDF()" 
           style="display: inline-block; background: #00b140; color: white; padding: 24px 56px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; cursor: pointer;">
     FREE DOWNLOAD (PDF)
   </button>
 
   <!-- Reassuring text -->
-  <p style="margin-top: 20px; color: #555; font-size: 1rem; font-weight: 500;">
+  <p style="margin-top: 18px; color: #555; font-size: 1rem; font-weight: 500;">
     Tap the button to download the PDF directly to your phone
   </p>
 </div>
 
 <script>
-  // Stronger force-download method (uses Blob + object URL) — this fixes Safari's "just preview" behavior
+  // Strong force-download (Blob method) – this makes Safari actually save the file instead of just previewing
   function forceDownloadPDF() {
     const pdfUrl = 'nutrition-invested.pdf';
     const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
@@ -34,15 +35,14 @@
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = fileName;     // forces the save dialog
+        link.download = fileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        URL.revokeObjectURL(url);     // clean up
+        URL.revokeObjectURL(url);
       })
-      .catch(err => {
-        console.error('Download error:', err);
-        // Fallback: open in new tab if the blob method fails
+      .catch(() => {
+        // Fallback if needed
         window.open(pdfUrl, '_blank');
       });
   }
