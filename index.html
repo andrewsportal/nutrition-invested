@@ -1,50 +1,188 @@
-<!-- === MAXIMUM FULL-SCREEN BOOK COVER (fills almost the ENTIRE iPhone screen) === -->
-<div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 20px 20px; box-sizing: border-box; margin: 0; background: #ffffff; overflow: hidden;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Nutrition, Invested</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <!-- Book Cover Wrapper – aggressively takes up as much vertical space as possible -->
-  <div style="flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 640px;">
-    <img 
-      src="cover.JPEG" 
-      alt="Nutrition, Invested by Andrew Rios"
-      style="width: 100%; height: auto; max-height: 100%; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);">
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+      /* Use dynamic viewport height to account for Safari toolbar */
+      height: 100dvh;
+    }
+
+    /* Cover fills almost the full screen, leaving just enough for the button */
+    .cover-wrapper {
+      flex: 1;
+      width: 100%;
+      min-height: 0; /* critical for flex children to shrink */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .cover-wrapper img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    /* Bottom section: button + caption */
+    .bottom {
+      flex-shrink: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 24px calc(12px + env(safe-area-inset-bottom, 0px));
+      gap: 10px;
+      background: #ffffff;
+    }
+
+    .download-btn {
+      width: 100%;
+      max-width: 420px;
+      background: #00b140;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 24px;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0, 177, 64, 0.4);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .download-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 5px 14px rgba(0, 177, 64, 0.35);
+    }
+
+    .caption {
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      font-size: clamp(0.75rem, 3vw, 0.9rem);
+      color: #888;
+      text-align: center;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover-wrapper">
+    <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
   </div>
 
-  <!-- Download Button – forces real download to Files (no Safari preview) -->
-  <button onclick="forceDownloadPDF()" 
-          style="margin-top: 18px; background: #00b140; color: white; padding: 23px 55px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.2px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); cursor: pointer;">
-    FREE DOWNLOAD (PDF)
-  </button>
+  <div class="bottom">
+    <button class="download-btn" onclick="downloadPDF()">
+      FREE DOWNLOAD (PDF)
+    </button>
+    <p class="caption">Tap the button to download the PDF directly to your phone</p>
+  </div>
 
-  <!-- Instruction text -->
-  <p style="margin-top: 14px; color: #555; font-size: 0.95rem; font-weight: 500;">
-    Tap the button to download the PDF directly to your phone
-  </p>
-</div>
+  <div class="toast" id="toast"></div>
 
-<script>
-  // STRONGEST force-download method for iOS Safari (saves straight to Files/Downloads)
-  function forceDownloadPDF() {
-    const pdfUrl = 'nutrition-invested.pdf';
-    const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
+  <script>
+    function showToast(msg, duration = 3000) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), duration);
+    }
 
-    fetch(pdfUrl, { cache: 'no-store' })
-      .then(response => {
-        if (!response.ok) throw new Error('PDF load failed');
-        return response.blob();
-      })
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;        // This is what forces the save dialog
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      })
-      .catch(() => {
-        // Fallback if Safari blocks the blob method
-        window.open(pdfUrl, '_blank');
-      });
-  }
-</script>
+    function downloadPDF() {
+      const pdfUrl = 'nutrition-invested.pdf';
+      const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
+
+      showToast('Preparing your download…');
+
+      fetch(pdfUrl, { cache: 'no-store' })
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load PDF');
+          return response.blob();
+        })
+        .then(blob => {
+          // Ensure correct MIME type — critical for iOS to show "Save to Files"
+          const pdfBlob = new Blob([blob], { type: 'application/pdf' });
+          const url = URL.createObjectURL(pdfBlob);
+
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = fileName;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+
+          // Clean up
+          setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+          }, 1000);
+
+          showToast('✓ Download started — check your Files app');
+        })
+        .catch(err => {
+          console.error(err);
+          // Hard fallback: force download via <a> without opening in browser
+          const link = document.createElement('a');
+          link.href = pdfUrl + '?dl=1';
+          link.download = fileName;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          showToast('Download started');
+        });
+    }
+  </script>
+
+</body>
+</html>
