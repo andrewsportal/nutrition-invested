@@ -1,33 +1,49 @@
 <!-- === BOOK PROMOTION SECTION (FULL-SCREEN MOBILE HERO – NO SCROLL) === -->
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; padding: 10px 20px 30px; box-sizing: border-box; margin: 0; background: #ffffff;">
 
-  <!-- Book Cover – Much larger to fill the entire screen (no more small image) -->
-  <!-- Sharp corners (nothing cut off), NOT clickable, no preview -->
+  <!-- Book Cover – fills the entire screen (no corners cut off) -->
   <img 
     src="cover.JPEG" 
     alt="Nutrition, Invested by Andrew Rios"
     style="width: 100%; max-width: 540px; height: auto; max-height: 78vh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 28px;">
 
-  <!-- Download Button – Forces real download (no Safari preview) -->
+  <!-- Download Button – now uses stronger method to force actual save on iPhone Safari -->
   <button onclick="forceDownloadPDF()" 
           style="display: inline-block; background: #00b140; color: white; padding: 24px 56px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; cursor: pointer;">
     FREE DOWNLOAD (PDF)
   </button>
 
-  <!-- Clear instruction (updated since image is no longer clickable) -->
+  <!-- Reassuring text -->
   <p style="margin-top: 20px; color: #555; font-size: 1rem; font-weight: 500;">
     Tap the button to download the PDF directly to your phone
   </p>
 </div>
 
 <script>
-  // Force a real download (bypasses Safari's PDF preview completely)
+  // Stronger force-download method (uses Blob + object URL) — this fixes Safari's "just preview" behavior
   function forceDownloadPDF() {
-    const link = document.createElement('a');
-    link.href = 'nutrition-invested.pdf';
-    link.download = 'Nutrition-Invested-Andrew-Rios.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const pdfUrl = 'nutrition-invested.pdf';
+    const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
+
+    fetch(pdfUrl)
+      .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.blob();
+      })
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;     // forces the save dialog
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);     // clean up
+      })
+      .catch(err => {
+        console.error('Download error:', err);
+        // Fallback: open in new tab if the blob method fails
+        window.open(pdfUrl, '_blank');
+      });
   }
 </script>
