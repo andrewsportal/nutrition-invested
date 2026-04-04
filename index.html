@@ -9,17 +9,24 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', system-ui, sans-serif; }
         
-        /* Maximize book cover on all devices including Safari */
+        /* Premium book cover – sharp corners + floating 3D effect */
         .book-cover {
-            max-height: 88vh;
+            max-height: 90vh;
             width: auto;
             max-width: 100%;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            box-shadow: 
+                0 35px 60px -15px rgb(0 0 0 / 0.35),
+                0 10px 20px -5px rgb(0 0 0 / 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .book-cover:hover {
+            transform: scale(1.03) rotate(1deg);
         }
         
         @media (max-width: 640px) {
             .book-cover {
-                max-height: 82vh; /* Slightly smaller on very small phones but still huge */
+                max-height: 82vh;
             }
         }
     </style>
@@ -28,26 +35,22 @@
     
     <div class="w-full max-w-2xl mx-auto text-center">
         
-        <!-- Clickable Book Cover – now MAXIMUM size (responsive for Safari + all mobile) -->
-        <div class="mb-8 flex justify-center cursor-pointer" onclick="openPdfModal()">
+        <!-- Clickable Book Cover – sharp corners, full visibility, premium floating shadow -->
+        <div class="mb-10 flex justify-center cursor-pointer" onclick="openPdfModal()">
             <img src="cover.JPEG" 
                  alt="Nutrition, Invested"
-                 class="book-cover mx-auto rounded-3xl transition-transform hover:scale-[1.02] duration-300">
+                 class="book-cover mx-auto rounded-none">
         </div>
 
-        <!-- Free Download Button (always visible) -->
+        <!-- Premium Download Button (matches screenshot style) -->
         <a href="nutrition-invested.pdf" 
            download="Nutrition_Invested_Andrew_Rios.pdf"
-           class="inline-flex items-center px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xl font-semibold rounded-3xl shadow-xl hover:shadow-2xl active:scale-95 transition-all mx-auto">
+           class="inline-flex items-center justify-center gap-3 px-12 py-5 bg-emerald-600 hover:bg-emerald-700 text-white text-2xl font-semibold rounded-3xl shadow-2xl hover:shadow-3xl active:scale-95 transition-all mx-auto w-full max-w-md">
             📥 Free Download PDF
         </a>
-
-        <p class="mt-8 text-sm text-gray-500 max-w-xs mx-auto">
-            Tap the cover to preview the full book • Button saves the file
-        </p>
     </div>
 
-    <!-- PDF Modal (full optimized viewer – same page, no new tab) -->
+    <!-- PDF Modal (unchanged – already excellent) -->
     <div id="pdfModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[96vh] flex flex-col overflow-hidden">
             
@@ -58,7 +61,7 @@
                         class="text-gray-400 hover:text-gray-800 text-4xl leading-none pb-1">×</button>
             </div>
 
-            <!-- PDF Viewer (optimized for Safari & mobile) -->
+            <!-- PDF Viewer -->
             <div class="flex-1 p-3 md:p-6 bg-gray-50">
                 <iframe id="pdfFrame" 
                         src="nutrition-invested.pdf"
