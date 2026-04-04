@@ -1,36 +1,33 @@
-<!-- === BOOK PROMOTION SECTION (TRUE FULL-SCREEN ON iPHONE SAFARI) === -->
-<div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px 20px 30px; box-sizing: border-box; margin: 0; background: #ffffff;">
+<!-- === MAXIMUM FULL-SCREEN BOOK COVER (matches your second screenshot) === -->
+<div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 8px 20px 20px; box-sizing: border-box; margin: 0; background: #ffffff;">
 
-  <!-- Book Cover – MAXIMUM size (fills almost the entire screen) -->
-  <!-- Sharp corners, no clipping, not clickable -->
+  <!-- Book Cover – automatically takes up as much space as possible -->
+  <!-- Adjusts to ANY image size while keeping full picture visible (no cropping) -->
   <img 
     src="cover.JPEG" 
     alt="Nutrition, Invested by Andrew Rios"
-    style="width: 100%; max-width: 560px; height: auto; max-height: 85dvh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 20px;">
+    style="width: 100%; max-width: 600px; height: auto; max-height: 88dvh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 18px;">
 
-  <!-- Download Button – stays visible right below the cover -->
+  <!-- Download Button -->
   <button onclick="forceDownloadPDF()" 
-          style="display: inline-block; background: #00b140; color: white; padding: 24px 56px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; cursor: pointer;">
+          style="background: #00b140; color: white; padding: 23px 55px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.2px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); cursor: pointer;">
     FREE DOWNLOAD (PDF)
   </button>
 
-  <!-- Reassuring text -->
-  <p style="margin-top: 18px; color: #555; font-size: 1rem; font-weight: 500;">
+  <!-- Instruction text -->
+  <p style="margin-top: 16px; color: #555; font-size: 0.95rem; font-weight: 500;">
     Tap the button to download the PDF directly to your phone
   </p>
 </div>
 
 <script>
-  // Strong force-download (Blob method) – this makes Safari actually save the file instead of just previewing
+  // Forces actual download (no more just previewing in Safari)
   function forceDownloadPDF() {
     const pdfUrl = 'nutrition-invested.pdf';
     const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
 
     fetch(pdfUrl)
-      .then(response => {
-        if (!response.ok) throw new Error('Network error');
-        return response.blob();
-      })
+      .then(response => response.blob())
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -42,7 +39,6 @@
         URL.revokeObjectURL(url);
       })
       .catch(() => {
-        // Fallback if needed
         window.open(pdfUrl, '_blank');
       });
   }
