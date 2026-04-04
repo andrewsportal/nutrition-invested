@@ -8,63 +8,69 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', system-ui, sans-serif; }
+        
+        /* Maximize book cover on all devices including Safari */
+        .book-cover {
+            max-height: 88vh;
+            width: auto;
+            max-width: 100%;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+        
+        @media (max-width: 640px) {
+            .book-cover {
+                max-height: 82vh; /* Slightly smaller on very small phones but still huge */
+            }
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center py-12 px-4">
-    <div class="max-w-md w-full text-center">
+<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center py-8 px-4">
+    
+    <div class="w-full max-w-2xl mx-auto text-center">
         
-        <!-- Title -->
-        <h1 class="text-5xl font-bold tracking-tight text-emerald-700 mb-2">NUTRITION,</h1>
-        <h1 class="text-5xl font-bold tracking-tight text-emerald-700 mb-8">INVESTED</h1>
-
-        <!-- Clickable Book Cover (opens modal) -->
+        <!-- Clickable Book Cover – now MAXIMUM size (responsive for Safari + all mobile) -->
         <div class="mb-8 flex justify-center cursor-pointer" onclick="openPdfModal()">
             <img src="cover.jpg" 
-                 alt="Nutrition, Invested by Andrew Rios"
-                 class="mx-auto shadow-2xl rounded-2xl transition-transform hover:scale-105 duration-300"
-                 style="max-height: 520px; width: auto; max-width: 100%;">
+                 alt="Nutrition, Invested"
+                 class="book-cover mx-auto rounded-3xl transition-transform hover:scale-[1.02] duration-300">
         </div>
 
-        <!-- Author + Subtitle -->
-        <p class="text-xl font-medium text-gray-800 mb-1">ANDREW RIOS</p>
-        <p class="text-emerald-600 font-medium mb-8">THE TACTICAL GUIDE TO KICKSTART YOUR HEALTH WITH NUTRITION</p>
-
-        <!-- Free Download Button (always visible at bottom) -->
+        <!-- Free Download Button (always visible) -->
         <a href="nutrition-invested.pdf" 
            download="Nutrition_Invested_Andrew_Rios.pdf"
-           class="inline-flex items-center px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xl font-semibold rounded-2xl shadow-lg hover:shadow-xl active:scale-95 transition-all">
+           class="inline-flex items-center px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xl font-semibold rounded-3xl shadow-xl hover:shadow-2xl active:scale-95 transition-all mx-auto">
             📥 Free Download PDF
         </a>
 
-        <p class="mt-6 text-sm text-gray-500">
-            Click the cover to preview the full book • Download button saves the file
+        <p class="mt-8 text-sm text-gray-500 max-w-xs mx-auto">
+            Tap the cover to preview the full book • Button saves the file
         </p>
     </div>
 
-    <!-- PDF Modal (full optimized viewer on same page) -->
-    <div id="pdfModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[95vh] flex flex-col">
+    <!-- PDF Modal (full optimized viewer – same page, no new tab) -->
+    <div id="pdfModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[96vh] flex flex-col overflow-hidden">
             
             <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4 border-b">
-                <div class="font-semibold text-gray-800">Nutrition, Invested – Full Preview</div>
+            <div class="flex items-center justify-between px-6 py-4 border-b bg-white">
+                <div class="font-semibold text-gray-800">Full Book Preview</div>
                 <button onclick="closePdfModal()" 
-                        class="text-gray-500 hover:text-gray-800 text-3xl leading-none pb-1">×</button>
+                        class="text-gray-400 hover:text-gray-800 text-4xl leading-none pb-1">×</button>
             </div>
 
-            <!-- PDF Viewer -->
-            <div class="flex-1 overflow-hidden p-4">
+            <!-- PDF Viewer (optimized for Safari & mobile) -->
+            <div class="flex-1 p-3 md:p-6 bg-gray-50">
                 <iframe id="pdfFrame" 
                         src="nutrition-invested.pdf"
-                        class="w-full h-full rounded-2xl border-0"
-                        style="min-height: 80vh;"></iframe>
+                        class="w-full h-full rounded-2xl border-0 shadow-inner"
+                        style="min-height: 78vh;"></iframe>
             </div>
 
-            <!-- Modal Footer (optional extra download) -->
-            <div class="px-6 py-4 border-t flex justify-end">
+            <!-- Modal Footer -->
+            <div class="px-6 py-5 border-t flex justify-end bg-white">
                 <a href="nutrition-invested.pdf" 
                    download="Nutrition_Invested_Andrew_Rios.pdf"
-                   class="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-lg font-medium">
+                   class="inline-flex items-center px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-3xl text-lg font-medium">
                     📥 Download Full PDF
                 </a>
             </div>
@@ -73,17 +79,27 @@
 
     <script>
         function openPdfModal() {
-            document.getElementById('pdfModal').classList.remove('hidden');
-            document.getElementById('pdfFrame').src = 'nutrition-invested.pdf'; // reloads fresh
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            modal.classList.remove('hidden');
+            frame.src = 'nutrition-invested.pdf'; // fresh load
         }
         
         function closePdfModal() {
             document.getElementById('pdfModal').classList.add('hidden');
         }
         
-        // Close modal when clicking outside the content area
+        // Close when tapping outside the white box
         document.getElementById('pdfModal').addEventListener('click', function(e) {
             if (e.target === this) closePdfModal();
+        });
+        
+        // Keyboard escape support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('pdfModal');
+                if (!modal.classList.contains('hidden')) closePdfModal();
+            }
         });
     </script>
 </body>
