@@ -1,109 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUTRITION, INVESTED | Free Download</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        
-        /* Premium book cover – sharp corners + floating 3D effect */
-        .book-cover {
-            max-height: 90vh;
-            width: auto;
-            max-width: 100%;
-            box-shadow: 
-                0 35px 60px -15px rgb(0 0 0 / 0.35),
-                0 10px 20px -5px rgb(0 0 0 / 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .book-cover:hover {
-            transform: scale(1.03) rotate(1deg);
-        }
-        
-        @media (max-width: 640px) {
-            .book-cover {
-                max-height: 82vh;
-            }
-        }
-    </style>
-</head>
-<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center py-8 px-4">
+<!-- === BOOK PROMOTION SECTION === -->
+<div style="text-align: center; max-width: 600px; margin: 40px auto; padding: 0 20px;">
+  
+  <!-- Clickable Book Cover -->
+  <img 
+    id="book-cover"
+    src="YOUR-BOOK-COVER-IMAGE.jpg" 
+    alt="Nutrition, Invested by Andrew Rios"
+    style="width: 100%; max-width: 420px; height: auto; cursor: pointer; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); border-radius: 12px;">
+  
+  <h1 style="font-size: 2.8rem; color: #006400; margin: 35px 0 12px; line-height: 1.1;">
+    NUTRITION,<br>INVESTED
+  </h1>
+  
+  <p style="font-size: 1.15rem; font-weight: 600; max-width: 420px; margin: 0 auto 8px;">
+    THE TACTICAL GUIDE TO KICKSTART YOUR HEALTH WITH NUTRITION
+  </p>
+  <p style="font-size: 1.4rem; color: #222; margin-bottom: 35px;">ANDREW RIOS</p>
+
+  <!-- Green Download Button -->
+  <a href="YOUR-PDF-FILE.pdf" 
+     download="Nutrition-Invested-Andrew-Rios.pdf"
+     style="display: inline-block; background: #00b140; color: white; padding: 18px 40px; font-size: 1.25rem; font-weight: 700; border-radius: 50px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,177,64,0.35);">
+    📄 Free Download PDF
+  </a>
+</div>
+
+<!-- === FIXED FULL BOOK PREVIEW MODAL === -->
+<div id="preview-modal" 
+     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; align-items: center; justify-content: center; overflow: hidden;">
+
+  <div style="position: relative; max-width: 92%; max-height: 92vh; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4);">
     
-    <div class="w-full max-w-2xl mx-auto text-center">
-        
-        <!-- Clickable Book Cover – sharp corners, full visibility, premium floating shadow -->
-        <div class="mb-10 flex justify-center cursor-pointer" onclick="openPdfModal()">
-            <img src="cover.JPEG" 
-                 alt="Nutrition, Invested"
-                 class="book-cover mx-auto rounded-none">
-        </div>
-
-        <!-- Premium Download Button (matches screenshot style) -->
-        <a href="nutrition-invested.pdf" 
-           download="Nutrition_Invested_Andrew_Rios.pdf"
-           class="inline-flex items-center justify-center gap-3 px-12 py-5 bg-emerald-600 hover:bg-emerald-700 text-white text-2xl font-semibold rounded-3xl shadow-2xl hover:shadow-3xl active:scale-95 transition-all mx-auto w-full max-w-md">
-            📥 Free Download PDF
-        </a>
+    <!-- Top bar exactly like in your video -->
+    <div style="padding: 12px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0; font-size: 1.3rem; font-weight: 600;">Full Book Preview</h3>
+      <button onclick="closePreview()" 
+              style="background: none; border: none; font-size: 32px; line-height: 1; cursor: pointer; padding: 0 8px;">×</button>
     </div>
-
-    <!-- PDF Modal (unchanged – already excellent) -->
-    <div id="pdfModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[96vh] flex flex-col overflow-hidden">
-            
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4 border-b bg-white">
-                <div class="font-semibold text-gray-800">Full Book Preview</div>
-                <button onclick="closePdfModal()" 
-                        class="text-gray-400 hover:text-gray-800 text-4xl leading-none pb-1">×</button>
-            </div>
-
-            <!-- PDF Viewer -->
-            <div class="flex-1 p-3 md:p-6 bg-gray-50">
-                <iframe id="pdfFrame" 
-                        src="nutrition-invested.pdf"
-                        class="w-full h-full rounded-2xl border-0 shadow-inner"
-                        style="min-height: 78vh;"></iframe>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="px-6 py-5 border-t flex justify-end bg-white">
-                <a href="nutrition-invested.pdf" 
-                   download="Nutrition_Invested_Andrew_Rios.pdf"
-                   class="inline-flex items-center px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-3xl text-lg font-medium">
-                    📥 Download Full PDF
-                </a>
-            </div>
-        </div>
+    
+    <!-- The image – now properly contained (this fixes the bug) -->
+    <div style="padding: 20px; text-align: center; max-height: calc(92vh - 65px); overflow: hidden;">
+      <img id="modal-image" 
+           src="YOUR-BOOK-COVER-IMAGE.jpg" 
+           alt="Full Book Preview"
+           style="max-width: 100%; max-height: 78vh; height: auto; object-fit: contain; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border-radius: 8px;">
     </div>
+  </div>
+</div>
 
-    <script>
-        function openPdfModal() {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            modal.classList.remove('hidden');
-            frame.src = 'nutrition-invested.pdf'; // fresh load
-        }
-        
-        function closePdfModal() {
-            document.getElementById('pdfModal').classList.add('hidden');
-        }
-        
-        // Close when tapping outside the white box
-        document.getElementById('pdfModal').addEventListener('click', function(e) {
-            if (e.target === this) closePdfModal();
-        });
-        
-        // Keyboard escape support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('pdfModal');
-                if (!modal.classList.contains('hidden')) closePdfModal();
-            }
-        });
-    </script>
-</body>
-</html>
+<script>
+  // Open modal when book cover is clicked
+  document.getElementById('book-cover').addEventListener('click', function() {
+    document.getElementById('preview-modal').style.display = 'flex';
+  });
+
+  // Close modal
+  function closePreview() {
+    document.getElementById('preview-modal').style.display = 'none';
+  }
+
+  // Close when tapping outside the white box
+  document.getElementById('preview-modal').addEventListener('click', function(e) {
+    if (e.target.id === 'preview-modal') closePreview();
+  });
+</script>
