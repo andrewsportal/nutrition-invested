@@ -1,15 +1,17 @@
-<!-- === PERFECT FULL-SCREEN BOOK COVER + TRUE DOWNLOAD TO FILES === -->
-<div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 20px 20px; box-sizing: border-box; margin: 0; background: #ffffff;">
+<!-- === MAXIMUM FULL-SCREEN BOOK COVER (fills almost the ENTIRE iPhone screen) === -->
+<div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 20px 20px; box-sizing: border-box; margin: 0; background: #ffffff; overflow: hidden;">
 
-  <!-- Book Cover – fills as much of the screen as possible -->
-  <img 
-    src="cover.JPEG" 
-    alt="Nutrition, Invested by Andrew Rios"
-    style="width: 100%; max-width: 620px; height: auto; max-height: 90dvh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 18px;">
+  <!-- Book Cover Wrapper – aggressively takes up as much vertical space as possible -->
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 640px;">
+    <img 
+      src="cover.JPEG" 
+      alt="Nutrition, Invested by Andrew Rios"
+      style="width: 100%; height: auto; max-height: 100%; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);">
+  </div>
 
-  <!-- Download Button – forces real download to Files (no browser preview) -->
+  <!-- Download Button – forces real download to Files (no Safari preview) -->
   <button onclick="forceDownloadPDF()" 
-          style="background: #00b140; color: white; padding: 23px 55px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.2px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); cursor: pointer;">
+          style="margin-top: 18px; background: #00b140; color: white; padding: 23px 55px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.2px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); cursor: pointer;">
     FREE DOWNLOAD (PDF)
   </button>
 
@@ -20,28 +22,28 @@
 </div>
 
 <script>
-  // STRONGEST force-download method for iPhone Safari (saves straight to Files/Downloads)
+  // STRONGEST force-download method for iOS Safari (saves straight to Files/Downloads)
   function forceDownloadPDF() {
     const pdfUrl = 'nutrition-invested.pdf';
     const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
 
     fetch(pdfUrl, { cache: 'no-store' })
       .then(response => {
-        if (!response.ok) throw new Error('Could not load PDF');
+        if (!response.ok) throw new Error('PDF load failed');
         return response.blob();
       })
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = fileName;        // This forces the save dialog
+        link.download = fileName;        // This is what forces the save dialog
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        URL.revokeObjectURL(url);        // Clean up memory
+        URL.revokeObjectURL(url);
       })
       .catch(() => {
-        // Last-resort fallback
+        // Fallback if Safari blocks the blob method
         window.open(pdfUrl, '_blank');
       });
   }
