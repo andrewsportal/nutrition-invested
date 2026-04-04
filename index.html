@@ -13,110 +13,107 @@
       padding: 0;
     }
 
-```
-html, body {
-  height: 100%;
-  width: 100%;
-  background: #e8e8e8;
-  overflow: hidden;
-}
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #e8e8e8;
+      overflow: hidden;
+    }
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100dvh;
-  padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
-}
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100dvh;
+      padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
+    }
 
-.cover-wrapper {
-  width: 100%;
-  max-height: calc(100dvh - 120px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .cover-wrapper {
+      width: 100%;
+      max-height: calc(100dvh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.cover-wrapper a {
-  display: block;
-  width: 100%;
-  max-height: 100%;
-}
+    .cover-wrapper a {
+      display: block;
+      width: 100%;
+      max-height: 100%;
+    }
 
-.cover-wrapper img {
-  display: block;
-  width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 0;
-  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
-  cursor: pointer;
-}
+    .cover-wrapper img {
+      display: block;
+      width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 0;
+      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
+      cursor: pointer;
+    }
 
-.download-btn {
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 480px;
-  background: #00b140;
-  color: #ffffff;
-  border: none;
-  border-radius: 50px;
-  margin-top: 20px;
-  padding: 18px 24px;
-  font-size: clamp(1rem, 4vw, 1.2rem);
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 10px 28px rgba(0, 177, 64, 0.35);
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  -webkit-tap-highlight-color: transparent;
-}
+    .download-btn {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 480px;
+      background: #00b140;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      margin-top: 20px;
+      padding: 18px 24px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0, 177, 64, 0.35);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.download-btn:active {
-  transform: scale(0.97);
-  box-shadow: 0 5px 14px rgba(0, 177, 64, 0.25);
-}
+    .download-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 5px 14px rgba(0, 177, 64, 0.25);
+    }
 
-.preview-hint {
-  margin-top: 10px;
-  font-size: 0.8rem;
-  color: #888;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  letter-spacing: 0.5px;
-}
+    .preview-hint {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #888;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      letter-spacing: 0.5px;
+    }
 
-.toast {
-  position: fixed;
-  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: rgba(0,0,0,0.78);
-  color: #fff;
-  padding: 12px 22px;
-  border-radius: 30px;
-  font-size: 0.88rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 999;
-}
+    .toast {
+      position: fixed;
+      bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0,0,0,0.78);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
 
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-```
-
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   </style>
 </head>
 <body>
 
   <div class="cover-wrapper">
-    <a href="https://raw.githubusercontent.com/andrewsportal/nutrition-invested/main/nutrition-invested.pdf" target="_blank">
+    <a href="https://github.com/andrewsportal/nutrition-invested/blob/main/nutrition-invested.pdf" target="_blank">
       <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
     </a>
   </div>
