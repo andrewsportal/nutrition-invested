@@ -15,7 +15,6 @@
     html, body {
       height: 100%;
       width: 100%;
-      /* Match the book cover's light grey background */
       background: #e8e8e8;
       overflow: hidden;
     }
@@ -24,10 +23,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100dvh;
-      padding-top: env(safe-area-inset-top, 0px);
+      padding: env(safe-area-inset-top, 12px) 20px env(safe-area-inset-bottom, 12px);
+      gap: 14px;
     }
 
+    /* Cover */
     .cover-wrapper {
       flex: 1;
       width: 100%;
@@ -35,7 +37,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 20px 8px;
     }
 
     .cover-wrapper img {
@@ -45,21 +46,18 @@
       width: auto;
       height: auto;
       object-fit: contain;
-      /* No border-radius, no rounded corners */
       border-radius: 0;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
-    /* Bottom section — no background so it inherits the same grey as the page */
+    /* Button + caption sit together, no extra background */
     .bottom {
       flex-shrink: 0;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 10px 20px calc(16px + env(safe-area-inset-bottom, 0px));
       gap: 8px;
-      background: transparent;
     }
 
     .download-btn {
