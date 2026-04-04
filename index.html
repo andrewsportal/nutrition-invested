@@ -1,44 +1,47 @@
-<!-- === MAXIMUM FULL-SCREEN BOOK COVER (fills almost the entire iPhone screen) === -->
+<!-- === PERFECT FULL-SCREEN BOOK COVER + TRUE DOWNLOAD TO FILES === -->
 <div style="height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 20px 20px; box-sizing: border-box; margin: 0; background: #ffffff;">
 
-  <!-- Book Cover – pushed to the absolute maximum size possible -->
-  <!-- Automatically adjusts to any image while filling as much of the screen as it can -->
+  <!-- Book Cover – fills as much of the screen as possible -->
   <img 
     src="cover.JPEG" 
     alt="Nutrition, Invested by Andrew Rios"
     style="width: 100%; max-width: 620px; height: auto; max-height: 90dvh; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); margin-bottom: 18px;">
 
-  <!-- Download Button -->
+  <!-- Download Button – forces real download to Files (no browser preview) -->
   <button onclick="forceDownloadPDF()" 
           style="background: #00b140; color: white; padding: 23px 55px; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.2px; border-radius: 50px; border: none; box-shadow: 0 12px 30px rgba(0,177,64,0.4); cursor: pointer;">
     FREE DOWNLOAD (PDF)
   </button>
 
-  <!-- Small instruction text -->
+  <!-- Instruction text -->
   <p style="margin-top: 14px; color: #555; font-size: 0.95rem; font-weight: 500;">
     Tap the button to download the PDF directly to your phone
   </p>
 </div>
 
 <script>
-  // Forces a real download (no more Safari preview)
+  // STRONGEST force-download method for iPhone Safari (saves straight to Files/Downloads)
   function forceDownloadPDF() {
     const pdfUrl = 'nutrition-invested.pdf';
     const fileName = 'Nutrition-Invested-Andrew-Rios.pdf';
 
-    fetch(pdfUrl)
-      .then(response => response.blob())
+    fetch(pdfUrl, { cache: 'no-store' })
+      .then(response => {
+        if (!response.ok) throw new Error('Could not load PDF');
+        return response.blob();
+      })
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = fileName;
+        link.download = fileName;        // This forces the save dialog
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);        // Clean up memory
       })
       .catch(() => {
+        // Last-resort fallback
         window.open(pdfUrl, '_blank');
       });
   }
