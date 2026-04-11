@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -108,6 +107,56 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* ── Music pill ── */
+    .music-btn {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 14px);
+      right: 16px;
+      height: 30px;
+      padding: 0 11px;
+      border-radius: 20px;
+      border: none;
+      background: rgba(0, 0, 0, 0.13);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 998;
+      transition: background 0.2s ease, transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .music-btn:active {
+      transform: scale(0.93);
+    }
+
+    .music-btn svg {
+      width: 13px;
+      height: 13px;
+      fill: rgba(0, 0, 0, 0.45);
+      flex-shrink: 0;
+    }
+
+    .music-btn .label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    }
+
+    /* Subtle green pulse only when playing */
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(0, 177, 64, 0.25); }
+      70%  { box-shadow: 0 0 0 5px rgba(0, 177, 64, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 177, 64, 0); }
+    }
+
+    .music-btn.playing {
+      animation: pulse-ring 2.6s ease-out infinite;
+    }
   </style>
 </head>
 <body>
@@ -126,8 +175,58 @@
 
   <div class="toast" id="toast"></div>
 
+  <!-- Top-right music pill -->
+  <button class="music-btn muted" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music">
+    <svg id="iconPlaying" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+    </svg>
+    <svg id="iconMuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+    </svg>
+    <span class="label" id="musicLabel">Music</span>
+  </button>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="YOUR_AUDIO_FILE.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const pdfUrl = 'https://drive.google.com/uc?export=download&id=1NduU7Jk74s5YcqB0WRNcEt0amUQd9pnh';
+    const audio  = document.getElementById('bgMusic');
+    const btn    = document.getElementById('musicBtn');
+    const iconPlaying = document.getElementById('iconPlaying');
+    const iconMuted   = document.getElementById('iconMuted');
+    const label       = document.getElementById('musicLabel');
+    let playing = false;
+
+    function attemptAutoplay() {
+      if (!playing) {
+        audio.volume = 0.35;
+        audio.play().then(() => setPlaying(true)).catch(() => {});
+      }
+    }
+
+    document.addEventListener('touchstart', attemptAutoplay, { once: true });
+    document.addEventListener('click',      attemptAutoplay, { once: true });
+
+    function setPlaying(state) {
+      playing = state;
+      btn.classList.toggle('playing', state);
+      btn.classList.toggle('muted',  !state);
+      iconPlaying.style.display = state ? 'block' : 'none';
+      iconMuted.style.display   = state ? 'none'  : 'block';
+      label.textContent = state ? 'Mute' : 'Music';
+    }
+
+    function toggleMusic() {
+      if (playing) {
+        audio.pause();
+        setPlaying(false);
+      } else {
+        audio.play().catch(() => {});
+        setPlaying(true);
+      }
+    }
 
     function showToast(msg, duration = 4500) {
       const t = document.getElementById('toast');
