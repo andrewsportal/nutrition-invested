@@ -111,7 +111,7 @@
     /* ── Ghost mute icon ── */
     .music-btn {
       position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
       left: 20px;
       width: 32px;
       height: 32px;
@@ -195,7 +195,6 @@
     window.addEventListener('mousedown',  startAudio);
     window.addEventListener('click',      startAudio);
 
-    // Pause when user switches tabs, resume when they come back
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         wasPlayingBeforeHide = playing;
@@ -211,7 +210,6 @@
       }
     });
 
-    // Pause when cover is tapped
     coverLink.addEventListener('click', () => {
       if (playing) {
         audio.pause();
