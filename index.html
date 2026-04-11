@@ -156,7 +156,6 @@
 
   <div class="toast" id="toast"></div>
 
-  <!-- Bottom-left ghost mute icon -->
   <button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music">
     <svg id="iconPlaying" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
       <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
@@ -178,15 +177,17 @@
     const iconMuted   = document.getElementById('iconMuted');
     let playing = false;
 
-    function attemptAutoplay() {
+    function startAudio() {
       if (!playing) {
         audio.volume = 0.35;
         audio.play().then(() => setPlaying(true)).catch(() => {});
       }
     }
 
-    document.addEventListener('touchstart', attemptAutoplay, { once: true });
-    document.addEventListener('click',      attemptAutoplay, { once: true });
+    window.addEventListener('touchstart', startAudio, { once: true });
+    window.addEventListener('mousedown',  startAudio, { once: true });
+    window.addEventListener('click',      startAudio, { once: true });
+    window.addEventListener('scroll',     startAudio, { once: true });
 
     function setPlaying(state) {
       playing = state;
