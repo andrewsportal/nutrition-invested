@@ -147,7 +147,6 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     }
 
-    /* Subtle green pulse only when playing */
     @keyframes pulse-ring {
       0%   { box-shadow: 0 0 0 0 rgba(0, 177, 64, 0.25); }
       70%  { box-shadow: 0 0 0 5px rgba(0, 177, 64, 0); }
@@ -175,7 +174,6 @@
 
   <div class="toast" id="toast"></div>
 
-  <!-- Top-right music pill -->
   <button class="music-btn muted" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music">
     <svg id="iconPlaying" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
       <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
@@ -186,13 +184,13 @@
     <span class="label" id="musicLabel">Music</span>
   </button>
 
-  <audio id="bgMusic" loop preload="auto">
-    <source src="YOUR_AUDIO_FILE.mp3" type="audio/mpeg">
+  <audio id="bgAudio" loop preload="auto">
+    <source src="https://andrewsportal.github.io/nutrition-invested/audio.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const pdfUrl = 'https://drive.google.com/uc?export=download&id=1NduU7Jk74s5YcqB0WRNcEt0amUQd9pnh';
-    const audio  = document.getElementById('bgMusic');
+    const audio  = document.getElementById('bgAudio');
     const btn    = document.getElementById('musicBtn');
     const iconPlaying = document.getElementById('iconPlaying');
     const iconMuted   = document.getElementById('iconMuted');
