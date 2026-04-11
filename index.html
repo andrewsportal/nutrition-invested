@@ -143,7 +143,7 @@
 <body>
 
   <div class="cover-wrapper">
-    <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
+    <a id="coverLink" href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
       <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
     </a>
   </div>
@@ -157,10 +157,10 @@
   <div class="toast" id="toast"></div>
 
   <button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music">
-    <svg id="iconPlaying" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <svg id="iconPlaying" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
     </svg>
-    <svg id="iconMuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg id="iconMuted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
       <path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
     </svg>
   </button>
@@ -170,24 +170,54 @@
   </audio>
 
   <script>
-    const pdfUrl = 'https://drive.google.com/uc?export=download&id=1NduU7Jk74s5YcqB0WRNcEt0amUQd9pnh';
-    const audio  = document.getElementById('bgAudio');
-    const btn    = document.getElementById('musicBtn');
+    const pdfUrl      = 'https://drive.google.com/uc?export=download&id=1NduU7Jk74s5YcqB0WRNcEt0amUQd9pnh';
+    const audio       = document.getElementById('bgAudio');
     const iconPlaying = document.getElementById('iconPlaying');
     const iconMuted   = document.getElementById('iconMuted');
+    const coverLink   = document.getElementById('coverLink');
     let playing = false;
+    let wasPlayingBeforeHide = false;
 
-    function startAudio() {
+    function startAudio(e) {
+      if (coverLink.contains(e.target)) return;
       if (!playing) {
         audio.volume = 0.35;
-        audio.play().then(() => setPlaying(true)).catch(() => {});
+        audio.play().then(() => {
+          setPlaying(true);
+          window.removeEventListener('touchstart', startAudio);
+          window.removeEventListener('mousedown',  startAudio);
+          window.removeEventListener('click',      startAudio);
+        }).catch(() => {});
       }
     }
 
-    window.addEventListener('touchstart', startAudio, { once: true });
-    window.addEventListener('mousedown',  startAudio, { once: true });
-    window.addEventListener('click',      startAudio, { once: true });
-    window.addEventListener('scroll',     startAudio, { once: true });
+    window.addEventListener('touchstart', startAudio);
+    window.addEventListener('mousedown',  startAudio);
+    window.addEventListener('click',      startAudio);
+
+    // Pause when user switches tabs, resume when they come back
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        wasPlayingBeforeHide = playing;
+        if (playing) {
+          audio.pause();
+          setPlaying(false);
+        }
+      } else {
+        if (wasPlayingBeforeHide) {
+          audio.play().catch(() => {});
+          setPlaying(true);
+        }
+      }
+    });
+
+    // Pause when cover is tapped
+    coverLink.addEventListener('click', () => {
+      if (playing) {
+        audio.pause();
+        setPlaying(false);
+      }
+    });
 
     function setPlaying(state) {
       playing = state;
