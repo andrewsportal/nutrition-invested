@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Nutrition, Invested</title>
+  
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       height: 100%;
@@ -36,18 +33,13 @@
       justify-content: center;
     }
 
-    .cover-wrapper a {
-      display: block;
-      width: 100%;
-      max-height: 100%;
-    }
+    .cover-wrapper a { display: block; width: 100%; max-height: 100%; }
 
     .cover-wrapper img {
       display: block;
       width: 100%;
       max-height: 100%;
       object-fit: contain;
-      border-radius: 0;
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
       cursor: pointer;
     }
@@ -85,7 +77,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* === NEW: PAYMENT SECTION STYLES === */
+    /* PAYMENT SECTION - clean & minimal */
     .payment-section {
       width: 100%;
       max-width: 480px;
@@ -159,33 +151,15 @@
     DOWNLOAD (PDF) – $1.99
   </button>
 
-  <!-- PAYMENTS ACCEPTED SECTION (added exactly as discussed) -->
+  <!-- PAYMENTS ACCEPTED - using YOUR local SVGs uploaded directly to the repo root -->
   <div class="payment-section">
     <p>SECURE CHECKOUT • POWERED BY STRIPE &amp; PAYPAL</p>
     <div class="payment-logos">
-      <!-- Visa -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/512px-Visa_Inc._logo.svg.png" 
-           alt="Visa">
-      
-      <!-- Mastercard -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/512px-Mastercard-logo.svg.png" 
-           alt="Mastercard">
-      
-      <!-- American Express -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/512px-American_Express_logo_%282018%29.svg.png" 
-           alt="American Express">
-      
-      <!-- PayPal -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal_Logo_Icon_2014.svg/512px-PayPal_Logo_Icon_2014.svg.png" 
-           alt="PayPal">
-      
-      <!-- Apple Pay -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Apple_Pay_Logo.svg/512px-Apple_Pay_Logo.svg.png" 
-           alt="Apple Pay">
-      
-      <!-- Google Pay -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png" 
-           alt="Google Pay">
+      <img src="visa.svg" height="28" alt="Visa">
+      <img src="mastercard.svg" height="28" alt="Mastercard">
+      <img src="americanexpress.svg" height="28" alt="American Express">
+      <img src="paypal.svg" height="28" alt="PayPal">
+      <img src="applepay.svg" height="28" alt="Apple Pay">
     </div>
   </div>
 
