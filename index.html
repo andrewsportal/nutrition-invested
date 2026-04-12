@@ -14,27 +14,16 @@
       height: 100%;
       width: 100%;
       background: #e8e8e8;
+      overflow: hidden;
     }
 
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100dvh;
-      padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* HERO SECTION — fills first screen */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      width: 100%;
-      min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 48px);
-      flex-shrink: 0;
+      height: 100dvh;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
     }
 
     .cover-wrapper {
@@ -51,7 +40,7 @@
     .cover-wrapper img {
       display: block;
       width: 100%;
-      max-height: calc(100dvh - 220px);
+      max-height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
       cursor: pointer;
@@ -65,7 +54,7 @@
       color: #ffffff;
       border: none;
       border-radius: 50px;
-      margin-top: 20px;
+      margin-top: 12px;
       padding: 18px 24px;
       font-size: clamp(1rem, 4vw, 1.2rem);
       font-weight: 900;
@@ -84,28 +73,28 @@
 
     .preview-hint {
       flex-shrink: 0;
-      margin-top: 10px;
-      font-size: 0.8rem;
+      margin-top: 6px;
+      font-size: 0.75rem;
       color: #888;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       letter-spacing: 0.5px;
     }
 
-    /* PAYMENT SECTION — below the fold */
+    /* PAYMENT SECTION — compact, on-screen */
     .payment-section {
       flex-shrink: 0;
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 28px;
-      padding: 20px 0 8px;
+      margin-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid #d0d0d0;
     }
 
     .payment-section p {
-      font-size: 13px;
-      color: #555555;
-      margin-bottom: 12px;
+      font-size: 11px;
+      color: #666666;
+      margin-bottom: 8px;
       font-weight: 500;
       letter-spacing: 0.5px;
     }
@@ -114,20 +103,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       flex-wrap: wrap;
-      opacity: 0.85;
+      opacity: 0.75;
     }
 
     .payment-logos img {
-      height: 28px;
-      transition: all 0.2s ease;
-      filter: grayscale(25%) brightness(1.05);
-    }
-
-    .payment-logos img:hover {
-      filter: grayscale(0%);
-      transform: scale(1.08);
+      height: 20px;
     }
 
     .toast {
@@ -157,35 +139,26 @@
 </head>
 <body>
 
-  <!-- HERO: cover + button + hint fill the first screen -->
-
-  <div class="hero">
-    <div class="cover-wrapper">
-      <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
-        <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
-      </a>
-    </div>
-
-```
-<button class="download-btn" onclick="downloadPDF()">
-  DOWNLOAD (PDF) – $1.99
-</button>
-
-<p class="preview-hint">TAP COVER TO PREVIEW</p>
-```
-
+  <div class="cover-wrapper">
+    <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
+      <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
+    </a>
   </div>
 
-  <!-- PAYMENT: visible on scroll -->
+  <button class="download-btn" onclick="downloadPDF()">
+    DOWNLOAD (PDF) – $1.99
+  </button>
+
+  <p class="preview-hint">TAP COVER TO PREVIEW</p>
 
   <div class="payment-section">
-    <p>SECURE CHECKOUT • POWERED BY STRIPE &amp; PAYPAL</p>
+    <p>SECURE CHECKOUT &bull; POWERED BY STRIPE &amp; PAYPAL</p>
     <div class="payment-logos">
-      <img src="applepay.svg" height="28" alt="Apple Pay">
-      <img src="paypal.svg" height="28" alt="PayPal">
-      <img src="visa.svg" height="28" alt="Visa">
-      <img src="mastercard.svg" height="28" alt="Mastercard">
-      <img src="americanexpress.svg" height="28" alt="American Express">
+      <img src="applepay.svg" alt="Apple Pay">
+      <img src="paypal.svg" alt="PayPal">
+      <img src="visa.svg" alt="Visa">
+      <img src="mastercard.svg" alt="Mastercard">
+      <img src="americanexpress.svg" alt="American Express">
     </div>
   </div>
 
