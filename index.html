@@ -85,6 +85,44 @@
       letter-spacing: 0.5px;
     }
 
+    /* === NEW: PAYMENT SECTION STYLES === */
+    .payment-section {
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      margin: 28px 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .payment-section p {
+      font-size: 13px;
+      color: #555555;
+      margin-bottom: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .payment-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      opacity: 0.85;
+    }
+
+    .payment-logos img {
+      height: 28px;
+      transition: all 0.2s ease;
+      filter: grayscale(25%) brightness(1.05);
+    }
+
+    .payment-logos img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.08);
+    }
+
     .toast {
       position: fixed;
       bottom: calc(80px + env(safe-area-inset-bottom, 0px));
@@ -120,6 +158,36 @@
   <button class="download-btn" onclick="downloadPDF()">
     DOWNLOAD (PDF) – $1.99
   </button>
+
+  <!-- PAYMENTS ACCEPTED SECTION (added exactly as discussed) -->
+  <div class="payment-section">
+    <p>SECURE CHECKOUT • POWERED BY STRIPE &amp; PAYPAL</p>
+    <div class="payment-logos">
+      <!-- Visa -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/512px-Visa_Inc._logo.svg.png" 
+           alt="Visa">
+      
+      <!-- Mastercard -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/512px-Mastercard-logo.svg.png" 
+           alt="Mastercard">
+      
+      <!-- American Express -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/512px-American_Express_logo_%282018%29.svg.png" 
+           alt="American Express">
+      
+      <!-- PayPal -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal_Logo_Icon_2014.svg/512px-PayPal_Logo_Icon_2014.svg.png" 
+           alt="PayPal">
+      
+      <!-- Apple Pay -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Apple_Pay_Logo.svg/512px-Apple_Pay_Logo.svg.png" 
+           alt="Apple Pay">
+      
+      <!-- Google Pay -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png" 
+           alt="Google Pay">
+    </div>
+  </div>
 
   <p class="preview-hint">TAP COVER TO PREVIEW</p>
 
