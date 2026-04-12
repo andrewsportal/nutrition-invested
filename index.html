@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Nutrition, Invested</title>
-  
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,7 +28,7 @@
 
     .cover-wrapper {
       width: 100%;
-      max-height: calc(100dvh - 120px);
+      max-height: calc(100dvh - 280px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -70,6 +71,7 @@
     }
 
     .preview-hint {
+      flex-shrink: 0;
       margin-top: 10px;
       font-size: 0.8rem;
       color: #888;
@@ -79,12 +81,13 @@
 
     /* PAYMENT SECTION */
     .payment-section {
+      flex-shrink: 0;
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin: 28px 0 20px;
+      margin-top: 16px;
       padding-top: 16px;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid #d0d0d0;
     }
 
     .payment-section p {
@@ -138,6 +141,7 @@
       transform: translateX(-50%) translateY(0);
     }
   </style>
+
 </head>
 <body>
 
@@ -151,19 +155,20 @@
     DOWNLOAD (PDF) – $1.99
   </button>
 
-  <!-- PAYMENTS ACCEPTED - optimized for mobile quick decision -->
+  <p class="preview-hint">TAP COVER TO PREVIEW</p>
+
+  <!-- PAYMENTS ACCEPTED -->
+
   <div class="payment-section">
     <p>SECURE CHECKOUT • POWERED BY STRIPE &amp; PAYPAL</p>
     <div class="payment-logos">
       <img src="applepay.svg" height="28" alt="Apple Pay">
+      <img src="paypal.svg" height="28" alt="PayPal">
       <img src="visa.svg" height="28" alt="Visa">
       <img src="mastercard.svg" height="28" alt="Mastercard">
-      <img src="paypal.svg" height="28" alt="PayPal">
       <img src="americanexpress.svg" height="28" alt="American Express">
     </div>
   </div>
-
-  <p class="preview-hint">TAP COVER TO PREVIEW</p>
 
   <div class="toast" id="toast"></div>
 
