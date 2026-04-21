@@ -11,10 +11,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      height: 100%;
       width: 100%;
       background: #e8e8e8;
-      overflow-x: hidden;
     }
 
     body {
@@ -22,13 +20,13 @@
       flex-direction: column;
       align-items: center;
       min-height: 100dvh;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
+      padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     }
 
     .cover-wrapper {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -39,15 +37,15 @@
     .cover-wrapper img {
       display: block;
       width: 100%;
-      max-height: 55vh;
+      max-height: 48vh;
       object-fit: contain;
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
       cursor: pointer;
     }
 
     .preview-hint {
-      margin-top: 10px;
-      font-size: 0.75rem;
+      margin-top: 8px;
+      font-size: 0.72rem;
       color: #888;
       letter-spacing: 1px;
       font-weight: 500;
@@ -57,20 +55,22 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 22px;
-      font-size: clamp(1rem, 4.2vw, 1.25rem);
+      margin-top: 16px;
+      font-size: clamp(1rem, 4.4vw, 1.3rem);
       font-weight: 900;
-      color: #00b140;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
+      color: #00b140;
     }
 
-    .price {
-      margin-top: 4px;
-      font-size: 0.85rem;
-      color: #555;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+    .headline .price {
+      color: #222;
+    }
+
+    .headline .divider {
+      color: #bbb;
+      margin: 0 6px;
+      font-weight: 700;
     }
 
     .buttons {
@@ -78,8 +78,8 @@
       max-width: 480px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .buy-btn {
@@ -92,7 +92,7 @@
       color: #111;
       border: 1.5px solid #d0d0d0;
       border-radius: 50px;
-      padding: 16px 24px;
+      padding: 14px 24px;
       font-size: clamp(0.95rem, 3.8vw, 1.1rem);
       font-weight: 800;
       letter-spacing: 1px;
@@ -118,8 +118,8 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 22px;
-      padding-top: 16px;
+      margin-top: 18px;
+      padding-top: 14px;
       border-top: 1px solid #d0d0d0;
     }
 
@@ -135,13 +135,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
       opacity: 0.8;
     }
 
     .payment-logos img {
-      height: 20px;
+      height: 18px;
       width: auto;
     }
   </style>
@@ -157,8 +157,9 @@
 
   <p class="preview-hint">TAP COVER TO PREVIEW</p>
 
-  <div class="headline">GET THE PLAYBOOK</div>
-  <div class="price">$9.99</div>
+  <div class="headline">
+    GET THE PLAYBOOK<span class="divider">—</span><span class="price">$9.99</span>
+  </div>
 
   <div class="buttons">
     <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
