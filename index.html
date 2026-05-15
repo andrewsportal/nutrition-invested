@@ -334,7 +334,7 @@
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Bottom fade — disappears when scrolled to end */
+    /* Bottom fade — visible when more content below */
     .blurb-wrapper::after {
       content: '';
       position: absolute;
@@ -346,9 +346,28 @@
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease;
       transition: opacity 0.25s ease;
+      opacity: 1;
+    }
+
+    /* Top fade — visible when scrolled down */
+    .blurb-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 28px;
+      background: linear-gradient(to top, transparent, #e8e8e8);
+      pointer-events: none;
+      -webkit-transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease;
+      opacity: 0;
+      z-index: 1;
     }
 
     .blurb-wrapper.at-bottom::after { opacity: 0; }
+    .blurb-wrapper.at-top::before { opacity: 0; }
+    .blurb-wrapper.scrolled::before { opacity: 1; }
 
     .blurb-item {
       display: -webkit-flex;
@@ -612,8 +631,13 @@
       // ── BLURB FADE ──
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
-        var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
+        var scrollTop = blurbList.scrollTop;
+        var atBottom = scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
+        var atTop = scrollTop <= 0;
+
         blurbWrapper.classList.toggle('at-bottom', atBottom);
+        blurbWrapper.classList.toggle('at-top', atTop);
+        blurbWrapper.classList.toggle('scrolled', scrollTop > 4);
       }
 
       if (blurbList) {
