@@ -170,9 +170,21 @@
       transform: scale(0.97);
     }
 
-    .buy-btn img { height: 28px; width: auto; }
+    .buy-btn img { width: auto; }
     .buy-btn .logo-amazon { height: 28px; }
     .buy-btn .logo-payhip { height: 20px; }
+
+    .btn-logo-wrap {
+      width: 32px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+    }
 
     .payment-section {
       width: 100%;
@@ -492,11 +504,11 @@
 
     <div class="buttons">
       <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
-        <img src="amazon.svg" alt="Amazon" class="logo-amazon">
+        <span class="btn-logo-wrap"><img src="amazon.svg" alt="Amazon" class="logo-amazon"></span>
         <span>Buy on Amazon</span>
       </a>
       <a class="buy-btn" href="https://payhip.com/" target="_blank" rel="noopener">
-        <img src="payhip.svg" alt="Payhip" class="logo-payhip">
+        <span class="btn-logo-wrap"><img src="payhip.svg" alt="Payhip" class="logo-payhip"></span>
         <span>Buy on Payhip</span>
       </a>
     </div>
