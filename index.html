@@ -31,7 +31,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
+      /* Extra top padding to clear notch/status bar */
+      padding: calc(env(safe-area-inset-top, 0px) + 52px) 20px calc(env(safe-area-inset-bottom, 0px) + 80px);
     }
 
     .cover-wrapper {
@@ -47,7 +48,7 @@
     .cover-wrapper img {
       display: block;
       width: 100%;
-      max-height: 58vh;
+      max-height: 54vh;
       object-fit: contain;
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
       cursor: pointer;
@@ -65,8 +66,8 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 16px;
-      margin-bottom: 16px;
+      margin-top: 14px;
+      margin-bottom: 14px;
       font-size: clamp(1rem, 4.4vw, 1.3rem);
       font-weight: 900;
       letter-spacing: 1.2px;
@@ -141,9 +142,10 @@
     .payment-logos img { height: 14px; width: auto; }
 
     /* ── SCROLL HINT ── */
+    /* margin-top: auto pushes it down; bottom padding on page-1 keeps it above Safari chrome */
     .scroll-hint {
       margin-top: auto;
-      padding-top: 20px;
+      padding-top: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -181,45 +183,38 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px calc(env(safe-area-inset-bottom, 0px) + 28px);
-      gap: 14px;
+      padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
     }
 
-    /* ── INFO CARD ── */
-    .info-card {
-      width: 100%;
-      max-width: 460px;
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 26px 24px 22px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.09);
-      border: 1.5px solid #d8d8d8;
-      display: flex;
-      flex-direction: column;
-    }
-
+    /* ── INFO SECTION ── */
     .info-section-label {
+      width: 100%;
+      max-width: 480px;
       font-size: 9.5px;
       letter-spacing: 2px;
       font-weight: 700;
       color: #aaa;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .info-section-sublabel {
+      width: 100%;
+      max-width: 480px;
       font-size: clamp(0.7rem, 2.8vw, 0.8rem);
       color: #bbb;
       font-weight: 500;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       line-height: 1.4;
     }
 
     .blurb-list {
+      width: 100%;
+      max-width: 480px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     .blurb-item {
@@ -256,47 +251,20 @@
       display: inline;
     }
 
-    .card-divider {
-      width: 100%;
-      height: 1px;
-      background: #ebebeb;
-      margin: 16px 0;
-    }
-
-    .bio-label {
-      font-size: 9.5px;
-      letter-spacing: 2px;
-      font-weight: 700;
-      color: #aaa;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .bio-name {
-      font-size: clamp(0.9rem, 3.8vw, 1.05rem);
-      font-weight: 900;
-      color: #1A1A1A;
-      letter-spacing: 0.5px;
-      margin-bottom: 7px;
-    }
-
-    .bio-body {
-      font-size: clamp(0.73rem, 2.9vw, 0.82rem);
-      color: #777;
-      line-height: 1.62;
-      font-weight: 500;
-    }
-
     /* ── COUNTER CARD ── */
     .counter-card {
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       background: #ffffff;
       border-radius: 22px;
-      padding: 26px 24px 22px;
+      padding: 20px 24px 18px;
       text-align: center;
       box-shadow: 0 8px 28px rgba(78, 139, 97, 0.13);
       border: 1.5px solid #4e8b61;
+      margin-top: auto;
+      /* Top corners squared off so it locks flush when snapped */
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
     }
 
     .counter-label-top {
@@ -305,7 +273,7 @@
       font-weight: 700;
       color: #aaa;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 4px;
     }
 
     .counter-number {
@@ -322,14 +290,14 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: #222;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .counter-divider {
       width: 34px;
       height: 2px;
       background: #4e8b61;
-      margin: 14px auto;
+      margin: 10px auto;
       border-radius: 2px;
       opacity: 0.5;
     }
@@ -403,93 +371,83 @@
   <div class="page-2">
 
 ```
-<div class="info-card">
+<p class="info-section-label">What's Inside</p>
+<p class="info-section-sublabel">The one-minute version. Read it. Then decide.</p>
 
-  <p class="info-section-label">What's Inside</p>
-  <p class="info-section-sublabel">The one-minute version. Read it. Then decide.</p>
+<div class="blurb-list">
 
-  <div class="blurb-list">
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">🥩</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Eat</span>
-        <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
-      </div>
+  <div class="blurb-item">
+    <span class="blurb-emoji">🥩</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Eat</span>
+      <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
     </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">📏</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Measure</span>
-        <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
-      </div>
-    </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">📈</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Compound</span>
-        <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
-      </div>
-    </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">⚙️</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Fix</span>
-        <span class="blurb-body">Gut. Inflammation. Mitochondria. The systems under the hood most people never touch — and wonder why nothing works.</span>
-      </div>
-    </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">💊</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Stack</span>
-        <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
-      </div>
-    </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">🩸</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Audit</span>
-        <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
-      </div>
-    </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">🛡️</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Recover</span>
-        <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
-      </div>
-    </div>
-
-    <div class="blurb-item">
-      <span class="blurb-emoji">⚡</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Deploy</span>
-        <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Run it today. No ramp-up required.</span>
-      </div>
-    </div>
-
   </div>
 
-  <div class="card-divider"></div>
+  <div class="blurb-item">
+    <span class="blurb-emoji">📏</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Measure</span>
+      <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+    </div>
+  </div>
 
-  <p class="bio-label">The Author</p>
-  <p class="bio-name">Andrew Rios</p>
-  <p class="bio-body">Caregiver. Two years across Southeast Asia. San Fernando Valley raised. He watched the endgame up close and spent years reverse-engineering how to avoid it. This book is what he found.</p>
+  <div class="blurb-item">
+    <span class="blurb-emoji">📈</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Compound</span>
+      <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+    </div>
+  </div>
+
+  <div class="blurb-item">
+    <span class="blurb-emoji">⚙️</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Fix</span>
+      <span class="blurb-body">Gut. Inflammation. Mitochondria. The systems under the hood most people never touch — and wonder why nothing works.</span>
+    </div>
+  </div>
+
+  <div class="blurb-item">
+    <span class="blurb-emoji">💊</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Stack</span>
+      <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+    </div>
+  </div>
+
+  <div class="blurb-item">
+    <span class="blurb-emoji">🩸</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Audit</span>
+      <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+    </div>
+  </div>
+
+  <div class="blurb-item">
+    <span class="blurb-emoji">🛡️</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Recover</span>
+      <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+    </div>
+  </div>
+
+  <div class="blurb-item">
+    <span class="blurb-emoji">⚡</span>
+    <div class="blurb-text">
+      <span class="blurb-title">Deploy</span>
+      <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Run it today. No ramp-up required.</span>
+    </div>
+  </div>
 
 </div>
 
-<!-- COUNTER — stands alone -->
+<!-- COUNTER — anchored to bottom via margin-top: auto -->
 <div class="counter-card">
   <p class="counter-label-top">Portfolio Update</p>
 
-  <!-- ↓ UPDATE data-target WHEN YOU HIT 1,000 ↓ -->
-  <div class="counter-number" data-target="0">
+  <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
+  <div class="counter-number" data-target="100">
     <span id="counter-display">—</span>
   </div>
 
