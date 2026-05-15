@@ -11,32 +11,38 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { height: 100%; }
-
-    body {
+    html, body {
       width: 100%;
       height: 100%;
       background: #e8e8e8;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── SCROLL CONTAINER — snap lives here, NOT on body ── */
+    .scroll-container {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
       overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
       scroll-snap-type: y mandatory;
+      -webkit-scroll-snap-type: y mandatory;
     }
 
     /* ── PAGE 1 ── */
     .page-1 {
       scroll-snap-align: start;
       scroll-snap-stop: always;
-      min-height: 100vh;
-      min-height: 100dvh;
+      height: 100vh;
+      height: 100dvh;
       display: -webkit-flex;
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      /* safe-area fallback 0px — Safari already accounts for it */
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 56px);
+      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 52px);
+      overflow: hidden;
     }
 
     .cover-wrapper {
@@ -48,14 +54,22 @@
       align-items: center;
       -webkit-justify-content: center;
       justify-content: center;
+      -webkit-flex: 1;
+      flex: 1;
+      min-height: 0;
     }
 
-    .cover-wrapper a { display: block; width: 100%; }
+    .cover-wrapper a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
     .cover-wrapper img {
       display: block;
       width: 100%;
-      max-height: 56vh;
+      height: 100%;
+      max-height: 100%;
       object-fit: contain;
       -webkit-filter: drop-shadow(0 12px 20px rgba(0,0,0,0.22));
       filter: drop-shadow(0 12px 20px rgba(0,0,0,0.22));
@@ -68,19 +82,23 @@
       color: #888;
       letter-spacing: 1px;
       font-weight: 500;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .headline {
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 12px;
-      margin-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 10px;
       font-size: clamp(1rem, 4.4vw, 1.3rem);
       font-weight: 900;
       letter-spacing: 1.2px;
       text-transform: uppercase;
       color: #458B66;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .headline .price { color: #222; }
@@ -95,6 +113,8 @@
       flex-direction: column;
       row-gap: 10px;
       gap: 10px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .buy-btn {
@@ -119,8 +139,6 @@
       cursor: pointer;
       -webkit-box-shadow: 0 6px 18px rgba(0,0,0,0.08);
       box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      -webkit-transition: transform 0.1s ease, box-shadow 0.1s ease;
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
       appearance: none;
@@ -129,7 +147,6 @@
     .buy-btn:active {
       -webkit-transform: scale(0.97);
       transform: scale(0.97);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     }
 
     .buy-btn img { height: 22px; width: auto; }
@@ -138,7 +155,9 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 12px;
+      margin-top: 10px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .payment-section p {
@@ -164,71 +183,38 @@
 
     .payment-logos img { height: 13px; width: auto; }
 
-    /* ── SCROLL BUTTON — Unicode chevron, no SVG, no CSS borders ── */
-    .scroll-btn {
+    /* ── SCROLL HINT — text only, no chevron, no animation artifacts ── */
+    .scroll-hint {
       margin-top: auto;
-      padding-top: 14px;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-flex-direction: column;
-      flex-direction: column;
-      -webkit-align-items: center;
-      align-items: center;
-      gap: 2px;
-      background: none;
-      border: none;
+      padding-top: 10px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+      text-align: center;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+      background: none;
+      border: none;
       -webkit-appearance: none;
       appearance: none;
-      -webkit-animation: pulse 2.4s ease-in-out infinite;
-      animation: pulse 2.4s ease-in-out infinite;
     }
 
-    .scroll-btn-label {
+    .scroll-hint-label {
       font-size: 9px;
-      letter-spacing: 1.8px;
+      letter-spacing: 2px;
       font-weight: 700;
       color: #555;
       text-transform: uppercase;
-      opacity: 0.45;
+      opacity: 0.4;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-    }
-
-    /* Unicode chevron — renders identically in every Safari version */
-    .scroll-btn-chevron {
-      font-size: 14px;
-      color: #555;
-      opacity: 0.45;
-      line-height: 1;
-      -webkit-animation: nudge 2.4s ease-in-out infinite;
-      animation: nudge 2.4s ease-in-out infinite;
-    }
-
-    @-webkit-keyframes nudge {
-      0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
-      50% { -webkit-transform: translateY(3px); transform: translateY(3px); }
-    }
-    @keyframes nudge {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(3px); }
-    }
-
-    @-webkit-keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.65; }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.65; }
+      display: block;
     }
 
     /* ── PAGE 2 ── */
     .page-2 {
       scroll-snap-align: start;
       scroll-snap-stop: always;
-      min-height: 100vh;
-      min-height: 100dvh;
+      height: 100vh;
+      height: 100dvh;
       display: -webkit-flex;
       display: flex;
       -webkit-flex-direction: column;
@@ -236,6 +222,7 @@
       -webkit-align-items: center;
       align-items: center;
       padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
+      overflow: hidden;
     }
 
     .info-section-label {
@@ -246,17 +233,21 @@
       font-weight: 700;
       color: #aaa;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .info-section-sublabel {
       width: 100%;
       max-width: 480px;
-      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
+      font-size: clamp(0.68rem, 2.6vw, 0.78rem);
       color: #bbb;
       font-weight: 500;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 1.4;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .blurb-list {
@@ -266,8 +257,10 @@
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
-      row-gap: 9px;
-      gap: 9px;
+      row-gap: 8px;
+      gap: 8px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .blurb-item {
@@ -275,22 +268,22 @@
       display: flex;
       -webkit-align-items: flex-start;
       align-items: flex-start;
-      gap: 10px;
+      gap: 9px;
     }
 
     .blurb-emoji {
-      font-size: 1rem;
+      font-size: 0.95rem;
       line-height: 1.5;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
-      width: 22px;
+      width: 20px;
       text-align: center;
     }
 
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
     .blurb-title {
-      font-size: clamp(0.74rem, 2.9vw, 0.84rem);
+      font-size: clamp(0.72rem, 2.8vw, 0.82rem);
       font-weight: 800;
       color: #458B66;
       letter-spacing: 0.4px;
@@ -300,25 +293,27 @@
     }
 
     .blurb-body {
-      font-size: clamp(0.74rem, 2.9vw, 0.84rem);
+      font-size: clamp(0.72rem, 2.8vw, 0.82rem);
       color: #666;
-      line-height: 1.5;
+      line-height: 1.45;
       font-weight: 500;
       display: inline;
     }
 
-    /* ── COUNTER CARD — compact rounded rectangle, consistent with page style ── */
+    /* ── COUNTER CARD ── */
     .counter-card {
       width: 100%;
       max-width: 480px;
       background: #ffffff;
       border-radius: 22px;
-      padding: 12px 24px 14px;
+      padding: 11px 24px 13px;
+      text-align: center;
       -webkit-box-shadow: 0 4px 16px rgba(69,139,102,0.10);
       box-shadow: 0 4px 16px rgba(69,139,102,0.10);
       border: 1.5px solid #458B66;
-      margin-top: 14px;
-      text-align: center;
+      margin-top: 12px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .counter-label-top {
@@ -372,153 +367,154 @@
 </head>
 <body>
 
-  <!-- ── PAGE 1 ── -->
-
-  <div class="page-1">
+  <div class="scroll-container" id="scroll-container">
 
 ```
-<div class="cover-wrapper">
-  <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
-    <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
-  </a>
-</div>
+<!-- ── PAGE 1 ── -->
+<div class="page-1">
 
-<p class="preview-hint">TAP COVER TO PREVIEW</p>
-
-<div class="headline">
-  GET THE PLAYBOOK<span class="divider">—</span><span class="price">$6.99</span>
-</div>
-
-<div class="buttons">
-  <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
-    <img src="amazon.svg" alt="Amazon">
-    <span>Buy on Amazon</span>
-  </a>
-  <a class="buy-btn" href="https://payhip.com/" target="_blank" rel="noopener">
-    <img src="stripe.svg" alt="Stripe">
-    <span>Buy with Stripe</span>
-  </a>
-</div>
-
-<div class="payment-section">
-  <p>SECURE CHECKOUT</p>
-  <div class="payment-logos">
-    <img src="applepay.svg" alt="Apple Pay">
-    <img src="googlepay.svg" alt="Google Pay">
-    <img src="paypal.svg" alt="PayPal">
-    <img src="visa.svg" alt="Visa">
-    <img src="mastercard.svg" alt="Mastercard">
-    <img src="americanexpress.svg" alt="American Express">
+  <div class="cover-wrapper">
+    <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
+      <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
+    </a>
   </div>
+
+  <p class="preview-hint">TAP COVER TO PREVIEW</p>
+
+  <div class="headline">
+    GET THE PLAYBOOK<span class="divider">—</span><span class="price">$6.99</span>
+  </div>
+
+  <div class="buttons">
+    <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
+      <img src="amazon.svg" alt="Amazon">
+      <span>Buy on Amazon</span>
+    </a>
+    <a class="buy-btn" href="https://payhip.com/" target="_blank" rel="noopener">
+      <img src="stripe.svg" alt="Stripe">
+      <span>Buy with Stripe</span>
+    </a>
+  </div>
+
+  <div class="payment-section">
+    <p>SECURE CHECKOUT</p>
+    <div class="payment-logos">
+      <img src="applepay.svg" alt="Apple Pay">
+      <img src="googlepay.svg" alt="Google Pay">
+      <img src="paypal.svg" alt="PayPal">
+      <img src="visa.svg" alt="Visa">
+      <img src="mastercard.svg" alt="Mastercard">
+      <img src="americanexpress.svg" alt="American Express">
+    </div>
+  </div>
+
+  <button class="scroll-hint" id="scroll-down" aria-label="Scroll to About">
+    <span class="scroll-hint-label">About</span>
+  </button>
+
 </div>
 
-<button class="scroll-btn" id="scroll-down" aria-label="Scroll to About">
-  <span class="scroll-btn-label">About</span>
-  <span class="scroll-btn-chevron">v</span>
-</button>
+<!-- ── PAGE 2 ── -->
+<div class="page-2" id="page-2">
+
+  <p class="info-section-label">What's Inside</p>
+  <p class="info-section-sublabel">The one-minute version. Read it. Then decide.</p>
+
+  <div class="blurb-list">
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">🥩</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Eat</span>
+        <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">📏</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Measure</span>
+        <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">📈</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Compound</span>
+        <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">⚙️</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Fix</span>
+        <span class="blurb-body">Gut. Inflammation. Mitochondria. The systems under the hood most people never touch — and wonder why nothing works.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">💊</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Stack</span>
+        <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">🩸</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Audit</span>
+        <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">🛡️</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Recover</span>
+        <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+      </div>
+    </div>
+
+    <div class="blurb-item">
+      <span class="blurb-emoji">⚡</span>
+      <div class="blurb-text">
+        <span class="blurb-title">Deploy</span>
+        <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Run it today. No ramp-up required.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="counter-card">
+    <p class="counter-label-top">Portfolio Update</p>
+    <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
+    <div class="counter-number" data-target="100">
+      <span id="counter-display">—</span>
+    </div>
+    <p class="counter-word">Investors</p>
+    <div class="counter-divider"></div>
+    <p class="counter-tagline"><strong>One choice, compounded.</strong></p>
+  </div>
+
+</div>
 ```
 
-  </div>
-
-  <!-- ── PAGE 2 ── -->
-
-  <div class="page-2" id="page-2">
-
-```
-<p class="info-section-label">What's Inside</p>
-<p class="info-section-sublabel">The one-minute version. Read it. Then decide.</p>
-
-<div class="blurb-list">
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">🥩</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Eat</span>
-      <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">📏</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Measure</span>
-      <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">📈</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Compound</span>
-      <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">⚙️</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Fix</span>
-      <span class="blurb-body">Gut. Inflammation. Mitochondria. The systems under the hood most people never touch — and wonder why nothing works.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">💊</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Stack</span>
-      <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">🩸</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Audit</span>
-      <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">🛡️</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Recover</span>
-      <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
-    </div>
-  </div>
-
-  <div class="blurb-item">
-    <span class="blurb-emoji">⚡</span>
-    <div class="blurb-text">
-      <span class="blurb-title">Deploy</span>
-      <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Run it today. No ramp-up required.</span>
-    </div>
-  </div>
-
-</div>
-
-<div class="counter-card">
-  <p class="counter-label-top">Portfolio Update</p>
-  <!-- ↓ UPDATE data-target WHEN MILESTONE HITS ↓ -->
-  <div class="counter-number" data-target="100">
-    <span id="counter-display">—</span>
-  </div>
-  <p class="counter-word">Investors</p>
-  <div class="counter-divider"></div>
-  <p class="counter-tagline"><strong>One choice, compounded.</strong></p>
-</div>
-```
-
-  </div>
+  </div><!-- end scroll-container -->
 
   <script>
-    // ── SCROLL BUTTON — Safari-safe ──
+    var container = document.getElementById('scroll-container');
+    var page2 = document.getElementById('page-2');
+
+    // ── SCROLL BUTTON ──
     document.getElementById('scroll-down').addEventListener('click', function () {
-      var page2 = document.getElementById('page-2');
       if ('scrollBehavior' in document.documentElement.style) {
         page2.scrollIntoView({ behavior: 'smooth' });
       } else {
-        var target = page2.getBoundingClientRect().top + window.pageYOffset;
-        var start = window.pageYOffset;
+        var target = page2.offsetTop;
+        var start = container.scrollTop;
         var distance = target - start;
         var duration = 500;
         var startTime = null;
@@ -527,14 +523,14 @@
           var elapsed = ts - startTime;
           var p = Math.min(elapsed / duration, 1);
           var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-          window.scrollTo(0, start + distance * ease);
+          container.scrollTop = start + distance * ease;
           if (elapsed < duration) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
       }
     });
 
-    // ── COUNTER ──
+    // ── COUNTER ANIMATION ──
     var counterEl = document.querySelector('.counter-number');
     var displayEl = document.getElementById('counter-display');
     var target = parseInt(counterEl.getAttribute('data-target'), 10);
@@ -560,7 +556,7 @@
           animateCount(0, target, 1800);
         }
       });
-    }, { threshold: 0.4 }).observe(document.querySelector('.counter-card'));
+    }, { threshold: 0.4, root: container }).observe(document.querySelector('.counter-card'));
   </script>
 
 </body>
