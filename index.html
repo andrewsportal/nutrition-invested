@@ -17,6 +17,8 @@
       background: #e8e8e8;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       overflow: hidden;
+      overscroll-behavior: none;
+      -webkit-overscroll-behavior: none;
     }
 
     .scroll-container {
@@ -29,9 +31,13 @@
       -webkit-scroll-snap-type: y mandatory;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      overscroll-behavior: none;
+      -webkit-overscroll-behavior: none;
     }
 
     .scroll-container::-webkit-scrollbar { display: none; }
+    .scroll-container::-webkit-scrollbar-track { display: none; }
+    .scroll-container::-webkit-scrollbar-thumb { display: none; }
 
     /* ── PAGE 1 ── */
     .page-1 {
