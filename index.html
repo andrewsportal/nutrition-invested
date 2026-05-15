@@ -41,8 +41,11 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 52px);
+      -webkit-justify-content: center;
+      justify-content: center;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
       overflow: hidden;
+      gap: 0;
     }
 
     .cover-wrapper {
@@ -54,8 +57,8 @@
       align-items: center;
       -webkit-justify-content: center;
       justify-content: center;
-      -webkit-flex: 1;
-      flex: 1;
+      -webkit-flex: 0 1 62vh;
+      flex: 0 1 62vh;
       min-height: 0;
     }
 
@@ -77,7 +80,7 @@
     }
 
     .preview-hint {
-      margin-top: 8px;
+      margin-top: 6px;
       font-size: 0.72rem;
       color: #888;
       letter-spacing: 1px;
@@ -183,10 +186,9 @@
 
     .payment-logos img { height: 13px; width: auto; }
 
-    /* ── SCROLL HINT — text only, no chevron, no animation artifacts ── */
+    /* ── SCROLL HINT ── */
     .scroll-hint {
-      margin-top: auto;
-      padding-top: 10px;
+      margin-top: 10px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
       text-align: center;
@@ -221,7 +223,7 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
+      padding: calc(env(safe-area-inset-top, 0px) + 32px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
       overflow: hidden;
     }
 
