@@ -325,27 +325,48 @@
 
     .blurb-list {
       width: 100%;
-      max-width: 480px;
+      height: 100%;
       display: -webkit-flex;
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
       row-gap: 8px;
       gap: 8px;
-      -webkit-flex: 1;
-      flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      min-height: 0;
-      /* Fade bottom edge to signal more content below */
-      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }
 
     .blurb-list::-webkit-scrollbar {
       display: none;
+    }
+
+    /* Fade wrapper — only bottom fade, updates via JS on scroll */
+    .blurb-wrapper {
+      width: 100%;
+      max-width: 480px;
+      -webkit-flex: 1;
+      flex: 1;
+      position: relative;
+      min-height: 0;
+    }
+
+    .blurb-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, #e8e8e8);
+      pointer-events: none;
+      -webkit-transition: opacity 0.2s ease;
+      transition: opacity 0.2s ease;
+    }
+
+    .blurb-wrapper.at-bottom::after {
+      opacity: 0;
     }
 
     .blurb-item {
@@ -511,7 +532,8 @@
   <p class="info-section-label">What's Inside</p>
   <p class="info-section-sublabel">The one-minute version. Read it. Then decide.</p>
 
-  <div class="blurb-list">
+  <div class="blurb-wrapper" id="blurb-wrapper">
+    <div class="blurb-list" id="blurb-list">
 
     <div class="blurb-item">
       <span class="blurb-emoji">🥩</span>
@@ -577,9 +599,8 @@
       </div>
     </div>
 
+    </div>
   </div>
-
-  <div class="counter-card">
     <p class="counter-label-top">Portfolio Update</p>
     <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
     <div class="counter-number" data-target="100">
@@ -596,79 +617,109 @@
   </div><!-- end scroll-container -->
 
   <script>
-    var container = document.getElementById('scroll-container');
-    var page2 = document.getElementById('page-2');
+    document.addEventListener('DOMContentLoaded', function () {
 
-    // ── SCROLL UP BUTTON ──
-    document.getElementById('scroll-up').addEventListener('click', function () {
-      var page1 = document.querySelector('.page-1');
-      if ('scrollBehavior' in document.documentElement.style) {
-        page1.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        var start = container.scrollTop;
-        var duration = 500;
-        var startTime = null;
-        function stepUp(ts) {
-          if (!startTime) startTime = ts;
-          var elapsed = ts - startTime;
-          var p = Math.min(elapsed / duration, 1);
-          var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-          container.scrollTop = start * (1 - ease);
-          if (elapsed < duration) requestAnimationFrame(stepUp);
+      var container = document.getElementById('scroll-container');
+      var page2 = document.getElementById('page-2');
+      var blurbList = document.getElementById('blurb-list');
+      var blurbWrapper = document.getElementById('blurb-wrapper');
+
+      // ── BLURB FADE ──
+      function updateFade() {
+        if (!blurbList || !blurbWrapper) return;
+        var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
+        if (atBottom) {
+          blurbWrapper.classList.add('at-bottom');
+        } else {
+          blurbWrapper.classList.remove('at-bottom');
         }
-        requestAnimationFrame(stepUp);
       }
+
+      if (blurbList) {
+        blurbList.addEventListener('scroll', updateFade);
+        updateFade();
+      }
+
+      // ── SCROLL UP BUTTON ──
+      var scrollUpBtn = document.getElementById('scroll-up');
+      if (scrollUpBtn) {
+        scrollUpBtn.addEventListener('click', function () {
+          var page1 = document.querySelector('.page-1');
+          if ('scrollBehavior' in document.documentElement.style) {
+            page1.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            var start = container.scrollTop;
+            var duration = 500;
+            var startTime = null;
+            function stepUp(ts) {
+              if (!startTime) startTime = ts;
+              var elapsed = ts - startTime;
+              var p = Math.min(elapsed / duration, 1);
+              var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
+              container.scrollTop = start * (1 - ease);
+              if (elapsed < duration) requestAnimationFrame(stepUp);
+            }
+            requestAnimationFrame(stepUp);
+          }
+        });
+      }
+
+      // ── SCROLL DOWN BUTTON ──
+      var scrollDownBtn = document.getElementById('scroll-down');
+      if (scrollDownBtn) {
+        scrollDownBtn.addEventListener('click', function () {
+          if ('scrollBehavior' in document.documentElement.style) {
+            page2.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            var target = page2.offsetTop;
+            var start = container.scrollTop;
+            var distance = target - start;
+            var duration = 500;
+            var startTime = null;
+            function step(ts) {
+              if (!startTime) startTime = ts;
+              var elapsed = ts - startTime;
+              var p = Math.min(elapsed / duration, 1);
+              var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
+              container.scrollTop = start + distance * ease;
+              if (elapsed < duration) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          }
+        });
+      }
+
+      // ── COUNTER ANIMATION ──
+      var counterEl = document.querySelector('.counter-number');
+      var displayEl = document.getElementById('counter-display');
+      if (counterEl && displayEl) {
+        var target = parseInt(counterEl.getAttribute('data-target'), 10);
+        var animated = false;
+
+        function animateCount(from, to, dur) {
+          if (to === 0) { displayEl.textContent = '—'; return; }
+          var t0 = performance.now();
+          function step(now) {
+            var elapsed = now - t0;
+            var p = Math.min(elapsed / dur, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting && !animated) {
+              animated = true;
+              animateCount(0, target, 1800);
+            }
+          });
+        }, { threshold: 0.2, root: container }).observe(document.querySelector('.counter-card'));
+      }
+
     });
-
-    // ── SCROLL DOWN BUTTON ──
-    document.getElementById('scroll-down').addEventListener('click', function () {
-      if ('scrollBehavior' in document.documentElement.style) {
-        page2.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        var target = page2.offsetTop;
-        var start = container.scrollTop;
-        var distance = target - start;
-        var duration = 500;
-        var startTime = null;
-        function step(ts) {
-          if (!startTime) startTime = ts;
-          var elapsed = ts - startTime;
-          var p = Math.min(elapsed / duration, 1);
-          var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-          container.scrollTop = start + distance * ease;
-          if (elapsed < duration) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
-    });
-
-    // ── COUNTER ANIMATION ──
-    var counterEl = document.querySelector('.counter-number');
-    var displayEl = document.getElementById('counter-display');
-    var target = parseInt(counterEl.getAttribute('data-target'), 10);
-    var animated = false;
-
-    function animateCount(from, to, dur) {
-      if (to === 0) { displayEl.textContent = '—'; return; }
-      var t0 = performance.now();
-      function step(now) {
-        var elapsed = now - t0;
-        var p = Math.min(elapsed / dur, 1);
-        var ease = 1 - Math.pow(1 - p, 3);
-        displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting && !animated) {
-          animated = true;
-          animateCount(0, target, 1800);
-        }
-      });
-    }, { threshold: 0.2, root: container }).observe(document.querySelector('.counter-card'));
   </script>
 
 </body>
