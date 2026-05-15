@@ -14,37 +14,44 @@
     html, body {
       width: 100%;
       height: 100%;
+      overflow: hidden;
       background: #e8e8e8;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      overflow: hidden;
-      overscroll-behavior: none;
-      -webkit-overscroll-behavior: none;
+      touch-action: none;
     }
 
-    .scroll-container {
+    /* ── SLIDE CONTAINER — no scroll, transforms only ── */
+    .slide-container {
+      position: fixed;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      height: 100dvh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-snap-type: y mandatory;
-      -webkit-scroll-snap-type: y mandatory;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      overscroll-behavior: none;
-      -webkit-overscroll-behavior: none;
+      will-change: transform;
+      -webkit-transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
+      transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
     }
 
-    .scroll-container::-webkit-scrollbar { display: none; }
-    .scroll-container::-webkit-scrollbar-track { display: none; }
-    .scroll-container::-webkit-scrollbar-thumb { display: none; }
+    .slide-container.no-transition {
+      -webkit-transition: none;
+      transition: none;
+    }
 
-    /* ── PAGE 1 ── */
-    .page-1 {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      height: 100vh;
-      height: 100dvh;
+    /* ── PAGES ── */
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #e8e8e8;
+    }
+
+    .page-1 { top: 0; }
+    .page-2 { top: 100%; }
+
+    /* ── PAGE 1 INNER ── */
+    .page-inner {
+      width: 100%;
+      height: 100%;
       display: -webkit-flex;
       display: flex;
       -webkit-flex-direction: column;
@@ -54,7 +61,6 @@
       -webkit-justify-content: center;
       justify-content: center;
       padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
-      overflow: hidden;
     }
 
     .cover-wrapper {
@@ -214,6 +220,7 @@
       -webkit-align-items: center;
       align-items: center;
       gap: 5px;
+      touch-action: manipulation;
     }
 
     .scroll-hint:active { opacity: 0.6; }
@@ -236,13 +243,11 @@
       line-height: 1;
     }
 
-    /* ── PAGE 2 ── */
-    .page-2 {
+    /* ── PAGE 2 INNER ── */
+    .page-2-inner {
       position: relative;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      height: 100vh;
-      height: 100dvh;
+      width: 100%;
+      height: 100%;
       display: -webkit-flex;
       display: flex;
       -webkit-flex-direction: column;
@@ -269,6 +274,7 @@
       -webkit-align-items: center;
       align-items: center;
       gap: 5px;
+      touch-action: manipulation;
     }
 
     .scroll-up:active { opacity: 0.6; }
@@ -291,7 +297,6 @@
       line-height: 1;
     }
 
-
     .info-section-sublabel {
       width: 100%;
       max-width: 480px;
@@ -306,7 +311,6 @@
       flex-shrink: 0;
     }
 
-    /* Blurb wrapper — flex: 1 takes remaining space, counter card stays pinned below */
     .blurb-wrapper {
       width: 100%;
       max-width: 480px;
@@ -330,17 +334,16 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       padding-bottom: 28px;
+      /* Allow inner scroll without triggering page swipe */
+      touch-action: pan-y;
     }
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Bottom fade — visible when more content below */
     .blurb-wrapper::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 48px;
       background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
@@ -349,13 +352,10 @@
       opacity: 1;
     }
 
-    /* Top fade — visible when scrolled down */
     .blurb-wrapper::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 48px;
       background: linear-gradient(to top, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
@@ -406,7 +406,6 @@
       display: inline;
     }
 
-    /* ── COUNTER CARD ── */
     .counter-card {
       width: 100%;
       max-width: 480px;
@@ -465,156 +464,154 @@
       letter-spacing: 0.8px;
       text-transform: uppercase;
     }
-
-    .counter-tagline strong {
-      color: #888888;
-      font-weight: 500;
-    }
   </style>
 
 </head>
 <body>
 
-  <div class="scroll-container" id="scroll-container">
+  <div class="slide-container" id="slide-container">
 
 ```
 <!-- ── PAGE 1 ── -->
-<div class="page-1">
+<div class="page page-1">
+  <div class="page-inner">
 
-  <div class="cover-wrapper">
-    <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
-      <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
-    </a>
-  </div>
-
-  <p class="preview-hint">TAP COVER TO PREVIEW</p>
-
-  <div class="headline">
-    GET THE PLAYBOOK<span class="divider">—</span><span class="price">$6.99</span>
-  </div>
-
-  <div class="buttons">
-    <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
-      <img src="amazon.svg" alt="Amazon">
-      <span>Buy on Amazon</span>
-    </a>
-    <a class="buy-btn" href="https://payhip.com/" target="_blank" rel="noopener">
-      <img src="stripe.svg" alt="Stripe">
-      <span>Buy with Stripe</span>
-    </a>
-  </div>
-
-  <div class="payment-section">
-    <p>SECURE CHECKOUT</p>
-    <div class="payment-logos">
-      <img src="applepay.svg" alt="Apple Pay">
-      <img src="googlepay.svg" alt="Google Pay">
-      <img src="paypal.svg" alt="PayPal">
-      <img src="visa.svg" alt="Visa">
-      <img src="mastercard.svg" alt="Mastercard">
-      <img src="americanexpress.svg" alt="American Express">
+    <div class="cover-wrapper">
+      <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
+        <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios">
+      </a>
     </div>
+
+    <p class="preview-hint">TAP COVER TO PREVIEW</p>
+
+    <div class="headline">
+      GET THE PLAYBOOK<span class="divider">—</span><span class="price">$6.99</span>
+    </div>
+
+    <div class="buttons">
+      <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
+        <img src="amazon.svg" alt="Amazon">
+        <span>Buy on Amazon</span>
+      </a>
+      <a class="buy-btn" href="https://payhip.com/" target="_blank" rel="noopener">
+        <img src="stripe.svg" alt="Stripe">
+        <span>Buy with Stripe</span>
+      </a>
+    </div>
+
+    <div class="payment-section">
+      <p>SECURE CHECKOUT</p>
+      <div class="payment-logos">
+        <img src="applepay.svg" alt="Apple Pay">
+        <img src="googlepay.svg" alt="Google Pay">
+        <img src="paypal.svg" alt="PayPal">
+        <img src="visa.svg" alt="Visa">
+        <img src="mastercard.svg" alt="Mastercard">
+        <img src="americanexpress.svg" alt="American Express">
+      </div>
+    </div>
+
+    <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
+      <span class="scroll-hint-label">What's Inside</span>
+      <span class="scroll-hint-arrow">&#8595;</span>
+    </button>
+
   </div>
-
-  <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
-    <span class="scroll-hint-label">What's Inside</span>
-    <span class="scroll-hint-arrow">&#8595;</span>
-  </button>
-
 </div>
 
 <!-- ── PAGE 2 ── -->
-<div class="page-2" id="page-2">
+<div class="page page-2" id="page-2">
+  <div class="page-2-inner">
 
-  <button class="scroll-up" id="scroll-up" aria-label="Back to top">
-    <span class="scroll-up-arrow">&#8593;</span>
-    <span class="scroll-up-label">Back</span>
-  </button>
+    <button class="scroll-up" id="scroll-up" aria-label="Back to top">
+      <span class="scroll-up-arrow">&#8593;</span>
+      <span class="scroll-up-label">Back</span>
+    </button>
 
-  <p class="info-section-sublabel">THE QUICK BITES:</p>
+    <p class="info-section-sublabel">THE QUICK BITES:</p>
 
-  <div class="blurb-wrapper" id="blurb-wrapper">
-    <div class="blurb-list" id="blurb-list">
+    <div class="blurb-wrapper" id="blurb-wrapper">
+      <div class="blurb-list" id="blurb-list">
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">🥩</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Eat</span>
-          <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">🥩</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Eat</span>
+            <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">📏</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Measure</span>
-          <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">📏</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Measure</span>
+            <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">📈</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Compound</span>
-          <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">📈</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Compound</span>
+            <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">⚙️</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Fix</span>
-          <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">⚙️</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Fix</span>
+            <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">💊</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Stack</span>
-          <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">💊</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Stack</span>
+            <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">🩸</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Audit</span>
-          <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">🩸</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Audit</span>
+            <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">🛡️</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Recover</span>
-          <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">🛡️</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Recover</span>
+            <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="blurb-item">
-        <span class="blurb-emoji">⚡</span>
-        <div class="blurb-text">
-          <span class="blurb-title">Deploy</span>
-          <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
+        <div class="blurb-item">
+          <span class="blurb-emoji">⚡</span>
+          <div class="blurb-text">
+            <span class="blurb-title">Deploy</span>
+            <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
-  </div>
 
-  <!-- COUNTER CARD — pinned below blurb list -->
-  <div class="counter-card" id="counter-card">
-    <p class="counter-label-top">In The Market</p>
-    <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
-    <div class="counter-number" data-target="100">
-      <span id="counter-display">—</span>
+    <div class="counter-card" id="counter-card">
+      <p class="counter-label-top">In The Market</p>
+      <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
+      <div class="counter-number" data-target="0">
+        <span id="counter-display">—</span>
+      </div>
+      <p class="counter-word">Investors</p>
+      <div class="counter-divider"></div>
+      <p class="counter-tagline">DRIP ON. COMPOUNDS UP.</p>
     </div>
-    <p class="counter-word">Investors</p>
-    <div class="counter-divider"></div>
-    <p class="counter-tagline">DRIP ON. COMPOUNDS UP.</p>
-  </div>
 
+  </div>
 </div>
 ```
 
@@ -623,35 +620,105 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-      var container = document.getElementById('scroll-container');
-      var page2 = document.getElementById('page-2');
+      var slideContainer = document.getElementById('slide-container');
       var blurbList = document.getElementById('blurb-list');
       var blurbWrapper = document.getElementById('blurb-wrapper');
       var counterCard = document.getElementById('counter-card');
+      var currentPage = 0; // 0 = page 1, 1 = page 2
+      var isAnimating = false;
 
-      // ── PREVENT SAFARI OVERSCROLL BOUNCE ──
-      var startY = 0;
-      container.addEventListener('touchstart', function(e) {
-        startY = e.touches[0].clientY;
+      // ── PAGE NAVIGATION ──
+      function goToPage(index) {
+        if (isAnimating) return;
+        if (index === currentPage) return;
+        isAnimating = true;
+        currentPage = index;
+        slideContainer.classList.remove('no-transition');
+        slideContainer.style.transform = 'translateY(-' + (index * 100) + '%)';
+        setTimeout(function() { isAnimating = false; }, 480);
+      }
+
+      // ── BUTTON NAVIGATION ──
+      document.getElementById('scroll-down').addEventListener('click', function() {
+        goToPage(1);
+      });
+
+      document.getElementById('scroll-up').addEventListener('click', function() {
+        goToPage(0);
+      });
+
+      // ── SWIPE DETECTION ──
+      var touchStartY = 0;
+      var touchStartX = 0;
+      var touchStartTime = 0;
+      var touchStartBlurbScrollTop = 0;
+
+      document.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        touchStartTime = Date.now();
+        touchStartBlurbScrollTop = blurbList ? blurbList.scrollTop : 0;
       }, { passive: true });
 
-      container.addEventListener('touchmove', function(e) {
-        var scrollTop = container.scrollTop;
-        var maxScroll = container.scrollHeight - container.clientHeight;
-        var currentY = e.touches[0].clientY;
-        var goingUp = currentY > startY;
-        var goingDown = currentY < startY;
+      document.addEventListener('touchmove', function(e) {
+        // Always prevent default to stop any Safari bounce
+        var target = e.target;
+        var isInsideBlurbList = blurbList && blurbList.contains(target);
 
-        if ((goingUp && scrollTop <= 0) || (goingDown && scrollTop >= maxScroll)) {
+        if (isInsideBlurbList) {
+          // Allow internal blurb scroll but prevent page bounce
+          var dy = touchStartY - e.touches[0].clientY;
+          var atTop = blurbList.scrollTop <= 0;
+          var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+
+          if ((dy < 0 && atTop) || (dy > 0 && atBottom)) {
+            e.preventDefault();
+          }
+        } else {
           e.preventDefault();
         }
       }, { passive: false });
+
+      document.addEventListener('touchend', function(e) {
+        var dy = touchStartY - e.changedTouches[0].clientY;
+        var dx = touchStartX - e.changedTouches[0].clientX;
+        var dt = Date.now() - touchStartTime;
+        var target = e.target;
+        var isInsideBlurbList = blurbList && blurbList.contains(target);
+
+        // Ignore if horizontal swipe
+        if (Math.abs(dx) > Math.abs(dy)) return;
+
+        // Threshold: 50px or fast flick
+        var isSwipe = Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300);
+        if (!isSwipe) return;
+
+        if (isInsideBlurbList) {
+          // Only navigate if blurb list is at its boundary
+          var atTop = blurbList.scrollTop <= 0;
+          var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+
+          if (dy > 0 && atBottom && currentPage === 0) {
+            goToPage(1);
+          } else if (dy < 0 && atTop && currentPage === 1) {
+            goToPage(0);
+          }
+        } else {
+          // Outside blurb list — navigate freely
+          if (dy > 0 && currentPage === 0) {
+            goToPage(1);
+          } else if (dy < 0 && currentPage === 1) {
+            goToPage(0);
+          }
+        }
+      }, { passive: true });
+
+      // ── BLURB FADE ──
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
         var scrollTop = blurbList.scrollTop;
         var atBottom = scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
         var atTop = scrollTop <= 0;
-
         blurbWrapper.classList.toggle('at-bottom', atBottom);
         blurbWrapper.classList.toggle('at-top', atTop);
         blurbWrapper.classList.toggle('scrolled', scrollTop > 4);
@@ -662,53 +729,6 @@
         updateFade();
       }
 
-      // ── SCROLL DOWN ──
-      var scrollDownBtn = document.getElementById('scroll-down');
-      if (scrollDownBtn) {
-        scrollDownBtn.addEventListener('click', function () {
-          if ('scrollBehavior' in document.documentElement.style) {
-            page2.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            var target = page2.offsetTop;
-            var start = container.scrollTop;
-            var distance = target - start;
-            var duration = 500;
-            var t0 = null;
-            function stepDown(ts) {
-              if (!t0) t0 = ts;
-              var p = Math.min((ts - t0) / duration, 1);
-              var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-              container.scrollTop = start + distance * ease;
-              if (p < 1) requestAnimationFrame(stepDown);
-            }
-            requestAnimationFrame(stepDown);
-          }
-        });
-      }
-
-      // ── SCROLL UP ──
-      var scrollUpBtn = document.getElementById('scroll-up');
-      if (scrollUpBtn) {
-        scrollUpBtn.addEventListener('click', function () {
-          var page1 = document.querySelector('.page-1');
-          if ('scrollBehavior' in document.documentElement.style) {
-            page1.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            var start = container.scrollTop;
-            var duration = 500;
-            var t0 = null;
-            function stepUp(ts) {
-              if (!t0) t0 = ts;
-              var p = Math.min((ts - t0) / duration, 1);
-              var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-              container.scrollTop = start * (1 - ease);
-              if (p < 1) requestAnimationFrame(stepUp);
-            }
-            requestAnimationFrame(stepUp);
-          }
-        });
-      }
-
       // ── COUNTER ──
       var counterEl = document.querySelector('.counter-number');
       var displayEl = document.getElementById('counter-display');
@@ -716,7 +736,6 @@
         var target = parseInt(counterEl.getAttribute('data-target'), 10);
         var animated = false;
 
-        // Show immediately
         displayEl.textContent = target === 0 ? '—' : target.toLocaleString();
 
         function animateCount(from, to, dur) {
