@@ -145,6 +145,8 @@
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
       appearance: none;
+      -webkit-transition: -webkit-transform 0.12s ease;
+      transition: transform 0.12s ease;
     }
 
     .buy-btn:active {
@@ -186,7 +188,7 @@
 
     .payment-logos img { height: 13px; width: auto; }
 
-    /* ── SCROLL HINT — pill button ── */
+    /* ── SCROLL HINT — plain text nav ── */
     .scroll-hint {
       margin-top: 16px;
       -webkit-flex-shrink: 0;
@@ -304,7 +306,7 @@
     .info-section-sublabel {
       width: 100%;
       max-width: 480px;
-      font-size: clamp(0.68rem, 2.6vw, 0.78rem);
+      font-size: 11px;
       color: #bbb;
       font-weight: 500;
       margin-bottom: 10px;
@@ -346,7 +348,7 @@
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
     .blurb-title {
-      font-size: clamp(0.72rem, 2.8vw, 0.82rem);
+      font-size: clamp(0.78rem, 3vw, 0.88rem);
       font-weight: 800;
       color: #458B66;
       letter-spacing: 0.4px;
@@ -356,7 +358,7 @@
     }
 
     .blurb-body {
-      font-size: clamp(0.72rem, 2.8vw, 0.82rem);
+      font-size: clamp(0.78rem, 3vw, 0.88rem);
       color: #666;
       line-height: 1.45;
       font-weight: 500;
@@ -646,7 +648,7 @@
           animateCount(0, target, 1800);
         }
       });
-    }, { threshold: 0.4, root: container }).observe(document.querySelector('.counter-card'));
+    }, { threshold: 0.2, root: container }).observe(document.querySelector('.counter-card'));
   </script>
 
 </body>
