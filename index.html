@@ -5,41 +5,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Nutrition, Invested</title>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
       height: 100%;
     }
 
     body {
       width: 100%;
+      height: 100%;
       background: #e8e8e8;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      height: 100%;
+      /* Snap container on body, not html — more reliable in Safari */
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: y mandatory;
     }
 
     /* ── PAGE 1 ── */
     .page-1 {
       scroll-snap-align: start;
       scroll-snap-stop: always;
+      /* dvh with vh fallback for older Safari */
+      min-height: 100vh;
       min-height: 100dvh;
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: column;
       flex-direction: column;
+      -webkit-align-items: center;
       align-items: center;
-      /* Extra top padding to clear notch/status bar */
-      padding: calc(env(safe-area-inset-top, 0px) + 52px) 20px calc(env(safe-area-inset-bottom, 0px) + 80px);
+      padding: calc(env(safe-area-inset-top, 20px) + 24px) 20px calc(env(safe-area-inset-bottom, 20px) + 60px);
     }
 
     .cover-wrapper {
       width: 100%;
       max-width: 460px;
+      display: -webkit-flex;
       display: flex;
+      -webkit-align-items: center;
       align-items: center;
+      -webkit-justify-content: center;
       justify-content: center;
     }
 
@@ -48,8 +58,9 @@
     .cover-wrapper img {
       display: block;
       width: 100%;
-      max-height: 54vh;
+      max-height: 58vh;
       object-fit: contain;
+      -webkit-filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
       cursor: pointer;
     }
@@ -66,8 +77,8 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 14px;
-      margin-bottom: 14px;
+      margin-top: 16px;
+      margin-bottom: 16px;
       font-size: clamp(1rem, 4.4vw, 1.3rem);
       font-weight: 900;
       letter-spacing: 1.2px;
@@ -81,14 +92,20 @@
     .buttons {
       width: 100%;
       max-width: 480px;
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: column;
       flex-direction: column;
+      row-gap: 10px;
       gap: 10px;
     }
 
     .buy-btn {
+      display: -webkit-flex;
       display: flex;
+      -webkit-align-items: center;
       align-items: center;
+      -webkit-justify-content: center;
       justify-content: center;
       gap: 10px;
       width: 100%;
@@ -103,12 +120,18 @@
       text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
+      -webkit-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      -webkit-transition: transform 0.1s ease, box-shadow 0.1s ease;
       transition: transform 0.1s ease, box-shadow 0.1s ease;
       -webkit-tap-highlight-color: transparent;
+      /* Prevent Safari from styling as native button */
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     .buy-btn:active {
+      -webkit-transform: scale(0.97);
       transform: scale(0.97);
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     }
@@ -131,59 +154,103 @@
     }
 
     .payment-logos {
+      display: -webkit-flex;
       display: flex;
+      -webkit-justify-content: center;
       justify-content: center;
+      -webkit-align-items: center;
       align-items: center;
       gap: 14px;
+      -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
       opacity: 0.8;
     }
 
     .payment-logos img { height: 14px; width: auto; }
 
-    /* ── SCROLL HINT ── */
-    /* margin-top: auto pushes it down; bottom padding on page-1 keeps it above Safari chrome */
-    .scroll-hint {
+    /* ── SCROLL BUTTON ── */
+    .scroll-btn {
       margin-top: auto;
       padding-top: 16px;
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: column;
       flex-direction: column;
+      -webkit-align-items: center;
       align-items: center;
       gap: 5px;
-      opacity: 0.38;
-      animation: nudge 2.4s ease-in-out infinite;
+      background: none;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      /* Animate opacity only — avoids Safari transform conflict */
+      -webkit-animation: pulse 2.4s ease-in-out infinite;
+      animation: pulse 2.4s ease-in-out infinite;
     }
 
-    .scroll-hint span {
+    .scroll-btn span {
       font-size: 9.5px;
       letter-spacing: 1.6px;
       font-weight: 700;
       color: #555;
       text-transform: uppercase;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      opacity: 0.4;
     }
 
-    .scroll-hint svg {
-      width: 16px;
-      height: 16px;
-      stroke: #555;
-      stroke-width: 2.5;
-      fill: none;
+    /* Chevron arrow using pure CSS borders — no SVG, no font rendering issues */
+    .scroll-btn-arrow {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid #555;
+      border-bottom: 2px solid #555;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+      opacity: 0.4;
+      margin-top: 2px;
+    }
+
+    /* Separate nudge animation for the arrow only */
+    .scroll-btn-arrow {
+      -webkit-animation: nudge 2.4s ease-in-out infinite;
+      animation: nudge 2.4s ease-in-out infinite;
+    }
+
+    @-webkit-keyframes nudge {
+      0%, 100% { -webkit-transform: rotate(45deg) translateY(0); transform: rotate(45deg) translateY(0); opacity: 0.4; }
+      50% { -webkit-transform: rotate(45deg) translateY(3px); transform: rotate(45deg) translateY(3px); opacity: 0.65; }
     }
 
     @keyframes nudge {
-      0%, 100% { transform: translateY(0); opacity: 0.38; }
-      50% { transform: translateY(5px); opacity: 0.6; }
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+      50% { transform: rotate(45deg) translateY(3px); opacity: 0.65; }
+    }
+
+    @-webkit-keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
     /* ── PAGE 2 ── */
     .page-2 {
       scroll-snap-align: start;
       scroll-snap-stop: always;
+      min-height: 100vh;
       min-height: 100dvh;
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: column;
       flex-direction: column;
+      -webkit-align-items: center;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
+      padding: calc(env(safe-area-inset-top, 20px) + 28px) 20px calc(env(safe-area-inset-bottom, 20px) + 24px);
     }
 
     /* ── INFO SECTION ── */
@@ -211,14 +278,18 @@
     .blurb-list {
       width: 100%;
       max-width: 480px;
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: column;
       flex-direction: column;
+      row-gap: 10px;
       gap: 10px;
-      margin-bottom: 0;
     }
 
     .blurb-item {
+      display: -webkit-flex;
       display: flex;
+      -webkit-align-items: flex-start;
       align-items: flex-start;
       gap: 10px;
     }
@@ -226,12 +297,13 @@
     .blurb-emoji {
       font-size: 1rem;
       line-height: 1.5;
+      -webkit-flex-shrink: 0;
       flex-shrink: 0;
       width: 22px;
       text-align: center;
     }
 
-    .blurb-text { flex: 1; }
+    .blurb-text { -webkit-flex: 1; flex: 1; }
 
     .blurb-title {
       font-size: clamp(0.74rem, 2.9vw, 0.84rem);
@@ -259,12 +331,10 @@
       border-radius: 22px;
       padding: 20px 24px 18px;
       text-align: center;
+      -webkit-box-shadow: 0 8px 28px rgba(78, 139, 97, 0.13);
       box-shadow: 0 8px 28px rgba(78, 139, 97, 0.13);
       border: 1.5px solid #4e8b61;
-      margin-top: auto;
-      /* Top corners squared off so it locks flush when snapped */
-      border-top-left-radius: 22px;
-      border-top-right-radius: 22px;
+      margin-top: 20px;
     }
 
     .counter-label-top {
@@ -358,17 +428,17 @@
   </div>
 </div>
 
-<div class="scroll-hint">
+<button class="scroll-btn" id="scroll-down" aria-label="Scroll to About">
   <span>About</span>
-  <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-</div>
+  <div class="scroll-btn-arrow"></div>
+</button>
 ```
 
   </div>
 
   <!-- ── PAGE 2: INFO + COUNTER ── -->
 
-  <div class="page-2">
+  <div class="page-2" id="page-2">
 
 ```
 <p class="info-section-label">What's Inside</p>
@@ -442,7 +512,6 @@
 
 </div>
 
-<!-- COUNTER — anchored to bottom via margin-top: auto -->
 <div class="counter-card">
   <p class="counter-label-top">Portfolio Update</p>
 
@@ -460,27 +529,55 @@
   </div>
 
   <script>
-    const counterEl = document.querySelector('.counter-number');
-    const displayEl = document.getElementById('counter-display');
-    const target = parseInt(counterEl.getAttribute('data-target'), 10);
-    let animated = false;
+    // ── SCROLL BUTTON — Safari-safe smooth scroll polyfill ──
+    document.getElementById('scroll-down').addEventListener('click', function () {
+      var page2 = document.getElementById('page-2');
+      if ('scrollBehavior' in document.documentElement.style) {
+        page2.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Fallback for older Safari that doesn't support smooth scrollBehavior
+        var target = page2.getBoundingClientRect().top + window.pageYOffset;
+        var start = window.pageYOffset;
+        var distance = target - start;
+        var duration = 500;
+        var startTime = null;
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var elapsed = timestamp - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          var ease = progress < 0.5
+            ? 2 * progress * progress
+            : -1 + (4 - 2 * progress) * progress;
+          window.scrollTo(0, start + distance * ease);
+          if (elapsed < duration) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+    });
+
+    // ── COUNTER ANIMATION ──
+    var counterEl = document.querySelector('.counter-number');
+    var displayEl = document.getElementById('counter-display');
+    var target = parseInt(counterEl.getAttribute('data-target'), 10);
+    var animated = false;
 
     function animateCount(from, to, duration) {
       if (to === 0) { displayEl.textContent = '—'; return; }
-      const start = performance.now();
+      var start = performance.now();
       function step(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 3);
-        const current = Math.floor(from + (to - from) * ease);
+        var elapsed = now - start;
+        var progress = Math.min(elapsed / duration, 1);
+        var ease = 1 - Math.pow(1 - progress, 3);
+        var current = Math.floor(from + (to - from) * ease);
         displayEl.textContent = current.toLocaleString();
         if (progress < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    // IntersectionObserver — supported in all modern Safari
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting && !animated) {
           animated = true;
           animateCount(0, target, 1800);
