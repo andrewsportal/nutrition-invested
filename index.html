@@ -323,6 +323,15 @@
       flex-shrink: 0;
     }
 
+    .blurb-wrapper {
+      width: 100%;
+      max-width: 480px;
+      -webkit-flex: 1;
+      flex: 1;
+      position: relative;
+      min-height: 0;
+    }
+
     .blurb-list {
       width: 100%;
       height: 100%;
@@ -336,35 +345,25 @@
       overflow-x: hidden;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      padding-bottom: 32px;
     }
 
     .blurb-list::-webkit-scrollbar {
       display: none;
     }
 
-    /* Fade wrapper — only bottom fade, updates via JS on scroll */
-    .blurb-wrapper {
-      width: 100%;
-      max-width: 480px;
-      -webkit-flex: 1;
-      flex: 1;
-      position: relative;
-      min-height: 0;
-      overflow: hidden;
-    }
-
+    /* Fade sits inside wrapper, strictly above the list content */
     .blurb-wrapper::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 36px;
+      height: 32px;
       background: linear-gradient(to bottom, transparent, #e8e8e8);
       pointer-events: none;
-      -webkit-transition: opacity 0.2s ease;
-      transition: opacity 0.2s ease;
-      z-index: 1;
+      -webkit-transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease;
     }
 
     .blurb-wrapper.at-bottom::after {
