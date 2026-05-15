@@ -350,6 +350,7 @@
       flex: 1;
       position: relative;
       min-height: 0;
+      overflow: hidden;
     }
 
     .blurb-wrapper::after {
@@ -358,11 +359,12 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 40px;
+      height: 36px;
       background: linear-gradient(to bottom, transparent, #e8e8e8);
       pointer-events: none;
       -webkit-transition: opacity 0.2s ease;
       transition: opacity 0.2s ease;
+      z-index: 1;
     }
 
     .blurb-wrapper.at-bottom::after {
@@ -716,7 +718,7 @@
               animateCount(0, target, 1800);
             }
           });
-        }, { threshold: 0.2, root: container }).observe(document.querySelector('.counter-card'));
+        }, { threshold: 0.2 }).observe(document.querySelector('.counter-card'));
       }
 
     });
