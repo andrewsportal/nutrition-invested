@@ -11,16 +11,13 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      height: 100%;
-    }
+    html { height: 100%; }
 
     body {
       width: 100%;
       height: 100%;
       background: #e8e8e8;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      /* Snap container on body, not html — more reliable in Safari */
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: y mandatory;
@@ -30,7 +27,6 @@
     .page-1 {
       scroll-snap-align: start;
       scroll-snap-stop: always;
-      /* dvh with vh fallback for older Safari */
       min-height: 100vh;
       min-height: 100dvh;
       display: -webkit-flex;
@@ -39,7 +35,8 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 20px) + 24px) 20px calc(env(safe-area-inset-bottom, 20px) + 60px);
+      /* safe-area fallback 0px — Safari already accounts for it */
+      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 56px);
     }
 
     .cover-wrapper {
@@ -58,15 +55,15 @@
     .cover-wrapper img {
       display: block;
       width: 100%;
-      max-height: 58vh;
+      max-height: 56vh;
       object-fit: contain;
-      -webkit-filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
-      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
+      -webkit-filter: drop-shadow(0 12px 20px rgba(0,0,0,0.22));
+      filter: drop-shadow(0 12px 20px rgba(0,0,0,0.22));
       cursor: pointer;
     }
 
     .preview-hint {
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 0.72rem;
       color: #888;
       letter-spacing: 1px;
@@ -77,13 +74,13 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 16px;
-      margin-bottom: 16px;
+      margin-top: 12px;
+      margin-bottom: 12px;
       font-size: clamp(1rem, 4.4vw, 1.3rem);
       font-weight: 900;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: #4e8b61;
+      color: #458B66;
     }
 
     .headline .price { color: #222; }
@@ -120,12 +117,11 @@
       text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
-      -webkit-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      -webkit-box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
       -webkit-transition: transform 0.1s ease, box-shadow 0.1s ease;
       transition: transform 0.1s ease, box-shadow 0.1s ease;
       -webkit-tap-highlight-color: transparent;
-      /* Prevent Safari from styling as native button */
       -webkit-appearance: none;
       appearance: none;
     }
@@ -133,7 +129,7 @@
     .buy-btn:active {
       -webkit-transform: scale(0.97);
       transform: scale(0.97);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     }
 
     .buy-btn img { height: 22px; width: auto; }
@@ -142,13 +138,13 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 14px;
+      margin-top: 12px;
     }
 
     .payment-section p {
       font-size: 11px;
       color: #666;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 500;
       letter-spacing: 0.8px;
     }
@@ -160,82 +156,71 @@
       justify-content: center;
       -webkit-align-items: center;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
       opacity: 0.8;
     }
 
-    .payment-logos img { height: 14px; width: auto; }
+    .payment-logos img { height: 13px; width: auto; }
 
-    /* ── SCROLL BUTTON ── */
+    /* ── SCROLL BUTTON — Unicode chevron, no SVG, no CSS borders ── */
     .scroll-btn {
       margin-top: auto;
-      padding-top: 16px;
+      padding-top: 14px;
       display: -webkit-flex;
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      gap: 5px;
+      gap: 2px;
       background: none;
       border: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
       appearance: none;
-      /* Animate opacity only — avoids Safari transform conflict */
       -webkit-animation: pulse 2.4s ease-in-out infinite;
       animation: pulse 2.4s ease-in-out infinite;
     }
 
-    .scroll-btn span {
-      font-size: 9.5px;
-      letter-spacing: 1.6px;
+    .scroll-btn-label {
+      font-size: 9px;
+      letter-spacing: 1.8px;
       font-weight: 700;
       color: #555;
       text-transform: uppercase;
+      opacity: 0.45;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      opacity: 0.4;
     }
 
-    /* Chevron arrow using pure CSS borders — no SVG, no font rendering issues */
-    .scroll-btn-arrow {
-      width: 10px;
-      height: 10px;
-      border-right: 2px solid #555;
-      border-bottom: 2px solid #555;
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg);
-      opacity: 0.4;
-      margin-top: 2px;
-    }
-
-    /* Separate nudge animation for the arrow only */
-    .scroll-btn-arrow {
+    /* Unicode chevron — renders identically in every Safari version */
+    .scroll-btn-chevron {
+      font-size: 14px;
+      color: #555;
+      opacity: 0.45;
+      line-height: 1;
       -webkit-animation: nudge 2.4s ease-in-out infinite;
       animation: nudge 2.4s ease-in-out infinite;
     }
 
     @-webkit-keyframes nudge {
-      0%, 100% { -webkit-transform: rotate(45deg) translateY(0); transform: rotate(45deg) translateY(0); opacity: 0.4; }
-      50% { -webkit-transform: rotate(45deg) translateY(3px); transform: rotate(45deg) translateY(3px); opacity: 0.65; }
+      0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+      50% { -webkit-transform: translateY(3px); transform: translateY(3px); }
     }
-
     @keyframes nudge {
-      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
-      50% { transform: rotate(45deg) translateY(3px); opacity: 0.65; }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
     }
 
     @-webkit-keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      50% { opacity: 0.65; }
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      50% { opacity: 0.65; }
     }
 
     /* ── PAGE 2 ── */
@@ -250,10 +235,9 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 20px) + 28px) 20px calc(env(safe-area-inset-bottom, 20px) + 24px);
+      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
     }
 
-    /* ── INFO SECTION ── */
     .info-section-label {
       width: 100%;
       max-width: 480px;
@@ -271,7 +255,7 @@
       font-size: clamp(0.7rem, 2.8vw, 0.8rem);
       color: #bbb;
       font-weight: 500;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       line-height: 1.4;
     }
 
@@ -282,8 +266,8 @@
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
-      row-gap: 10px;
-      gap: 10px;
+      row-gap: 9px;
+      gap: 9px;
     }
 
     .blurb-item {
@@ -308,7 +292,7 @@
     .blurb-title {
       font-size: clamp(0.74rem, 2.9vw, 0.84rem);
       font-weight: 800;
-      color: #1A7A7A;
+      color: #458B66;
       letter-spacing: 0.4px;
       text-transform: uppercase;
       display: inline;
@@ -323,64 +307,63 @@
       display: inline;
     }
 
-    /* ── COUNTER CARD ── */
+    /* ── COUNTER CARD — compact stamp ── */
     .counter-card {
       width: 100%;
       max-width: 480px;
       background: #ffffff;
-      border-radius: 22px;
-      padding: 20px 24px 18px;
-      text-align: center;
-      -webkit-box-shadow: 0 8px 28px rgba(78, 139, 97, 0.13);
-      box-shadow: 0 8px 28px rgba(78, 139, 97, 0.13);
-      border: 1.5px solid #4e8b61;
-      margin-top: 20px;
+      border-radius: 50px;
+      padding: 10px 20px;
+      -webkit-box-shadow: 0 4px 16px rgba(69,139,102,0.10);
+      box-shadow: 0 4px 16px rgba(69,139,102,0.10);
+      border: 1.5px solid #458B66;
+      margin-top: 14px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      gap: 10px;
     }
 
     .counter-label-top {
-      font-size: 9.5px;
-      letter-spacing: 2px;
+      font-size: 8px;
+      letter-spacing: 1.8px;
       font-weight: 700;
-      color: #aaa;
+      color: #bbb;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      white-space: nowrap;
     }
 
     .counter-number {
-      font-size: clamp(3.6rem, 15vw, 4.8rem);
+      font-size: clamp(1.5rem, 6.5vw, 1.9rem);
       font-weight: 900;
-      color: #4e8b61;
-      letter-spacing: -2px;
+      color: #458B66;
+      letter-spacing: -1px;
       line-height: 1;
     }
 
     .counter-word {
-      font-size: clamp(0.88rem, 3.8vw, 1.05rem);
-      font-weight: 900;
-      letter-spacing: 3px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: #222;
-      margin-top: 4px;
+      color: #555;
     }
 
-    .counter-divider {
-      width: 34px;
-      height: 2px;
-      background: #4e8b61;
-      margin: 10px auto;
-      border-radius: 2px;
-      opacity: 0.5;
-    }
+    .counter-divider { display: none; }
 
     .counter-tagline {
-      font-size: clamp(0.71rem, 2.8vw, 0.82rem);
-      color: #999;
+      font-size: 0.62rem;
+      color: #bbb;
       font-weight: 500;
-      line-height: 1.55;
+      line-height: 1.4;
+      white-space: nowrap;
     }
 
     .counter-tagline strong {
-      color: #444;
+      color: #888;
       font-weight: 700;
     }
   </style>
@@ -388,7 +371,7 @@
 </head>
 <body>
 
-  <!-- ── PAGE 1: STORE ── -->
+  <!-- ── PAGE 1 ── -->
 
   <div class="page-1">
 
@@ -429,14 +412,14 @@
 </div>
 
 <button class="scroll-btn" id="scroll-down" aria-label="Scroll to About">
-  <span>About</span>
-  <div class="scroll-btn-arrow"></div>
+  <span class="scroll-btn-label">About</span>
+  <span class="scroll-btn-chevron">&#8964;</span>
 </button>
 ```
 
   </div>
 
-  <!-- ── PAGE 2: INFO + COUNTER ── -->
+  <!-- ── PAGE 2 ── -->
 
   <div class="page-2" id="page-2">
 
@@ -514,40 +497,35 @@
 
 <div class="counter-card">
   <p class="counter-label-top">Portfolio Update</p>
-
-  <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
+  <!-- ↓ UPDATE data-target WHEN MILESTONE HITS ↓ -->
   <div class="counter-number" data-target="100">
     <span id="counter-display">—</span>
   </div>
-
   <p class="counter-word">Investors</p>
   <div class="counter-divider"></div>
-  <p class="counter-tagline">Every number above made a deposit.<br><strong>One choice, compounded.</strong></p>
+  <p class="counter-tagline"><strong>One choice, compounded.</strong></p>
 </div>
 ```
 
   </div>
 
   <script>
-    // ── SCROLL BUTTON — Safari-safe smooth scroll polyfill ──
+    // ── SCROLL BUTTON — Safari-safe ──
     document.getElementById('scroll-down').addEventListener('click', function () {
       var page2 = document.getElementById('page-2');
       if ('scrollBehavior' in document.documentElement.style) {
         page2.scrollIntoView({ behavior: 'smooth' });
       } else {
-        // Fallback for older Safari that doesn't support smooth scrollBehavior
         var target = page2.getBoundingClientRect().top + window.pageYOffset;
         var start = window.pageYOffset;
         var distance = target - start;
         var duration = 500;
         var startTime = null;
-        function step(timestamp) {
-          if (!startTime) startTime = timestamp;
-          var elapsed = timestamp - startTime;
-          var progress = Math.min(elapsed / duration, 1);
-          var ease = progress < 0.5
-            ? 2 * progress * progress
-            : -1 + (4 - 2 * progress) * progress;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var elapsed = ts - startTime;
+          var p = Math.min(elapsed / duration, 1);
+          var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
           window.scrollTo(0, start + distance * ease);
           if (elapsed < duration) requestAnimationFrame(step);
         }
@@ -555,37 +533,33 @@
       }
     });
 
-    // ── COUNTER ANIMATION ──
+    // ── COUNTER ──
     var counterEl = document.querySelector('.counter-number');
     var displayEl = document.getElementById('counter-display');
     var target = parseInt(counterEl.getAttribute('data-target'), 10);
     var animated = false;
 
-    function animateCount(from, to, duration) {
+    function animateCount(from, to, dur) {
       if (to === 0) { displayEl.textContent = '—'; return; }
-      var start = performance.now();
+      var t0 = performance.now();
       function step(now) {
-        var elapsed = now - start;
-        var progress = Math.min(elapsed / duration, 1);
-        var ease = 1 - Math.pow(1 - progress, 3);
-        var current = Math.floor(from + (to - from) * ease);
-        displayEl.textContent = current.toLocaleString();
-        if (progress < 1) requestAnimationFrame(step);
+        var elapsed = now - t0;
+        var p = Math.min(elapsed / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
     }
 
-    // IntersectionObserver — supported in all modern Safari
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting && !animated) {
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && !animated) {
           animated = true;
           animateCount(0, target, 1800);
         }
       });
-    }, { threshold: 0.4 });
-
-    observer.observe(document.querySelector('.counter-card'));
+    }, { threshold: 0.4 }).observe(document.querySelector('.counter-card'));
   </script>
 
 </body>
