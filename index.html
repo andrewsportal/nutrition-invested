@@ -629,7 +629,23 @@
       var blurbWrapper = document.getElementById('blurb-wrapper');
       var counterCard = document.getElementById('counter-card');
 
-      // ── BLURB FADE ──
+      // ── PREVENT SAFARI OVERSCROLL BOUNCE ──
+      var startY = 0;
+      container.addEventListener('touchstart', function(e) {
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+
+      container.addEventListener('touchmove', function(e) {
+        var scrollTop = container.scrollTop;
+        var maxScroll = container.scrollHeight - container.clientHeight;
+        var currentY = e.touches[0].clientY;
+        var goingUp = currentY > startY;
+        var goingDown = currentY < startY;
+
+        if ((goingUp && scrollTop <= 0) || (goingDown && scrollTop >= maxScroll)) {
+          e.preventDefault();
+        }
+      }, { passive: false });
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
         var scrollTop = blurbList.scrollTop;
