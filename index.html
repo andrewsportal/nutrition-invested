@@ -19,7 +19,6 @@
       overflow: hidden;
     }
 
-    /* ── SCROLL CONTAINER — snap lives here, NOT on body ── */
     .scroll-container {
       width: 100%;
       height: 100%;
@@ -32,9 +31,7 @@
       -ms-overflow-style: none;
     }
 
-    .scroll-container::-webkit-scrollbar {
-      display: none;
-    }
+    .scroll-container::-webkit-scrollbar { display: none; }
 
     /* ── PAGE 1 ── */
     .page-1 {
@@ -52,7 +49,6 @@
       justify-content: center;
       padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
       overflow: hidden;
-      gap: 0;
     }
 
     .cover-wrapper {
@@ -69,11 +65,7 @@
       min-height: 0;
     }
 
-    .cover-wrapper a {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    .cover-wrapper a { display: block; width: 100%; height: 100%; }
 
     .cover-wrapper img {
       display: block;
@@ -195,9 +187,8 @@
 
     .payment-logos img { height: 13px; width: auto; }
 
-    /* ── SCROLL HINT — plain text nav ── */
     .scroll-hint {
-      margin-top: 16px;
+      margin-top: 10px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
       background: none;
@@ -214,9 +205,7 @@
       gap: 5px;
     }
 
-    .scroll-hint:active {
-      opacity: 0.6;
-    }
+    .scroll-hint:active { opacity: 0.6; }
 
     .scroll-hint-label {
       font-size: 12px;
@@ -227,8 +216,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       text-decoration: underline;
       text-underline-offset: 3px;
-      -webkit-text-decoration: underline;
-      text-decoration-color: rgba(69, 139, 102, 0.4);
+      text-decoration-color: rgba(69,139,102,0.4);
     }
 
     .scroll-hint-arrow {
@@ -236,10 +224,25 @@
       color: #458B66;
       font-weight: 700;
       line-height: 1;
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     }
 
-    /* ── SCROLL UP BUTTON — plain text, matches scroll hint ── */
+    /* ── PAGE 2 ── */
+    .page-2 {
+      position: relative;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      height: 100vh;
+      height: 100dvh;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: center;
+      align-items: center;
+      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
+      overflow: hidden;
+    }
+
     .scroll-up {
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 14px);
@@ -258,9 +261,7 @@
       gap: 5px;
     }
 
-    .scroll-up:active {
-      opacity: 0.6;
-    }
+    .scroll-up:active { opacity: 0.6; }
 
     .scroll-up-label {
       font-size: 12px;
@@ -268,10 +269,9 @@
       font-weight: 600;
       color: #458B66;
       text-transform: uppercase;
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(69, 139, 102, 0.4);
+      text-decoration-color: rgba(69,139,102,0.4);
     }
 
     .scroll-up-arrow {
@@ -279,23 +279,6 @@
       color: #458B66;
       font-weight: 700;
       line-height: 1;
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-    }
-    /* ── PAGE 2 ── */
-    .page-2 {
-      position: relative;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      height: 100vh;
-      height: 100dvh;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-flex-direction: column;
-      flex-direction: column;
-      -webkit-align-items: center;
-      align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
-      overflow: hidden;
     }
 
     .info-section-label {
@@ -323,6 +306,7 @@
       flex-shrink: 0;
     }
 
+    /* Blurb wrapper — flex: 1 takes remaining space, counter card stays pinned below */
     .blurb-wrapper {
       width: 100%;
       max-width: 480px;
@@ -345,30 +329,26 @@
       overflow-x: hidden;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding-bottom: 32px;
+      padding-bottom: 28px;
     }
 
-    .blurb-list::-webkit-scrollbar {
-      display: none;
-    }
+    .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Fade sits inside wrapper, strictly above the list content */
+    /* Bottom fade — disappears when scrolled to end */
     .blurb-wrapper::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 32px;
+      height: 28px;
       background: linear-gradient(to bottom, transparent, #e8e8e8);
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease;
       transition: opacity 0.25s ease;
     }
 
-    .blurb-wrapper.at-bottom::after {
-      opacity: 0;
-    }
+    .blurb-wrapper.at-bottom::after { opacity: 0; }
 
     .blurb-item {
       display: -webkit-flex;
@@ -536,72 +516,75 @@
   <div class="blurb-wrapper" id="blurb-wrapper">
     <div class="blurb-list" id="blurb-list">
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">🥩</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Eat</span>
-        <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">🥩</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Eat</span>
+          <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">📏</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Measure</span>
-        <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">📏</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Measure</span>
+          <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">📈</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Compound</span>
-        <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">📈</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Compound</span>
+          <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">⚙️</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Fix</span>
-        <span class="blurb-body">Gut. Inflammation. Mitochondria. The systems under the hood most people never touch — and wonder why nothing works.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">⚙️</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Fix</span>
+          <span class="blurb-body">Gut. Inflammation. Mitochondria. The systems under the hood most people never touch — and wonder why nothing works.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">💊</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Stack</span>
-        <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">💊</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Stack</span>
+          <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">🩸</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Audit</span>
-        <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">🩸</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Audit</span>
+          <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">🛡️</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Recover</span>
-        <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">🛡️</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Recover</span>
+          <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+        </div>
       </div>
-    </div>
 
-    <div class="blurb-item">
-      <span class="blurb-emoji">⚡</span>
-      <div class="blurb-text">
-        <span class="blurb-title">Deploy</span>
-        <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Run it today. No ramp-up required.</span>
+      <div class="blurb-item">
+        <span class="blurb-emoji">⚡</span>
+        <div class="blurb-text">
+          <span class="blurb-title">Deploy</span>
+          <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Run it today. No ramp-up required.</span>
+        </div>
       </div>
-    </div>
 
     </div>
   </div>
+
+  <!-- COUNTER CARD — pinned below blurb list -->
+  <div class="counter-card" id="counter-card">
     <p class="counter-label-top">Portfolio Update</p>
     <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
     <div class="counter-number" data-target="100">
@@ -615,7 +598,7 @@
 </div>
 ```
 
-  </div><!-- end scroll-container -->
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -624,16 +607,13 @@
       var page2 = document.getElementById('page-2');
       var blurbList = document.getElementById('blurb-list');
       var blurbWrapper = document.getElementById('blurb-wrapper');
+      var counterCard = document.getElementById('counter-card');
 
       // ── BLURB FADE ──
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
         var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
-        if (atBottom) {
-          blurbWrapper.classList.add('at-bottom');
-        } else {
-          blurbWrapper.classList.remove('at-bottom');
-        }
+        blurbWrapper.classList.toggle('at-bottom', atBottom);
       }
 
       if (blurbList) {
@@ -641,31 +621,7 @@
         updateFade();
       }
 
-      // ── SCROLL UP BUTTON ──
-      var scrollUpBtn = document.getElementById('scroll-up');
-      if (scrollUpBtn) {
-        scrollUpBtn.addEventListener('click', function () {
-          var page1 = document.querySelector('.page-1');
-          if ('scrollBehavior' in document.documentElement.style) {
-            page1.scrollIntoView({ behavior: 'smooth' });
-          } else {
-            var start = container.scrollTop;
-            var duration = 500;
-            var startTime = null;
-            function stepUp(ts) {
-              if (!startTime) startTime = ts;
-              var elapsed = ts - startTime;
-              var p = Math.min(elapsed / duration, 1);
-              var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
-              container.scrollTop = start * (1 - ease);
-              if (elapsed < duration) requestAnimationFrame(stepUp);
-            }
-            requestAnimationFrame(stepUp);
-          }
-        });
-      }
-
-      // ── SCROLL DOWN BUTTON ──
+      // ── SCROLL DOWN ──
       var scrollDownBtn = document.getElementById('scroll-down');
       if (scrollDownBtn) {
         scrollDownBtn.addEventListener('click', function () {
@@ -676,48 +632,75 @@
             var start = container.scrollTop;
             var distance = target - start;
             var duration = 500;
-            var startTime = null;
-            function step(ts) {
-              if (!startTime) startTime = ts;
-              var elapsed = ts - startTime;
-              var p = Math.min(elapsed / duration, 1);
+            var t0 = null;
+            function stepDown(ts) {
+              if (!t0) t0 = ts;
+              var p = Math.min((ts - t0) / duration, 1);
               var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
               container.scrollTop = start + distance * ease;
-              if (elapsed < duration) requestAnimationFrame(step);
+              if (p < 1) requestAnimationFrame(stepDown);
             }
-            requestAnimationFrame(step);
+            requestAnimationFrame(stepDown);
           }
         });
       }
 
-      // ── COUNTER ANIMATION ──
+      // ── SCROLL UP ──
+      var scrollUpBtn = document.getElementById('scroll-up');
+      if (scrollUpBtn) {
+        scrollUpBtn.addEventListener('click', function () {
+          var page1 = document.querySelector('.page-1');
+          if ('scrollBehavior' in document.documentElement.style) {
+            page1.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            var start = container.scrollTop;
+            var duration = 500;
+            var t0 = null;
+            function stepUp(ts) {
+              if (!t0) t0 = ts;
+              var p = Math.min((ts - t0) / duration, 1);
+              var ease = p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p;
+              container.scrollTop = start * (1 - ease);
+              if (p < 1) requestAnimationFrame(stepUp);
+            }
+            requestAnimationFrame(stepUp);
+          }
+        });
+      }
+
+      // ── COUNTER ──
       var counterEl = document.querySelector('.counter-number');
       var displayEl = document.getElementById('counter-display');
       if (counterEl && displayEl) {
         var target = parseInt(counterEl.getAttribute('data-target'), 10);
         var animated = false;
 
+        // Show immediately
+        displayEl.textContent = target === 0 ? '—' : target.toLocaleString();
+
         function animateCount(from, to, dur) {
           if (to === 0) { displayEl.textContent = '—'; return; }
           var t0 = performance.now();
-          function step(now) {
-            var elapsed = now - t0;
-            var p = Math.min(elapsed / dur, 1);
+          function tick(now) {
+            var p = Math.min((now - t0) / dur, 1);
             var ease = 1 - Math.pow(1 - p, 3);
             displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
-            if (p < 1) requestAnimationFrame(step);
+            if (p < 1) requestAnimationFrame(tick);
           }
-          requestAnimationFrame(step);
+          requestAnimationFrame(tick);
         }
 
-        new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting && !animated) {
-              animated = true;
-              animateCount(0, target, 1800);
-            }
-          });
-        }, { threshold: 0.2 }).observe(document.querySelector('.counter-card'));
+        if (counterCard) {
+          new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+              if (e.isIntersecting && !animated) {
+                animated = true;
+                displayEl.textContent = '0';
+                animateCount(0, target, 1800);
+              }
+            });
+          }, { threshold: 0.1 }).observe(counterCard);
+        }
       }
 
     });
