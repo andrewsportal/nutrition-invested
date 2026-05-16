@@ -158,8 +158,27 @@
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
       appearance: none;
-      -webkit-transition: -webkit-transform 0.12s ease;
-      transition: transform 0.12s ease;
+      -webkit-transition: -webkit-transform 0.12s ease, box-shadow 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .buy-btn.primary {
+      background: #4E8B61;
+      color: #ffffff;
+      border-color: #4E8B61;
+      -webkit-box-shadow: 0 6px 22px rgba(78,139,97,0.35);
+      box-shadow: 0 6px 22px rgba(78,139,97,0.35);
+    }
+
+    .buy-btn.primary .logo-amazon {
+      filter: brightness(0) invert(1);
+      -webkit-filter: brightness(0) invert(1);
+    }
+
+    .buy-btn.secondary {
+      background: #ffffff;
+      color: #444;
+      border-color: #d0d0d0;
     }
 
     .buy-btn span:last-child {
@@ -258,6 +277,18 @@
       color: #4E8B61;
       font-weight: 600;
       line-height: 1;
+      -webkit-animation: pulse-down 1.6s ease-in-out infinite;
+      animation: pulse-down 1.6s ease-in-out infinite;
+    }
+
+    @-webkit-keyframes pulse-down {
+      0%, 100% { -webkit-transform: translateY(0); opacity: 1; }
+      50% { -webkit-transform: translateY(3px); opacity: 0.5; }
+    }
+
+    @keyframes pulse-down {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(3px); opacity: 0.5; }
     }
 
     .page-2-inner {
@@ -504,11 +535,11 @@
     </div>
 
     <div class="buttons">
-      <a class="buy-btn" href="https://www.amazon.com/" target="_blank" rel="noopener">
+      <a class="buy-btn primary" href="https://www.amazon.com/" target="_blank" rel="noopener">
         <span class="btn-logo-wrap"><img src="amazon.svg" alt="Amazon" class="logo-amazon"></span>
         <span>Buy on Amazon</span>
       </a>
-      <a class="buy-btn" href="https://payhip.com/" target="_blank" rel="noopener">
+      <a class="buy-btn secondary" href="https://payhip.com/" target="_blank" rel="noopener">
         <span class="btn-logo-wrap"><img src="payhip.svg" alt="Payhip" class="logo-payhip"></span>
         <span>Buy on Payhip</span>
       </a>
@@ -616,7 +647,7 @@
     </div>
 
     <div class="counter-card" id="counter-card">
-      <p class="counter-label-top">✴︎ IN THE MARKET ✴︎</p>
+      <p class="counter-label-top">IN THE MARKET</p>
       <div class="counter-number" data-target="100">
         <span id="counter-display">—</span>
       </div>
