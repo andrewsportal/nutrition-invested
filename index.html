@@ -6,7 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Nutrition, Invested</title>
+  <title>Nutrition, Invested — The Tactical Nutrition Playbook</title>
+  <meta name="description" content="Every meal is a deposit. The tactical nutrition playbook for building lasting health — no trackers, no meal plans. $6.99.">
+
+  <!-- Open Graph -->
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nutrition, Invested — The Tactical Nutrition Playbook">
+  <meta property="og:description" content="Every meal is a deposit. Build lasting health with the DRIP system. No trackers. No meal plans. $6.99.">
+  <meta property="og:image" content="https://andrewsportal.github.io/nutrition-invested/cover.JPEG">
+  <meta property="og:url" content="https://andrewsportal.github.io/nutrition-invested/">
+  <meta property="og:site_name" content="Nutrition, Invested">
+
+  <!-- Twitter Card -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nutrition, Invested — The Tactical Nutrition Playbook">
+  <meta name="twitter:description" content="Every meal is a deposit. Build lasting health with the DRIP system. No trackers. No meal plans. $6.99.">
+  <meta name="twitter:image" content="https://andrewsportal.github.io/nutrition-invested/cover.JPEG">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,7 +32,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #e8e8e8;
+      background: linear-gradient(160deg, #efefef 0%, #e2e2e2 100%);
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       touch-action: none;
     }
@@ -40,7 +57,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #e8e8e8;
+      background: transparent;
     }
 
     .page-1 { top: 0; }
@@ -170,8 +187,7 @@
       box-shadow: 0 6px 22px rgba(78,139,97,0.35);
     }
 
-    .buy-btn.primary .logo-amazon,
-    .buy-btn.primary .logo-payhip {
+    .buy-btn.primary .logo-amazon {
       filter: brightness(0) invert(1);
       -webkit-filter: brightness(0) invert(1);
     }
@@ -213,7 +229,7 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 18px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
     }
@@ -310,19 +326,22 @@
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 14px);
       right: 20px;
-      background: none;
-      border: none;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(78,139,97,0.3);
+      border-radius: 50px;
       -webkit-appearance: none;
       appearance: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      padding: 0;
+      padding: 5px 12px;
       display: -webkit-inline-flex;
       display: inline-flex;
       -webkit-align-items: center;
       align-items: center;
       gap: 5px;
       touch-action: manipulation;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
     }
 
     .scroll-up:active { opacity: 0.6; }
@@ -333,9 +352,6 @@
       font-weight: 600;
       color: #4E8B61;
       text-transform: uppercase;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: rgba(78,139,97,0.4);
     }
 
     .scroll-up-arrow {
@@ -392,7 +408,7 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 48px;
-      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.98));
+      background: linear-gradient(to bottom, rgba(227,227,227,0), rgba(227,227,227,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease;
       transition: opacity 0.25s ease;
@@ -404,7 +420,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 48px;
-      background: linear-gradient(to top, rgba(232,232,232,0), rgba(232,232,232,0.98));
+      background: linear-gradient(to top, rgba(227,227,227,0), rgba(227,227,227,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease;
       transition: opacity 0.25s ease;
@@ -456,13 +472,15 @@
     .counter-card {
       width: 100%;
       max-width: 480px;
-      background: #ffffff;
+      background: rgba(255,255,255,0.75);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      backdrop-filter: blur(16px) saturate(180%);
       border-radius: 22px;
       padding: 12px 24px;
       text-align: center;
-      -webkit-box-shadow: 0 4px 16px rgba(78,139,97,0.10);
-      box-shadow: 0 4px 16px rgba(78,139,97,0.10);
-      border: 1.5px solid #4E8B61;
+      -webkit-box-shadow: 0 4px 24px rgba(78,139,97,0.12);
+      box-shadow: 0 4px 24px rgba(78,139,97,0.12);
+      border: 1.5px solid rgba(78,139,97,0.35);
       margin-top: 10px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -540,7 +558,7 @@
         <span class="btn-logo-wrap"><img src="amazon.svg" alt="Amazon" class="logo-amazon"></span>
         <span>Buy on Amazon</span>
       </a>
-      <a class="buy-btn primary" href="https://payhip.com/" target="_blank" rel="noopener">
+      <a class="buy-btn secondary" href="https://payhip.com/" target="_blank" rel="noopener">
         <span class="btn-logo-wrap"><img src="payhip.svg" alt="Payhip" class="logo-payhip"></span>
         <span>Buy on Payhip</span>
       </a>
