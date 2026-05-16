@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#efefef">
   <title>Nutrition, Invested — The Tactical Nutrition Playbook</title>
   <meta name="description" content="Every meal is a deposit. The tactical nutrition playbook for building lasting health — no trackers, no meal plans. $6.99.">
@@ -32,7 +32,11 @@
     html {
       width: 100%;
       height: 100%;
-      background: linear-gradient(160deg, #efefef 0%, #e2e2e2 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-color: #efefef;
+      background-image: linear-gradient(160deg, #efefef 0%, #e2e2e2 100%);
+      background-attachment: fixed;
     }
 
     body {
