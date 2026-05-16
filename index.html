@@ -110,7 +110,7 @@
       font-weight: 900;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: #458B66;
+      color: #4E8B61;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
     }
@@ -249,16 +249,16 @@
       font-size: 12px;
       letter-spacing: 0.8px;
       font-weight: 600;
-      color: #458B66;
+      color: #4E8B61;
       text-transform: uppercase;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(69,139,102,0.4);
+      text-decoration-color: rgba(78,139,97,0.4);
     }
 
     .scroll-hint-arrow {
       font-size: 12px;
-      color: #458B66;
+      color: #4E8B61;
       font-weight: 600;
       line-height: 1;
     }
@@ -303,16 +303,16 @@
       font-size: 12px;
       letter-spacing: 0.8px;
       font-weight: 600;
-      color: #458B66;
+      color: #4E8B61;
       text-transform: uppercase;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(69,139,102,0.4);
+      text-decoration-color: rgba(78,139,97,0.4);
     }
 
     .scroll-up-arrow {
       font-size: 12px;
-      color: #458B66;
+      color: #4E8B61;
       font-weight: 600;
       line-height: 1;
     }
@@ -354,7 +354,6 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       padding-bottom: 28px;
-      /* Allow inner scroll without triggering page swipe */
       touch-action: pan-y;
     }
 
@@ -411,7 +410,7 @@
     .blurb-title {
       font-size: 0.85rem;
       font-weight: 800;
-      color: #458B66;
+      color: #4E8B61;
       letter-spacing: 0.8px;
       text-transform: uppercase;
       display: inline;
@@ -433,9 +432,9 @@
       border-radius: 22px;
       padding: 12px 24px;
       text-align: center;
-      -webkit-box-shadow: 0 4px 16px rgba(69,139,102,0.10);
-      box-shadow: 0 4px 16px rgba(69,139,102,0.10);
-      border: 1.5px solid #458B66;
+      -webkit-box-shadow: 0 4px 16px rgba(78,139,97,0.10);
+      box-shadow: 0 4px 16px rgba(78,139,97,0.10);
+      border: 1.5px solid #4E8B61;
       margin-top: 10px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -453,7 +452,7 @@
     .counter-number {
       font-size: clamp(1.8rem, 8vw, 2.2rem);
       font-weight: 900;
-      color: #458B66;
+      color: #4E8B61;
       letter-spacing: -1px;
       line-height: 1;
     }
@@ -470,7 +469,7 @@
     .counter-divider {
       width: 24px;
       height: 1.5px;
-      background: #458B66;
+      background: #4E8B61;
       margin: 6px auto;
       border-radius: 2px;
       opacity: 0.4;
@@ -622,7 +621,6 @@
 
     <div class="counter-card" id="counter-card">
       <p class="counter-label-top">In The Market</p>
-      <!-- ↓ UPDATE data-target TO YOUR REAL BUYER COUNT WHEN MILESTONE HITS ↓ -->
       <div class="counter-number" data-target="100">
         <span id="counter-display">—</span>
       </div>
@@ -644,10 +642,9 @@
       var blurbList = document.getElementById('blurb-list');
       var blurbWrapper = document.getElementById('blurb-wrapper');
       var counterCard = document.getElementById('counter-card');
-      var currentPage = 0; // 0 = page 1, 1 = page 2
+      var currentPage = 0;
       var isAnimating = false;
 
-      // ── PAGE NAVIGATION ──
       function goToPage(index) {
         if (isAnimating) return;
         if (index === currentPage) return;
@@ -658,7 +655,6 @@
         setTimeout(function() { isAnimating = false; }, 480);
       }
 
-      // ── BUTTON NAVIGATION ──
       document.getElementById('scroll-down').addEventListener('click', function() {
         goToPage(1);
       });
@@ -667,7 +663,6 @@
         goToPage(0);
       });
 
-      // ── SWIPE DETECTION ──
       var touchStartY = 0;
       var touchStartX = 0;
       var touchStartTime = 0;
@@ -681,12 +676,10 @@
       }, { passive: true });
 
       document.addEventListener('touchmove', function(e) {
-        // Always prevent default to stop any Safari bounce
         var target = e.target;
         var isInsideBlurbList = blurbList && blurbList.contains(target);
 
         if (isInsideBlurbList) {
-          // Allow internal blurb scroll but prevent page bounce
           var dy = touchStartY - e.touches[0].clientY;
           var atTop = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
@@ -706,15 +699,12 @@
         var target = e.target;
         var isInsideBlurbList = blurbList && blurbList.contains(target);
 
-        // Ignore if horizontal swipe
         if (Math.abs(dx) > Math.abs(dy)) return;
 
-        // Threshold: 50px or fast flick
         var isSwipe = Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300);
         if (!isSwipe) return;
 
         if (isInsideBlurbList) {
-          // Only navigate if blurb list is at its boundary
           var atTop = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
 
@@ -724,7 +714,6 @@
             goToPage(0);
           }
         } else {
-          // Outside blurb list — navigate freely
           if (dy > 0 && currentPage === 0) {
             goToPage(1);
           } else if (dy < 0 && currentPage === 1) {
@@ -733,7 +722,6 @@
         }
       }, { passive: true });
 
-      // ── BLURB FADE ──
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
         var scrollTop = blurbList.scrollTop;
@@ -749,7 +737,6 @@
         updateFade();
       }
 
-      // ── COUNTER ──
       var counterEl = document.querySelector('.counter-number');
       var displayEl = document.getElementById('counter-display');
       if (counterEl && displayEl) {
