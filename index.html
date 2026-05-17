@@ -273,7 +273,6 @@
       width: 100%; max-width: 480px;
       font-size: clamp(0.65rem, 2.6vw, 0.75rem);
       letter-spacing: 2.5px; font-weight: 700; color: #999999;
-      /* tightened from 10px */
       margin-bottom: 8px;
       line-height: 1.4; text-transform: uppercase;
       -webkit-flex-shrink: 0; flex-shrink: 0;
@@ -297,15 +296,17 @@
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
+    /* FIX: reduced from 36px to 18px — gradient was masking Deploy's last line */
     .blurb-wrapper::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 36px;
-      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.98));
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 18px;
+      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.95));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease; opacity: 1;
     }
 
     .blurb-wrapper::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 36px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 28px;
       background: linear-gradient(to top, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease;
@@ -321,7 +322,6 @@
       -webkit-align-items: flex-start; align-items: flex-start; gap: 9px;
     }
 
-    /* emoji — icon tier, slightly above body */
     .blurb-emoji {
       font-size: clamp(0.9rem, 3.6vw, 1.05rem);
       line-height: 1.4;
@@ -331,16 +331,15 @@
 
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
-    /* title — nudged up from 0.78–0.88rem */
     .blurb-title {
       font-size: clamp(0.82rem, 3.3vw, 0.92rem);
       font-weight: 800; color: #4E8B61; letter-spacing: 0.8px;
       text-transform: uppercase; display: inline; margin-right: 4px;
     }
 
-    /* body — nudged up from 0.75–0.85rem */
+    /* FIX: body nudged down from 0.79–0.89rem to 0.77–0.87rem */
     .blurb-body {
-      font-size: clamp(0.79rem, 3.15vw, 0.89rem);
+      font-size: clamp(0.77rem, 3.05vw, 0.87rem);
       color: #4a4a4a; line-height: 1.45; font-weight: 500; display: inline;
     }
 
