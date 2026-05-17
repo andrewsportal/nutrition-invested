@@ -33,16 +33,14 @@
 
     body {
       width: 100%; height: 100%;
-      overflow: hidden;
-      background: #e8e8e8;
+      overflow: hidden; background: #e8e8e8;
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       touch-action: none;
     }
 
     .slide-container {
       position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #e8e8e8;
+      width: 100%; height: 100%; background: #e8e8e8;
       will-change: transform;
       -webkit-transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
       transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
@@ -60,13 +58,19 @@
 
     /* ── PAGE 1 ── */
 
+    /*
+      UX: flex-start + padding-top creates a natural 38/62 upward bias.
+      Cover reads as hero. CTA sits comfortably in the lower half.
+      Much stronger visual flow than dead-center.
+    */
     .page-inner {
       width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: center; justify-content: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px max(calc(env(safe-area-inset-bottom) + 20px), 34px);
+      -webkit-justify-content: flex-start; justify-content: flex-start;
+      padding: calc(env(safe-area-inset-top, 0px) + 44px) 20px max(calc(env(safe-area-inset-bottom) + 20px), 34px);
+      overflow: hidden;
     }
 
     .cover-wrapper {
@@ -75,13 +79,13 @@
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
       -webkit-flex: 0 0 auto; flex: 0 0 auto;
-      max-height: 52vh;
+      max-height: 48vh;
     }
 
     .cover-wrapper a { display: block; width: 100%; }
 
     .cover-wrapper img {
-      display: block; width: 100%; height: auto; max-height: 52vh;
+      display: block; width: 100%; height: auto; max-height: 48vh;
       object-fit: contain;
       -webkit-filter: drop-shadow(0 8px 24px rgba(0,0,0,0.13)) drop-shadow(0 2px 6px rgba(0,0,0,0.08));
       filter: drop-shadow(0 8px 24px rgba(0,0,0,0.13)) drop-shadow(0 2px 6px rgba(0,0,0,0.08));
@@ -97,7 +101,7 @@
     }
 
     .preview-hint {
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: clamp(0.65rem, 2.6vw, 0.75rem);
       color: #999999; letter-spacing: 1.8px; font-weight: 500;
       -webkit-flex-shrink: 0; flex-shrink: 0;
@@ -105,7 +109,7 @@
 
     .headline {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: 12px; margin-bottom: 12px;
+      margin-top: 14px; margin-bottom: 14px;
       font-size: clamp(1rem, 4.4vw, 1.25rem);
       font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase;
       color: #4E8B61;
@@ -113,8 +117,7 @@
     }
 
     .headline .price {
-      color: #222;
-      font-size: clamp(1rem, 4.4vw, 1.25rem);
+      color: #222; font-size: clamp(1rem, 4.4vw, 1.25rem);
       font-weight: 900; letter-spacing: 1.2px;
     }
 
@@ -135,7 +138,7 @@
       gap: 10px; width: 100%;
       background: #ffffff; color: #222;
       border: 1.5px solid #d4d4d4; border-radius: 50px;
-      padding: 14px 24px;
+      padding: 15px 24px;
       font-size: clamp(0.9rem, 3.8vw, 1.05rem);
       font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
       text-decoration: none; cursor: pointer;
@@ -164,7 +167,8 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
-    .buy-btn span:last-child { width: 160px; text-align: left; }
+    /* removed fixed width — lets text center naturally on all screen sizes */
+    .buy-btn span:last-child { text-align: left; }
     .buy-btn:active { -webkit-transform: scale(0.97); transform: scale(0.97); }
     .buy-btn img { width: auto; }
     .buy-btn .logo-amazon { height: 26px; display: block; margin: 0 auto; }
@@ -180,13 +184,12 @@
 
     .payment-section {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: 16px;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      margin-top: 12px; -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
     .payment-section p {
       font-size: clamp(0.65rem, 2.6vw, 0.75rem);
-      color: #999999; margin-bottom: 8px; font-weight: 500; letter-spacing: 1.8px;
+      color: #999999; margin-bottom: 7px; font-weight: 500; letter-spacing: 1.8px;
     }
 
     .payment-logos {
@@ -198,55 +201,73 @@
 
     .payment-logos img { height: 16px; width: auto; }
 
+    /*
+      UX: "What's Inside" is the sole navigation affordance on page 1.
+      Increased top margin and made it feel more like a deliberate CTA —
+      spacer pushes it toward the bottom third of the screen naturally.
+    */
+    .scroll-hint-spacer {
+      -webkit-flex: 1; flex: 1;
+      min-height: 12px; max-height: 32px;
+    }
+
     .scroll-hint {
-      margin-top: 14px;
       -webkit-flex-shrink: 0; flex-shrink: 0;
       background: none; border: none;
       -webkit-appearance: none; appearance: none;
       cursor: pointer; -webkit-tap-highlight-color: transparent;
-      padding: 0; display: -webkit-inline-flex; display: inline-flex;
+      padding: 8px 0; display: -webkit-inline-flex; display: inline-flex;
       -webkit-align-items: center; align-items: center;
-      gap: 5px; touch-action: manipulation;
+      gap: 6px; touch-action: manipulation;
+      margin-bottom: 4px;
     }
 
     .scroll-hint:active { opacity: 0.6; }
 
     .scroll-hint-label {
-      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
-      letter-spacing: 1.8px; font-weight: 600; color: #4E8B61;
+      font-size: clamp(0.72rem, 2.9vw, 0.82rem);
+      letter-spacing: 2px; font-weight: 700; color: #4E8B61;
       text-transform: uppercase; text-decoration: underline;
-      text-underline-offset: 3px; text-decoration-color: rgba(78,139,97,0.35);
+      text-underline-offset: 3px; text-decoration-color: rgba(78,139,97,0.4);
     }
 
     .scroll-hint-arrow {
-      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
-      color: #4E8B61; font-weight: 600; line-height: 1;
+      font-size: clamp(0.72rem, 2.9vw, 0.82rem);
+      color: #4E8B61; font-weight: 700; line-height: 1;
       -webkit-animation: pulse-down 1.6s ease-in-out infinite;
       animation: pulse-down 1.6s ease-in-out infinite;
     }
 
     @-webkit-keyframes pulse-down {
       0%, 100% { -webkit-transform: translateY(0); opacity: 1; }
-      50% { -webkit-transform: translateY(3px); opacity: 0.5; }
+      50% { -webkit-transform: translateY(4px); opacity: 0.45; }
     }
     @keyframes pulse-down {
       0%, 100% { transform: translateY(0); opacity: 1; }
-      50% { transform: translateY(3px); opacity: 0.5; }
+      50% { transform: translateY(4px); opacity: 0.45; }
     }
 
     /* ── PAGE 2 ── */
 
+    /*
+      UX: consistent 20px side padding matches page 1.
+      Top padding matched to page 1 safe area handling.
+    */
     .page-2-inner {
       position: relative; width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 26px) 22px 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px 0;
       overflow: hidden;
     }
 
+    /*
+      UX: Back button positioned to align vertically with the section label.
+      Same top offset as page-2-inner padding so they sit on the same baseline.
+    */
     .scroll-up {
-      position: absolute; top: calc(env(safe-area-inset-top, 0px) + 16px); right: 20px;
+      position: absolute; top: calc(env(safe-area-inset-top, 0px) + 20px); right: 20px;
       background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.09);
       border-radius: 50px; -webkit-appearance: none; appearance: none;
       cursor: pointer; -webkit-tap-highlight-color: transparent;
@@ -269,12 +290,32 @@
       color: #4E8B61; font-weight: 600; line-height: 1;
     }
 
-    .info-section-sublabel {
+    /*
+      UX: section label row — label left, Back button floats right absolute.
+      Explicit line-height so label baseline matches button cap-height.
+    */
+    .page-2-header {
       width: 100%; max-width: 480px;
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-flex-shrink: 0; flex-shrink: 0;
+      margin-bottom: 0;
+    }
+
+    .info-section-sublabel {
       font-size: clamp(0.65rem, 2.6vw, 0.75rem);
       letter-spacing: 2.5px; font-weight: 700; color: #999999;
-      margin-bottom: 8px;
-      line-height: 1.4; text-transform: uppercase;
+      line-height: 1; text-transform: uppercase;
+    }
+
+    /*
+      UX: hairline rule between header and blurb list.
+      Signals "content zone starts here" without adding visual noise.
+    */
+    .page-2-rule {
+      width: 100%; max-width: 480px;
+      height: 1px; background: rgba(0,0,0,0.07);
+      margin: 10px 0 10px;
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
@@ -296,11 +337,10 @@
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* FIX: reduced from 36px to 18px — gradient was masking Deploy's last line */
     .blurb-wrapper::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 18px;
-      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.95));
+      height: 28px;
+      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.97));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease; opacity: 1;
     }
@@ -324,8 +364,7 @@
 
     .blurb-emoji {
       font-size: clamp(0.9rem, 3.6vw, 1.05rem);
-      line-height: 1.4;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      line-height: 1.4; -webkit-flex-shrink: 0; flex-shrink: 0;
       width: 20px; text-align: center;
     }
 
@@ -337,7 +376,6 @@
       text-transform: uppercase; display: inline; margin-right: 4px;
     }
 
-    /* FIX: body nudged down from 0.79–0.89rem to 0.77–0.87rem */
     .blurb-body {
       font-size: clamp(0.77rem, 3.05vw, 0.87rem);
       color: #4a4a4a; line-height: 1.45; font-weight: 500; display: inline;
@@ -378,8 +416,7 @@
     }
 
     .counter-bar-divider {
-      width: 1px; height: 36px;
-      background: rgba(255,255,255,0.22);
+      width: 1px; height: 36px; background: rgba(255,255,255,0.22);
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
@@ -444,6 +481,9 @@
       </div>
     </div>
 
+    <!-- flexible spacer pushes What's Inside toward bottom third -->
+    <div class="scroll-hint-spacer"></div>
+
     <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
       <span class="scroll-hint-label">What's Inside</span>
       <span class="scroll-hint-arrow">&#8595;</span>
@@ -461,7 +501,13 @@
       <span class="scroll-up-label">Back</span>
     </button>
 
-    <p class="info-section-sublabel">THE QUICK BITES</p>
+    <!-- header row: label left, Back button absolute right -->
+    <div class="page-2-header">
+      <p class="info-section-sublabel">THE QUICK BITES</p>
+    </div>
+
+    <!-- hairline rule separates header from content zone -->
+    <div class="page-2-rule"></div>
 
     <div class="blurb-wrapper" id="blurb-wrapper">
       <div class="blurb-list" id="blurb-list">
