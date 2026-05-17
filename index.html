@@ -280,23 +280,20 @@
       min-height: 28px;
     }
 
-    /*
-      TYPE HIERARCHY on page 2:
-      Section label  0.72–0.82rem  ← clearly smaller than content, wider spacing = intentional
-      Blurb title    0.86–0.96rem  ← content header, bold green
-      Blurb body     0.81–0.91rem  ← reading text
-      The label sits one clear step below the titles it introduces.
-    */
     .info-section-sublabel {
       font-size: clamp(0.72rem, 2.9vw, 0.82rem);
       letter-spacing: 3px; font-weight: 700; color: #999999;
       line-height: 1; text-transform: uppercase;
     }
 
+    /*
+      Rule margin: 14px above (closer to header), 16px below (more air into content).
+      Rule reads as separator, not as grouped with the header.
+    */
     .page-2-rule {
       width: 100%; max-width: 480px;
       height: 1px; background: rgba(0,0,0,0.07);
-      margin: 16px 0 12px;
+      margin: 14px 0 16px;
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
