@@ -87,47 +87,50 @@
       padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px max(calc(env(safe-area-inset-bottom) + 20px), 34px);
     }
 
+    /* FIX 5: cover holds size, doesn't shrink before other elements */
     .cover-wrapper {
       width: 100%;
-      max-width: 460px;
+      max-width: 380px;
       display: -webkit-flex;
       display: flex;
       -webkit-align-items: center;
       align-items: center;
       -webkit-justify-content: center;
       justify-content: center;
-      -webkit-flex: 0 1 62vh;
-      flex: 0 1 62vh;
-      min-height: 0;
+      -webkit-flex: 0 0 auto;
+      flex: 0 0 auto;
+      max-height: 52vh;
     }
 
-    .cover-wrapper a { display: block; width: 100%; height: 100%; }
+    .cover-wrapper a { display: block; width: 100%; }
 
+    /* FIX 1: softer, more diffuse shadow — premium feel */
     .cover-wrapper img {
       display: block;
       width: 100%;
-      height: 100%;
-      max-height: 100%;
+      height: auto;
+      max-height: 52vh;
       object-fit: contain;
-      -webkit-filter: drop-shadow(0 12px 20px rgba(0,0,0,0.22));
-      filter: drop-shadow(0 12px 20px rgba(0,0,0,0.22));
+      -webkit-filter: drop-shadow(0 8px 24px rgba(0,0,0,0.13)) drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.13)) drop-shadow(0 2px 6px rgba(0,0,0,0.08));
       cursor: pointer;
-      -webkit-transition: -webkit-transform 0.2s ease, -webkit-filter 0.2s ease;
-      transition: transform 0.2s ease, filter 0.2s ease;
+      -webkit-transition: -webkit-transform 0.22s ease, -webkit-filter 0.22s ease;
+      transition: transform 0.22s ease, filter 0.22s ease;
     }
 
-    .cover-wrapper img:hover {
-      -webkit-transform: scale(1.02);
-      transform: scale(1.02);
-      -webkit-filter: drop-shadow(0 16px 28px rgba(0,0,0,0.28));
-      filter: drop-shadow(0 16px 28px rgba(0,0,0,0.28));
+    .cover-wrapper img:active {
+      -webkit-transform: scale(0.99);
+      transform: scale(0.99);
+      -webkit-filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
     }
 
+    /* FIX 3: more letter-spacing on meta labels so they read as intentional */
     .preview-hint {
       margin-top: 10px;
-      font-size: 11px;
-      color: #888888;
-      letter-spacing: 0.8px;
+      font-size: clamp(0.65rem, 2.6vw, 0.75rem);
+      color: #999999;
+      letter-spacing: 1.8px;
       font-weight: 500;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -137,9 +140,9 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      font-size: clamp(1rem, 4.4vw, 1.3rem);
+      margin-top: 12px;
+      margin-bottom: 12px;
+      font-size: clamp(1rem, 4.4vw, 1.25rem);
       font-weight: 900;
       letter-spacing: 1.2px;
       text-transform: uppercase;
@@ -150,11 +153,12 @@
 
     .headline .price {
       color: #222;
-      font-size: clamp(1rem, 4.4vw, 1.3rem);
+      font-size: clamp(1rem, 4.4vw, 1.25rem);
       font-weight: 900;
       letter-spacing: 1.2px;
     }
-    .headline .divider { color: #888888; margin: 0 6px; font-weight: 700; }
+
+    .headline .divider { color: #aaaaaa; margin: 0 6px; font-weight: 400; }
 
     .buttons {
       width: 100%;
@@ -180,17 +184,17 @@
       width: 100%;
       background: #ffffff;
       color: #222;
-      border: 1.5px solid #d0d0d0;
+      border: 1.5px solid #d4d4d4;
       border-radius: 50px;
       padding: 14px 24px;
-      font-size: clamp(0.95rem, 3.8vw, 1.1rem);
+      font-size: clamp(0.9rem, 3.8vw, 1.05rem);
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
-      -webkit-box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      -webkit-box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
       appearance: none;
@@ -202,8 +206,8 @@
       background: #4E8B61;
       color: #ffffff;
       border-color: #4E8B61;
-      -webkit-box-shadow: 0 4px 16px rgba(78,139,97,0.25);
-      box-shadow: 0 4px 16px rgba(78,139,97,0.25);
+      -webkit-box-shadow: 0 4px 20px rgba(78,139,97,0.32), 0 1px 4px rgba(78,139,97,0.15);
+      box-shadow: 0 4px 20px rgba(78,139,97,0.32), 0 1px 4px rgba(78,139,97,0.15);
     }
 
     .buy-btn.primary .logo-amazon {
@@ -211,12 +215,13 @@
       -webkit-filter: brightness(0) invert(1);
     }
 
+    /* FIX 2: secondary border made visible and intentional */
     .buy-btn.secondary {
-      background: rgba(255,255,255,0.85);
-      color: #444;
-      border-color: rgba(0,0,0,0.08);
-      -webkit-box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      background: #ffffff;
+      color: #333;
+      border-color: #c8c8c8;
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
     .buy-btn span:last-child {
@@ -250,17 +255,18 @@
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-top: 18px;
+      margin-top: 16px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
     }
 
+    /* FIX 3: meta labels get more letter-spacing */
     .payment-section p {
-      font-size: 11px;
-      color: #888888;
+      font-size: clamp(0.65rem, 2.6vw, 0.75rem);
+      color: #999999;
       margin-bottom: 8px;
       font-weight: 500;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.8px;
     }
 
     .payment-logos {
@@ -273,13 +279,13 @@
       gap: 12px;
       -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
-      opacity: 0.8;
+      opacity: 0.7;
     }
 
     .payment-logos img { height: 16px; width: auto; }
 
     .scroll-hint {
-      margin-top: 16px;
+      margin-top: 14px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
       background: none;
@@ -300,18 +306,18 @@
     .scroll-hint:active { opacity: 0.6; }
 
     .scroll-hint-label {
-      font-size: 12px;
-      letter-spacing: 0.8px;
+      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
+      letter-spacing: 1.8px;
       font-weight: 600;
       color: #4E8B61;
       text-transform: uppercase;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(78,139,97,0.4);
+      text-decoration-color: rgba(78,139,97,0.35);
     }
 
     .scroll-hint-arrow {
-      font-size: 12px;
+      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
       color: #4E8B61;
       font-weight: 600;
       line-height: 1;
@@ -331,6 +337,7 @@
 
     /* ── PAGE 2 ── */
 
+    /* FIX 4: more breathing room at the top on page 2 */
     .page-2-inner {
       position: relative;
       width: 100%;
@@ -341,59 +348,59 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      /* bottom padding = counter bar height + safe area */
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 26px) 22px 0;
       overflow: hidden;
     }
 
     .scroll-up {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 14px);
+      top: calc(env(safe-area-inset-top, 0px) + 16px);
       right: 20px;
-      background: rgba(255,255,255,0.85);
-      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.09);
       border-radius: 50px;
       -webkit-appearance: none;
       appearance: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      padding: 5px 12px;
+      padding: 6px 14px;
       display: -webkit-inline-flex;
       display: inline-flex;
       -webkit-align-items: center;
       align-items: center;
       gap: 5px;
       touch-action: manipulation;
-      -webkit-box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
       z-index: 10;
     }
 
     .scroll-up:active { opacity: 0.6; }
 
     .scroll-up-label {
-      font-size: 12px;
-      letter-spacing: 0.8px;
+      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
+      letter-spacing: 1.8px;
       font-weight: 600;
       color: #4E8B61;
       text-transform: uppercase;
     }
 
     .scroll-up-arrow {
-      font-size: 12px;
+      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
       color: #4E8B61;
       font-weight: 600;
       line-height: 1;
     }
 
+    /* FIX 3: section label gets more air */
     .info-section-sublabel {
       width: 100%;
       max-width: 480px;
-      font-size: 11px;
-      letter-spacing: 2px;
+      font-size: clamp(0.65rem, 2.6vw, 0.75rem);
+      letter-spacing: 2.5px;
       font-weight: 700;
-      color: #888888;
-      margin-bottom: 10px;
+      color: #999999;
+      margin-bottom: 14px;
       line-height: 1.4;
       text-transform: uppercase;
       -webkit-flex-shrink: 0;
@@ -407,7 +414,6 @@
       flex: 1;
       position: relative;
       min-height: 0;
-      /* room for the counter bar below */
       margin-bottom: 0;
     }
 
@@ -418,8 +424,8 @@
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
-      row-gap: 8px;
-      gap: 8px;
+      row-gap: 10px;
+      gap: 10px;
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: none;
@@ -434,7 +440,7 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 48px;
+      height: 52px;
       background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease;
@@ -446,7 +452,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 48px;
+      height: 52px;
       background: linear-gradient(to top, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease;
@@ -464,22 +470,22 @@
       display: flex;
       -webkit-align-items: flex-start;
       align-items: flex-start;
-      gap: 9px;
+      gap: 10px;
     }
 
     .blurb-emoji {
-      font-size: 0.85rem;
-      line-height: 1.5;
+      font-size: clamp(0.95rem, 3.8vw, 1.1rem);
+      line-height: 1.4;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
-      width: 20px;
+      width: 22px;
       text-align: center;
     }
 
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
     .blurb-title {
-      font-size: 0.85rem;
+      font-size: clamp(0.82rem, 3.4vw, 0.95rem);
       font-weight: 800;
       color: #4E8B61;
       letter-spacing: 0.8px;
@@ -489,14 +495,14 @@
     }
 
     .blurb-body {
-      font-size: 0.85rem;
-      color: #444444;
-      line-height: 1.45;
+      font-size: clamp(0.78rem, 3.2vw, 0.9rem);
+      color: #4a4a4a;
+      line-height: 1.55;
       font-weight: 500;
       display: inline;
     }
 
-    /* ── COUNTER BAR (fixed bottom, page 2) ── */
+    /* ── COUNTER BAR ── */
 
     .counter-bar {
       position: absolute;
@@ -504,8 +510,7 @@
       left: 0;
       right: 0;
       background: #4E8B61;
-      padding: 14px 24px max(calc(env(safe-area-inset-bottom) + 24px), 48px);
-      margin-bottom: -2px;
+      padding: 14px 24px calc(env(safe-area-inset-bottom, 0px) + 14px);
       display: -webkit-flex;
       display: flex;
       -webkit-align-items: center;
@@ -527,7 +532,7 @@
     }
 
     .counter-bar-label {
-      font-size: 9px;
+      font-size: clamp(0.55rem, 2.2vw, 0.65rem);
       letter-spacing: 2px;
       font-weight: 700;
       color: rgba(255,255,255,0.6);
@@ -535,7 +540,7 @@
     }
 
     .counter-bar-number {
-      font-size: clamp(1.5rem, 6vw, 1.9rem);
+      font-size: clamp(1.6rem, 6.5vw, 2rem);
       font-weight: 900;
       color: #ffffff;
       letter-spacing: -1px;
@@ -543,7 +548,7 @@
     }
 
     .counter-bar-word {
-      font-size: 9px;
+      font-size: clamp(0.55rem, 2.2vw, 0.65rem);
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -554,7 +559,7 @@
     .counter-bar-divider {
       width: 1px;
       height: 36px;
-      background: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.22);
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
     }
@@ -566,7 +571,7 @@
     }
 
     .counter-bar-tagline {
-      font-size: clamp(0.7rem, 2.8vw, 0.85rem);
+      font-size: clamp(0.72rem, 2.9vw, 0.85rem);
       font-weight: 800;
       letter-spacing: 1.2px;
       text-transform: uppercase;
@@ -575,10 +580,10 @@
     }
 
     .counter-bar-sub {
-      font-size: 9px;
+      font-size: clamp(0.55rem, 2.2vw, 0.65rem);
       letter-spacing: 1.5px;
       font-weight: 600;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.5);
       text-transform: uppercase;
       margin-top: 3px;
     }
@@ -719,7 +724,7 @@
       </div>
     </div>
 
-    <!-- COUNTER BAR — fixed to bottom, bleeds into Safari chrome -->
+    <!-- COUNTER BAR -->
     <div class="counter-bar" id="counter-bar">
       <div class="counter-bar-left">
         <span class="counter-bar-label">In the Market</span>
@@ -751,7 +756,6 @@
       var currentPage = 0;
       var isAnimating = false;
 
-      // Offset blurb list bottom so content clears the counter bar
       function setBlurbPadding() {
         if (counterBar && blurbWrapper) {
           var barH = counterBar.offsetHeight;
@@ -849,7 +853,6 @@
         updateFade();
       }
 
-      // Counter animation — triggers when page 2 slides in
       var counterEl = document.querySelector('.counter-bar-number');
       var displayEl = document.getElementById('counter-display');
       var animated = false;
@@ -870,8 +873,6 @@
           requestAnimationFrame(tick);
         }
 
-        // Watch for page 2 becoming visible via slide transition
-        var origGoToPage = goToPage;
         slideContainer.addEventListener('transitionend', function() {
           if (currentPage === 1 && !animated) {
             animated = true;
@@ -880,7 +881,6 @@
           }
         });
 
-        // Fallback: IntersectionObserver on the bar itself
         if (counterBar) {
           new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
