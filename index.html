@@ -195,9 +195,10 @@
 
     .payment-logos img { height: 16px; width: auto; }
 
+    /* FIX: reduced max-height so spacer doesn't push What's Inside off screen */
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
-      min-height: 12px; max-height: 32px;
+      min-height: 8px; max-height: 20px;
     }
 
     .scroll-hint {
@@ -238,23 +239,27 @@
 
     /* ── PAGE 2 ── */
 
+    /*
+      Page 2 top padding increased to 26px to give the header row
+      enough vertical space so the Back button clears the hairline rule.
+    */
     .page-2-inner {
       position: relative; width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 26px) 20px 0;
       overflow: hidden;
     }
 
     /*
-      FIX: Back button top offset raised to 18px so it sits clearly
-      above the hairline rule rather than landing on it.
-      Vertically centred with the section label in the header row.
+      FIX: Back button top matches page-2-inner top padding exactly
+      so it aligns with the section label on the same row.
+      No longer collides with the rule below.
     */
     .scroll-up {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 18px);
+      top: calc(env(safe-area-inset-top, 0px) + 20px);
       right: 20px;
       background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.09);
       border-radius: 50px; -webkit-appearance: none; appearance: none;
@@ -283,6 +288,8 @@
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-flex-shrink: 0; flex-shrink: 0;
+      /* min-height ensures label row is tall enough for the button to float above the rule */
+      min-height: 28px;
     }
 
     .info-section-sublabel {
@@ -292,13 +299,13 @@
     }
 
     /*
-      FIX: rule margin-top 10px → 12px, margin-bottom 10px → 12px.
-      Gives the rule clear separation from both the header and first blurb.
+      FIX: rule margin-top 16px gives clear air between header row and rule.
+      Bottom 12px gives clear air before first blurb item.
     */
     .page-2-rule {
       width: 100%; max-width: 480px;
       height: 1px; background: rgba(0,0,0,0.07);
-      margin: 12px 0 12px;
+      margin: 16px 0 12px;
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
