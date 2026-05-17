@@ -66,7 +66,30 @@
       -webkit-justify-content: flex-start; justify-content: flex-start;
       padding: calc(env(safe-area-inset-top, 0px) + 44px) 20px max(calc(env(safe-area-inset-bottom) + 20px), 34px);
       overflow: hidden;
+      position: relative;
     }
+
+    /*
+      Contact icon — bare SVG, no fill, no border, no shadow.
+      rgba(0,0,0,0.18) matches the #999 metadata tone used elsewhere.
+      Sits in genuinely empty real estate — cover starts well below this zone.
+      Thumb target padded to 44px minimum via padding.
+    */
+    .contact-link {
+      position: absolute;
+      top: calc(env(safe-area-inset-top, 0px) + 14px);
+      right: 18px;
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      padding: 10px;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration: none;
+      z-index: 10;
+      -webkit-transition: opacity 0.15s ease; transition: opacity 0.15s ease;
+    }
+
+    .contact-link:active { opacity: 0.4; }
 
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -429,6 +452,14 @@
 <div class="page page-1">
   <div class="page-inner">
 
+    <!-- Contact icon — top-right, bare SVG, metadata tint, zero layout impact -->
+    <a href="mailto:example@gmail.com" class="contact-link" aria-label="Contact the author">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="rgba(0,0,0,0.22)" stroke-width="1.4"/>
+        <path d="M1 2L8 7.5L15 2" stroke="rgba(0,0,0,0.22)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
     <div class="cover-wrapper">
       <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
         <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios" loading="eager" width="600" height="800">
@@ -565,7 +596,7 @@
       </div>
     </div>
 
-    <!-- COUNTER BAR — sub-line removed, DRIP ON. COMPOUNDS UP. stands alone -->
+    <!-- COUNTER BAR -->
     <div class="counter-bar" id="counter-bar">
       <div class="counter-bar-left">
         <span class="counter-bar-label">In the Market</span>
