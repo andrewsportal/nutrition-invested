@@ -417,14 +417,13 @@
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
-      /* tightened gap so all 8 items fit in view */
-      row-gap: 7px;
-      gap: 7px;
+      row-gap: 9px;
+      gap: 9px;
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding-bottom: 16px;
+      padding-bottom: 20px;
       touch-action: pan-y;
     }
 
@@ -464,12 +463,12 @@
       display: flex;
       -webkit-align-items: flex-start;
       align-items: flex-start;
-      gap: 8px;
+      gap: 9px;
     }
 
-    /* emoji slightly larger than text — reads as icon not inline char */
+    /* emoji — reads as icon, slightly larger than body text */
     .blurb-emoji {
-      font-size: clamp(0.8rem, 3.2vw, 0.95rem);
+      font-size: clamp(0.85rem, 3.4vw, 1rem);
       line-height: 1.4;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -479,9 +478,9 @@
 
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
-    /* title — green, bold, uppercase — carries the hierarchy */
+    /* title — bold green uppercase, carries the hierarchy */
     .blurb-title {
-      font-size: clamp(0.72rem, 2.9vw, 0.82rem);
+      font-size: clamp(0.78rem, 3.1vw, 0.88rem);
       font-weight: 800;
       color: #4E8B61;
       letter-spacing: 0.8px;
@@ -490,9 +489,9 @@
       margin-right: 4px;
     }
 
-    /* body — one step smaller, reads as supporting copy */
+    /* body — one step below title */
     .blurb-body {
-      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
+      font-size: clamp(0.75rem, 3.0vw, 0.85rem);
       color: #4a4a4a;
       line-height: 1.45;
       font-weight: 500;
