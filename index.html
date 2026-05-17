@@ -311,12 +311,6 @@
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /*
-      Both gradients identical: 80px tall, four stops.
-      Fade begins immediately at 0%, reaches 40% opacity by 25%,
-      85% opacity by 60%, full solid at 100%.
-      Top and bottom behave symmetrically when scrolling in either direction.
-    */
     .blurb-wrapper::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
       height: 80px;
@@ -595,16 +589,16 @@
     document.addEventListener('DOMContentLoaded', function () {
 
       var slideContainer = document.getElementById('slide-container');
-      var blurbList = document.getElementById('blurb-list');
-      var blurbWrapper = document.getElementById('blurb-wrapper');
-      var counterBar = document.getElementById('counter-bar');
-      var currentPage = 0;
-      var isAnimating = false;
+      var blurbList      = document.getElementById('blurb-list');
+      var blurbWrapper   = document.getElementById('blurb-wrapper');
+      var counterBar     = document.getElementById('counter-bar');
+      var currentPage    = 0;
+      var isAnimating    = false;
 
-      var counterEl = document.querySelector('.counter-bar-number');
-      var displayEl = document.getElementById('counter-display');
+      var counterEl     = document.querySelector('.counter-bar-number');
+      var displayEl     = document.getElementById('counter-display');
       var counterTarget = counterEl ? parseInt(counterEl.getAttribute('data-target'), 10) : 0;
-      var animated = false;
+      var animated      = false;
 
       if (displayEl) {
         displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
@@ -625,8 +619,7 @@
 
       function setBlurbPadding() {
         if (counterBar && blurbWrapper) {
-          var barH = counterBar.offsetHeight;
-          blurbWrapper.style.marginBottom = barH + 'px';
+          blurbWrapper.style.marginBottom = counterBar.offsetHeight + 'px';
         }
       }
       setBlurbPadding();
@@ -642,7 +635,7 @@
 
         if (index === 1 && !animated) {
           animated = true;
-          setTimeout(function() {
+          setTimeout(function () {
             if (displayEl) displayEl.textContent = '0';
             animateCount(0, counterTarget, 1800);
           }, 480);
@@ -653,57 +646,78 @@
           if (displayEl) displayEl.textContent = '0';
         }
 
-        setTimeout(function() { isAnimating = false; }, 480);
+        setTimeout(function () { isAnimating = false; }, 480);
       }
 
-      document.getElementById('scroll-down').addEventListener('click', function() {
-        goToPage(1);
-      });
+      document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
+      document.getElementById('scroll-up').addEventListener('click',   function () { goToPage(0); });
 
-      document.getElementById('scroll-up').addEventListener('click', function() {
-        goToPage(0);
-      });
+      /* ── TOUCH HANDLING ─────────────────────────────────────────────
+         Two-stage lock for page 2 → page 1:
+         Stage 1: swipe up through the blurb list until it reaches the top.
+                  The list scrolls normally; no page change fires.
+         Stage 2: once the list IS already at the top when the finger
+                  touches down, a swipe-up gesture fires goToPage(0).
 
-      var touchStartY = 0;
-      var touchStartX = 0;
-      var touchStartTime = 0;
+         Key: we snapshot blurbList.scrollTop at touchstart.
+         In touchend we use that snapshot, not the current value,
+         so a single gesture that both scrolls to the top AND overshoots
+         does NOT immediately trigger the page change.
+      ──────────────────────────────────────────────────────────────── */
 
-      document.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-        touchStartX = e.touches[0].clientX;
-        touchStartTime = Date.now();
+      var touchStartY        = 0;
+      var touchStartX        = 0;
+      var touchStartTime     = 0;
+      var touchStartScrollTop = 0; // scroll position of blurb at finger-down
+
+      document.addEventListener('touchstart', function (e) {
+        touchStartY         = e.touches[0].clientY;
+        touchStartX         = e.touches[0].clientX;
+        touchStartTime      = Date.now();
+        touchStartScrollTop = blurbList ? blurbList.scrollTop : 0;
       }, { passive: true });
 
-      document.addEventListener('touchmove', function(e) {
-        var target = e.target;
+      document.addEventListener('touchmove', function (e) {
+        var target           = e.target;
         var isInsideBlurbList = blurbList && blurbList.contains(target);
         if (isInsideBlurbList) {
-          var dy = touchStartY - e.touches[0].clientY;
-          var atTop = blurbList.scrollTop <= 0;
+          var dy      = touchStartY - e.touches[0].clientY;
+          var atTop    = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+          // prevent page-level bounce only when trying to scroll past the ends
           if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
         } else {
           e.preventDefault();
         }
       }, { passive: false });
 
-      document.addEventListener('touchend', function(e) {
-        var dy = touchStartY - e.changedTouches[0].clientY;
-        var dx = touchStartX - e.changedTouches[0].clientX;
-        var dt = Date.now() - touchStartTime;
+      document.addEventListener('touchend', function (e) {
+        var dy    = touchStartY - e.changedTouches[0].clientY;
+        var dx    = touchStartX - e.changedTouches[0].clientX;
+        var dt    = Date.now() - touchStartTime;
         var target = e.target;
         var isInsideBlurbList = blurbList && blurbList.contains(target);
 
+        // ignore horizontal swipes
         if (Math.abs(dx) > Math.abs(dy)) return;
+
         var isSwipe = Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300);
         if (!isSwipe) return;
 
         if (isInsideBlurbList) {
-          var atTop = blurbList.scrollTop <= 0;
-          var atBottom = blurbList.scrollTarget + blurbList.clientHeight >= blurbList.scrollHeight - 2;
-          if (dy > 0 && atBottom && currentPage === 0) { goToPage(1); }
-          else if (dy < 0 && atTop && currentPage === 1) { goToPage(0); }
+          var wasAtTop    = touchStartScrollTop <= 0;
+          var wasAtBottom = touchStartScrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+
+          if (dy > 0 && currentPage === 0) {
+            // swiping down on page 1 inside blurb area → go to page 2
+            goToPage(1);
+          } else if (dy < 0 && currentPage === 1 && wasAtTop) {
+            // swiping up AND the list was already at the top before this gesture → go to page 1
+            goToPage(0);
+          }
+          // all other cases (mid-list, swiping up from bottom, etc.) → let the list scroll naturally
         } else {
+          // outside the blurb list: standard page swipe
           if (dy > 0 && currentPage === 0) { goToPage(1); }
           else if (dy < 0 && currentPage === 1) { goToPage(0); }
         }
@@ -712,11 +726,11 @@
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
         var scrollTop = blurbList.scrollTop;
-        var atBottom = scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
-        var atTop = scrollTop <= 0;
+        var atBottom  = scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
+        var atTop     = scrollTop <= 0;
         blurbWrapper.classList.toggle('at-bottom', atBottom);
-        blurbWrapper.classList.toggle('at-top', atTop);
-        blurbWrapper.classList.toggle('scrolled', scrollTop > 4);
+        blurbWrapper.classList.toggle('at-top',    atTop);
+        blurbWrapper.classList.toggle('scrolled',  scrollTop > 4);
       }
 
       if (blurbList) {
