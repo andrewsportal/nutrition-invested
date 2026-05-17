@@ -87,7 +87,6 @@
       padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px max(calc(env(safe-area-inset-bottom) + 20px), 34px);
     }
 
-    /* FIX 5: cover holds size, doesn't shrink before other elements */
     .cover-wrapper {
       width: 100%;
       max-width: 380px;
@@ -104,7 +103,6 @@
 
     .cover-wrapper a { display: block; width: 100%; }
 
-    /* FIX 1: softer, more diffuse shadow — premium feel */
     .cover-wrapper img {
       display: block;
       width: 100%;
@@ -125,7 +123,6 @@
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
     }
 
-    /* FIX 3: more letter-spacing on meta labels so they read as intentional */
     .preview-hint {
       margin-top: 10px;
       font-size: clamp(0.65rem, 2.6vw, 0.75rem);
@@ -215,7 +212,6 @@
       -webkit-filter: brightness(0) invert(1);
     }
 
-    /* FIX 2: secondary border made visible and intentional */
     .buy-btn.secondary {
       background: #ffffff;
       color: #333;
@@ -260,7 +256,6 @@
       flex-shrink: 0;
     }
 
-    /* FIX 3: meta labels get more letter-spacing */
     .payment-section p {
       font-size: clamp(0.65rem, 2.6vw, 0.75rem);
       color: #999999;
@@ -337,7 +332,6 @@
 
     /* ── PAGE 2 ── */
 
-    /* FIX 4: more breathing room at the top on page 2 */
     .page-2-inner {
       position: relative;
       width: 100%;
@@ -392,7 +386,6 @@
       line-height: 1;
     }
 
-    /* FIX 3: section label gets more air */
     .info-section-sublabel {
       width: 100%;
       max-width: 480px;
@@ -756,6 +749,30 @@
       var currentPage = 0;
       var isAnimating = false;
 
+      // Counter state
+      var counterEl = document.querySelector('.counter-bar-number');
+      var displayEl = document.getElementById('counter-display');
+      var counterTarget = counterEl ? parseInt(counterEl.getAttribute('data-target'), 10) : 0;
+      var animated = false;
+
+      // Set initial display
+      if (displayEl) {
+        displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
+      }
+
+      function animateCount(from, to, dur) {
+        if (!displayEl) return;
+        if (to === 0) { displayEl.textContent = '—'; return; }
+        var t0 = performance.now();
+        function tick(now) {
+          var p = Math.min((now - t0) / dur, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
       function setBlurbPadding() {
         if (counterBar && blurbWrapper) {
           var barH = counterBar.offsetHeight;
@@ -772,6 +789,23 @@
         currentPage = index;
         slideContainer.classList.remove('no-transition');
         slideContainer.style.transform = 'translateY(-' + (index * 100) + '%)';
+
+        // Trigger counter animation when navigating TO page 2
+        // Wait 480ms for slide transition to complete, then animate
+        if (index === 1 && !animated) {
+          animated = true;
+          setTimeout(function() {
+            if (displayEl) displayEl.textContent = '0';
+            animateCount(0, counterTarget, 1800);
+          }, 480);
+        }
+
+        // Reset counter when returning to page 1 so it animates again next visit
+        if (index === 0) {
+          animated = false;
+          if (displayEl) displayEl.textContent = '0';
+        }
+
         setTimeout(function() { isAnimating = false; }, 480);
       }
 
@@ -851,47 +885,6 @@
       if (blurbList) {
         blurbList.addEventListener('scroll', updateFade);
         updateFade();
-      }
-
-      var counterEl = document.querySelector('.counter-bar-number');
-      var displayEl = document.getElementById('counter-display');
-      var animated = false;
-
-      if (counterEl && displayEl) {
-        var target = parseInt(counterEl.getAttribute('data-target'), 10);
-        displayEl.textContent = target === 0 ? '—' : target.toLocaleString();
-
-        function animateCount(from, to, dur) {
-          if (to === 0) { displayEl.textContent = '—'; return; }
-          var t0 = performance.now();
-          function tick(now) {
-            var p = Math.min((now - t0) / dur, 1);
-            var ease = 1 - Math.pow(1 - p, 3);
-            displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
-            if (p < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        }
-
-        slideContainer.addEventListener('transitionend', function() {
-          if (currentPage === 1 && !animated) {
-            animated = true;
-            displayEl.textContent = '0';
-            animateCount(0, target, 1800);
-          }
-        });
-
-        if (counterBar) {
-          new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) {
-              if (e.isIntersecting && !animated) {
-                animated = true;
-                displayEl.textContent = '0';
-                animateCount(0, target, 1800);
-              }
-            });
-          }, { threshold: 0.1 }).observe(counterBar);
-        }
       }
 
     });
