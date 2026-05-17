@@ -98,19 +98,26 @@
     }
 
     /*
-      Envelope — bare SVG, no container, no text.
-      Left edge matches hamburger left edge exactly (left: 18px).
-      Padding gives comfortable 44px thumb target.
-      Appears directly below the hamburger — finger never needs to move far.
+      Circle envelope — same material as Back button on page 2.
+      rgba(255,255,255,0.9) bg, 1px solid rgba(0,0,0,0.09) border,
+      0 2px 10px rgba(0,0,0,0.07) shadow, border-radius: 50%.
+      Left edge at left: 28px centers the 36px circle under the hamburger lines.
+      Fades in with slight upward lift from below the hamburger.
     */
     .menu-envelope {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 58px);
+      top: calc(env(safe-area-inset-top, 0px) + 62px);
       left: 18px;
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 50%;
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
-      padding: 10px;
       text-decoration: none;
       -webkit-tap-highlight-color: transparent;
       z-index: 20;
@@ -129,7 +136,7 @@
       transform: translateY(0);
     }
 
-    .menu-envelope:active { opacity: 0.45; }
+    .menu-envelope:active { opacity: 0.5; }
 
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -499,9 +506,13 @@
       <span></span>
     </button>
 
-    <!-- Bare envelope — appears directly below hamburger, left-aligned -->
+    <!--
+      Circle envelope — appears directly below hamburger.
+      Same material as Back button: white bg, subtle border, soft shadow.
+      border-radius: 50% resolves the icon-only container cleanly.
+    -->
     <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
-      <svg width="20" height="15" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
         <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -706,13 +717,13 @@
       });
 
       document.addEventListener('touchstart', function (e) {
-        if (menuOpen && e.target !== menuBtn && !menuBtn.contains(e.target) && e.target !== menuEnvelope) {
+        if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
           closeMenu();
         }
       }, { passive: true });
 
       document.addEventListener('click', function (e) {
-        if (menuOpen && e.target !== menuBtn && !menuBtn.contains(e.target) && e.target !== menuEnvelope) {
+        if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
           closeMenu();
         }
       });
