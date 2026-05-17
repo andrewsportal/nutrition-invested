@@ -71,6 +71,8 @@
     .page-1 { top: 0; }
     .page-2 { top: 100%; }
 
+    /* ── PAGE 1 ── */
+
     .page-inner {
       width: 100%;
       height: 100%;
@@ -327,6 +329,8 @@
       50% { transform: translateY(3px); opacity: 0.5; }
     }
 
+    /* ── PAGE 2 ── */
+
     .page-2-inner {
       position: relative;
       width: 100%;
@@ -337,7 +341,8 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
+      /* bottom padding = counter bar height + safe area */
+      padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px 0;
       overflow: hidden;
     }
 
@@ -361,6 +366,7 @@
       touch-action: manipulation;
       -webkit-box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      z-index: 10;
     }
 
     .scroll-up:active { opacity: 0.6; }
@@ -401,6 +407,8 @@
       flex: 1;
       position: relative;
       min-height: 0;
+      /* room for the counter bar below */
+      margin-bottom: 0;
     }
 
     .blurb-list {
@@ -488,64 +496,93 @@
       display: inline;
     }
 
-    .counter-card {
-      width: 100%;
-      max-width: 480px;
-      background: rgba(255,255,255,0.85);
-      border-radius: 22px;
-      padding: 12px 24px;
-      text-align: center;
-      -webkit-box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      border: 1px solid rgba(0,0,0,0.08);
-      margin-top: 10px;
+    /* ── COUNTER BAR (fixed bottom, page 2) ── */
+
+    .counter-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #4E8B61;
+      /* extend into safe area so it bleeds to browser chrome */
+      padding: 14px 24px calc(env(safe-area-inset-bottom, 0px) + 14px);
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      gap: 12px;
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
+      z-index: 5;
     }
 
-    .counter-label-top {
-      font-size: 11px;
+    .counter-bar-left {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .counter-bar-label {
+      font-size: 9px;
       letter-spacing: 2px;
       font-weight: 700;
-      color: #888888;
+      color: rgba(255,255,255,0.6);
       text-transform: uppercase;
-      margin-bottom: 4px;
     }
 
-    .counter-number {
-      font-size: clamp(1.8rem, 8vw, 2.2rem);
+    .counter-bar-number {
+      font-size: clamp(1.5rem, 6vw, 1.9rem);
       font-weight: 900;
-      color: #4E8B61;
+      color: #ffffff;
       letter-spacing: -1px;
       line-height: 1;
     }
 
-    .counter-word {
-      font-size: 0.65rem;
-      font-weight: 800;
+    .counter-bar-word {
+      font-size: 9px;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #888888;
-      margin-top: 2px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 1px;
     }
 
-    .counter-divider {
-      width: 24px;
-      height: 1.5px;
-      background: #4E8B61;
-      margin: 6px auto;
-      border-radius: 2px;
-      opacity: 0.4;
+    .counter-bar-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.25);
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
     }
 
-    .counter-tagline {
-      font-size: 0.65rem;
-      color: #888888;
-      font-weight: 500;
-      line-height: 1.4;
-      letter-spacing: 0.8px;
+    .counter-bar-right {
+      -webkit-flex: 1;
+      flex: 1;
+      text-align: right;
+    }
+
+    .counter-bar-tagline {
+      font-size: clamp(0.7rem, 2.8vw, 0.85rem);
+      font-weight: 800;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
+      color: #ffffff;
+      line-height: 1.3;
     }
+
+    .counter-bar-sub {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
   </style>
 
 </head>
@@ -682,14 +719,20 @@
       </div>
     </div>
 
-    <div class="counter-card" id="counter-card">
-      <p class="counter-label-top">IN THE MARKET</p>
-      <div class="counter-number" data-target="100">
-        <span id="counter-display">—</span>
+    <!-- COUNTER BAR — fixed to bottom, bleeds into Safari chrome -->
+    <div class="counter-bar" id="counter-bar">
+      <div class="counter-bar-left">
+        <span class="counter-bar-label">In the Market</span>
+        <div class="counter-bar-number" data-target="100">
+          <span id="counter-display">—</span>
+        </div>
+        <p class="counter-bar-word">Investors</p>
       </div>
-      <p class="counter-word">Investors</p>
-      <div class="counter-divider"></div>
-      <p class="counter-tagline">DRIP ON. COMPOUNDS UP.</p>
+      <div class="counter-bar-divider"></div>
+      <div class="counter-bar-right">
+        <p class="counter-bar-tagline">DRIP ON.<br>COMPOUNDS UP.</p>
+        <p class="counter-bar-sub">Every deposit counts.</p>
+      </div>
     </div>
 
   </div>
@@ -704,9 +747,19 @@
       var slideContainer = document.getElementById('slide-container');
       var blurbList = document.getElementById('blurb-list');
       var blurbWrapper = document.getElementById('blurb-wrapper');
-      var counterCard = document.getElementById('counter-card');
+      var counterBar = document.getElementById('counter-bar');
       var currentPage = 0;
       var isAnimating = false;
+
+      // Offset blurb list bottom so content clears the counter bar
+      function setBlurbPadding() {
+        if (counterBar && blurbWrapper) {
+          var barH = counterBar.offsetHeight;
+          blurbWrapper.style.marginBottom = barH + 'px';
+        }
+      }
+      setBlurbPadding();
+      window.addEventListener('resize', setBlurbPadding);
 
       function goToPage(index) {
         if (isAnimating) return;
@@ -729,13 +782,11 @@
       var touchStartY = 0;
       var touchStartX = 0;
       var touchStartTime = 0;
-      var touchStartBlurbScrollTop = 0;
 
       document.addEventListener('touchstart', function(e) {
         touchStartY = e.touches[0].clientY;
         touchStartX = e.touches[0].clientX;
         touchStartTime = Date.now();
-        touchStartBlurbScrollTop = blurbList ? blurbList.scrollTop : 0;
       }, { passive: true });
 
       document.addEventListener('touchmove', function(e) {
@@ -746,7 +797,6 @@
           var dy = touchStartY - e.touches[0].clientY;
           var atTop = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
-
           if ((dy < 0 && atTop) || (dy > 0 && atBottom)) {
             e.preventDefault();
           }
@@ -770,7 +820,6 @@
         if (isInsideBlurbList) {
           var atTop = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
-
           if (dy > 0 && atBottom && currentPage === 0) {
             goToPage(1);
           } else if (dy < 0 && atTop && currentPage === 1) {
@@ -800,12 +849,13 @@
         updateFade();
       }
 
-      var counterEl = document.querySelector('.counter-number');
+      // Counter animation — triggers when page 2 slides in
+      var counterEl = document.querySelector('.counter-bar-number');
       var displayEl = document.getElementById('counter-display');
+      var animated = false;
+
       if (counterEl && displayEl) {
         var target = parseInt(counterEl.getAttribute('data-target'), 10);
-        var animated = false;
-
         displayEl.textContent = target === 0 ? '—' : target.toLocaleString();
 
         function animateCount(from, to, dur) {
@@ -820,7 +870,18 @@
           requestAnimationFrame(tick);
         }
 
-        if (counterCard) {
+        // Watch for page 2 becoming visible via slide transition
+        var origGoToPage = goToPage;
+        slideContainer.addEventListener('transitionend', function() {
+          if (currentPage === 1 && !animated) {
+            animated = true;
+            displayEl.textContent = '0';
+            animateCount(0, target, 1800);
+          }
+        });
+
+        // Fallback: IntersectionObserver on the bar itself
+        if (counterBar) {
           new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
               if (e.isIntersecting && !animated) {
@@ -829,7 +890,7 @@
                 animateCount(0, target, 1800);
               }
             });
-          }, { threshold: 0.1 }).observe(counterCard);
+          }, { threshold: 0.1 }).observe(counterBar);
         }
       }
 
