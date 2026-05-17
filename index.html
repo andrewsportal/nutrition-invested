@@ -107,8 +107,7 @@
       margin-top: 14px; margin-bottom: 14px;
       font-size: clamp(1.05rem, 4.6vw, 1.35rem);
       font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase;
-      color: #4E8B61;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      color: #4E8B61; -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
     .headline .price {
@@ -195,7 +194,6 @@
 
     .payment-logos img { height: 16px; width: auto; }
 
-    /* FIX: reduced max-height so spacer doesn't push What's Inside off screen */
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
       min-height: 8px; max-height: 20px;
@@ -239,10 +237,6 @@
 
     /* ── PAGE 2 ── */
 
-    /*
-      Page 2 top padding increased to 26px to give the header row
-      enough vertical space so the Back button clears the hairline rule.
-    */
     .page-2-inner {
       position: relative; width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
@@ -252,11 +246,6 @@
       overflow: hidden;
     }
 
-    /*
-      FIX: Back button top matches page-2-inner top padding exactly
-      so it aligns with the section label on the same row.
-      No longer collides with the rule below.
-    */
     .scroll-up {
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 20px);
@@ -288,20 +277,16 @@
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-flex-shrink: 0; flex-shrink: 0;
-      /* min-height ensures label row is tall enough for the button to float above the rule */
       min-height: 28px;
     }
 
+    /* FIX: larger Quick Bites label — up from 0.65–0.75rem */
     .info-section-sublabel {
-      font-size: clamp(0.65rem, 2.6vw, 0.75rem);
+      font-size: clamp(0.78rem, 3.1vw, 0.88rem);
       letter-spacing: 2.5px; font-weight: 700; color: #999999;
       line-height: 1; text-transform: uppercase;
     }
 
-    /*
-      FIX: rule margin-top 16px gives clear air between header row and rule.
-      Bottom 12px gives clear air before first blurb item.
-    */
     .page-2-rule {
       width: 100%; max-width: 480px;
       height: 1px; background: rgba(0,0,0,0.07);
@@ -327,17 +312,32 @@
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
+    /*
+      FIX: gradient now 60px tall and uses exact background color #e8e8e8.
+      Starts at fully transparent, hits full background color at 60% of height
+      so text dissolves cleanly rather than being visible through the fade.
+    */
     .blurb-wrapper::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 44px;
-      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.98));
+      height: 60px;
+      background: linear-gradient(
+        to bottom,
+        rgba(232,232,232,0) 0%,
+        rgba(232,232,232,0.6) 40%,
+        rgb(232,232,232) 100%
+      );
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease; opacity: 1;
     }
 
     .blurb-wrapper::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 32px;
-      background: linear-gradient(to top, rgba(232,232,232,0), rgba(232,232,232,0.98));
+      background: linear-gradient(
+        to top,
+        rgba(232,232,232,0) 0%,
+        rgba(232,232,232,0.6) 40%,
+        rgb(232,232,232) 100%
+      );
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease;
       opacity: 0; z-index: 1;
