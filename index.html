@@ -286,10 +286,6 @@
       line-height: 1; text-transform: uppercase;
     }
 
-    /*
-      Rule margin: 14px above (closer to header), 16px below (more air into content).
-      Rule reads as separator, not as grouped with the header.
-    */
     .page-2-rule {
       width: 100%; max-width: 480px;
       height: 1px; background: rgba(0,0,0,0.07);
@@ -315,13 +311,20 @@
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
+    /*
+      Both gradients identical: 80px tall, four stops.
+      Fade begins immediately at 0%, reaches 40% opacity by 25%,
+      85% opacity by 60%, full solid at 100%.
+      Top and bottom behave symmetrically when scrolling in either direction.
+    */
     .blurb-wrapper::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 60px;
+      height: 80px;
       background: linear-gradient(
         to bottom,
         rgba(232,232,232,0) 0%,
-        rgba(232,232,232,0.6) 40%,
+        rgba(232,232,232,0.4) 25%,
+        rgba(232,232,232,0.85) 60%,
         rgb(232,232,232) 100%
       );
       pointer-events: none;
@@ -329,11 +332,13 @@
     }
 
     .blurb-wrapper::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 32px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 80px;
       background: linear-gradient(
         to top,
         rgba(232,232,232,0) 0%,
-        rgba(232,232,232,0.6) 40%,
+        rgba(232,232,232,0.4) 25%,
+        rgba(232,232,232,0.85) 60%,
         rgb(232,232,232) 100%
       );
       pointer-events: none;
@@ -695,7 +700,7 @@
 
         if (isInsideBlurbList) {
           var atTop = blurbList.scrollTop <= 0;
-          var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+          var atBottom = blurbList.scrollTarget + blurbList.clientHeight >= blurbList.scrollHeight - 2;
           if (dy > 0 && atBottom && currentPage === 0) { goToPage(1); }
           else if (dy < 0 && atTop && currentPage === 1) { goToPage(0); }
         } else {
