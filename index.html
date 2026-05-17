@@ -58,11 +58,6 @@
 
     /* ── PAGE 1 ── */
 
-    /*
-      UX: flex-start + padding-top creates a natural 38/62 upward bias.
-      Cover reads as hero. CTA sits comfortably in the lower half.
-      Much stronger visual flow than dead-center.
-    */
     .page-inner {
       width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
@@ -110,14 +105,14 @@
     .headline {
       width: 100%; max-width: 480px; text-align: center;
       margin-top: 14px; margin-bottom: 14px;
-      font-size: clamp(1rem, 4.4vw, 1.25rem);
+      font-size: clamp(1.05rem, 4.6vw, 1.35rem);
       font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase;
       color: #4E8B61;
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
     .headline .price {
-      color: #222; font-size: clamp(1rem, 4.4vw, 1.25rem);
+      color: #222; font-size: clamp(1.05rem, 4.6vw, 1.35rem);
       font-weight: 900; letter-spacing: 1.2px;
     }
 
@@ -138,8 +133,8 @@
       gap: 10px; width: 100%;
       background: #ffffff; color: #222;
       border: 1.5px solid #d4d4d4; border-radius: 50px;
-      padding: 15px 24px;
-      font-size: clamp(0.9rem, 3.8vw, 1.05rem);
+      padding: 16px 24px;
+      font-size: clamp(0.95rem, 3.9vw, 1.1rem);
       font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
       text-decoration: none; cursor: pointer;
       -webkit-box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
@@ -167,7 +162,6 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
-    /* removed fixed width — lets text center naturally on all screen sizes */
     .buy-btn span:last-child { text-align: left; }
     .buy-btn:active { -webkit-transform: scale(0.97); transform: scale(0.97); }
     .buy-btn img { width: auto; }
@@ -201,11 +195,6 @@
 
     .payment-logos img { height: 16px; width: auto; }
 
-    /*
-      UX: "What's Inside" is the sole navigation affordance on page 1.
-      Increased top margin and made it feel more like a deliberate CTA —
-      spacer pushes it toward the bottom third of the screen naturally.
-    */
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
       min-height: 12px; max-height: 32px;
@@ -249,10 +238,6 @@
 
     /* ── PAGE 2 ── */
 
-    /*
-      UX: consistent 20px side padding matches page 1.
-      Top padding matched to page 1 safe area handling.
-    */
     .page-2-inner {
       position: relative; width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
@@ -263,11 +248,14 @@
     }
 
     /*
-      UX: Back button positioned to align vertically with the section label.
-      Same top offset as page-2-inner padding so they sit on the same baseline.
+      FIX: Back button top offset raised to 18px so it sits clearly
+      above the hairline rule rather than landing on it.
+      Vertically centred with the section label in the header row.
     */
     .scroll-up {
-      position: absolute; top: calc(env(safe-area-inset-top, 0px) + 20px); right: 20px;
+      position: absolute;
+      top: calc(env(safe-area-inset-top, 0px) + 18px);
+      right: 20px;
       background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.09);
       border-radius: 50px; -webkit-appearance: none; appearance: none;
       cursor: pointer; -webkit-tap-highlight-color: transparent;
@@ -290,16 +278,11 @@
       color: #4E8B61; font-weight: 600; line-height: 1;
     }
 
-    /*
-      UX: section label row — label left, Back button floats right absolute.
-      Explicit line-height so label baseline matches button cap-height.
-    */
     .page-2-header {
       width: 100%; max-width: 480px;
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-flex-shrink: 0; flex-shrink: 0;
-      margin-bottom: 0;
     }
 
     .info-section-sublabel {
@@ -309,13 +292,13 @@
     }
 
     /*
-      UX: hairline rule between header and blurb list.
-      Signals "content zone starts here" without adding visual noise.
+      FIX: rule margin-top 10px → 12px, margin-bottom 10px → 12px.
+      Gives the rule clear separation from both the header and first blurb.
     */
     .page-2-rule {
       width: 100%; max-width: 480px;
       height: 1px; background: rgba(0,0,0,0.07);
-      margin: 10px 0 10px;
+      margin: 12px 0 12px;
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
@@ -329,7 +312,7 @@
       width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
-      row-gap: 9px; gap: 9px;
+      row-gap: 10px; gap: 10px;
       overflow-y: auto; overflow-x: hidden;
       scrollbar-width: none; -ms-overflow-style: none;
       padding-bottom: 20px; touch-action: pan-y;
@@ -339,14 +322,14 @@
 
     .blurb-wrapper::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 28px;
-      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.97));
+      height: 44px;
+      background: linear-gradient(to bottom, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease; opacity: 1;
     }
 
     .blurb-wrapper::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 28px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 32px;
       background: linear-gradient(to top, rgba(232,232,232,0), rgba(232,232,232,0.98));
       pointer-events: none;
       -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease;
@@ -363,21 +346,21 @@
     }
 
     .blurb-emoji {
-      font-size: clamp(0.9rem, 3.6vw, 1.05rem);
+      font-size: clamp(0.95rem, 3.8vw, 1.1rem);
       line-height: 1.4; -webkit-flex-shrink: 0; flex-shrink: 0;
-      width: 20px; text-align: center;
+      width: 22px; text-align: center;
     }
 
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
     .blurb-title {
-      font-size: clamp(0.82rem, 3.3vw, 0.92rem);
+      font-size: clamp(0.86rem, 3.45vw, 0.96rem);
       font-weight: 800; color: #4E8B61; letter-spacing: 0.8px;
       text-transform: uppercase; display: inline; margin-right: 4px;
     }
 
     .blurb-body {
-      font-size: clamp(0.77rem, 3.05vw, 0.87rem);
+      font-size: clamp(0.81rem, 3.2vw, 0.91rem);
       color: #4a4a4a; line-height: 1.45; font-weight: 500; display: inline;
     }
 
@@ -481,7 +464,6 @@
       </div>
     </div>
 
-    <!-- flexible spacer pushes What's Inside toward bottom third -->
     <div class="scroll-hint-spacer"></div>
 
     <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
@@ -501,12 +483,10 @@
       <span class="scroll-up-label">Back</span>
     </button>
 
-    <!-- header row: label left, Back button absolute right -->
     <div class="page-2-header">
       <p class="info-section-sublabel">THE QUICK BITES</p>
     </div>
 
-    <!-- hairline rule separates header from content zone -->
     <div class="page-2-rule"></div>
 
     <div class="blurb-wrapper" id="blurb-wrapper">
