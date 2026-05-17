@@ -69,27 +69,91 @@
       position: relative;
     }
 
+    /* ── HAMBURGER + DROPDOWN ── */
+
     /*
-      Contact icon — bare SVG, no fill, no border, no shadow.
-      rgba(0,0,0,0.18) matches the #999 metadata tone used elsewhere.
-      Sits in genuinely empty real estate — cover starts well below this zone.
-      Thumb target padded to 44px minimum via padding.
+      Hamburger — top-left, three bare lines at rgba(0,0,0,0.22).
+      Same metadata tint as hairline rules. Reads as chrome, not content.
+      Padded to 44px thumb target.
     */
-    .contact-link {
+    .menu-btn {
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 14px);
-      right: 18px;
+      left: 18px;
       display: -webkit-flex; display: flex;
+      -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
+      gap: 4px;
       padding: 10px;
+      background: none; border: none;
+      -webkit-appearance: none; appearance: none;
+      cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      text-decoration: none;
-      z-index: 10;
+      z-index: 20;
       -webkit-transition: opacity 0.15s ease; transition: opacity 0.15s ease;
     }
 
-    .contact-link:active { opacity: 0.4; }
+    .menu-btn:active { opacity: 0.4; }
+
+    .menu-btn span {
+      display: block;
+      width: 16px; height: 1.5px;
+      background: rgba(0,0,0,0.28);
+      border-radius: 1px;
+    }
+
+    /*
+      Dropdown — appears below hamburger on tap.
+      Single row: envelope SVG + "Contact the author" mailto.
+      Opacity/transform fade — no layout shift.
+      Closes on tap-outside via JS.
+    */
+    .menu-dropdown {
+      position: absolute;
+      top: calc(env(safe-area-inset-top, 0px) + 56px);
+      left: 18px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      -webkit-box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      -webkit-transform: translateY(-6px) scale(0.97);
+      transform: translateY(-6px) scale(0.97);
+      -webkit-transform-origin: top left;
+      transform-origin: top left;
+      -webkit-transition: opacity 0.18s ease, -webkit-transform 0.18s ease;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .menu-dropdown.open {
+      opacity: 1;
+      pointer-events: auto;
+      -webkit-transform: translateY(0) scale(1);
+      transform: translateY(0) scale(1);
+    }
+
+    .menu-dropdown a {
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+    }
+
+    .menu-dropdown a:active { opacity: 0.6; }
+
+    .menu-dropdown-label {
+      font-size: clamp(0.75rem, 3vw, 0.85rem);
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #333;
+    }
 
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -452,13 +516,23 @@
 <div class="page page-1">
   <div class="page-inner">
 
-    <!-- Contact icon — top-right, bare SVG, metadata tint, zero layout impact -->
-    <a href="mailto:example@gmail.com" class="contact-link" aria-label="Contact the author">
-      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="rgba(0,0,0,0.22)" stroke-width="1.4"/>
-        <path d="M1 2L8 7.5L15 2" stroke="rgba(0,0,0,0.22)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+    <!-- Hamburger — top-left, reads as chrome, not content -->
+    <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Single-option dropdown — contact only -->
+    <div class="menu-dropdown" id="menu-dropdown" role="menu">
+      <a href="mailto:example@gmail.com" aria-label="Contact the author" role="menuitem">
+        <svg width="15" height="11" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.4"/>
+          <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="menu-dropdown-label">Contact the author</span>
+      </a>
+    </div>
 
     <div class="cover-wrapper">
       <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
@@ -636,6 +710,50 @@
         displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
       }
 
+      /* ── HAMBURGER MENU ── */
+      var menuBtn      = document.getElementById('menu-btn');
+      var menuDropdown = document.getElementById('menu-dropdown');
+      var menuOpen     = false;
+
+      function openMenu() {
+        menuOpen = true;
+        menuDropdown.classList.add('open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeMenu() {
+        menuOpen = false;
+        menuDropdown.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      menuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menuOpen) { closeMenu(); } else { openMenu(); }
+      });
+
+      /* Close on tap anywhere outside the dropdown */
+      document.addEventListener('touchstart', function (e) {
+        if (menuOpen && !menuDropdown.contains(e.target) && e.target !== menuBtn) {
+          closeMenu();
+        }
+      }, { passive: true });
+
+      document.addEventListener('click', function (e) {
+        if (menuOpen && !menuDropdown.contains(e.target) && e.target !== menuBtn) {
+          closeMenu();
+        }
+      });
+
+      /* Close after tapping the mailto link */
+      var menuLink = menuDropdown.querySelector('a');
+      if (menuLink) {
+        menuLink.addEventListener('click', function () {
+          setTimeout(closeMenu, 200);
+        });
+      }
+
+      /* ── COUNTER ── */
       function animateCount(from, to, dur) {
         if (!displayEl) return;
         if (to === 0) { displayEl.textContent = '—'; return; }
@@ -660,6 +778,7 @@
       function goToPage(index) {
         if (isAnimating) return;
         if (index === currentPage) return;
+        closeMenu();
         isAnimating = true;
         currentPage = index;
         slideContainer.classList.remove('no-transition');
