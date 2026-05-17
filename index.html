@@ -69,13 +69,7 @@
       position: relative;
     }
 
-    /* ── HAMBURGER + DROPDOWN ── */
-
-    /*
-      Hamburger — top-left, three bare lines at rgba(0,0,0,0.22).
-      Same metadata tint as hairline rules. Reads as chrome, not content.
-      Padded to 44px thumb target.
-    */
+    /* ── HAMBURGER ── */
     .menu-btn {
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 14px);
@@ -104,56 +98,38 @@
     }
 
     /*
-      Dropdown — appears below hamburger on tap.
-      Single row: envelope SVG + "Contact the author" mailto.
-      Opacity/transform fade — no layout shift.
-      Closes on tap-outside via JS.
+      Envelope — bare SVG, no container, no text.
+      Left edge matches hamburger left edge exactly (left: 18px).
+      Padding gives comfortable 44px thumb target.
+      Appears directly below the hamburger — finger never needs to move far.
     */
-    .menu-dropdown {
+    .menu-envelope {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 56px);
+      top: calc(env(safe-area-inset-top, 0px) + 58px);
       left: 18px;
-      background: rgba(255,255,255,0.96);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 12px;
-      -webkit-box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
-      z-index: 30;
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      padding: 10px;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      z-index: 20;
       opacity: 0;
       pointer-events: none;
-      -webkit-transform: translateY(-6px) scale(0.97);
-      transform: translateY(-6px) scale(0.97);
-      -webkit-transform-origin: top left;
-      transform-origin: top left;
+      -webkit-transform: translateY(-4px);
+      transform: translateY(-4px);
       -webkit-transition: opacity 0.18s ease, -webkit-transform 0.18s ease;
       transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
-    .menu-dropdown.open {
+    .menu-envelope.open {
       opacity: 1;
       pointer-events: auto;
-      -webkit-transform: translateY(0) scale(1);
-      transform: translateY(0) scale(1);
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
     }
 
-    .menu-dropdown a {
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      gap: 10px;
-      padding: 13px 18px;
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
-      white-space: nowrap;
-    }
-
-    .menu-dropdown a:active { opacity: 0.6; }
-
-    .menu-dropdown-label {
-      font-size: clamp(0.75rem, 3vw, 0.85rem);
-      font-weight: 600;
-      letter-spacing: 0.4px;
-      color: #333;
-    }
+    .menu-envelope:active { opacity: 0.45; }
 
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -516,23 +492,20 @@
 <div class="page page-1">
   <div class="page-inner">
 
-    <!-- Hamburger — top-left, reads as chrome, not content -->
+    <!-- Hamburger — top-left chrome -->
     <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
 
-    <!-- Single-option dropdown — contact only -->
-    <div class="menu-dropdown" id="menu-dropdown" role="menu">
-      <a href="mailto:example@gmail.com" aria-label="Contact the author" role="menuitem">
-        <svg width="15" height="11" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.4"/>
-          <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="menu-dropdown-label">Contact the author</span>
-      </a>
-    </div>
+    <!-- Bare envelope — appears directly below hamburger, left-aligned -->
+    <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
+      <svg width="20" height="15" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
+        <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
 
     <div class="cover-wrapper">
       <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
@@ -712,18 +685,18 @@
 
       /* ── HAMBURGER MENU ── */
       var menuBtn      = document.getElementById('menu-btn');
-      var menuDropdown = document.getElementById('menu-dropdown');
+      var menuEnvelope = document.getElementById('menu-envelope');
       var menuOpen     = false;
 
       function openMenu() {
         menuOpen = true;
-        menuDropdown.classList.add('open');
+        menuEnvelope.classList.add('open');
         menuBtn.setAttribute('aria-expanded', 'true');
       }
 
       function closeMenu() {
         menuOpen = false;
-        menuDropdown.classList.remove('open');
+        menuEnvelope.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
       }
 
@@ -732,26 +705,21 @@
         if (menuOpen) { closeMenu(); } else { openMenu(); }
       });
 
-      /* Close on tap anywhere outside the dropdown */
       document.addEventListener('touchstart', function (e) {
-        if (menuOpen && !menuDropdown.contains(e.target) && e.target !== menuBtn) {
+        if (menuOpen && e.target !== menuBtn && !menuBtn.contains(e.target) && e.target !== menuEnvelope) {
           closeMenu();
         }
       }, { passive: true });
 
       document.addEventListener('click', function (e) {
-        if (menuOpen && !menuDropdown.contains(e.target) && e.target !== menuBtn) {
+        if (menuOpen && e.target !== menuBtn && !menuBtn.contains(e.target) && e.target !== menuEnvelope) {
           closeMenu();
         }
       });
 
-      /* Close after tapping the mailto link */
-      var menuLink = menuDropdown.querySelector('a');
-      if (menuLink) {
-        menuLink.addEventListener('click', function () {
-          setTimeout(closeMenu, 200);
-        });
-      }
+      menuEnvelope.addEventListener('click', function () {
+        setTimeout(closeMenu, 200);
+      });
 
       /* ── COUNTER ── */
       function animateCount(from, to, dur) {
