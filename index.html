@@ -356,7 +356,8 @@
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .payment-section {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: var(--sp-4);
+      margin-top: var(--sp-3);
+      margin-bottom: var(--sp-2);
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
@@ -382,10 +383,12 @@
 
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
-      /* FIX: min-height 0 so spacer fully collapses on short viewports (Google app,
-         in-app browsers). max-height 16px — generous on tall screens, invisible on short. */
-      min-height: 0;
-      max-height: var(--sp-4);
+      /* min-height: sp-4 (16px) — visible gap on every browser.
+         max-height: sp-10 (40px) — generous room on tall Safari viewports.
+         On short Google/in-app viewports the flex engine will compress toward min,
+         and the @media safety net below handles any remaining overflow. */
+      min-height: var(--sp-4);
+      max-height: var(--sp-10);
     }
 
     /* FIX: Safety valve — if content still overflows (very short viewport,
