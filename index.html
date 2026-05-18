@@ -126,8 +126,7 @@
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: flex-start; justify-content: flex-start;
-      /* FIX: was 44px top — now 40px to match page-2-inner's 40px */
-      padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--sp-5) max(calc(env(safe-area-inset-bottom) + var(--sp-4)), 34px);
+      padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--sp-5) max(calc(env(safe-area-inset-bottom) + var(--sp-4)), 28px);
       overflow: hidden;
       position: relative;
     }
@@ -239,7 +238,6 @@
        all use --text-caption + --track-wide + --color-muted.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .preview-hint {
-      margin-top: var(--sp-2);
       font-size: var(--text-caption);
       color: var(--color-muted);
       letter-spacing: var(--track-wide);
@@ -254,7 +252,6 @@
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: var(--sp-3); margin-bottom: var(--sp-3);
       font-size: var(--text-headline);
       font-weight: 900;
       letter-spacing: var(--track-mid);
@@ -356,8 +353,6 @@
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .payment-section {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: var(--sp-3);
-      margin-bottom: var(--sp-2);
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
@@ -381,14 +376,7 @@
 
     .payment-logos img { height: 16px; width: auto; }
 
-    .scroll-hint-spacer {
-      -webkit-flex: 1; flex: 1;
-      /* min-height 8px: enough gap to visually separate from payment logos.
-         max-height 28px: keeps What's Inside on screen in Google app's shorter chrome.
-         Sweet spot between the two previous extremes. */
-      min-height: var(--sp-2);
-      max-height: 28px;
-    }
+    /* Spacer removed — space-between on .page-inner distributes gaps equally */
 
     /* FIX: Safety valve — if content still overflows (very short viewport,
        in-app browsers with tall chrome), allow vertical scroll rather than clipping
@@ -411,12 +399,11 @@
       -webkit-appearance: none; appearance: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      padding: var(--sp-2) 0;
+      padding: var(--sp-1) 0;
       display: -webkit-inline-flex; display: inline-flex;
       -webkit-align-items: center; align-items: center;
       gap: var(--sp-1);
       touch-action: manipulation;
-      margin-bottom: var(--sp-1);
     }
 
     .scroll-hint:active { opacity: 0.6; }
