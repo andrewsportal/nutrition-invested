@@ -181,7 +181,7 @@
       padding-top:    calc(var(--safe-top) + 36px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-8)), 40px);
+      padding-bottom: var(--page-pb, 40px);
       overflow: hidden;
       position: relative;
     }
@@ -464,7 +464,7 @@
       width: 100%;
       flex: 1 1 0px;
       min-height: 0;
-      max-height: 32px;
+      max-height: 16px;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1026,8 +1026,28 @@
           blurbWrapper.style.marginBottom = counterBar.offsetHeight + 'px';
         }
       }
+
+      /*
+        ADAPTIVE BOTTOM PADDING
+        Safari with collapsed toolbar reports ~844px (iPhone 13/14).
+        Chrome with expanded toolbar reports ~740px.
+        We scale padding-bottom proportionally between a tight floor
+        (28px at ≤720px) and a generous ceiling (52px at ≥860px).
+        Everything in between interpolates linearly.
+        This means Chrome gets ~28-32px and Safari gets ~48-52px —
+        both look intentional without a hard browser detection hack.
+      */
+      var pageInner = document.querySelector('.page-inner');
+      function setPagePb() {
+        var h   = window.innerHeight;
+        var min = 28, max = 52;
+        var low = 720, high = 860;
+        var pb  = min + (max - min) * Math.max(0, Math.min(1, (h - low) / (high - low)));
+        if (pageInner) pageInner.style.setProperty('--page-pb', Math.round(pb) + 'px');
+      }
+      setPagePb();
       setBlurbPadding();
-      window.addEventListener('resize', setBlurbPadding);
+      window.addEventListener('resize', function() { setPagePb(); setBlurbPadding(); });
 
       /*
         FIX 9 — JS slide offset uses window.innerHeight (actual visible height)
