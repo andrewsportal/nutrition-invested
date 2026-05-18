@@ -23,39 +23,64 @@
   <meta name="twitter:image" content="https://andrewsportal.github.io/nutrition-invested/cover.JPEG">
 
   <style>
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CROSS-BROWSER RESET
+       Normalizes Chrome · Firefox · Safari defaults.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      /* Consistent subpixel text rendering across all three engines */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Remove Firefox's default dotted focus ring on buttons/links.
+       Replace with a clean brand-coloured :focus-visible outline. */
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid rgba(78,139,97,0.5);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        DESIGN TOKENS
-       All values derived from an 8px base grid.
-       One color per role. One radius family.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     :root {
       /* Colors */
       --color-bg:          #e8e8e8;
       --color-surface:     #ffffff;
       --color-border:      rgba(0,0,0,0.09);
-      --color-accent:      #4E8B61;        /* CTA only */
-      --color-accent-dim:  rgba(78,139,97,0.18);
-      --color-label:       #4E8B61;        /* text labels — same hue, explicit role */
-      --color-body:        #3a3a3a;        /* unified body text (was split #4a4a4a / #222) */
-      --color-muted:       #999999;        /* captions, all of them */
+      --color-accent:      #4E8B61;
+      --color-label:       #4E8B61;
+      --color-body:        #3a3a3a;
+      --color-muted:       #999999;
       --color-white:       #ffffff;
-
-      /* Counter bar uses a slightly darker tint so it reads as footer, not second CTA */
       --color-bar-bg:      #3d6e4e;
 
-      /* Typography scale — 4 tiers, locked */
-      --text-caption:      clamp(0.65rem, 2.6vw, 0.72rem);   /* payment labels, hints */
-      --text-label:        clamp(0.72rem, 2.9vw, 0.80rem);   /* blurb titles, nav labels */
-      --text-body:         clamp(0.82rem, 3.3vw, 0.92rem);   /* blurb body, button text */
-      --text-headline:     clamp(1.05rem, 4.6vw, 1.30rem);   /* page 1 headline */
-      --text-counter:      clamp(1.4rem, 5.6vw, 1.75rem);    /* counter — pulled down from 2rem */
+      /* Font stack — system-ui FIRST so Firefox gets a proper sans-serif.
+         -apple-system covers Safari/Chrome on Apple platforms.
+         Helvetica Neue and Arial as cross-platform fallbacks. */
+      --font: system-ui, -apple-system, BlinkMacSystemFont,
+              'Helvetica Neue', Arial, sans-serif;
 
-      /* Tracking — 3 values only */
-      --track-tight:  0.8px;
-      --track-mid:    1.5px;
-      --track-wide:   2.5px;
+      /* Typography — 4 locked tiers */
+      --text-caption:  clamp(0.65rem, 2.6vw, 0.72rem);
+      --text-label:    clamp(0.72rem, 2.9vw, 0.80rem);
+      --text-body:     clamp(0.82rem, 3.3vw, 0.92rem);
+      --text-headline: clamp(1.05rem, 4.6vw, 1.30rem);
+      --text-counter:  clamp(1.4rem,  5.6vw, 1.75rem);
 
-      /* Spacing — strict 8px grid */
+      /* Tracking */
+      --track-tight: 0.8px;
+      --track-mid:   1.5px;
+      --track-wide:  2.5px;
+
+      /* Spacing — strict 4px / 8px grid */
       --sp-1:  4px;
       --sp-2:  8px;
       --sp-3: 12px;
@@ -65,32 +90,39 @@
       --sp-8: 32px;
       --sp-10:40px;
 
-      /* Single gap token — every vertical space on page 1 uses this value */
-      --gap: 10px;
+      /* Single vertical rhythm token for page 1.
+         12px = on the 4px grid, visually clear on all screen sizes. */
+      --gap: 12px;
 
-      /* Border radius — one family */
+      /* Border radius */
       --radius-pill:   50px;
       --radius-circle: 50%;
-      --radius-sm:     8px;
 
       /* Shadows */
-      --shadow-cover:  drop-shadow(0 8px 24px rgba(0,0,0,0.12)) drop-shadow(0 2px 6px rgba(0,0,0,0.07));
-      --shadow-btn:    0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
-      --shadow-surface:0 2px 10px rgba(0,0,0,0.07);
-      --shadow-primary:0 4px 20px rgba(78,139,97,0.28), 0 1px 4px rgba(78,139,97,0.12);
+      --shadow-cover:   drop-shadow(0 8px 24px rgba(0,0,0,0.12))
+                        drop-shadow(0 2px 6px rgba(0,0,0,0.07));
+      --shadow-btn:     0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      --shadow-surface: 0 2px 10px rgba(0,0,0,0.07);
+      --shadow-primary: 0 4px 20px rgba(78,139,97,0.28), 0 1px 4px rgba(78,139,97,0.12);
+
+      /* Safe-area shorthand — referenced once, used everywhere */
+      --safe-top:    env(safe-area-inset-top,    0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { width: 100%; height: 100%; background: var(--color-bg); }
+    html {
+      width: 100%; height: 100%;
+      background: var(--color-bg);
+    }
 
     body {
       width: 100%; height: 100%;
       overflow: hidden;
       background: var(--color-bg);
-      /* Georgia pairs better with the book's editorial identity than system-ui */
-      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      font-family: var(--font);
       touch-action: none;
+      /* Suppress iOS/Android tap highlight globally */
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -101,17 +133,14 @@
       width: 100%; height: 100%;
       background: var(--color-bg);
       will-change: transform;
-      -webkit-transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
-              transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
+      transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
     }
 
-    .slide-container.no-transition {
-      -webkit-transition: none;
-              transition: none;
-    }
+    .slide-container.no-transition { transition: none; }
 
     .page {
-      position: absolute; width: 100%; height: 100%;
+      position: absolute;
+      width: 100%; height: 100%;
       overflow: hidden;
       background: var(--color-bg);
     }
@@ -120,18 +149,29 @@
     .page-2 { top: 100%; }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAGE 1 — INNER
-       FIX: padding-top matched to page 2's safe-area offset (both 40px).
+       PAGE 1 INNER
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-inner {
       width: 100%; height: 100%;
-      display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: flex-start; justify-content: flex-start;
-      padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--sp-5) max(calc(env(safe-area-inset-bottom) + var(--sp-4)), 28px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top:    calc(var(--safe-top) + 40px);
+      padding-left:   var(--sp-5);
+      padding-right:  var(--sp-5);
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 28px);
       overflow: hidden;
       position: relative;
+    }
+
+    /* Short-viewport safety: Google app / in-app browsers with tall chrome.
+       overscroll-behavior replaces deprecated -webkit-overflow-scrolling. */
+    @media (max-height: 680px) {
+      .page-inner {
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+      }
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -139,21 +179,21 @@
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-btn {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 14px);
-      left: var(--sp-4);   /* FIX: was 18px — now 16px (grid) */
-      display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: center; justify-content: center;
+      top:  calc(var(--safe-top) + 14px);
+      left: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: var(--sp-1);
       padding: 10px;
-      background: none; border: none;
-      -webkit-appearance: none; appearance: none;
+      background: none;
+      border: none;
+      appearance: none;
+      -webkit-appearance: none;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
       z-index: 20;
-      -webkit-transition: opacity 0.15s ease;
-              transition: opacity 0.15s ease;
+      transition: opacity 0.15s ease;
     }
 
     .menu-btn:active { opacity: 0.4; }
@@ -167,78 +207,70 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        MENU ENVELOPE
-       FIX: left aligned to match menu-btn (16px), gap below btn is 8px (sp-2).
-       The 36px circle size unchanged — it's already proportional.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-envelope {
       position: absolute;
-      /* btn top=14px + 10px btn padding + 16px btn height + 8px gap = 48px */
-      top: calc(env(safe-area-inset-top, 0px) + 56px);
-      left: var(--sp-4);   /* FIX: matched to hamburger left */
+      top:  calc(var(--safe-top) + 56px);
+      left: var(--sp-4);
       width: 36px; height: 36px;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-circle);
-      -webkit-box-shadow: var(--shadow-surface);
-              box-shadow: var(--shadow-surface);
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: center; justify-content: center;
+      box-shadow: var(--shadow-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
       z-index: 20;
       opacity: 0;
       pointer-events: none;
-      -webkit-transform: translateY(-4px);
-              transform: translateY(-4px);
-      -webkit-transition: opacity 0.18s ease, -webkit-transform 0.18s ease;
-              transition: opacity 0.18s ease, transform 0.18s ease;
+      transform: translateY(-4px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
     .menu-envelope.open {
       opacity: 1;
       pointer-events: auto;
-      -webkit-transform: translateY(0);
-              transform: translateY(0);
+      transform: translateY(0);
     }
 
     .menu-envelope:active { opacity: 0.5; }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        COVER
+       will-change: filter — tells Firefox to composite
+       the drop-shadow on its own layer, matching
+       Chrome/Safari rendering quality.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .cover-wrapper {
       width: 100%; max-width: 380px;
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: center; justify-content: center;
-      -webkit-flex: 0 0 auto; flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
       max-height: 46vh;
     }
 
     .cover-wrapper a { display: block; width: 100%; }
 
     .cover-wrapper img {
-      display: block; width: 100%; height: auto; max-height: 46vh;
+      display: block;
+      width: 100%; height: auto;
+      max-height: 46vh;
       object-fit: contain;
-      -webkit-filter: var(--shadow-cover);
-              filter: var(--shadow-cover);
+      filter: var(--shadow-cover);
+      will-change: filter;
       cursor: pointer;
-      -webkit-transition: -webkit-transform 0.22s ease, -webkit-filter 0.22s ease;
-              transition: transform 0.22s ease, filter 0.22s ease;
+      transition: transform 0.22s ease, filter 0.22s ease;
     }
 
     .cover-wrapper img:active {
-      -webkit-transform: scale(0.99);
-              transform: scale(0.99);
-      -webkit-filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
-              filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
+      transform: scale(0.99);
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       CAPTION TIER — unified
-       FIX: preview-hint, payment label, scroll-hint-label
-       all use --text-caption + --track-wide + --color-muted.
+       PREVIEW HINT — caption tier
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .preview-hint {
       margin-top: var(--gap);
@@ -247,21 +279,29 @@
       letter-spacing: var(--track-wide);
       font-weight: 500;
       text-transform: uppercase;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      flex-shrink: 0;
+      font-variant-ligatures: none;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       HEADLINE — sp-2 top and bottom, same rhythm as every other gap
+       HEADLINE
+       font-synthesis: none prevents Firefox from
+       synthesising faux-bold when the 900-weight
+       system font isn't available, keeping weight
+       consistent with Chrome/Safari.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
-      width: 100%; max-width: 480px; text-align: center;
-      margin-top: var(--gap); margin-bottom: var(--gap);
+      width: 100%; max-width: 480px;
+      text-align: center;
+      margin-top: var(--gap);
+      margin-bottom: var(--gap);
       font-size: var(--text-headline);
       font-weight: 900;
+      font-synthesis: none;
       letter-spacing: var(--track-mid);
       text-transform: uppercase;
       color: var(--color-label);
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .headline .price {
@@ -279,140 +319,134 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        BUTTONS
-       FIX: gap unified to 8px (sp-2). Button text uses --text-body.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .buttons {
       width: 100%; max-width: 480px;
-      display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       gap: var(--gap);
       margin-top: var(--gap);
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .buy-btn {
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: center; justify-content: center;
-      gap: 8px; width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      width: 100%;
       background: var(--color-surface);
       color: var(--color-body);
       border: 1.5px solid #d4d4d4;
       border-radius: var(--radius-pill);
-      /* sp-3 vertical (12px) + 2px = 14px — split between sp-3 and sp-4, keeps buttons compact but not flat */
       padding: 14px var(--sp-5);
-      /* Text: --text-label is the sweet spot — readable, not oversized, not tiny */
+      /* Explicit font-family on <a> — Firefox doesn't always inherit */
+      font-family: var(--font);
       font-size: var(--text-label);
       font-weight: 800;
+      font-synthesis: none;
       letter-spacing: var(--track-mid);
       text-transform: uppercase;
-      text-decoration: none; cursor: pointer;
-      -webkit-box-shadow: var(--shadow-btn);
-              box-shadow: var(--shadow-btn);
-      -webkit-tap-highlight-color: transparent;
-      -webkit-appearance: none; appearance: none;
-      -webkit-transition: -webkit-transform 0.12s ease, box-shadow 0.12s ease;
-              transition: transform 0.12s ease, box-shadow 0.12s ease;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      appearance: none;
+      -webkit-appearance: none;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .buy-btn.primary {
       background: var(--color-accent);
       color: var(--color-white);
       border-color: var(--color-accent);
-      -webkit-box-shadow: var(--shadow-primary);
-              box-shadow: var(--shadow-primary);
+      box-shadow: var(--shadow-primary);
     }
 
     .buy-btn.primary .logo-amazon {
       filter: brightness(0) invert(1);
-      -webkit-filter: brightness(0) invert(1);
     }
 
     .buy-btn.secondary {
       background: var(--color-surface);
       color: var(--color-body);
       border-color: #c8c8c8;
-      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-              box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
     .buy-btn span:last-child { text-align: left; }
-    .buy-btn:active { -webkit-transform: scale(0.97); transform: scale(0.97); }
-    .buy-btn img { width: auto; }
-    /* Logos sized to match --text-label button text — proportional, not outsized */
-    .buy-btn .logo-amazon { height: 22px; display: block; margin: 0 auto; }
-    .buy-btn .logo-payhip { height: 18px; display: block; margin: 2px auto 0; }
+    .buy-btn:active { transform: scale(0.97); }
+
+    .buy-btn img { width: auto; display: block; }
+    .buy-btn .logo-amazon { height: 22px; }
+    .buy-btn .logo-payhip { height: 18px; margin-top: 2px; }
 
     .btn-logo-wrap {
-      /* 32px container fits 22px logo with balanced breathing room */
       width: 32px; height: 32px;
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: center; justify-content: center;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        PAYMENT SECTION
-       FIX: margin-top sp-4. Label uses --text-caption + --track-wide.
+       margin-bottom: --gap so the space below the logos
+       matches every other gap on the page exactly.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .payment-section {
-      width: 100%; max-width: 480px; text-align: center;
+      width: 100%; max-width: 480px;
+      text-align: center;
       margin-top: var(--gap);
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .payment-section p {
       font-size: var(--text-caption);
       color: var(--color-muted);
-      margin-bottom: var(--sp-2);
+      margin-bottom: var(--gap);
       font-weight: 500;
       letter-spacing: var(--track-wide);
       text-transform: uppercase;
+      font-variant-ligatures: none;
     }
 
     .payment-logos {
-      display: -webkit-flex; display: flex;
-      -webkit-justify-content: center; justify-content: center;
-      -webkit-align-items: center; align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       gap: var(--sp-3);
-      -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      flex-wrap: wrap;
       opacity: 0.65;
     }
 
-    .payment-logos img { height: 16px; width: auto; }
+    .payment-logos img { height: 16px; width: auto; display: block; }
 
-    /* Fixed spacer — same --gap value as every other vertical space on the page */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SPACER
+       Fixed --gap height. No flex-grow. No min/max range.
+       Same 12px on Chrome, Firefox, Safari, every in-app browser.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint-spacer {
       width: 100%;
       height: var(--gap);
-      -webkit-flex-shrink: 0; flex-shrink: 0;
-    }
-
-    /* FIX: Safety valve — if content still overflows (very short viewport,
-       in-app browsers with tall chrome), allow vertical scroll rather than clipping
-       the scroll hint off screen. overflow: hidden was the original culprit. */
-    @media (max-height: 680px) {
-      .page-inner {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
+      flex-shrink: 0;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SCROLL HINT
-       FIX: label uses --text-caption + --track-wide (was --text-label + 2px).
-       Now consistent with every other caption-tier element.
+       WHAT'S INSIDE
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint {
-      -webkit-flex-shrink: 0; flex-shrink: 0;
-      background: none; border: none;
-      -webkit-appearance: none; appearance: none;
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      appearance: none;
+      -webkit-appearance: none;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
       padding: var(--sp-1) 0;
-      display: -webkit-inline-flex; display: inline-flex;
-      -webkit-align-items: center; align-items: center;
+      display: inline-flex;
+      align-items: center;
       gap: var(--sp-1);
       touch-action: manipulation;
     }
@@ -428,159 +462,163 @@
       text-decoration: underline;
       text-underline-offset: 3px;
       text-decoration-color: rgba(78,139,97,0.4);
+      font-variant-ligatures: none;
     }
 
     .scroll-hint-chevron {
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-animation: chevron-pulse 1.6s ease-in-out infinite;
-              animation: chevron-pulse 1.6s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      animation: chevron-pulse 1.6s ease-in-out infinite;
     }
 
     .scroll-hint-chevron svg { display: block; }
 
-    @-webkit-keyframes chevron-pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.2; }
-    }
     @keyframes chevron-pulse {
       0%, 100% { opacity: 1; }
       50%       { opacity: 0.2; }
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAGE 2 — INNER
-       FIX: padding-top 40px, matches page-1 top offset.
+       PAGE 2 INNER
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-inner {
-      position: relative; width: 100%; height: 100%;
-      display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column;
-      -webkit-align-items: center; align-items: center;
-      /* FIX: was 26px — now 40px to mirror page 1 */
-      padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--sp-5) 0;
+      position: relative;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top:   calc(var(--safe-top) + 40px);
+      padding-left:  var(--sp-5);
+      padding-right: var(--sp-5);
+      padding-bottom: 0;
       overflow: hidden;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        BACK BUTTON
-       FIX: uses --radius-pill (50px), matching buy-btn radius exactly.
-       Font: --text-caption + --track-wide — same family as scroll-hint.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-up {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + var(--sp-5));
+      top:   calc(var(--safe-top) + var(--sp-5));
       right: var(--sp-5);
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-pill);
-      -webkit-appearance: none; appearance: none;
+      appearance: none;
+      -webkit-appearance: none;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      padding: var(--sp-1) var(--sp-3);  /* FIX: was 6px 14px — now 4px 12px (grid) */
-      display: -webkit-inline-flex; display: inline-flex;
-      -webkit-align-items: center; align-items: center;
+      padding: var(--sp-1) var(--sp-3);
+      display: inline-flex;
+      align-items: center;
       gap: var(--sp-1);
       touch-action: manipulation;
-      -webkit-box-shadow: var(--shadow-surface);
-              box-shadow: var(--shadow-surface);
+      box-shadow: var(--shadow-surface);
       z-index: 10;
+      font-family: var(--font);
     }
 
     .scroll-up:active { opacity: 0.6; }
 
     .scroll-up-label {
-      font-size: var(--text-caption);           /* FIX: was --text-label */
-      letter-spacing: var(--track-wide);        /* FIX: was 1.8px */
-      font-weight: 700;                          /* FIX: was 600 — unified to 700 */
+      font-size: var(--text-caption);
+      letter-spacing: var(--track-wide);
+      font-weight: 700;
       color: var(--color-label);
       text-transform: uppercase;
+      font-variant-ligatures: none;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAGE 2 HEADER
+       PAGE 2 HEADER + RULE
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-header {
       width: 100%; max-width: 480px;
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
       min-height: 28px;
     }
 
     .info-section-sublabel {
-      font-size: var(--text-caption);           /* FIX: was --text-label (larger) */
-      letter-spacing: var(--track-wide);        /* FIX: was 3px — now 2.5px */
+      font-size: var(--text-caption);
+      letter-spacing: var(--track-wide);
       font-weight: 700;
       color: var(--color-muted);
       line-height: 1;
       text-transform: uppercase;
+      font-variant-ligatures: none;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       RULE
-       FIX: symmetric margin sp-3 top, sp-4 bottom (gives breathing room into list).
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-rule {
       width: 100%; max-width: 480px;
       height: 1px;
       background: rgba(0,0,0,0.07);
-      margin: var(--sp-3) 0 var(--sp-4);       /* FIX: was 14px 0 16px */
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      margin: var(--sp-3) 0 var(--sp-4);
+      flex-shrink: 0;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        BLURB LIST
+       scrollbar-width: none — Firefox
+       ::-webkit-scrollbar { display:none } — Chrome/Safari
+       overscroll-behavior replaces deprecated
+       -webkit-overflow-scrolling: touch
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .blurb-wrapper {
       width: 100%; max-width: 480px;
-      -webkit-flex: 1; flex: 1;
-      position: relative; min-height: 0; margin-bottom: 0;
+      flex: 1;
+      position: relative;
+      min-height: 0;
+      margin-bottom: 0;
     }
 
     .blurb-list {
       width: 100%; height: 100%;
-      display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column;
-      gap: var(--sp-3);                         /* FIX: was 9px — now 12px (grid) */
-      overflow-y: auto; overflow-x: hidden;
-      scrollbar-width: none; -ms-overflow-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
       padding-bottom: var(--sp-5);
       touch-action: pan-y;
+      overscroll-behavior-y: contain;
     }
 
     .blurb-list::-webkit-scrollbar { display: none; }
 
     .blurb-wrapper::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
       height: 80px;
       background: linear-gradient(
         to bottom,
-        rgba(232,232,232,0) 0%,
+        rgba(232,232,232,0)    0%,
         rgba(232,232,232,0.4) 25%,
-        rgba(232,232,232,0.85) 60%,
-        rgb(232,232,232) 100%
+        rgba(232,232,232,0.85)60%,
+        rgb(232,232,232)      100%
       );
       pointer-events: none;
-      -webkit-transition: opacity 0.25s ease;
-              transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease;
       opacity: 1;
     }
 
     .blurb-wrapper::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
       height: 80px;
       background: linear-gradient(
         to top,
-        rgba(232,232,232,0) 0%,
+        rgba(232,232,232,0)    0%,
         rgba(232,232,232,0.4) 25%,
-        rgba(232,232,232,0.85) 60%,
-        rgb(232,232,232) 100%
+        rgba(232,232,232,0.85)60%,
+        rgb(232,232,232)      100%
       );
       pointer-events: none;
-      -webkit-transition: opacity 0.25s ease;
-              transition: opacity 0.25s ease;
-      opacity: 0; z-index: 1;
+      transition: opacity 0.25s ease;
+      opacity: 0;
+      z-index: 1;
     }
 
     .blurb-wrapper.at-bottom::after { opacity: 0; }
@@ -588,23 +626,25 @@
     .blurb-wrapper.scrolled::before { opacity: 1; }
 
     .blurb-item {
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: flex-start; align-items: flex-start;
-      gap: var(--sp-2);                         /* FIX: was 9px — now 8px */
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-2);
     }
 
     .blurb-emoji {
-      font-size: var(--text-body);              /* FIX: locked to --text-body */
+      font-size: var(--text-body);
       line-height: 1.4;
-      -webkit-flex-shrink: 0; flex-shrink: 0;
-      width: 22px; text-align: center;
+      flex-shrink: 0;
+      width: 22px;
+      text-align: center;
     }
 
-    .blurb-text { -webkit-flex: 1; flex: 1; }
+    .blurb-text { flex: 1; }
 
     .blurb-title {
-      font-size: var(--text-label);             /* FIX: own label tier, not mixed */
+      font-size: var(--text-label);
       font-weight: 800;
+      font-synthesis: none;
       color: var(--color-label);
       letter-spacing: var(--track-tight);
       text-transform: uppercase;
@@ -614,7 +654,7 @@
 
     .blurb-body {
       font-size: var(--text-body);
-      color: var(--color-body);                 /* FIX: was #4a4a4a — now unified */
+      color: var(--color-body);
       line-height: 1.5;
       font-weight: 500;
       display: inline;
@@ -622,25 +662,27 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        COUNTER BAR
-       FIX: --color-bar-bg (darker tint) so it reads as footer, not second CTA.
-       FIX: padding uses sp-4 vertical / sp-6 horizontal (was 14px/24px — close,
-            now grid-aligned). Counter number pulled to --text-counter (smaller).
+       padding-bottom uses max() to respect safe-area
+       on notched iOS devices across all browsers.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: var(--color-bar-bg);          /* FIX: was --color-accent (#4E8B61) */
-      padding: var(--sp-4) var(--sp-6) calc(env(safe-area-inset-bottom, 0px) + var(--sp-4));
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: space-between; justify-content: space-between;
+      background: var(--color-bar-bg);
+      padding-top:    var(--sp-4);
+      padding-left:   var(--sp-6);
+      padding-right:  var(--sp-6);
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), var(--sp-4));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: var(--sp-3);
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      flex-shrink: 0;
       z-index: 5;
     }
 
     .counter-bar-left {
-      display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       gap: 2px;
     }
 
@@ -650,11 +692,13 @@
       font-weight: 700;
       color: rgba(255,255,255,0.55);
       text-transform: uppercase;
+      font-variant-ligatures: none;
     }
 
     .counter-bar-number {
-      font-size: var(--text-counter);           /* FIX: was clamp(1.6,6.5vw,2rem) */
+      font-size: var(--text-counter);
       font-weight: 900;
+      font-synthesis: none;
       color: var(--color-white);
       letter-spacing: -1px;
       line-height: 1;
@@ -667,25 +711,27 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.55);
       margin-top: 1px;
+      font-variant-ligatures: none;
     }
 
     .counter-bar-divider {
-      width: 1px; height: 32px;                /* FIX: was 36px — now proportional to smaller counter */
+      width: 1px; height: 32px;
       background: rgba(255,255,255,0.22);
-      -webkit-flex-shrink: 0; flex-shrink: 0;
+      flex-shrink: 0;
     }
 
     .counter-bar-right {
-      -webkit-flex: 1; flex: 1;
+      flex: 1;
       text-align: right;
-      display: -webkit-flex; display: flex;
-      -webkit-align-items: center; align-items: center;
-      -webkit-justify-content: flex-end; justify-content: flex-end;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .counter-bar-tagline {
-      font-size: var(--text-label);             /* FIX: was 0.85rem — now --text-label */
+      font-size: var(--text-label);
       font-weight: 800;
+      font-synthesis: none;
       letter-spacing: var(--track-mid);
       text-transform: uppercase;
       color: var(--color-white);
@@ -705,20 +751,18 @@
   <div class="page-inner">
 
     <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
 
     <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
-      <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
         <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
 
     <div class="cover-wrapper">
-      <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank">
+      <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank" rel="noopener">
         <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios" loading="eager" width="600" height="800">
       </a>
     </div>
@@ -731,11 +775,11 @@
 
     <div class="buttons">
       <a class="buy-btn primary" href="https://www.amazon.com/" target="_blank" rel="noopener">
-        <span class="btn-logo-wrap"><img src="amazon.svg" alt="Amazon" class="logo-amazon"></span>
+        <span class="btn-logo-wrap"><img src="amazon.svg" alt="" class="logo-amazon" aria-hidden="true"></span>
         <span>Buy on Amazon</span>
       </a>
       <a class="buy-btn secondary" href="https://payhip.com/" target="_blank" rel="noopener">
-        <span class="btn-logo-wrap"><img src="payhip.svg" alt="Payhip" class="logo-payhip"></span>
+        <span class="btn-logo-wrap"><img src="payhip.svg" alt="" class="logo-payhip" aria-hidden="true"></span>
         <span>Buy on Payhip</span>
       </a>
     </div>
@@ -743,20 +787,20 @@
     <div class="payment-section">
       <p>🔒 SECURE CHECKOUT</p>
       <div class="payment-logos">
-        <img src="applepay.svg" alt="Apple Pay">
-        <img src="googlepay.svg" alt="Google Pay">
-        <img src="paypal.svg" alt="PayPal">
-        <img src="visa.svg" alt="Visa">
-        <img src="mastercard.svg" alt="Mastercard">
+        <img src="applepay.svg"        alt="Apple Pay">
+        <img src="googlepay.svg"       alt="Google Pay">
+        <img src="paypal.svg"          alt="PayPal">
+        <img src="visa.svg"            alt="Visa">
+        <img src="mastercard.svg"      alt="Mastercard">
         <img src="americanexpress.svg" alt="American Express">
       </div>
     </div>
 
-    <div class="scroll-hint-spacer"></div>
+    <div class="scroll-hint-spacer" aria-hidden="true"></div>
 
     <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
       <span class="scroll-hint-label">What's Inside</span>
-      <span class="scroll-hint-chevron">
+      <span class="scroll-hint-chevron" aria-hidden="true">
         <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 1L5.5 6L10 1" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -771,7 +815,7 @@
   <div class="page-2-inner">
 
     <button class="scroll-up" id="scroll-up" aria-label="Back to top">
-      <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M1 6L5.5 1L10 6" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span class="scroll-up-label">Back</span>
@@ -787,7 +831,7 @@
       <div class="blurb-list" id="blurb-list">
 
         <div class="blurb-item">
-          <span class="blurb-emoji">🥩</span>
+          <span class="blurb-emoji" aria-hidden="true">🥩</span>
           <div class="blurb-text">
             <span class="blurb-title">Eat</span>
             <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
@@ -795,7 +839,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">📏</span>
+          <span class="blurb-emoji" aria-hidden="true">📏</span>
           <div class="blurb-text">
             <span class="blurb-title">Measure</span>
             <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
@@ -803,7 +847,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">📈</span>
+          <span class="blurb-emoji" aria-hidden="true">📈</span>
           <div class="blurb-text">
             <span class="blurb-title">Compound</span>
             <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
@@ -811,7 +855,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">⚙️</span>
+          <span class="blurb-emoji" aria-hidden="true">⚙️</span>
           <div class="blurb-text">
             <span class="blurb-title">Fix</span>
             <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
@@ -819,7 +863,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">💊</span>
+          <span class="blurb-emoji" aria-hidden="true">💊</span>
           <div class="blurb-text">
             <span class="blurb-title">Stack</span>
             <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
@@ -827,7 +871,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">🩸</span>
+          <span class="blurb-emoji" aria-hidden="true">🩸</span>
           <div class="blurb-text">
             <span class="blurb-title">Audit</span>
             <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
@@ -835,7 +879,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">🔄</span>
+          <span class="blurb-emoji" aria-hidden="true">🔄</span>
           <div class="blurb-text">
             <span class="blurb-title">Recover</span>
             <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
@@ -843,7 +887,7 @@
         </div>
 
         <div class="blurb-item">
-          <span class="blurb-emoji">⚡</span>
+          <span class="blurb-emoji" aria-hidden="true">⚡</span>
           <div class="blurb-text">
             <span class="blurb-title">Deploy</span>
             <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
@@ -862,7 +906,7 @@
         </div>
         <p class="counter-bar-word">Investors</p>
       </div>
-      <div class="counter-bar-divider"></div>
+      <div class="counter-bar-divider" aria-hidden="true"></div>
       <div class="counter-bar-right">
         <p class="counter-bar-tagline">DRIP ON.<br>COMPOUNDS UP.</p>
       </div>
@@ -893,7 +937,6 @@
         displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
       }
 
-      /* ── HAMBURGER MENU ── */
       var menuBtn      = document.getElementById('menu-btn');
       var menuEnvelope = document.getElementById('menu-envelope');
       var menuOpen     = false;
@@ -927,11 +970,8 @@
         }
       });
 
-      menuEnvelope.addEventListener('click', function () {
-        setTimeout(closeMenu, 200);
-      });
+      menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
 
-      /* ── COUNTER ── */
       function animateCount(from, to, dur) {
         if (!displayEl) return;
         if (to === 0) { displayEl.textContent = '—'; return; }
@@ -981,10 +1021,7 @@
       document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
       document.getElementById('scroll-up').addEventListener('click',   function () { goToPage(0); });
 
-      var touchStartY         = 0;
-      var touchStartX         = 0;
-      var touchStartTime      = 0;
-      var touchStartScrollTop = 0;
+      var touchStartY = 0, touchStartX = 0, touchStartTime = 0, touchStartScrollTop = 0;
 
       document.addEventListener('touchstart', function (e) {
         touchStartY         = e.touches[0].clientY;
@@ -994,9 +1031,8 @@
       }, { passive: true });
 
       document.addEventListener('touchmove', function (e) {
-        var target            = e.target;
-        var isInsideBlurbList = blurbList && blurbList.contains(target);
-        if (isInsideBlurbList) {
+        var isInList = blurbList && blurbList.contains(e.target);
+        if (isInList) {
           var dy       = touchStartY - e.touches[0].clientY;
           var atTop    = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
@@ -1010,31 +1046,26 @@
         var dy     = touchStartY - e.changedTouches[0].clientY;
         var dx     = touchStartX - e.changedTouches[0].clientX;
         var dt     = Date.now() - touchStartTime;
-        var target = e.target;
-        var isInsideBlurbList = blurbList && blurbList.contains(target);
+        var isInList = blurbList && blurbList.contains(e.target);
 
         if (Math.abs(dx) > Math.abs(dy)) return;
-        var isSwipe = Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300);
-        if (!isSwipe) return;
+        if (!(Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300))) return;
 
-        if (isInsideBlurbList) {
-          var wasAtTop = touchStartScrollTop <= 0;
-          if (dy > 0 && currentPage === 0)      { goToPage(1); }
-          else if (dy < 0 && currentPage === 1 && wasAtTop) { goToPage(0); }
+        if (isInList) {
+          if      (dy > 0 && currentPage === 0)                    { goToPage(1); }
+          else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0) { goToPage(0); }
         } else {
-          if (dy > 0 && currentPage === 0)      { goToPage(1); }
+          if      (dy > 0 && currentPage === 0) { goToPage(1); }
           else if (dy < 0 && currentPage === 1) { goToPage(0); }
         }
       }, { passive: true });
 
       function updateFade() {
         if (!blurbList || !blurbWrapper) return;
-        var scrollTop = blurbList.scrollTop;
-        var atBottom  = scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 4;
-        var atTop     = scrollTop <= 0;
-        blurbWrapper.classList.toggle('at-bottom', atBottom);
-        blurbWrapper.classList.toggle('at-top',    atTop);
-        blurbWrapper.classList.toggle('scrolled',  scrollTop > 4);
+        var st = blurbList.scrollTop;
+        blurbWrapper.classList.toggle('at-bottom', st + blurbList.clientHeight >= blurbList.scrollHeight - 4);
+        blurbWrapper.classList.toggle('at-top',    st <= 0);
+        blurbWrapper.classList.toggle('scrolled',  st > 4);
       }
 
       if (blurbList) {
