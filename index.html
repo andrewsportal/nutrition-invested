@@ -178,10 +178,10 @@
         consumes ~60px of effective height. 28px saves 12px while
         still clearing the hamburger icon.
       */
-      padding-top:    calc(var(--safe-top) + 28px);
+      padding-top:    calc(var(--safe-top) + 36px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 20px);
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-6)), 32px);
       overflow: hidden;
       position: relative;
     }
@@ -279,8 +279,8 @@
       justify-content: center;
       flex: 0 0 auto;
       /* dvh fallback chain */
-      max-height: 42vh;
-      max-height: 42dvh;
+      max-height: 48vh;
+      max-height: 48dvh;
     }
 
     .cover-wrapper a { display: block; width: 100%; }
@@ -288,8 +288,8 @@
     .cover-wrapper img {
       display: block;
       width: 100%; height: auto;
-      max-height: 42vh;
-      max-height: 42dvh;
+      max-height: 48vh;
+      max-height: 48dvh;
       object-fit: contain;
       filter: var(--shadow-cover);
       will-change: filter;
@@ -464,7 +464,7 @@
       width: 100%;
       flex: 1 1 0px;
       min-height: 0;
-      max-height: var(--gap);
+      max-height: 32px;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
