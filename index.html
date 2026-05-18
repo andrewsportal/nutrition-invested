@@ -292,13 +292,14 @@
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
-      gap: 10px; width: 100%;
+      gap: 8px; width: 100%;
       background: var(--color-surface);
       color: var(--color-body);
       border: 1.5px solid #d4d4d4;
       border-radius: var(--radius-pill);
-      padding: var(--sp-4) var(--sp-6);
-      font-size: var(--text-body);
+      /* sp-3 (12px) vertical saves ~8px per button vs sp-4 (16px) — 16px total recovered */
+      padding: var(--sp-3) var(--sp-5);
+      font-size: var(--text-caption);
       font-weight: 800;
       letter-spacing: var(--track-mid);
       text-transform: uppercase;
@@ -335,11 +336,13 @@
     .buy-btn span:last-child { text-align: left; }
     .buy-btn:active { -webkit-transform: scale(0.97); transform: scale(0.97); }
     .buy-btn img { width: auto; }
-    .buy-btn .logo-amazon { height: 26px; display: block; margin: 0 auto; }
-    .buy-btn .logo-payhip { height: 20px; display: block; margin: 5px auto 0; }
+    /* Reduced: Amazon logo 26px→20px, Payhip 20px→16px, margin trimmed */
+    .buy-btn .logo-amazon { height: 20px; display: block; margin: 0 auto; }
+    .buy-btn .logo-payhip { height: 16px; display: block; margin: 3px auto 0; }
 
     .btn-logo-wrap {
-      width: 36px; height: 36px;
+      /* Reduced: 36px→28px container to match smaller logos */
+      width: 28px; height: 28px;
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
