@@ -383,12 +383,11 @@
 
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
-      /* min-height: sp-4 (16px) — visible gap on every browser.
-         max-height: sp-10 (40px) — generous room on tall Safari viewports.
-         On short Google/in-app viewports the flex engine will compress toward min,
-         and the @media safety net below handles any remaining overflow. */
-      min-height: var(--sp-4);
-      max-height: var(--sp-10);
+      /* min-height 8px: enough gap to visually separate from payment logos.
+         max-height 28px: keeps What's Inside on screen in Google app's shorter chrome.
+         Sweet spot between the two previous extremes. */
+      min-height: var(--sp-2);
+      max-height: 28px;
     }
 
     /* FIX: Safety valve — if content still overflows (very short viewport,
