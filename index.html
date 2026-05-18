@@ -10,8 +10,6 @@
   <title>Nutrition, Invested — The Tactical Nutrition Playbook</title>
   <meta name="description" content="Every meal is a deposit. The tactical nutrition playbook for building lasting health — no trackers, no meal plans. $6.99.">
 
-  <!-- Open Graph -->
-
   <meta property="og:type" content="website">
   <meta property="og:title" content="Nutrition, Invested — The Tactical Nutrition Playbook">
   <meta property="og:description" content="Every meal is a deposit. Build lasting health with the DRIP system. No trackers. No meal plans. $6.99.">
@@ -19,73 +17,141 @@
   <meta property="og:url" content="https://andrewsportal.github.io/nutrition-invested/">
   <meta property="og:site_name" content="Nutrition, Invested">
 
-  <!-- Twitter Card -->
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Nutrition, Invested — The Tactical Nutrition Playbook">
   <meta name="twitter:description" content="Every meal is a deposit. Build lasting health with the DRIP system. No trackers. No meal plans. $6.99.">
   <meta name="twitter:image" content="https://andrewsportal.github.io/nutrition-invested/cover.JPEG">
 
   <style>
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       DESIGN TOKENS
+       All values derived from an 8px base grid.
+       One color per role. One radius family.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    :root {
+      /* Colors */
+      --color-bg:          #e8e8e8;
+      --color-surface:     #ffffff;
+      --color-border:      rgba(0,0,0,0.09);
+      --color-accent:      #4E8B61;        /* CTA only */
+      --color-accent-dim:  rgba(78,139,97,0.18);
+      --color-label:       #4E8B61;        /* text labels — same hue, explicit role */
+      --color-body:        #3a3a3a;        /* unified body text (was split #4a4a4a / #222) */
+      --color-muted:       #999999;        /* captions, all of them */
+      --color-white:       #ffffff;
+
+      /* Counter bar uses a slightly darker tint so it reads as footer, not second CTA */
+      --color-bar-bg:      #3d6e4e;
+
+      /* Typography scale — 4 tiers, locked */
+      --text-caption:      clamp(0.65rem, 2.6vw, 0.72rem);   /* payment labels, hints */
+      --text-label:        clamp(0.72rem, 2.9vw, 0.80rem);   /* blurb titles, nav labels */
+      --text-body:         clamp(0.82rem, 3.3vw, 0.92rem);   /* blurb body, button text */
+      --text-headline:     clamp(1.05rem, 4.6vw, 1.30rem);   /* page 1 headline */
+      --text-counter:      clamp(1.4rem, 5.6vw, 1.75rem);    /* counter — pulled down from 2rem */
+
+      /* Tracking — 3 values only */
+      --track-tight:  0.8px;
+      --track-mid:    1.5px;
+      --track-wide:   2.5px;
+
+      /* Spacing — strict 8px grid */
+      --sp-1:  4px;
+      --sp-2:  8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-8: 32px;
+      --sp-10:40px;
+
+      /* Border radius — one family */
+      --radius-pill:   50px;
+      --radius-circle: 50%;
+      --radius-sm:     8px;
+
+      /* Shadows */
+      --shadow-cover:  drop-shadow(0 8px 24px rgba(0,0,0,0.12)) drop-shadow(0 2px 6px rgba(0,0,0,0.07));
+      --shadow-btn:    0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      --shadow-surface:0 2px 10px rgba(0,0,0,0.07);
+      --shadow-primary:0 4px 20px rgba(78,139,97,0.28), 0 1px 4px rgba(78,139,97,0.12);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { width: 100%; height: 100%; background: #e8e8e8; }
+    html { width: 100%; height: 100%; background: var(--color-bg); }
 
     body {
       width: 100%; height: 100%;
-      overflow: hidden; background: #e8e8e8;
+      overflow: hidden;
+      background: var(--color-bg);
+      /* Georgia pairs better with the book's editorial identity than system-ui */
       font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       touch-action: none;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLIDE CONTAINER
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .slide-container {
       position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; background: #e8e8e8;
+      width: 100%; height: 100%;
+      background: var(--color-bg);
       will-change: transform;
       -webkit-transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
-      transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
+              transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
     }
 
-    .slide-container.no-transition { -webkit-transition: none; transition: none; }
+    .slide-container.no-transition {
+      -webkit-transition: none;
+              transition: none;
+    }
 
     .page {
       position: absolute; width: 100%; height: 100%;
-      overflow: hidden; background: #e8e8e8;
+      overflow: hidden;
+      background: var(--color-bg);
     }
 
     .page-1 { top: 0; }
     .page-2 { top: 100%; }
 
-    /* ── PAGE 1 ── */
-
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 1 — INNER
+       FIX: padding-top matched to page 2's safe-area offset (both 40px).
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-inner {
       width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: flex-start; justify-content: flex-start;
-      padding: calc(env(safe-area-inset-top, 0px) + 44px) 20px max(calc(env(safe-area-inset-bottom) + 20px), 34px);
+      /* FIX: was 44px top — now 40px to match page-2-inner's 40px */
+      padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--sp-5) max(calc(env(safe-area-inset-bottom) + var(--sp-4)), 34px);
       overflow: hidden;
       position: relative;
     }
 
-    /* ── HAMBURGER ── */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       HAMBURGER
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-btn {
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 14px);
-      left: 18px;
+      left: var(--sp-4);   /* FIX: was 18px — now 16px (grid) */
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
-      gap: 4px;
+      gap: var(--sp-1);
       padding: 10px;
       background: none; border: none;
       -webkit-appearance: none; appearance: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       z-index: 20;
-      -webkit-transition: opacity 0.15s ease; transition: opacity 0.15s ease;
+      -webkit-transition: opacity 0.15s ease;
+              transition: opacity 0.15s ease;
     }
 
     .menu-btn:active { opacity: 0.4; }
@@ -97,24 +163,22 @@
       border-radius: 1px;
     }
 
-    /*
-      Circle envelope — same material as Back button on page 2.
-      rgba(255,255,255,0.9) bg, 1px solid rgba(0,0,0,0.09) border,
-      0 2px 10px rgba(0,0,0,0.07) shadow, border-radius: 50%.
-      Left edge at left: 28px centers the 36px circle under the hamburger lines.
-      Fades in with slight upward lift from below the hamburger.
-    */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       MENU ENVELOPE
+       FIX: left aligned to match menu-btn (16px), gap below btn is 8px (sp-2).
+       The 36px circle size unchanged — it's already proportional.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-envelope {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 62px);
-      left: 18px;
-      width: 36px;
-      height: 36px;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid rgba(0,0,0,0.09);
-      border-radius: 50%;
-      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      /* btn top=14px + 10px btn padding + 16px btn height + 8px gap = 48px */
+      top: calc(env(safe-area-inset-top, 0px) + 56px);
+      left: var(--sp-4);   /* FIX: matched to hamburger left */
+      width: 36px; height: 36px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-circle);
+      -webkit-box-shadow: var(--shadow-surface);
+              box-shadow: var(--shadow-surface);
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
@@ -124,20 +188,23 @@
       opacity: 0;
       pointer-events: none;
       -webkit-transform: translateY(-4px);
-      transform: translateY(-4px);
+              transform: translateY(-4px);
       -webkit-transition: opacity 0.18s ease, -webkit-transform 0.18s ease;
-      transition: opacity 0.18s ease, transform 0.18s ease;
+              transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
     .menu-envelope.open {
       opacity: 1;
       pointer-events: auto;
       -webkit-transform: translateY(0);
-      transform: translateY(0);
+              transform: translateY(0);
     }
 
     .menu-envelope:active { opacity: 0.5; }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       COVER
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .cover-wrapper {
       width: 100%; max-width: 380px;
       display: -webkit-flex; display: flex;
@@ -152,46 +219,72 @@
     .cover-wrapper img {
       display: block; width: 100%; height: auto; max-height: 48vh;
       object-fit: contain;
-      -webkit-filter: drop-shadow(0 8px 24px rgba(0,0,0,0.13)) drop-shadow(0 2px 6px rgba(0,0,0,0.08));
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.13)) drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+      -webkit-filter: var(--shadow-cover);
+              filter: var(--shadow-cover);
       cursor: pointer;
       -webkit-transition: -webkit-transform 0.22s ease, -webkit-filter 0.22s ease;
-      transition: transform 0.22s ease, filter 0.22s ease;
+              transition: transform 0.22s ease, filter 0.22s ease;
     }
 
     .cover-wrapper img:active {
-      -webkit-transform: scale(0.99); transform: scale(0.99);
+      -webkit-transform: scale(0.99);
+              transform: scale(0.99);
       -webkit-filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
+              filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CAPTION TIER — unified
+       FIX: preview-hint, payment label, scroll-hint-label
+       all use --text-caption + --track-wide + --color-muted.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .preview-hint {
-      margin-top: 8px;
-      font-size: clamp(0.65rem, 2.6vw, 0.75rem);
-      color: #999999; letter-spacing: 1.8px; font-weight: 500;
+      margin-top: var(--sp-2);
+      font-size: var(--text-caption);
+      color: var(--color-muted);
+      letter-spacing: var(--track-wide);
+      font-weight: 500;
+      text-transform: uppercase;
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       HEADLINE
+       FIX: margin uses --sp-3 top/bottom (was 14px asymmetric).
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: 14px; margin-bottom: 14px;
-      font-size: clamp(1.05rem, 4.6vw, 1.35rem);
-      font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase;
-      color: #4E8B61; -webkit-flex-shrink: 0; flex-shrink: 0;
+      margin-top: var(--sp-3); margin-bottom: var(--sp-3);
+      font-size: var(--text-headline);
+      font-weight: 900;
+      letter-spacing: var(--track-mid);
+      text-transform: uppercase;
+      color: var(--color-label);
+      -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
     .headline .price {
-      color: #222; font-size: clamp(1.05rem, 4.6vw, 1.35rem);
-      font-weight: 900; letter-spacing: 1.2px;
+      color: var(--color-body);
+      font-size: var(--text-headline);
+      font-weight: 900;
+      letter-spacing: var(--track-mid);
     }
 
-    .headline .divider { color: #aaaaaa; margin: 0 6px; font-weight: 400; }
+    .headline .divider {
+      color: #aaaaaa;
+      margin: 0 var(--sp-1);
+      font-weight: 400;
+    }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       BUTTONS
+       FIX: gap unified to 8px (sp-2). Button text uses --text-body.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .buttons {
       width: 100%; max-width: 480px;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
-      row-gap: 10px; gap: 10px;
+      gap: var(--sp-2);   /* FIX: was 10px — now 8px (grid) */
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
@@ -200,24 +293,30 @@
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
       gap: 10px; width: 100%;
-      background: #ffffff; color: #222;
-      border: 1.5px solid #d4d4d4; border-radius: 50px;
-      padding: 16px 24px;
-      font-size: clamp(0.95rem, 3.9vw, 1.1rem);
-      font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      background: var(--color-surface);
+      color: var(--color-body);
+      border: 1.5px solid #d4d4d4;
+      border-radius: var(--radius-pill);
+      padding: var(--sp-4) var(--sp-6);
+      font-size: var(--text-body);
+      font-weight: 800;
+      letter-spacing: var(--track-mid);
+      text-transform: uppercase;
       text-decoration: none; cursor: pointer;
-      -webkit-box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      -webkit-box-shadow: var(--shadow-btn);
+              box-shadow: var(--shadow-btn);
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none; appearance: none;
       -webkit-transition: -webkit-transform 0.12s ease, box-shadow 0.12s ease;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
+              transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     .buy-btn.primary {
-      background: #4E8B61; color: #ffffff; border-color: #4E8B61;
-      -webkit-box-shadow: 0 4px 20px rgba(78,139,97,0.32), 0 1px 4px rgba(78,139,97,0.15);
-      box-shadow: 0 4px 20px rgba(78,139,97,0.32), 0 1px 4px rgba(78,139,97,0.15);
+      background: var(--color-accent);
+      color: var(--color-white);
+      border-color: var(--color-accent);
+      -webkit-box-shadow: var(--shadow-primary);
+              box-shadow: var(--shadow-primary);
     }
 
     .buy-btn.primary .logo-amazon {
@@ -226,9 +325,11 @@
     }
 
     .buy-btn.secondary {
-      background: #ffffff; color: #333; border-color: #c8c8c8;
+      background: var(--color-surface);
+      color: var(--color-body);
+      border-color: #c8c8c8;
       -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+              box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
     .buy-btn span:last-child { text-align: left; }
@@ -245,100 +346,144 @@
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAYMENT SECTION
+       FIX: margin-top sp-4. Label uses --text-caption + --track-wide.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .payment-section {
       width: 100%; max-width: 480px; text-align: center;
-      margin-top: 12px; -webkit-flex-shrink: 0; flex-shrink: 0;
+      margin-top: var(--sp-4);
+      -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
     .payment-section p {
-      font-size: clamp(0.65rem, 2.6vw, 0.75rem);
-      color: #999999; margin-bottom: 7px; font-weight: 500; letter-spacing: 1.8px;
+      font-size: var(--text-caption);
+      color: var(--color-muted);
+      margin-bottom: var(--sp-2);
+      font-weight: 500;
+      letter-spacing: var(--track-wide);
+      text-transform: uppercase;
     }
 
     .payment-logos {
       display: -webkit-flex; display: flex;
       -webkit-justify-content: center; justify-content: center;
       -webkit-align-items: center; align-items: center;
-      gap: 12px; -webkit-flex-wrap: wrap; flex-wrap: wrap; opacity: 0.7;
+      gap: var(--sp-3);
+      -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      opacity: 0.65;
     }
 
     .payment-logos img { height: 16px; width: auto; }
 
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
-      min-height: 8px; max-height: 20px;
+      min-height: var(--sp-2);
+      max-height: var(--sp-5);
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SCROLL HINT
+       FIX: label uses --text-caption + --track-wide (was --text-label + 2px).
+       Now consistent with every other caption-tier element.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint {
       -webkit-flex-shrink: 0; flex-shrink: 0;
       background: none; border: none;
       -webkit-appearance: none; appearance: none;
-      cursor: pointer; -webkit-tap-highlight-color: transparent;
-      padding: 8px 0; display: -webkit-inline-flex; display: inline-flex;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      padding: var(--sp-2) 0;
+      display: -webkit-inline-flex; display: inline-flex;
       -webkit-align-items: center; align-items: center;
-      gap: 6px; touch-action: manipulation;
-      margin-bottom: 4px;
+      gap: var(--sp-1);
+      touch-action: manipulation;
+      margin-bottom: var(--sp-1);
     }
 
     .scroll-hint:active { opacity: 0.6; }
 
     .scroll-hint-label {
-      font-size: clamp(0.72rem, 2.9vw, 0.82rem);
-      letter-spacing: 2px; font-weight: 700; color: #4E8B61;
-      text-transform: uppercase; text-decoration: underline;
-      text-underline-offset: 3px; text-decoration-color: rgba(78,139,97,0.4);
+      font-size: var(--text-caption);
+      letter-spacing: var(--track-wide);
+      font-weight: 700;
+      color: var(--color-label);
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(78,139,97,0.4);
     }
 
     .scroll-hint-chevron {
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-animation: chevron-pulse 1.6s ease-in-out infinite;
-      animation: chevron-pulse 1.6s ease-in-out infinite;
+              animation: chevron-pulse 1.6s ease-in-out infinite;
     }
 
     .scroll-hint-chevron svg { display: block; }
 
     @-webkit-keyframes chevron-pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+      50%       { opacity: 0.2; }
     }
     @keyframes chevron-pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+      50%       { opacity: 0.2; }
     }
 
-    /* ── PAGE 2 ── */
-
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 2 — INNER
+       FIX: padding-top 40px, matches page-1 top offset.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-inner {
       position: relative; width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
       -webkit-align-items: center; align-items: center;
-      padding: calc(env(safe-area-inset-top, 0px) + 26px) 20px 0;
+      /* FIX: was 26px — now 40px to mirror page 1 */
+      padding: calc(env(safe-area-inset-top, 0px) + 40px) var(--sp-5) 0;
       overflow: hidden;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       BACK BUTTON
+       FIX: uses --radius-pill (50px), matching buy-btn radius exactly.
+       Font: --text-caption + --track-wide — same family as scroll-hint.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-up {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 20px);
-      right: 20px;
-      background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.09);
-      border-radius: 50px; -webkit-appearance: none; appearance: none;
-      cursor: pointer; -webkit-tap-highlight-color: transparent;
-      padding: 6px 14px; display: -webkit-inline-flex; display: inline-flex;
-      -webkit-align-items: center; align-items: center; gap: 5px;
+      top: calc(env(safe-area-inset-top, 0px) + var(--sp-5));
+      right: var(--sp-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      -webkit-appearance: none; appearance: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      padding: var(--sp-1) var(--sp-3);  /* FIX: was 6px 14px — now 4px 12px (grid) */
+      display: -webkit-inline-flex; display: inline-flex;
+      -webkit-align-items: center; align-items: center;
+      gap: var(--sp-1);
       touch-action: manipulation;
-      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07); z-index: 10;
+      -webkit-box-shadow: var(--shadow-surface);
+              box-shadow: var(--shadow-surface);
+      z-index: 10;
     }
 
     .scroll-up:active { opacity: 0.6; }
 
     .scroll-up-label {
-      font-size: clamp(0.7rem, 2.8vw, 0.8rem);
-      letter-spacing: 1.8px; font-weight: 600; color: #4E8B61; text-transform: uppercase;
+      font-size: var(--text-caption);           /* FIX: was --text-label */
+      letter-spacing: var(--track-wide);        /* FIX: was 1.8px */
+      font-weight: 700;                          /* FIX: was 600 — unified to 700 */
+      color: var(--color-label);
+      text-transform: uppercase;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 2 HEADER
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-header {
       width: 100%; max-width: 480px;
       display: -webkit-flex; display: flex;
@@ -348,18 +493,29 @@
     }
 
     .info-section-sublabel {
-      font-size: clamp(0.72rem, 2.9vw, 0.82rem);
-      letter-spacing: 3px; font-weight: 700; color: #999999;
-      line-height: 1; text-transform: uppercase;
+      font-size: var(--text-caption);           /* FIX: was --text-label (larger) */
+      letter-spacing: var(--track-wide);        /* FIX: was 3px — now 2.5px */
+      font-weight: 700;
+      color: var(--color-muted);
+      line-height: 1;
+      text-transform: uppercase;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       RULE
+       FIX: symmetric margin sp-3 top, sp-4 bottom (gives breathing room into list).
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-rule {
       width: 100%; max-width: 480px;
-      height: 1px; background: rgba(0,0,0,0.07);
-      margin: 14px 0 16px;
+      height: 1px;
+      background: rgba(0,0,0,0.07);
+      margin: var(--sp-3) 0 var(--sp-4);       /* FIX: was 14px 0 16px */
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       BLURB LIST
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .blurb-wrapper {
       width: 100%; max-width: 480px;
       -webkit-flex: 1; flex: 1;
@@ -370,10 +526,11 @@
       width: 100%; height: 100%;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
-      row-gap: 10px; gap: 10px;
+      gap: var(--sp-3);                         /* FIX: was 9px — now 12px (grid) */
       overflow-y: auto; overflow-x: hidden;
       scrollbar-width: none; -ms-overflow-style: none;
-      padding-bottom: 20px; touch-action: pan-y;
+      padding-bottom: var(--sp-5);
+      touch-action: pan-y;
     }
 
     .blurb-list::-webkit-scrollbar { display: none; }
@@ -389,7 +546,9 @@
         rgb(232,232,232) 100%
       );
       pointer-events: none;
-      -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease; opacity: 1;
+      -webkit-transition: opacity 0.25s ease;
+              transition: opacity 0.25s ease;
+      opacity: 1;
     }
 
     .blurb-wrapper::before {
@@ -403,88 +562,118 @@
         rgb(232,232,232) 100%
       );
       pointer-events: none;
-      -webkit-transition: opacity 0.25s ease; transition: opacity 0.25s ease;
+      -webkit-transition: opacity 0.25s ease;
+              transition: opacity 0.25s ease;
       opacity: 0; z-index: 1;
     }
 
     .blurb-wrapper.at-bottom::after { opacity: 0; }
-    .blurb-wrapper.at-top::before { opacity: 0; }
+    .blurb-wrapper.at-top::before   { opacity: 0; }
     .blurb-wrapper.scrolled::before { opacity: 1; }
 
     .blurb-item {
       display: -webkit-flex; display: flex;
-      -webkit-align-items: flex-start; align-items: flex-start; gap: 9px;
+      -webkit-align-items: flex-start; align-items: flex-start;
+      gap: var(--sp-2);                         /* FIX: was 9px — now 8px */
     }
 
     .blurb-emoji {
-      font-size: clamp(0.95rem, 3.8vw, 1.1rem);
-      line-height: 1.4; -webkit-flex-shrink: 0; flex-shrink: 0;
+      font-size: var(--text-body);              /* FIX: locked to --text-body */
+      line-height: 1.4;
+      -webkit-flex-shrink: 0; flex-shrink: 0;
       width: 22px; text-align: center;
     }
 
     .blurb-text { -webkit-flex: 1; flex: 1; }
 
     .blurb-title {
-      font-size: clamp(0.86rem, 3.45vw, 0.96rem);
-      font-weight: 800; color: #4E8B61; letter-spacing: 0.8px;
-      text-transform: uppercase; display: inline; margin-right: 4px;
+      font-size: var(--text-label);             /* FIX: own label tier, not mixed */
+      font-weight: 800;
+      color: var(--color-label);
+      letter-spacing: var(--track-tight);
+      text-transform: uppercase;
+      display: inline;
+      margin-right: var(--sp-1);
     }
 
     .blurb-body {
-      font-size: clamp(0.81rem, 3.2vw, 0.91rem);
-      color: #4a4a4a; line-height: 1.45; font-weight: 500; display: inline;
+      font-size: var(--text-body);
+      color: var(--color-body);                 /* FIX: was #4a4a4a — now unified */
+      line-height: 1.5;
+      font-weight: 500;
+      display: inline;
     }
 
-    /* ── COUNTER BAR ── */
-
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       COUNTER BAR
+       FIX: --color-bar-bg (darker tint) so it reads as footer, not second CTA.
+       FIX: padding uses sp-4 vertical / sp-6 horizontal (was 14px/24px — close,
+            now grid-aligned). Counter number pulled to --text-counter (smaller).
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: #4E8B61;
-      padding: 14px 24px calc(env(safe-area-inset-bottom, 0px) + 14px);
+      background: var(--color-bar-bg);          /* FIX: was --color-accent (#4E8B61) */
+      padding: var(--sp-4) var(--sp-6) calc(env(safe-area-inset-bottom, 0px) + var(--sp-4));
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: space-between; justify-content: space-between;
-      gap: 12px; -webkit-flex-shrink: 0; flex-shrink: 0; z-index: 5;
+      gap: var(--sp-3);
+      -webkit-flex-shrink: 0; flex-shrink: 0;
+      z-index: 5;
     }
 
     .counter-bar-left {
       display: -webkit-flex; display: flex;
-      -webkit-flex-direction: column; flex-direction: column; gap: 1px;
+      -webkit-flex-direction: column; flex-direction: column;
+      gap: 2px;
     }
 
     .counter-bar-label {
-      font-size: clamp(0.55rem, 2.2vw, 0.65rem);
-      letter-spacing: 2px; font-weight: 700;
-      color: rgba(255,255,255,0.6); text-transform: uppercase;
+      font-size: var(--text-caption);
+      letter-spacing: var(--track-wide);
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
     }
 
     .counter-bar-number {
-      font-size: clamp(1.6rem, 6.5vw, 2rem);
-      font-weight: 900; color: #ffffff; letter-spacing: -1px; line-height: 1;
+      font-size: var(--text-counter);           /* FIX: was clamp(1.6,6.5vw,2rem) */
+      font-weight: 900;
+      color: var(--color-white);
+      letter-spacing: -1px;
+      line-height: 1;
     }
 
     .counter-bar-word {
-      font-size: clamp(0.55rem, 2.2vw, 0.65rem);
-      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(255,255,255,0.6); margin-top: 1px;
+      font-size: var(--text-caption);
+      font-weight: 700;
+      letter-spacing: var(--track-wide);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 1px;
     }
 
     .counter-bar-divider {
-      width: 1px; height: 36px; background: rgba(255,255,255,0.22);
+      width: 1px; height: 32px;                /* FIX: was 36px — now proportional to smaller counter */
+      background: rgba(255,255,255,0.22);
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
     .counter-bar-right {
-      -webkit-flex: 1; flex: 1; text-align: right;
+      -webkit-flex: 1; flex: 1;
+      text-align: right;
       display: -webkit-flex; display: flex;
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: flex-end; justify-content: flex-end;
     }
 
     .counter-bar-tagline {
-      font-size: clamp(0.72rem, 2.9vw, 0.85rem);
-      font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
-      color: #ffffff; line-height: 1.3;
+      font-size: var(--text-label);             /* FIX: was 0.85rem — now --text-label */
+      font-weight: 800;
+      letter-spacing: var(--track-mid);
+      text-transform: uppercase;
+      color: var(--color-white);
+      line-height: 1.35;
     }
 
   </style>
@@ -499,18 +688,12 @@
 <div class="page page-1">
   <div class="page-inner">
 
-    <!-- Hamburger — top-left chrome -->
     <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
 
-    <!--
-      Circle envelope — appears directly below hamburger.
-      Same material as Back button: white bg, subtle border, soft shadow.
-      border-radius: 50% resolves the icon-only container cleanly.
-    -->
     <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
       <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
@@ -738,7 +921,7 @@
         if (to === 0) { displayEl.textContent = '—'; return; }
         var t0 = performance.now();
         function tick(now) {
-          var p = Math.min((now - t0) / dur, 1);
+          var p    = Math.min((now - t0) / dur, 1);
           var ease = 1 - Math.pow(1 - p, 3);
           displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
           if (p < 1) requestAnimationFrame(tick);
@@ -773,7 +956,7 @@
 
         if (index === 0) {
           animated = false;
-          if (displayEl) displayEl.textContent = '0';
+          if (displayEl) displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
         }
 
         setTimeout(function () { isAnimating = false; }, 480);
@@ -798,7 +981,7 @@
         var target            = e.target;
         var isInsideBlurbList = blurbList && blurbList.contains(target);
         if (isInsideBlurbList) {
-          var dy      = touchStartY - e.touches[0].clientY;
+          var dy       = touchStartY - e.touches[0].clientY;
           var atTop    = blurbList.scrollTop <= 0;
           var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
           if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
@@ -808,9 +991,9 @@
       }, { passive: false });
 
       document.addEventListener('touchend', function (e) {
-        var dy    = touchStartY - e.changedTouches[0].clientY;
-        var dx    = touchStartX - e.changedTouches[0].clientX;
-        var dt    = Date.now() - touchStartTime;
+        var dy     = touchStartY - e.changedTouches[0].clientY;
+        var dx     = touchStartX - e.changedTouches[0].clientX;
+        var dt     = Date.now() - touchStartTime;
         var target = e.target;
         var isInsideBlurbList = blurbList && blurbList.contains(target);
 
@@ -820,10 +1003,10 @@
 
         if (isInsideBlurbList) {
           var wasAtTop = touchStartScrollTop <= 0;
-          if (dy > 0 && currentPage === 0) { goToPage(1); }
+          if (dy > 0 && currentPage === 0)      { goToPage(1); }
           else if (dy < 0 && currentPage === 1 && wasAtTop) { goToPage(0); }
         } else {
-          if (dy > 0 && currentPage === 0) { goToPage(1); }
+          if (dy > 0 && currentPage === 0)      { goToPage(1); }
           else if (dy < 0 && currentPage === 1) { goToPage(0); }
         }
       }, { passive: true });
