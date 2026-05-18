@@ -378,8 +378,20 @@
 
     .scroll-hint-spacer {
       -webkit-flex: 1; flex: 1;
-      min-height: var(--sp-2);
-      max-height: var(--sp-5);
+      /* FIX: min-height 0 so spacer fully collapses on short viewports (Google app,
+         in-app browsers). max-height 16px — generous on tall screens, invisible on short. */
+      min-height: 0;
+      max-height: var(--sp-4);
+    }
+
+    /* FIX: Safety valve — if content still overflows (very short viewport,
+       in-app browsers with tall chrome), allow vertical scroll rather than clipping
+       the scroll hint off screen. overflow: hidden was the original culprit. */
+    @media (max-height: 680px) {
+      .page-inner {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
