@@ -297,8 +297,8 @@
       color: var(--color-body);
       border: 1.5px solid #d4d4d4;
       border-radius: var(--radius-pill);
-      /* Padding: sp-3 vertical keeps the buttons compact without looking shrunken */
-      padding: var(--sp-3) var(--sp-5);
+      /* sp-3 vertical (12px) + 2px = 14px — split between sp-3 and sp-4, keeps buttons compact but not flat */
+      padding: 14px var(--sp-5);
       /* Text: --text-label is the sweet spot — readable, not oversized, not tiny */
       font-size: var(--text-label);
       font-weight: 800;
