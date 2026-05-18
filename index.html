@@ -26,20 +26,16 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        CROSS-BROWSER RESET
-       Normalizes Chrome · Firefox · Safari defaults.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      /* Consistent subpixel text rendering across all three engines */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
     }
 
-    /* Remove Firefox's default dotted focus ring on buttons/links.
-       Replace with a clean brand-coloured :focus-visible outline. */
     :focus { outline: none; }
     :focus-visible {
       outline: 2px solid rgba(78,139,97,0.5);
@@ -51,7 +47,6 @@
        DESIGN TOKENS
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     :root {
-      /* Colors */
       --color-bg:          #e8e8e8;
       --color-surface:     #ffffff;
       --color-border:      rgba(0,0,0,0.09);
@@ -62,25 +57,19 @@
       --color-white:       #ffffff;
       --color-bar-bg:      #3d6e4e;
 
-      /* Font stack — system-ui FIRST so Firefox gets a proper sans-serif.
-         -apple-system covers Safari/Chrome on Apple platforms.
-         Helvetica Neue and Arial as cross-platform fallbacks. */
       --font: system-ui, -apple-system, BlinkMacSystemFont,
               'Helvetica Neue', Arial, sans-serif;
 
-      /* Typography — 4 locked tiers */
       --text-caption:  clamp(0.65rem, 2.6vw, 0.72rem);
       --text-label:    clamp(0.72rem, 2.9vw, 0.80rem);
       --text-body:     clamp(0.82rem, 3.3vw, 0.92rem);
       --text-headline: clamp(1.05rem, 4.6vw, 1.30rem);
       --text-counter:  clamp(1.4rem,  5.6vw, 1.75rem);
 
-      /* Tracking */
       --track-tight: 0.8px;
       --track-mid:   1.5px;
       --track-wide:  2.5px;
 
-      /* Spacing — strict 4px / 8px grid */
       --sp-1:  4px;
       --sp-2:  8px;
       --sp-3: 12px;
@@ -90,47 +79,66 @@
       --sp-8: 32px;
       --sp-10:40px;
 
-      /* Single vertical rhythm token for page 1.
-         12px = on the 4px grid, visually clear on all screen sizes. */
       --gap: 12px;
 
-      /* Border radius */
       --radius-pill:   50px;
       --radius-circle: 50%;
 
-      /* Shadows */
       --shadow-cover:   drop-shadow(0 8px 24px rgba(0,0,0,0.12))
                         drop-shadow(0 2px 6px rgba(0,0,0,0.07));
       --shadow-btn:     0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
       --shadow-surface: 0 2px 10px rgba(0,0,0,0.07);
       --shadow-primary: 0 4px 20px rgba(78,139,97,0.28), 0 1px 4px rgba(78,139,97,0.12);
 
-      /* Safe-area shorthand — referenced once, used everywhere */
       --safe-top:    env(safe-area-inset-top,    0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+      /*
+        FIX 1 — dvh viewport units
+        --vh-full: the full available viewport height.
+        dvh = dynamic viewport height (shrinks when browser chrome appears).
+        vh fallback for browsers that don't support dvh yet (Firefox < 110,
+        Chrome < 108). Together these ensure the slide container always
+        fills exactly the VISIBLE area, not the theoretical full screen.
+      */
+      --vh-full: 100dvh;
     }
 
     html {
-      width: 100%; height: 100%;
+      width: 100%;
+      /* FIX 1a: use dvh with vh fallback so html height tracks visible area */
+      height: 100vh;
+      height: 100dvh;
       background: var(--color-bg);
     }
 
     body {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
       background: var(--color-bg);
       font-family: var(--font);
-      touch-action: none;
-      /* Suppress iOS/Android tap highlight globally */
+      /*
+        FIX 2 — touch-action scope
+        touch-action: none on body blocks scroll on any overflow-y: auto
+        children in Firefox and Chrome. Replacing with manipulation
+        (prevents double-tap zoom, allows scroll) and letting children
+        declare their own touch-action where needed.
+      */
+      touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        SLIDE CONTAINER
+       FIX 1b: use dvh so the container tracks visible height
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .slide-container {
       position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
       background: var(--color-bg);
       will-change: transform;
       transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
@@ -140,37 +148,57 @@
 
     .page {
       position: absolute;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
       background: var(--color-bg);
     }
 
     .page-1 { top: 0; }
-    .page-2 { top: 100%; }
+    .page-2 { top: 100vh; top: 100dvh; }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        PAGE 1 INNER
+       FIX 3 — reduced padding-top (40px → 28px)
+       FIX 4 — short-viewport breakpoint raised to 800px
+       FIX 5 — scroll-hint never gets display:none, only overflow clips
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-inner {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top:    calc(var(--safe-top) + 40px);
+      /*
+        FIX 3: 40px → 28px top padding.
+        On Firefox/Chrome with toolbar visible, the top bar alone
+        consumes ~60px of effective height. 28px saves 12px while
+        still clearing the hamburger icon.
+      */
+      padding-top:    calc(var(--safe-top) + 28px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 28px);
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 20px);
       overflow: hidden;
       position: relative;
     }
 
-    /* Short-viewport safety: Google app / in-app browsers with tall chrome.
-       overscroll-behavior replaces deprecated -webkit-overflow-scrolling. */
-    @media (max-height: 680px) {
+    /*
+      FIX 4 — raised threshold from 680px to 800px.
+      Firefox/Chrome with expanded toolbar on a standard 844px-tall
+      iPhone reports ~760px effective height. 680px never fires.
+      800px catches it and enables scroll fallback for the full
+      page-inner column when content doesn't fit.
+    */
+    @media (max-height: 800px) {
       .page-inner {
         overflow-y: auto;
         overscroll-behavior-y: contain;
+        /* touch-action: pan-y allows scroll in Firefox/Chrome */
+        touch-action: pan-y;
       }
     }
 
@@ -238,9 +266,11 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        COVER
-       will-change: filter — tells Firefox to composite
-       the drop-shadow on its own layer, matching
-       Chrome/Safari rendering quality.
+       FIX 6 — dvh-based max-height + tighter cap
+       46vh uses the LARGE viewport height in Chrome/Firefox,
+       causing the cover to overflow on small effective viewports.
+       Switch to 42dvh (dynamic) with 42vh fallback, and add a
+       hard pixel cap so it never dominates on tall phones either.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -248,7 +278,9 @@
       align-items: center;
       justify-content: center;
       flex: 0 0 auto;
-      max-height: 46vh;
+      /* dvh fallback chain */
+      max-height: 42vh;
+      max-height: 42dvh;
     }
 
     .cover-wrapper a { display: block; width: 100%; }
@@ -256,7 +288,8 @@
     .cover-wrapper img {
       display: block;
       width: 100%; height: auto;
-      max-height: 46vh;
+      max-height: 42vh;
+      max-height: 42dvh;
       object-fit: contain;
       filter: var(--shadow-cover);
       will-change: filter;
@@ -270,7 +303,7 @@
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PREVIEW HINT — caption tier
+       PREVIEW HINT
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .preview-hint {
       margin-top: var(--gap);
@@ -285,10 +318,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        HEADLINE
-       font-synthesis: none prevents Firefox from
-       synthesising faux-bold when the 900-weight
-       system font isn't available, keeping weight
-       consistent with Chrome/Safari.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
       width: 100%; max-width: 480px;
@@ -340,7 +369,6 @@
       border: 1.5px solid #d4d4d4;
       border-radius: var(--radius-pill);
       padding: 14px var(--sp-5);
-      /* Explicit font-family on <a> — Firefox doesn't always inherit */
       font-family: var(--font);
       font-size: var(--text-label);
       font-weight: 800;
@@ -392,8 +420,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        PAYMENT SECTION
-       margin-bottom: --gap so the space below the logos
-       matches every other gap on the page exactly.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .payment-section {
       width: 100%; max-width: 480px;
@@ -425,20 +451,33 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        SPACER
-       Fixed --gap height. No flex-grow. No min/max range.
-       Same 12px on Chrome, Firefox, Safari, every in-app browser.
+       FIX 7 — flex-grow: 1 with a min/max clamp.
+       Original was a fixed 12px spacer. On short viewports
+       that 12px was still consuming space while the
+       scroll-hint was getting clipped.
+       Now the spacer grows to fill available space (so on
+       tall phones the button floats naturally at bottom),
+       but shrinks to zero when space is tight — ensuring
+       the scroll-hint is always visible.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint-spacer {
       width: 100%;
-      height: var(--gap);
-      flex-shrink: 0;
+      flex: 1 1 0px;
+      min-height: 0;
+      max-height: var(--gap);
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       WHAT'S INSIDE
+       WHAT'S INSIDE BUTTON
+       FIX 8 — explicit flex-shrink: 0 + min-height.
+       Without these, flex column compression can
+       reduce the button height to 0 before any
+       other element shrinks. Locking it prevents
+       the button from being squeezed out entirely.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint {
       flex-shrink: 0;
+      min-height: 28px;
       background: none;
       border: none;
       appearance: none;
@@ -483,7 +522,9 @@
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-inner {
       position: relative;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -559,10 +600,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        BLURB LIST
-       scrollbar-width: none — Firefox
-       ::-webkit-scrollbar { display:none } — Chrome/Safari
-       overscroll-behavior replaces deprecated
-       -webkit-overflow-scrolling: touch
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .blurb-wrapper {
       width: 100%; max-width: 480px;
@@ -662,8 +699,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        COUNTER BAR
-       padding-bottom uses max() to respect safe-area
-       on notched iOS devices across all browsers.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -993,6 +1028,17 @@
       setBlurbPadding();
       window.addEventListener('resize', setBlurbPadding);
 
+      /*
+        FIX 9 — JS slide offset uses window.innerHeight (actual visible height)
+        instead of a percentage string. On Chrome/Firefox with toolbar visible,
+        translateY(-100%) was calculated against the wrong height value because
+        the CSS percentage on transform is relative to the element itself.
+        Using px based on innerHeight removes the ambiguity entirely.
+      */
+      function getSlideOffset(index) {
+        return -(index * window.innerHeight);
+      }
+
       function goToPage(index) {
         if (isAnimating) return;
         if (index === currentPage) return;
@@ -1000,7 +1046,7 @@
         isAnimating = true;
         currentPage = index;
         slideContainer.classList.remove('no-transition');
-        slideContainer.style.transform = 'translateY(-' + (index * 100) + '%)';
+        slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
 
         if (index === 1 && !animated) {
           animated = true;
@@ -1017,6 +1063,20 @@
 
         setTimeout(function () { isAnimating = false; }, 480);
       }
+
+      /*
+        FIX 10 — recalculate slide position on resize/orientation change.
+        When the browser toolbar appears/disappears (scroll up to show address bar,
+        scroll down to hide it), innerHeight changes. Without this listener the
+        slide offset goes stale and page 2 shows a gap.
+      */
+      window.addEventListener('resize', function () {
+        slideContainer.classList.add('no-transition');
+        slideContainer.style.transform = 'translateY(' + getSlideOffset(currentPage) + 'px)';
+        requestAnimationFrame(function () {
+          slideContainer.classList.remove('no-transition');
+        });
+      });
 
       document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
       document.getElementById('scroll-up').addEventListener('click',   function () { goToPage(0); });
@@ -1052,8 +1112,8 @@
         if (!(Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300))) return;
 
         if (isInList) {
-          if      (dy > 0 && currentPage === 0)                    { goToPage(1); }
-          else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0) { goToPage(0); }
+          if      (dy > 0 && currentPage === 0)                              { goToPage(1); }
+          else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0)  { goToPage(0); }
         } else {
           if      (dy > 0 && currentPage === 0) { goToPage(1); }
           else if (dy < 0 && currentPage === 1) { goToPage(0); }
