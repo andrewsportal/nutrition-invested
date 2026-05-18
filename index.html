@@ -65,6 +65,9 @@
       --sp-8: 32px;
       --sp-10:40px;
 
+      /* Single gap token — every vertical space on page 1 uses this value */
+      --gap: 10px;
+
       /* Border radius — one family */
       --radius-pill:   50px;
       --radius-circle: 50%;
@@ -248,8 +251,7 @@
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       HEADLINE
-       FIX: margin uses --sp-3 top/bottom (was 14px asymmetric).
+       HEADLINE — sp-2 top and bottom, same rhythm as every other gap
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
       width: 100%; max-width: 480px; text-align: center;
@@ -283,7 +285,8 @@
       width: 100%; max-width: 480px;
       display: -webkit-flex; display: flex;
       -webkit-flex-direction: column; flex-direction: column;
-      gap: var(--sp-2);   /* FIX: was 10px — now 8px (grid) */
+      gap: var(--sp-2);
+      margin-top: var(--sp-2);
       -webkit-flex-shrink: 0; flex-shrink: 0;
     }
 
