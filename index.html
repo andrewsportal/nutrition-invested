@@ -171,13 +171,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       /*
-        FIX 3: 40px → 28px top padding.
-        On Firefox/Chrome with toolbar visible, the top bar alone
-        consumes ~60px of effective height. 28px saves 12px while
-        still clearing the hamburger icon.
+        FIXED GAP GROUPS technique used by professional developers
+        for pixel-perfect single-page layouts across browsers.
+        flex-start stacks all content from the top with hardcoded gaps.
+        scroll-hint gets margin-top: auto which absorbs ALL remaining
+        height above it — Safari's extra 100px goes there invisibly,
+        not distributed across every gap. Result: identical spacing
+        between all elements on Chrome and Safari, zero dead zone below
+        WHAT'S INSIDE.
       */
+      justify-content: flex-start;
       padding-top:    calc(var(--safe-top) + 36px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
@@ -475,7 +479,7 @@
     .scroll-hint {
       flex-shrink: 0;
       min-height: 28px;
-      margin-top: 6px;
+      margin-top: auto;
       background: none;
       border: none;
       appearance: none;
@@ -1041,14 +1045,7 @@
         var low = 700, high = 830;
         var t   = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
 
-        /* Pin page-inner height to actual visible viewport height.
-           This is the key fix: space-between distributes across the
-           real visible area, not the CSS 100dvh which can still
-           exceed visualViewport on Safari with collapsed toolbar. */
-        if (pageInner) {
-          pageInner.style.height = vvh + 'px';
-          pageInner.style.maxHeight = vvh + 'px';
-        }
+        /* Pin removed — flex-start + margin-top:auto on scroll-hint handles layout */
 
         /* padding-bottom: 24px (short) → 26px (tall) */
         var pb = 24 + (26 - 24) * t;
