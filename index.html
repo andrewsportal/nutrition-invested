@@ -171,17 +171,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      /*
-        FIXED GAP GROUPS technique used by professional developers
-        for pixel-perfect single-page layouts across browsers.
-        flex-start stacks all content from the top with hardcoded gaps.
-        scroll-hint gets margin-top: auto which absorbs ALL remaining
-        height above it — Safari's extra 100px goes there invisibly,
-        not distributed across every gap. Result: identical spacing
-        between all elements on Chrome and Safari, zero dead zone below
-        WHAT'S INSIDE.
-      */
-      justify-content: flex-start;
+      justify-content: space-between;
       padding-top:    calc(var(--safe-top) + 36px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
@@ -479,7 +469,7 @@
     .scroll-hint {
       flex-shrink: 0;
       min-height: 28px;
-      margin-top: auto;
+      margin-top: 6px;
       background: none;
       border: none;
       appearance: none;
