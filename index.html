@@ -271,11 +271,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* flex: 1 1 auto — cover grows to fill all extra viewport height.
-         Safari's extra ~100px goes here. All gaps below stay hardcoded. */
       flex: 1 1 auto;
       min-height: 0;
-      max-height: var(--cover-mh, 54dvh);
+      /* margin-top creates fixed gap below hamburger on all browsers */
+      margin-top: 8px;
+      max-height: var(--cover-mh, 48dvh);
     }
 
     .cover-wrapper a { display: block; width: 100%; }
@@ -1037,16 +1037,17 @@
         var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
 
         /*
-          Cover flex-grow absorbs all extra height automatically.
-          We just need to set a reasonable max-height cap so the cover
-          doesn't get grotesque on very tall viewports (e.g. iPad).
-          54dvh of actual visible height is the ceiling.
+          Cap cover at 50% of actual visible height in pixels.
+          This is calculated from visualViewport so it's always accurate —
+          Chrome at 740px gets 370px max, Safari at 844px gets 422px max.
+          The cover flex-grow fills up to that cap; the rest of the layout
+          below is untouched and identical on both browsers.
         */
         if (pageInner) {
           pageInner.style.transform = '';
           pageInner.style.height = '';
         }
-        var coverPx = Math.round(vvh * 0.54);
+        var coverPx = Math.round(vvh * 0.50);
         var coverVal = coverPx + 'px';
         if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
         if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
