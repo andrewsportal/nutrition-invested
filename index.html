@@ -1045,8 +1045,8 @@
         var pb = 24 + (28 - 24) * t;
         if (pageInner) pageInner.style.setProperty('--page-pb', Math.round(pb) + 'px');
 
-        /* cover max-height: 46vh (Chrome ~740px) → 52vh (Safari ~844px) */
-        var cvh = 46 + (52 - 46) * t;
+        /* cover max-height: 46vh (Chrome ~740px) → 56vh (Safari ~844px) */
+        var cvh = 46 + (56 - 46) * t;
         var coverVal = cvh.toFixed(1) + 'dvh';
         if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
         if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
