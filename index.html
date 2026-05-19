@@ -171,7 +171,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       padding-top:    calc(var(--safe-top) + 36px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
@@ -271,10 +271,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex: 1 1 auto;
-      min-height: 0;
-      /* margin-top creates fixed gap below hamburger on all browsers */
-      margin-top: 8px;
+      flex: 0 0 auto;
       max-height: var(--cover-mh, 48dvh);
     }
 
@@ -1035,20 +1032,12 @@
 
       function setAdaptiveLayout() {
         var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+        var low = 700, high = 830;
+        var t   = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
 
-        /*
-          Cap cover at 50% of actual visible height in pixels.
-          This is calculated from visualViewport so it's always accurate —
-          Chrome at 740px gets 370px max, Safari at 844px gets 422px max.
-          The cover flex-grow fills up to that cap; the rest of the layout
-          below is untouched and identical on both browsers.
-        */
-        if (pageInner) {
-          pageInner.style.transform = '';
-          pageInner.style.height = '';
-        }
-        var coverPx = Math.round(vvh * 0.44);
-        var coverVal = coverPx + 'px';
+        /* cover max-height: 46dvh (Chrome ~740px) → 56dvh (Safari ~844px) */
+        var cvh = 46 + (56 - 46) * t;
+        var coverVal = cvh.toFixed(1) + 'dvh';
         if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
         if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
       }
