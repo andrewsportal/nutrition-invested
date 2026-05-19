@@ -171,7 +171,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding-top:    calc(var(--safe-top) + 36px);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
@@ -271,8 +271,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex: 0 1 auto;
-      max-height: var(--cover-mh, 48dvh);
+      /* flex: 1 1 auto — cover grows to fill all extra viewport height.
+         Safari's extra ~100px goes here. All gaps below stay hardcoded. */
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: var(--cover-mh, 54dvh);
     }
 
     .cover-wrapper a { display: block; width: 100%; }
@@ -1032,17 +1035,18 @@
 
       function setAdaptiveLayout() {
         var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-        var low = 700, high = 830;
-        var t   = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
 
-        /* Pin removed — flex-start + margin-top:auto on scroll-hint handles layout */
-
-        /* padding-bottom: 24px (short) → 26px (tall) */
-        var pb = 24 + (26 - 24) * t;
-        if (pageInner) pageInner.style.setProperty('--page-pb', Math.round(pb) + 'px');
-
-        /* cover max-height: 46% (Chrome) → 56% (Safari) of actual viewport */
-        var coverPx = Math.round(vvh * (0.46 + (0.56 - 0.46) * t));
+        /*
+          Cover flex-grow absorbs all extra height automatically.
+          We just need to set a reasonable max-height cap so the cover
+          doesn't get grotesque on very tall viewports (e.g. iPad).
+          54dvh of actual visible height is the ceiling.
+        */
+        if (pageInner) {
+          pageInner.style.transform = '';
+          pageInner.style.height = '';
+        }
+        var coverPx = Math.round(vvh * 0.54);
         var coverVal = coverPx + 'px';
         if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
         if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
