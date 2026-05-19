@@ -1032,21 +1032,29 @@
         This means Chrome gets ~28-32px and Safari gets ~48-52px —
         both look intentional without a hard browser detection hack.
       */
-      var pageInner   = document.querySelector('.page-inner');
+      var pageInner    = document.querySelector('.page-inner');
       var coverWrapper = document.querySelector('.cover-wrapper');
       var coverImg     = document.querySelector('.cover-wrapper img');
 
       function setAdaptiveLayout() {
-        var h   = window.innerHeight;
-        var low = 720, high = 860;
+        /*
+          visualViewport.height is the gold standard — it returns the
+          exact visible area AFTER browser chrome (address bar, toolbars)
+          is subtracted. window.innerHeight lies on Safari when the
+          toolbar is collapsed. This is the fix professional developers
+          use for precisely this problem.
+        */
+        var h   = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+        var low = 700, high = 830;
         var t   = Math.max(0, Math.min(1, (h - low) / (high - low)));
 
-        /* padding-bottom: 24px (Chrome) → 28px (Safari) */
-        var pb = 24 + (28 - 24) * t;
+        /* padding-bottom: 24px (short) → 26px (tall) — minimal, cover does the work */
+        var pb = 24 + (26 - 24) * t;
         if (pageInner) pageInner.style.setProperty('--page-pb', Math.round(pb) + 'px');
 
-        /* cover max-height: 46vh (Chrome ~740px) → 56vh (Safari ~844px) */
-        var cvh = 46 + (56 - 46) * t;
+        /* cover max-height scales from 46dvh (Chrome toolbar visible)
+           to 58dvh (Safari toolbar collapsed) to absorb the extra height */
+        var cvh = 46 + (58 - 46) * t;
         var coverVal = cvh.toFixed(1) + 'dvh';
         if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
         if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
@@ -1055,6 +1063,13 @@
       setAdaptiveLayout();
       setBlurbPadding();
       window.addEventListener('resize', function() { setAdaptiveLayout(); setBlurbPadding(); });
+      /* visualViewport fires when Safari toolbar shows/hides mid-session */
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function() {
+          setAdaptiveLayout();
+          setBlurbPadding();
+        });
+      }
 
       /*
         FIX 9 — JS slide offset uses window.innerHeight (actual visible height)
