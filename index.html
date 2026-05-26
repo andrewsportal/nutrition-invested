@@ -73,7 +73,7 @@
 
       --track-tight: 0.8px;
       --track-mid:   1.5px;
-      --track-wide:  2.5px;
+      --track-wide:  0.07em;
 
       --sp-1:  4px;
       --sp-2:  8px;
@@ -343,10 +343,10 @@
       padding: var(--sp-4) var(--sp-5);
       font-family: var(--font);
       font-size: var(--text-label);
-      font-weight: 800;
+      /* B: HIG buttons use Semibold (600), not Heavy (800) */
+      font-weight: 600;
       font-synthesis: none;
       letter-spacing: var(--track-mid);
-      /* FIX 3b — removed text-transform: uppercase from primary button label */
       text-decoration: none;
       cursor: pointer;
       box-shadow: var(--shadow-btn);
@@ -455,7 +455,7 @@
     .scroll-hint-label {
       font-size: var(--text-caption);
       letter-spacing: var(--track-wide);
-      font-weight: 700;
+      font-weight: 600;
       color: var(--color-label);
       text-transform: uppercase;
       text-decoration: underline;
@@ -532,7 +532,7 @@
     .scroll-up-label {
       font-size: var(--text-caption);
       letter-spacing: var(--track-wide);
-      font-weight: 700;
+      font-weight: 600;
       color: var(--color-label);
       text-transform: uppercase;
       font-variant-ligatures: none;
@@ -552,7 +552,7 @@
     .info-section-sublabel {
       font-size: var(--text-caption);
       letter-spacing: var(--track-wide);
-      font-weight: 700;
+      font-weight: 600;
       color: var(--color-muted);
       line-height: 1;
       text-transform: uppercase;
@@ -651,7 +651,8 @@
        which HIG allows for short categorical labels. Correct usage. */
     .blurb-title {
       font-size: var(--text-label);
-      font-weight: 800;
+      /* A: micro-labels use Semibold (600) per HIG */
+      font-weight: 600;
       font-synthesis: none;
       color: var(--color-label);
       letter-spacing: var(--track-tight);
@@ -664,7 +665,8 @@
       font-size: var(--text-body);
       color: var(--color-body);
       line-height: 1.5;
-      font-weight: 500;
+      /* F: HIG body text is Regular (400) */
+      font-weight: 400;
       display: inline;
     }
 
@@ -698,7 +700,7 @@
     .counter-bar-label {
       font-size: var(--text-caption);
       letter-spacing: var(--track-wide);
-      font-weight: 700;
+      font-weight: 600;
       color: rgba(255,255,255,0.55);
       text-transform: uppercase;
       font-variant-ligatures: none;
@@ -716,7 +718,7 @@
 
     .counter-bar-word {
       font-size: var(--text-caption);
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: var(--track-wide);
       text-transform: uppercase;
       color: rgba(255,255,255,0.55);
@@ -741,7 +743,7 @@
 
     .counter-bar-tagline {
       font-size: var(--text-label);
-      font-weight: 800;
+      font-weight: 600;
       font-synthesis: none;
       letter-spacing: var(--track-mid);
       text-transform: uppercase;
