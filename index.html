@@ -598,12 +598,12 @@
     .blurb-wrapper::after {
       content: '';
       position: absolute; bottom: 0; left: 0; right: 0;
-      height: 80px;
+      /* Apple native fade size ~30pt = 40px at 1x; symmetric with top fade */
+      height: 40px;
       background: linear-gradient(
         to bottom,
-        rgba(232,232,232,0)    0%,
-        rgba(232,232,232,0.4) 25%,
-        rgba(232,232,232,0.85)60%,
+        rgba(232,232,232,0)   0%,
+        rgba(232,232,232,0.6) 50%,
         rgb(232,232,232)      100%
       );
       pointer-events: none;
@@ -614,12 +614,12 @@
     .blurb-wrapper::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0;
-      height: 80px;
+      /* Symmetric with bottom fade — identical spec, mirrored */
+      height: 40px;
       background: linear-gradient(
         to top,
-        rgba(232,232,232,0)    0%,
-        rgba(232,232,232,0.4) 25%,
-        rgba(232,232,232,0.85)60%,
+        rgba(232,232,232,0)   0%,
+        rgba(232,232,232,0.6) 50%,
         rgb(232,232,232)      100%
       );
       pointer-events: none;
