@@ -36,9 +36,14 @@
       text-rendering: optimizeLegibility;
     }
 
-    :focus { outline: none; }
+    /* FIX 1 — scope outline removal to mouse users only.
+       :focus { outline: none } fails WCAG 2.1 AA and breaks
+       VoiceOver/keyboard navigation (HIG accessibility requirement).
+       :focus:not(:focus-visible) removes it only for pointer/touch,
+       while :focus-visible preserves it for keyboard and VoiceOver. */
+    :focus:not(:focus-visible) { outline: none; }
     :focus-visible {
-      outline: 2px solid rgba(78,139,97,0.5);
+      outline: 2px solid rgba(78,139,97,0.6);
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -92,21 +97,11 @@
 
       --safe-top:    env(safe-area-inset-top,    0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
-
-      /*
-        FIX 1 — dvh viewport units
-        --vh-full: the full available viewport height.
-        dvh = dynamic viewport height (shrinks when browser chrome appears).
-        vh fallback for browsers that don't support dvh yet (Firefox < 110,
-        Chrome < 108). Together these ensure the slide container always
-        fills exactly the VISIBLE area, not the theoretical full screen.
-      */
       --vh-full: 100dvh;
     }
 
     html {
       width: 100%;
-      /* FIX 1a: use dvh with vh fallback so html height tracks visible area */
       height: 100vh;
       height: 100dvh;
       background: var(--color-bg);
@@ -119,20 +114,12 @@
       overflow: hidden;
       background: var(--color-bg);
       font-family: var(--font);
-      /*
-        FIX 2 — touch-action scope
-        touch-action: none on body blocks scroll on any overflow-y: auto
-        children in Firefox and Chrome. Replacing with manipulation
-        (prevents double-tap zoom, allows scroll) and letting children
-        declare their own touch-action where needed.
-      */
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        SLIDE CONTAINER
-       FIX 1b: use dvh so the container tracks visible height
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .slide-container {
       position: fixed; top: 0; left: 0;
@@ -160,9 +147,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        PAGE 1 INNER
-       FIX 3 — reduced padding-top (40px → 28px)
-       FIX 4 — short-viewport breakpoint raised to 800px
-       FIX 5 — scroll-hint never gets display:none, only overflow clips
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-inner {
       width: 100%;
@@ -180,18 +164,10 @@
       position: relative;
     }
 
-    /*
-      FIX 4 — raised threshold from 680px to 800px.
-      Firefox/Chrome with expanded toolbar on a standard 844px-tall
-      iPhone reports ~760px effective height. 680px never fires.
-      800px catches it and enables scroll fallback for the full
-      page-inner column when content doesn't fit.
-    */
     @media (max-height: 800px) {
       .page-inner {
         overflow-y: auto;
         overscroll-behavior-y: contain;
-        /* touch-action: pan-y allows scroll in Firefox/Chrome */
         touch-action: pan-y;
       }
     }
@@ -229,14 +205,16 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        MENU ENVELOPE
+       FIX 5 — raised from 36px to 44px to meet HIG 44pt minimum tap target
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-envelope {
       position: absolute;
-      top:  calc(var(--safe-top) + 56px);
+      top:  calc(var(--safe-top) + 52px);
       left: var(--sp-4);
-      width: 36px; height: 36px;
+      width: 44px;
+      height: 44px;
       background: var(--color-surface);
-      border: 1px solid var(--color-border);
+      border: 0.5px solid var(--color-border);
       border-radius: var(--radius-circle);
       box-shadow: var(--shadow-surface);
       display: flex;
@@ -260,11 +238,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        COVER
-       FIX 6 — dvh-based max-height + tighter cap
-       46vh uses the LARGE viewport height in Chrome/Firefox,
-       causing the cover to overflow on small effective viewports.
-       Switch to 42dvh (dynamic) with 42vh fallback, and add a
-       hard pixel cap so it never dominates on tall phones either.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -309,6 +282,9 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        HEADLINE
+       FIX 3a — sentence case on headline per HIG typography guidance.
+       All-caps is reserved for micro-labels (captions, footnotes).
+       Primary content headings use mixed case for readability.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
       width: 100%; max-width: 480px;
@@ -316,10 +292,12 @@
       margin-top: var(--gap);
       margin-bottom: var(--sp-2);
       font-size: var(--text-headline);
-      font-weight: 900;
+      /* FIX 6 — font-weight: 800 matches iOS Heavy weight precisely.
+         900 maps to 800 on system-ui anyway; being explicit is cleaner. */
+      font-weight: 800;
       font-synthesis: none;
       letter-spacing: var(--track-mid);
-      text-transform: uppercase;
+      /* Removed text-transform: uppercase — HIG reserves all-caps for captions */
       color: var(--color-label);
       flex-shrink: 0;
     }
@@ -327,7 +305,7 @@
     .headline .price {
       color: var(--color-body);
       font-size: var(--text-headline);
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: var(--track-mid);
     }
 
@@ -339,6 +317,8 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        BUTTONS
+       FIX 2 — border reduced to 0.5px (HIG hairline separator spec).
+       FIX 3b — button labels in sentence case, not all-caps.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .buttons {
       width: 100%; max-width: 480px;
@@ -357,7 +337,8 @@
       width: 100%;
       background: var(--color-surface);
       color: var(--color-body);
-      border: 1.5px solid #d4d4d4;
+      /* FIX 2 — 0.5px hairline border matches HIG separator spec */
+      border: 0.5px solid #d4d4d4;
       border-radius: var(--radius-pill);
       padding: var(--sp-4) var(--sp-5);
       font-family: var(--font);
@@ -365,7 +346,7 @@
       font-weight: 800;
       font-synthesis: none;
       letter-spacing: var(--track-mid);
-      text-transform: uppercase;
+      /* FIX 3b — removed text-transform: uppercase from primary button label */
       text-decoration: none;
       cursor: pointer;
       box-shadow: var(--shadow-btn);
@@ -442,14 +423,6 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        SPACER
-       FIX 7 — flex-grow: 1 with a min/max clamp.
-       Original was a fixed 12px spacer. On short viewports
-       that 12px was still consuming space while the
-       scroll-hint was getting clipped.
-       Now the spacer grows to fill available space (so on
-       tall phones the button floats naturally at bottom),
-       but shrinks to zero when space is tight — ensuring
-       the scroll-hint is always visible.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint-spacer {
       width: 100%;
@@ -460,15 +433,10 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        WHAT'S INSIDE BUTTON
-       FIX 8 — explicit flex-shrink: 0 + min-height.
-       Without these, flex column compression can
-       reduce the button height to 0 before any
-       other element shrinks. Locking it prevents
-       the button from being squeezed out entirely.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint {
       flex-shrink: 0;
-      min-height: 28px;
+      min-height: 44px; /* FIX 5 — explicit 44pt minimum */
       margin-top: 6px;
       background: none;
       border: none;
@@ -499,7 +467,13 @@
     .scroll-hint-chevron {
       display: flex;
       align-items: center;
-      animation: chevron-pulse 1.6s ease-in-out infinite;
+    }
+
+    /* FIX 7 — chevron animation respects prefers-reduced-motion */
+    @media (prefers-reduced-motion: no-preference) {
+      .scroll-hint-chevron {
+        animation: chevron-pulse 1.6s ease-in-out infinite;
+      }
     }
 
     .scroll-hint-chevron svg { display: block; }
@@ -529,18 +503,21 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        BACK BUTTON
+       FIX 2 — 0.5px border; FIX 5 — min 44pt height
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-up {
       position: absolute;
-      top:   calc(var(--safe-top) + var(--sp-5));
+      top:   calc(var(--safe-top) + var(--sp-3));
       right: var(--sp-5);
       background: var(--color-surface);
-      border: 1px solid var(--color-border);
+      border: 0.5px solid var(--color-border);
       border-radius: var(--radius-pill);
       appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
-      padding: var(--sp-1) var(--sp-3);
+      /* FIX 5 — minimum 44pt tap target */
+      min-height: 44px;
+      padding: 0 var(--sp-3);
       display: inline-flex;
       align-items: center;
       gap: var(--sp-1);
@@ -582,10 +559,11 @@
       font-variant-ligatures: none;
     }
 
+    /* FIX 2 — 0.5px separator matches HIG hairline spec */
     .page-2-rule {
       width: 100%; max-width: 480px;
-      height: 1px;
-      background: rgba(0,0,0,0.07);
+      height: 0.5px;
+      background: rgba(0,0,0,0.12);
       margin: var(--sp-3) 0 var(--sp-4);
       flex-shrink: 0;
     }
@@ -669,6 +647,8 @@
 
     .blurb-text { flex: 1; }
 
+    /* FIX 3c — blurb titles: kept uppercase as these are micro-labels,
+       which HIG allows for short categorical labels. Correct usage. */
     .blurb-title {
       font-size: var(--text-label);
       font-weight: 800;
@@ -690,6 +670,8 @@
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        COUNTER BAR
+       FIX 4 — padding-bottom floor raised to 20px (HIG minimum above
+       home indicator). Original var(--sp-4) = 16px was under spec.
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -697,7 +679,8 @@
       padding-top:    var(--sp-4);
       padding-left:   var(--sp-5);
       padding-right:  var(--sp-5);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), var(--sp-4));
+      /* FIX 4 — floor is 20px, not 16px */
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 20px);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -723,7 +706,8 @@
 
     .counter-bar-number {
       font-size: var(--text-counter);
-      font-weight: 900;
+      /* FIX 6 — 800 matches iOS Heavy precisely; 900 maps to same weight */
+      font-weight: 800;
       font-synthesis: none;
       color: var(--color-white);
       letter-spacing: -1px;
@@ -740,9 +724,10 @@
       font-variant-ligatures: none;
     }
 
+    /* FIX 2 — divider uses opacity consistent with HIG separator spec */
     .counter-bar-divider {
-      width: 1px; height: 32px;
-      background: rgba(255,255,255,0.22);
+      width: 0.5px; height: 32px;
+      background: rgba(255,255,255,0.3);
       flex-shrink: 0;
     }
 
@@ -771,174 +756,174 @@
 
   <div class="slide-container" id="slide-container">
 
-```
-<!-- PAGE 1 -->
-<div class="page page-1">
-  <div class="page-inner">
+    <!-- PAGE 1 -->
+    <div class="page page-1">
+      <div class="page-inner">
 
-    <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+        <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
 
-    <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
-      <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
-        <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+        <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
+          <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
+            <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
 
-    <div class="cover-wrapper">
-      <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank" rel="noopener">
-        <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios" loading="eager" width="600" height="800">
-      </a>
-    </div>
+        <div class="cover-wrapper">
+          <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank" rel="noopener">
+            <img src="cover.JPEG" alt="Nutrition, Invested by Andrew Rios" loading="eager" width="600" height="800">
+          </a>
+        </div>
 
-    <p class="preview-hint">🔍 TAP COVER TO PREVIEW</p>
+        <p class="preview-hint">🔍 TAP COVER TO PREVIEW</p>
 
-    <div class="headline">
-      GET THE PLAYBOOK<span class="divider">—</span><span class="price">$3.99</span>
-    </div>
+        <!-- FIX 3a — sentence case headline, not all-caps -->
+        <div class="headline">
+          Get the Playbook<span class="divider">—</span><span class="price">$3.99</span>
+        </div>
 
-    <div class="buttons">
-      <a class="buy-btn primary" href="https://www.amazon.com/" target="_blank" rel="noopener">
-        <span class="btn-logo-wrap"><img src="amazon.svg" alt="" class="logo-amazon" aria-hidden="true"></span>
-        <span>Buy on Amazon</span>
-      </a>
-      <a class="buy-btn secondary" href="https://payhip.com/" target="_blank" rel="noopener">
-        <span class="btn-logo-wrap"><img src="payhip.svg" alt="" class="logo-payhip" aria-hidden="true"></span>
-        <span>Buy on Payhip</span>
-      </a>
-    </div>
+        <div class="buttons">
+          <!-- FIX 3b — sentence case button labels -->
+          <a class="buy-btn primary" href="https://www.amazon.com/" target="_blank" rel="noopener">
+            <span class="btn-logo-wrap"><img src="amazon.svg" alt="" class="logo-amazon" aria-hidden="true"></span>
+            <span>Buy on Amazon</span>
+          </a>
+          <a class="buy-btn secondary" href="https://payhip.com/" target="_blank" rel="noopener">
+            <span class="btn-logo-wrap"><img src="payhip.svg" alt="" class="logo-payhip" aria-hidden="true"></span>
+            <span>Buy on Payhip</span>
+          </a>
+        </div>
 
-    <div class="payment-section">
-      <p>🔒 SECURE CHECKOUT</p>
-      <div class="payment-logos">
-        <img src="applepay.svg"        alt="Apple Pay">
-        <img src="googlepay.svg"       alt="Google Pay">
-        <img src="paypal.svg"          alt="PayPal">
-        <img src="visa.svg"            alt="Visa">
-        <img src="mastercard.svg"      alt="Mastercard">
-        <img src="americanexpress.svg" alt="American Express">
-      </div>
-    </div>
-
-    <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
-      <span class="scroll-hint-label">What's Inside</span>
-      <span class="scroll-hint-chevron" aria-hidden="true">
-        <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 1L5.5 6L10 1" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-    </button>
-
-  </div>
-</div>
-
-<!-- PAGE 2 -->
-<div class="page page-2" id="page-2">
-  <div class="page-2-inner">
-
-    <button class="scroll-up" id="scroll-up" aria-label="Back to top">
-      <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M1 6L5.5 1L10 6" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span class="scroll-up-label">Back</span>
-    </button>
-
-    <div class="page-2-header">
-      <p class="info-section-sublabel">THE QUICK BITES</p>
-    </div>
-
-    <div class="page-2-rule"></div>
-
-    <div class="blurb-wrapper" id="blurb-wrapper">
-      <div class="blurb-list" id="blurb-list">
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">🥩</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Eat</span>
-            <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+        <div class="payment-section">
+          <p>🔒 SECURE CHECKOUT</p>
+          <div class="payment-logos">
+            <img src="applepay.svg"        alt="Apple Pay">
+            <img src="googlepay.svg"       alt="Google Pay">
+            <img src="paypal.svg"          alt="PayPal">
+            <img src="visa.svg"            alt="Visa">
+            <img src="mastercard.svg"      alt="Mastercard">
+            <img src="americanexpress.svg" alt="American Express">
           </div>
         </div>
 
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">📏</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Measure</span>
-            <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
-          </div>
-        </div>
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">📈</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Compound</span>
-            <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
-          </div>
-        </div>
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">⚙️</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Fix</span>
-            <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
-          </div>
-        </div>
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">💊</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Stack</span>
-            <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
-          </div>
-        </div>
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">🩸</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Audit</span>
-            <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
-          </div>
-        </div>
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">🔄</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Recover</span>
-            <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
-          </div>
-        </div>
-
-        <div class="blurb-item">
-          <span class="blurb-emoji" aria-hidden="true">⚡</span>
-          <div class="blurb-text">
-            <span class="blurb-title">Deploy</span>
-            <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
-          </div>
-        </div>
+        <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
+          <span class="scroll-hint-label">What's Inside</span>
+          <span class="scroll-hint-chevron" aria-hidden="true">
+            <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L5.5 6L10 1" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
 
       </div>
     </div>
 
-    <!-- COUNTER BAR -->
-    <div class="counter-bar" id="counter-bar">
-      <div class="counter-bar-left">
-        <span class="counter-bar-label">In the Market</span>
-        <div class="counter-bar-number" data-target="100">
-          <span id="counter-display">—</span>
+    <!-- PAGE 2 -->
+    <div class="page page-2" id="page-2">
+      <div class="page-2-inner">
+
+        <button class="scroll-up" id="scroll-up" aria-label="Back to top">
+          <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M1 6L5.5 1L10 6" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="scroll-up-label">Back</span>
+        </button>
+
+        <div class="page-2-header">
+          <p class="info-section-sublabel">THE QUICK BITES</p>
         </div>
-        <p class="counter-bar-word">Investors</p>
-      </div>
-      <div class="counter-bar-divider" aria-hidden="true"></div>
-      <div class="counter-bar-right">
-        <p class="counter-bar-tagline">DRIP ON.<br>COMPOUNDS UP.</p>
+
+        <div class="page-2-rule"></div>
+
+        <div class="blurb-wrapper" id="blurb-wrapper">
+          <div class="blurb-list" id="blurb-list">
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">🥩</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Eat</span>
+                <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">📏</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Measure</span>
+                <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">📈</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Compound</span>
+                <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">⚙️</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Fix</span>
+                <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">💊</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Stack</span>
+                <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">🩸</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Audit</span>
+                <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">🔄</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Recover</span>
+                <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+              </div>
+            </div>
+
+            <div class="blurb-item">
+              <span class="blurb-emoji" aria-hidden="true">⚡</span>
+              <div class="blurb-text">
+                <span class="blurb-title">Deploy</span>
+                <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- COUNTER BAR -->
+        <div class="counter-bar" id="counter-bar">
+          <div class="counter-bar-left">
+            <span class="counter-bar-label">In the Market</span>
+            <div class="counter-bar-number" data-target="100">
+              <span id="counter-display">—</span>
+            </div>
+            <p class="counter-bar-word">Investors</p>
+          </div>
+          <div class="counter-bar-divider" aria-hidden="true"></div>
+          <div class="counter-bar-right">
+            <p class="counter-bar-tagline">DRIP ON.<br>COMPOUNDS UP.</p>
+          </div>
+        </div>
+
       </div>
     </div>
-
-  </div>
-</div>
-```
 
   </div>
 
@@ -1015,16 +1000,6 @@
         }
       }
 
-      /*
-        ADAPTIVE BOTTOM PADDING
-        Safari with collapsed toolbar reports ~844px (iPhone 13/14).
-        Chrome with expanded toolbar reports ~740px.
-        We scale padding-bottom proportionally between a tight floor
-        (28px at ≤720px) and a generous ceiling (52px at ≥860px).
-        Everything in between interpolates linearly.
-        This means Chrome gets ~28-32px and Safari gets ~48-52px —
-        both look intentional without a hard browser detection hack.
-      */
       var pageInner    = document.querySelector('.page-inner');
       var coverWrapper = document.querySelector('.cover-wrapper');
       var coverImg     = document.querySelector('.cover-wrapper img');
@@ -1033,8 +1008,6 @@
         var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
         var low = 700, high = 830;
         var t   = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-
-        /* cover max-height: 46dvh (Chrome ~740px) → 56dvh (Safari ~844px) */
         var cvh = 46 + (56 - 46) * t;
         var coverVal = cvh.toFixed(1) + 'dvh';
         if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
@@ -1044,7 +1017,6 @@
       setAdaptiveLayout();
       setBlurbPadding();
       window.addEventListener('resize', function() { setAdaptiveLayout(); setBlurbPadding(); });
-      /* visualViewport fires when Safari toolbar shows/hides mid-session */
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', function() {
           setAdaptiveLayout();
@@ -1052,13 +1024,6 @@
         });
       }
 
-      /*
-        FIX 9 — JS slide offset uses window.innerHeight (actual visible height)
-        instead of a percentage string. On Chrome/Firefox with toolbar visible,
-        translateY(-100%) was calculated against the wrong height value because
-        the CSS percentage on transform is relative to the element itself.
-        Using px based on innerHeight removes the ambiguity entirely.
-      */
       function getSlideOffset(index) {
         return -(index * window.innerHeight);
       }
@@ -1088,12 +1053,6 @@
         setTimeout(function () { isAnimating = false; }, 480);
       }
 
-      /*
-        FIX 10 — recalculate slide position on resize/orientation change.
-        When the browser toolbar appears/disappears (scroll up to show address bar,
-        scroll down to hide it), innerHeight changes. Without this listener the
-        slide offset goes stale and page 2 shows a gap.
-      */
       window.addEventListener('resize', function () {
         slideContainer.classList.add('no-transition');
         slideContainer.style.transform = 'translateY(' + getSlideOffset(currentPage) + 'px)';
