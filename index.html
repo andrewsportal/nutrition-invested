@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#e8e8e8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#e8e8e8">
   <title>Nutrition, Invested — The Tactical Nutrition Playbook</title>
   <meta name="description" content="Every meal is a deposit. The tactical nutrition playbook for building lasting health — no trackers, no meal plans. $3.99.">
 
@@ -48,6 +48,7 @@
        DESIGN TOKENS — LIGHT MODE (default)
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     :root {
+      color-scheme: light;
       --color-bg:          #e8e8e8;
       --color-surface:     #ffffff;
       --color-border:      rgba(0,0,0,0.09);
@@ -99,55 +100,6 @@
       --safe-top:    env(safe-area-inset-top,    0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --vh-full: 100dvh;
-    }
-
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       DARK MODE TOKENS
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --color-bg:      #1c1c1e;
-        --color-surface: #2c2c2e;
-        --color-border:  rgba(255,255,255,0.10);
-        --color-accent:  #5fa876;
-        --color-label:   #5fa876;
-        --color-body:    #ebebf5;
-        --color-muted:   rgba(235,235,245,0.45);
-        --color-white:   #ffffff;
-        --color-bar-bg:  #2d5c3f;
-
-        /* Fade gradients — dark */
-        --fade-from:     rgba(28,28,30,0);
-        --fade-mid:      rgba(28,28,30,0.6);
-        --fade-to:       rgb(28,28,30);
-
-        --shadow-cover:   drop-shadow(0 8px 24px rgba(0,0,0,0.45))
-                          drop-shadow(0 2px 6px rgba(0,0,0,0.30));
-        --shadow-btn:     0 4px 16px rgba(0,0,0,0.30), 0 1px 4px rgba(0,0,0,0.20);
-        --shadow-surface: 0 2px 10px rgba(0,0,0,0.30);
-        --shadow-primary: 0 4px 20px rgba(95,168,118,0.35), 0 1px 4px rgba(95,168,118,0.18);
-      }
-
-      /* Dark mode: buy button secondary border — raised for perceptibility */
-      .buy-btn.secondary {
-        border-color: rgba(255,255,255,0.22) !important;
-      }
-
-      /* Dark mode: page 2 rule */
-      .page-2-rule {
-        background: rgba(255,255,255,0.10) !important;
-      }
-
-      /* Dark mode: counter bar divider */
-      .counter-bar-divider {
-        background: rgba(255,255,255,0.20) !important;
-      }
-
-      /* Dark mode: payment logos slightly brighter */
-      .payment-logos {
-        opacity: 0.50 !important;
-        filter: invert(1) !important;
-      }
     }
 
     html {
@@ -251,12 +203,6 @@
       width: 16px; height: 1.5px;
       background: rgba(0,0,0,0.28);
       border-radius: 1px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .menu-btn span {
-        background: rgba(255,255,255,0.40);
-      }
     }
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
