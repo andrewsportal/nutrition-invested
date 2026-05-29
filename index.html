@@ -159,64 +159,27 @@
         overscroll-behavior-y: contain;
         touch-action: pan-y;
       }
-      .headline {
-        font-size: clamp(0.88rem, 3.8vw, 1.05rem);
-        margin-top: var(--sp-2);
-        margin-bottom: var(--sp-1);
-      }
-      .buttons {
-        gap: var(--sp-1);
-      }
-      .buy-btn {
-        padding: var(--sp-3) var(--sp-5);
-        font-size: var(--text-caption);
-      }
-      .buy-btn .logo-amazon { height: 18px; }
-      .buy-btn .logo-payhip { height: 15px; }
-      .btn-logo-wrap { width: 26px; height: 26px; }
     }
 
-    @media (max-height: 780px) {
-      .headline {
-        font-size: clamp(0.82rem, 3.4vw, 0.95rem);
-        margin-top: var(--sp-1);
-        margin-bottom: 0;
-      }
-      .buttons {
-        gap: var(--sp-1);
-      }
-      .buy-btn {
-        padding: 10px var(--sp-5);
-        font-size: var(--text-caption);
-      }
-      .buy-btn .logo-amazon { height: 16px; }
-      .buy-btn .logo-payhip { height: 14px; }
-      .btn-logo-wrap { width: 24px; height: 24px; }
+    .page-inner.compact .headline {
+      font-size: clamp(0.82rem, 3.4vw, 0.95rem);
+      margin-top: var(--sp-1);
+      margin-bottom: 0;
     }
-
-    @media (max-height: 680px) {
-      .headline {
-        font-size: clamp(0.78rem, 3.2vw, 0.90rem);
-        margin-top: var(--sp-1);
-        margin-bottom: 0;
-      }
-      .preview-hint {
-        margin-top: var(--sp-1);
-      }
-      .buttons {
-        gap: var(--sp-1);
-      }
-      .buy-btn {
-        padding: 9px var(--sp-4);
-        font-size: var(--text-caption);
-      }
-      .buy-btn .logo-amazon { height: 15px; }
-      .buy-btn .logo-payhip { height: 13px; }
-      .btn-logo-wrap { width: 22px; height: 22px; }
-      .payment-section {
-        margin-top: var(--sp-1);
-      }
+    .page-inner.compact .preview-hint {
+      margin-top: var(--sp-1);
     }
+    .page-inner.compact .buttons {
+      gap: var(--sp-1);
+    }
+    .page-inner.compact .buy-btn {
+      padding: 10px var(--sp-4);
+      font-size: var(--text-caption);
+    }
+    .page-inner.compact .buy-btn .logo-amazon { height: 16px; }
+    .page-inner.compact .buy-btn .logo-payhip { height: 14px; }
+    .page-inner.compact .btn-logo-wrap { width: 24px; height: 24px; }
+    .page-inner.compact .payment-section { margin-top: var(--sp-1); }
 
     .menu-btn {
       position: absolute;
@@ -985,11 +948,18 @@
         if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
       }
 
+      function setViewportClass() {
+        var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+        document.body.classList.toggle('vp-short', vvh < 750);
+      }
+
+      setViewportClass();
       setAdaptiveLayout();
       setBlurbPadding();
-      window.addEventListener('resize', function() { setAdaptiveLayout(); setBlurbPadding(); });
+      window.addEventListener('resize', function() { setViewportClass(); setAdaptiveLayout(); setBlurbPadding(); });
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', function() {
+          setViewportClass();
           setAdaptiveLayout();
           setBlurbPadding();
         });
