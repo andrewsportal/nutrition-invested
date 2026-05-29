@@ -158,10 +158,22 @@
         overflow-y: auto;
         overscroll-behavior-y: contain;
         touch-action: pan-y;
-        padding-top: calc(var(--safe-top) + 20px);
-        justify-content: flex-start;
-        gap: var(--sp-2);
       }
+      .headline {
+        font-size: clamp(0.88rem, 3.8vw, 1.05rem);
+        margin-top: var(--sp-2);
+        margin-bottom: var(--sp-1);
+      }
+      .buttons {
+        gap: var(--sp-1);
+      }
+      .buy-btn {
+        padding: var(--sp-3) var(--sp-5);
+        font-size: var(--text-caption);
+      }
+      .buy-btn .logo-amazon { height: 18px; }
+      .buy-btn .logo-payhip { height: 15px; }
+      .btn-logo-wrap { width: 26px; height: 26px; }
     }
 
     .menu-btn {
