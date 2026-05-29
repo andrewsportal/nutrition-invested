@@ -176,6 +176,48 @@
       .btn-logo-wrap { width: 26px; height: 26px; }
     }
 
+    @media (max-height: 780px) {
+      .headline {
+        font-size: clamp(0.82rem, 3.4vw, 0.95rem);
+        margin-top: var(--sp-1);
+        margin-bottom: 0;
+      }
+      .buttons {
+        gap: var(--sp-1);
+      }
+      .buy-btn {
+        padding: 10px var(--sp-5);
+        font-size: var(--text-caption);
+      }
+      .buy-btn .logo-amazon { height: 16px; }
+      .buy-btn .logo-payhip { height: 14px; }
+      .btn-logo-wrap { width: 24px; height: 24px; }
+    }
+
+    @media (max-height: 680px) {
+      .headline {
+        font-size: clamp(0.78rem, 3.2vw, 0.90rem);
+        margin-top: var(--sp-1);
+        margin-bottom: 0;
+      }
+      .preview-hint {
+        margin-top: var(--sp-1);
+      }
+      .buttons {
+        gap: var(--sp-1);
+      }
+      .buy-btn {
+        padding: 9px var(--sp-4);
+        font-size: var(--text-caption);
+      }
+      .buy-btn .logo-amazon { height: 15px; }
+      .buy-btn .logo-payhip { height: 13px; }
+      .btn-logo-wrap { width: 22px; height: 22px; }
+      .payment-section {
+        margin-top: var(--sp-1);
+      }
+    }
+
     .menu-btn {
       position: absolute;
       top:  calc(var(--safe-top) + 14px);
