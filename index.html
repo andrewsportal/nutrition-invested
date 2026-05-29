@@ -25,9 +25,6 @@
 
   <style>
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       CROSS-BROWSER RESET
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -44,9 +41,6 @@
       border-radius: 2px;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       DESIGN TOKENS — LIGHT MODE (default)
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     :root {
       color-scheme: light;
       --color-bg:          #e8e8e8;
@@ -59,7 +53,6 @@
       --color-white:       #ffffff;
       --color-bar-bg:      #4E8B61;
 
-      /* Fade gradients — light */
       --fade-from:         rgba(232,232,232,0);
       --fade-mid:          rgba(232,232,232,0.6);
       --fade-to:           rgb(232,232,232);
@@ -120,9 +113,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SLIDE CONTAINER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .slide-container {
       position: fixed; top: 0; left: 0;
       width: 100%;
@@ -147,9 +137,6 @@
     .page-1 { top: 0; }
     .page-2 { top: 100vh; top: 100dvh; }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAGE 1 INNER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-inner {
       width: 100%;
       height: 100vh;
@@ -174,9 +161,6 @@
       }
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       HAMBURGER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-btn {
       position: absolute;
       top:  calc(var(--safe-top) + 14px);
@@ -205,9 +189,6 @@
       border-radius: 1px;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       MENU ENVELOPE
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .menu-envelope {
       position: absolute;
       top:  calc(var(--safe-top) + 52px);
@@ -237,9 +218,6 @@
 
     .menu-envelope:active { opacity: 0.5; }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       COVER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .cover-wrapper {
       width: 100%; max-width: 380px;
       display: flex;
@@ -267,9 +245,6 @@
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PREVIEW HINT
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .preview-hint {
       margin-top: var(--sp-2);
       font-size: var(--text-caption);
@@ -281,9 +256,6 @@
       font-variant-ligatures: none;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       HEADLINE
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .headline {
       width: 100%; max-width: 480px;
       text-align: center;
@@ -311,9 +283,6 @@
       font-weight: 500;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       BUTTONS
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .buttons {
       width: 100%; max-width: 480px;
       display: flex;
@@ -383,9 +352,6 @@
       flex-shrink: 0;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAYMENT SECTION
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .payment-section {
       width: 100%; max-width: 480px;
       text-align: center;
@@ -414,9 +380,6 @@
 
     .payment-logos img { height: 16px; width: auto; display: block; }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SPACER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint-spacer {
       width: 100%;
       flex: 1 1 0px;
@@ -424,9 +387,6 @@
       max-height: 16px;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       WHAT'S INSIDE BUTTON
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-hint {
       flex-shrink: 0;
       min-height: 44px;
@@ -475,9 +435,6 @@
       50%       { opacity: 0.2; }
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAGE 2 INNER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-inner {
       position: relative;
       width: 100%;
@@ -493,12 +450,6 @@
       overflow: hidden;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       BACK BUTTON
-       HIG FIX: symbol only, 44×44pt circle,
-       matches .menu-envelope exactly.
-       Removed: text label, pill shape, padding.
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .scroll-up {
       position: absolute;
       top:   calc(var(--safe-top) + var(--sp-3));
@@ -522,9 +473,6 @@
 
     .scroll-up:active { opacity: 0.6; }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       PAGE 2 HEADER + RULE
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .page-2-header {
       width: 100%; max-width: 480px;
       display: flex;
@@ -551,9 +499,6 @@
       flex-shrink: 0;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       BLURB LIST
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .blurb-wrapper {
       width: 100%; max-width: 480px;
       flex: 1;
@@ -647,9 +592,6 @@
       display: inline;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       COUNTER BAR
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--color-bar-bg);
@@ -768,7 +710,7 @@
           </a>
         </div>
 
-        <p style="font-size:var(--text-caption);color:var(--color-muted);letter-spacing:var(--track-wide);font-weight:600;text-align:center;margin-top:var(--sp-2);line-height:1.4;flex-shrink:0;">Read on any e-reader or app — Amazon Kindle, Apple Books and Google Play Books.</p>
+        <p style="font-size:var(--text-caption);color:var(--color-muted);letter-spacing:var(--track-wide);font-weight:600;text-align:center;margin-top:var(--sp-2);line-height:1.4;flex-shrink:0;">Reads on any e-reader or app —<br>Amazon Kindle, Apple Books and Google Play Books.</p>
 
         <div class="payment-section">
           <p>🔒 SECURE CHECKOUT</p>
@@ -798,7 +740,6 @@
     <div class="page page-2" id="page-2">
       <div class="page-2-inner">
 
-        <!-- HIG FIX: chevron only, no text label, 44×44pt circle -->
         <button class="scroll-up" id="scroll-up" aria-label="Back to top">
           <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M1 6L5.5 1L10 6" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
