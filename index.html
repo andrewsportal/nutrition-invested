@@ -215,10 +215,12 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
+    /* ─── PAGE 2 — 3 targeted fixes ─── */
+
     .page-2-inner {
       position: relative; width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      padding-top: calc(var(--safe-top) + 32px); /* Pulled up closer to the top */
+      padding-top: calc(var(--safe-top) + 20px); /* was 32px */
       padding-left: var(--sp-6); padding-right: var(--sp-6); overflow: hidden;
     }
 
@@ -231,15 +233,20 @@
     }
     .scroll-up:active { opacity: 0.7; transform: scale(0.95); }
 
-    .page-2-header { width: 100%; max-width: 480px; display: flex; align-items: center; flex-shrink: 0; min-height: 40px; }
-    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-label); }
-    
-    .page-2-rule { 
-      width: 100%; max-width: 480px; height: 1px; 
-      background: rgba(0,0,0,0.08); 
-      margin: var(--sp-4) 0 var(--sp-4); /* Symmetrical Apple spacing */
-      flex-shrink: 0; 
+    .page-2-header {
+      width: 100%; max-width: 480px; display: flex; align-items: center;
+      flex-shrink: 0; min-height: auto; /* was 40px — text owns its height now */
     }
+    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-label); }
+
+    .page-2-rule {
+      width: 100%; max-width: 480px; height: 1px;
+      background: rgba(0,0,0,0.08);
+      margin: var(--sp-3) 0 var(--sp-3); /* was sp-4 both sides */
+      flex-shrink: 0;
+    }
+
+    /* ─── end fixes ─── */
 
     .blurb-wrapper { width: 100%; max-width: 480px; flex: 1; position: relative; min-height: 0; margin-bottom: 0; }
     .blurb-list {
@@ -544,7 +551,6 @@
     }
 
     var coverWrapper = document.querySelector('.cover-wrapper');
-    var coverImg = document.querySelector('.cover-wrapper img');
 
     function setAdaptiveLayout() {
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
