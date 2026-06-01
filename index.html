@@ -143,7 +143,8 @@
       padding-top: calc(var(--safe-top) + 40px);
       padding-left: var(--sp-6);
       padding-right: var(--sp-6);
-      padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
+      /* Increased bottom padding for Apple HIG breathing room */
+      padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
       overflow: hidden;
       position: relative;
     }
@@ -158,7 +159,8 @@
 
     body.vp-short .page-inner {
       padding-top: calc(var(--safe-top) + 24px);
-      padding-bottom: max(calc(var(--safe-bottom) + 8px), 16px);
+      /* Increased short-screen bottom padding */
+      padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
     body.vp-short .headline {
       font-size: clamp(0.85rem, 3.4vw, 0.95rem);
@@ -361,7 +363,7 @@
       gap: var(--sp-3);
       flex-wrap: wrap;
       opacity: 0.5;
-      margin-top: 8px;
+      margin-top: 12px; /* Increased visual gap for clarity */
     }
 
     .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
@@ -455,8 +457,17 @@
     .blurb-wrapper.at-top::before { opacity: 0; }
     .blurb-wrapper.scrolled::before { opacity: 1; }
 
-    .blurb-item { display: flex; align-items: baseline; gap: var(--sp-3); }
-    .blurb-emoji { font-size: var(--text-body); line-height: 1.6; flex-shrink: 0; width: 26px; text-align: center; }
+    .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); } /* Changed to flex-start for crisp alignment */
+    
+    .blurb-emoji { 
+      font-size: 1.25rem; /* Scaled up emojis slightly to mimic native Apple icons */
+      line-height: 1.2; 
+      flex-shrink: 0; 
+      width: 26px; 
+      text-align: center; 
+      margin-top: 2px; /* Micro-adjustment to perfectly center with title */
+    }
+    
     .blurb-text { flex: 1; }
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; }
