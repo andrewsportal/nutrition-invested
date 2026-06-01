@@ -143,7 +143,6 @@
       padding-top: calc(var(--safe-top) + 40px);
       padding-left: var(--sp-6);
       padding-right: var(--sp-6);
-      /* Increased bottom padding for Apple HIG breathing room */
       padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
       overflow: hidden;
       position: relative;
@@ -159,7 +158,6 @@
 
     body.vp-short .page-inner {
       padding-top: calc(var(--safe-top) + 24px);
-      /* Increased short-screen bottom padding */
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
     body.vp-short .headline {
@@ -363,7 +361,7 @@
       gap: var(--sp-3);
       flex-wrap: wrap;
       opacity: 0.5;
-      margin-top: 12px; /* Increased visual gap for clarity */
+      margin-top: 12px;
     }
 
     .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
@@ -457,15 +455,15 @@
     .blurb-wrapper.at-top::before { opacity: 0; }
     .blurb-wrapper.scrolled::before { opacity: 1; }
 
-    .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); } /* Changed to flex-start for crisp alignment */
+    .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); } 
     
     .blurb-emoji { 
-      font-size: 1.25rem; /* Scaled up emojis slightly to mimic native Apple icons */
+      font-size: 1.25rem; 
       line-height: 1.2; 
       flex-shrink: 0; 
       width: 26px; 
       text-align: center; 
-      margin-top: 2px; /* Micro-adjustment to perfectly center with title */
+      margin-top: 2px; 
     }
     
     .blurb-text { flex: 1; }
@@ -509,7 +507,14 @@
         </a>
       </div>
 
-      <p class="preview-hint">Tap to preview</p>
+      <!-- INJECTED EYE ICON TO MATCH PADLOCK -->
+      <p class="preview-hint" style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;">
+          <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+          <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+        </svg>
+        Tap to preview
+      </p>
 
       <h1 class="headline">
         Get the Playbook<span class="divider">—</span><span class="price">$6.99</span>
