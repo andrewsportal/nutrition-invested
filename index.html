@@ -215,7 +215,7 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-    /* ─── PAGE 2 ─── */
+    /* PAGE 2 */
 
     .page-2-inner {
       position: relative; width: 100%; height: 100vh; height: 100dvh;
@@ -224,9 +224,8 @@
       padding-left: var(--sp-6); padding-right: var(--sp-6); overflow: hidden;
     }
 
-    /* Button lives in the flex header row — no absolute positioning, no layout math */
     .scroll-up {
-      margin-left: auto; flex-shrink: 0; align-self: center; margin-top: 3px;
+      margin-left: auto; flex-shrink: 0; align-self: center;
       background: rgba(255, 255, 255, 0.75); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
       border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle); width: 44px; height: 44px; padding: 0;
       display: inline-flex; align-items: center; justify-content: center; box-shadow: var(--shadow-surface); z-index: 10;
@@ -234,7 +233,6 @@
     }
     .scroll-up:active { opacity: 0.7; transform: scale(0.95); }
 
-    /* Header is now the full-width flex row containing title + button */
     .page-2-header {
       width: 100%; max-width: 480px;
       display: flex; align-items: center; justify-content: space-between;
@@ -244,29 +242,26 @@
 
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
-      background: rgba(0,0,0,0.08);
-      margin: var(--sp-3) 0 var(--sp-3);
+      background: rgba(60, 60, 67, 0.29);
+      margin: var(--sp-4) 0 var(--sp-3);
       flex-shrink: 0;
     }
-
-    /* ─── end page 2 ─── */
 
     .blurb-wrapper { width: 100%; max-width: 480px; flex: 1; position: relative; min-height: 0; margin-bottom: 0; }
     .blurb-list {
       width: 100%; height: 100%; display: flex; flex-direction: column; gap: var(--sp-6);
-      overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none;
+      overflow-x: hidden; overflow-y: auto;
       padding-bottom: var(--sp-6); touch-action: pan-y; overscroll-behavior-y: contain;
     }
-    .blurb-list::-webkit-scrollbar { display: none; }
 
     .blurb-wrapper::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
-      background: linear-gradient(to bottom, var(--fade-from) 0%, var(--fade-mid) 50%, var(--fade-to) 100%);
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 64px;
+      background: linear-gradient(to bottom, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
       pointer-events: none; transition: opacity 0.25s ease; opacity: 1;
     }
     .blurb-wrapper::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40px;
-      background: linear-gradient(to top, var(--fade-from) 0%, var(--fade-mid) 50%, var(--fade-to) 100%);
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 64px;
+      background: linear-gradient(to top, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
       pointer-events: none; transition: opacity 0.25s ease; opacity: 0; z-index: 1;
     }
     .blurb-wrapper.at-bottom::after { opacity: 0; }
