@@ -1,30 +1,22 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#e8e8e8">
+  <meta name="description" content="The Tactical Nutrition Playbook — One Choice, Compounded. A practical guide to building sustainable nutrition habits.">
   <title>Nutrition, Invested — The Tactical Nutrition Playbook</title>
-  <meta name="description" content="Every meal is a deposit. The tactical nutrition playbook for building lasting health — no trackers, no meal plans. $6.99.">
 
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Nutrition, Invested — The Tactical Nutrition Playbook">
-  <meta property="og:description" content="Every meal is a deposit. Build lasting health with the DRIP system. No trackers. No meal plans. $6.99.">
-  <meta property="og:image" content="https://andrewsportal.github.io/nutrition-invested/cover.png">
-  <meta property="og:url" content="https://andrewsportal.github.io/nutrition-invested/">
-  <meta property="og:site_name" content="Nutrition, Invested">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nutrition, Invested — The Tactical Nutrition Playbook">
-  <meta name="twitter:description" content="Every meal is a deposit. Build lasting health with the DRIP system. No trackers. No meal plans. $6.99.">
-  <meta name="twitter:image" content="https://andrewsportal.github.io/nutrition-invested/cover.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 
   <style>
-
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -43,35 +35,35 @@
 
     :root {
       color-scheme: light;
-      --color-bg:          #e8e8e8;
-      --color-surface:     #ffffff;
-      --color-border:      rgba(0,0,0,0.09);
-      --color-accent:      #4E8B61;
-      --color-label:       #4E8B61;
-      --color-body:        #333333;
-      --color-muted:       #999999;
-      --color-white:       #ffffff;
-      --color-bar-bg:      #4E8B61;
+      --color-bg: #e8e8e8;
+      --color-surface: #ffffff;
+      --color-border: rgba(0,0,0,0.09);
+      --color-accent: #4E8B61;
+      --color-label: #4E8B61;
+      --color-body: #333333;
+      --color-muted: #999999;
+      --color-white: #ffffff;
+      --color-bar-bg: #4E8B61;
 
-      --fade-from:         rgba(232,232,232,0);
-      --fade-mid:          rgba(232,232,232,0.6);
-      --fade-to:           rgb(232,232,232);
+      --fade-from: rgba(232,232,232,0);
+      --fade-mid: rgba(232,232,232,0.6);
+      --fade-to: rgb(232,232,232);
 
       --font: system-ui, -apple-system, BlinkMacSystemFont,
               'Helvetica Neue', Arial, sans-serif;
 
-      --text-caption:  clamp(0.65rem, 2.6vw, 0.72rem);
-      --text-label:    clamp(0.72rem, 2.9vw, 0.80rem);
-      --text-body:     clamp(0.82rem, 3.3vw, 0.92rem);
+      --text-caption: clamp(0.65rem, 2.6vw, 0.72rem);
+      --text-label: clamp(0.72rem, 2.9vw, 0.80rem);
+      --text-body: clamp(0.82rem, 3.3vw, 0.92rem);
       --text-headline: clamp(0.90rem, 3.8vw, 1.05rem);
-      --text-counter:  clamp(1.4rem,  5.6vw, 1.75rem);
+      --text-counter: clamp(1.4rem, 5.6vw, 1.75rem);
 
       --track-tight: 0.8px;
-      --track-mid:   1.5px;
-      --track-wide:  0.07em;
+      --track-mid: 1.5px;
+      --track-wide: 0.07em;
 
-      --sp-1:  4px;
-      --sp-2:  8px;
+      --sp-1: 4px;
+      --sp-2: 8px;
       --sp-3: 12px;
       --sp-4: 16px;
       --sp-5: 20px;
@@ -81,16 +73,16 @@
 
       --gap: 12px;
 
-      --radius-pill:   50px;
+      --radius-pill: 50px;
       --radius-circle: 50%;
 
-      --shadow-cover:   drop-shadow(0 8px 24px rgba(0,0,0,0.12))
-                        drop-shadow(0 2px 6px rgba(0,0,0,0.07));
-      --shadow-btn:     0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      --shadow-cover: drop-shadow(0 8px 24px rgba(0,0,0,0.12))
+                      drop-shadow(0 2px 6px rgba(0,0,0,0.07));
+      --shadow-btn: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
       --shadow-surface: 0 2px 10px rgba(0,0,0,0.07);
       --shadow-primary: 0 4px 20px rgba(78,139,97,0.28), 0 1px 4px rgba(78,139,97,0.12);
 
-      --safe-top:    env(safe-area-inset-top,    0px);
+      --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --vh-full: 100dvh;
     }
@@ -145,9 +137,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding-top:    calc(var(--safe-top) + 36px);
-      padding-left:   var(--sp-5);
-      padding-right:  var(--sp-5);
+      padding-top: calc(var(--safe-top) + 36px);
+      padding-left: var(--sp-5);
+      padding-right: var(--sp-5);
       padding-bottom: max(calc(var(--safe-bottom) + 20px), 24px);
       overflow: hidden;
       position: relative;
@@ -183,7 +175,7 @@
 
     .menu-btn {
       position: absolute;
-      top:  calc(var(--safe-top) + 14px);
+      top: calc(var(--safe-top) + 14px);
       left: var(--sp-4);
       display: flex;
       flex-direction: column;
@@ -211,7 +203,7 @@
 
     .menu-envelope {
       position: absolute;
-      top:  calc(var(--safe-top) + 52px);
+      top: calc(var(--safe-top) + 52px);
       left: var(--sp-4);
       width: 44px;
       height: 44px;
@@ -281,9 +273,9 @@
       margin-top: var(--sp-2);
       margin-bottom: var(--sp-2);
       font-size: var(--text-headline);
-      font-weight: 800;
+      font-weight: 600;
       font-synthesis: none;
-      letter-spacing: var(--track-mid);
+      letter-spacing: var(--track-tight);
       color: var(--color-label);
       flex-shrink: 0;
     }
@@ -291,14 +283,14 @@
     .headline .price {
       color: var(--color-body);
       font-size: var(--text-headline);
-      font-weight: 800;
-      letter-spacing: var(--track-mid);
+      font-weight: 600;
+      letter-spacing: var(--track-tight);
     }
 
     .headline .divider {
       color: #aaaaaa;
       margin: 0 var(--sp-1);
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .buttons {
@@ -445,7 +437,7 @@
 
     @keyframes chevron-pulse {
       0%, 100% { opacity: 1; }
-      50%       { opacity: 0.2; }
+      50% { opacity: 0.2; }
     }
 
     .page-2-inner {
@@ -456,8 +448,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top:   calc(var(--safe-top) + 36px);
-      padding-left:  var(--sp-5);
+      padding-top: calc(var(--safe-top) + 36px);
+      padding-left: var(--sp-5);
       padding-right: var(--sp-5);
       padding-bottom: 0;
       overflow: hidden;
@@ -465,7 +457,7 @@
 
     .scroll-up {
       position: absolute;
-      top:   calc(var(--safe-top) + var(--sp-3));
+      top: calc(var(--safe-top) + var(--sp-3));
       right: var(--sp-5);
       background: var(--color-surface);
       border: 0.5px solid var(--color-border);
@@ -540,9 +532,9 @@
       height: 40px;
       background: linear-gradient(
         to bottom,
-        var(--fade-from)  0%,
-        var(--fade-mid)  50%,
-        var(--fade-to)   100%
+        var(--fade-from) 0%,
+        var(--fade-mid) 50%,
+        var(--fade-to) 100%
       );
       pointer-events: none;
       transition: opacity 0.25s ease;
@@ -555,9 +547,9 @@
       height: 40px;
       background: linear-gradient(
         to top,
-        var(--fade-from)  0%,
-        var(--fade-mid)  50%,
-        var(--fade-to)   100%
+        var(--fade-from) 0%,
+        var(--fade-mid) 50%,
+        var(--fade-to) 100%
       );
       pointer-events: none;
       transition: opacity 0.25s ease;
@@ -566,7 +558,7 @@
     }
 
     .blurb-wrapper.at-bottom::after { opacity: 0; }
-    .blurb-wrapper.at-top::before   { opacity: 0; }
+    .blurb-wrapper.at-top::before { opacity: 0; }
     .blurb-wrapper.scrolled::before { opacity: 1; }
 
     .blurb-item {
@@ -591,7 +583,6 @@
       font-synthesis: none;
       color: var(--color-label);
       letter-spacing: var(--track-tight);
-      text-transform: uppercase;
       line-height: 1.5;
       display: inline;
       margin-right: var(--sp-1);
@@ -608,9 +599,9 @@
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--color-bar-bg);
-      padding-top:    var(--sp-4);
-      padding-left:   var(--sp-5);
-      padding-right:  var(--sp-5);
+      padding-top: var(--sp-4);
+      padding-left: var(--sp-5);
+      padding-right: var(--sp-5);
       padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 20px);
       display: flex;
       align-items: center;
@@ -672,386 +663,385 @@
       font-size: var(--text-label);
       font-weight: 600;
       font-synthesis: none;
-      letter-spacing: var(--track-mid);
-      text-transform: uppercase;
+      letter-spacing: var(--track-tight);
       color: var(--color-white);
       line-height: 1.35;
     }
-
   </style>
-
 </head>
 <body>
 
-  <div class="slide-container" id="slide-container">
+<div id="slide-container" class="slide-container">
 
-    <!-- PAGE 1 -->
-    <div class="page page-1">
-      <div class="page-inner">
+  <section class="page page-1">
+    <div class="page-inner">
 
-        <button class="menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+      <button id="menu-btn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu-envelope">
+        <span></span>
+        <span></span>
+      </button>
 
-        <a href="mailto:example@gmail.com" class="menu-envelope" id="menu-envelope" aria-label="Contact">
-          <svg width="17" height="13" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0.75" y="0.75" width="14.5" height="10.5" rx="2" stroke="#4E8B61" stroke-width="1.5"/>
-            <path d="M1 2L8 7.5L15 2" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+      <a id="menu-envelope" class="menu-envelope" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
+      </a>
+
+      <div class="cover-wrapper">
+        <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
+          <img
+            src="cover.webp"
+            alt="Nutrition, Invested book cover featuring an hourglass with a yolk dripping, titled The Tactical Nutrition Playbook — One Choice, Compounded"
+            width="800"
+            height="1280"
+            fetchpriority="high"
+            decoding="async"
+          >
         </a>
-
-        <div class="cover-wrapper">
-          <a href="https://andrewsportal.github.io/nutrition-invested/nutrition-invested.pdf" target="_blank" rel="noopener">
-            <img src="cover.png" alt="Nutrition, Invested by Andrew Rios" loading="eager" width="600" height="800">
-          </a>
-        </div>
-
-        <p class="preview-hint">✨ Tap to preview</p>
-
-        <div class="headline">
-          GET THE PLAYBOOK<span class="divider">—</span><span class="price">$6.99</span>
-        </div>
-
-        <div class="buttons">
-          <a class="buy-btn primary" href="https://www.amazon.com/" target="_blank" rel="noopener">
-            <span class="btn-logo-wrap"><img src="amazon.svg" alt="" class="logo-amazon" aria-hidden="true"></span>
-            <span>Buy on Amazon</span>
-          </a>
-          <a class="buy-btn secondary" href="https://payhip.com/" target="_blank" rel="noopener">
-            <span class="btn-logo-wrap"><img src="payhip.svg" alt="" class="logo-payhip" aria-hidden="true"></span>
-            <span>Buy on Payhip</span>
-          </a>
-        </div>
-
-        <p class="fine-print" style="font-size:var(--text-caption);color:var(--color-muted);letter-spacing:var(--track-wide);font-weight:600;text-align:center;margin-top:var(--sp-2);line-height:1.4;flex-shrink:0;">Opens in Amazon Kindle, Apple Books<br>and Google Play Books.</p>
-
-        <div class="payment-section">
-          <p>🔒 Secure checkout</p>
-          <div class="payment-logos">
-            <img src="applepay.svg"        alt="Apple Pay">
-            <img src="googlepay.svg"       alt="Google Pay">
-            <img src="paypal.svg"          alt="PayPal">
-            <img src="visa.svg"            alt="Visa">
-            <img src="mastercard.svg"      alt="Mastercard">
-            <img src="americanexpress.svg" alt="American Express">
-          </div>
-        </div>
-
-        <button class="scroll-hint" id="scroll-down" aria-label="See what's inside">
-          <span class="scroll-hint-label">What's Inside</span>
-          <span class="scroll-hint-chevron" aria-hidden="true">
-            <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 1L5.5 6L10 1" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </button>
-
       </div>
-    </div>
 
-    <!-- PAGE 2 -->
-    <div class="page page-2" id="page-2">
-      <div class="page-2-inner">
+      <p class="preview-hint">Tap to preview</p>
 
-        <button class="scroll-up" id="scroll-up" aria-label="Back to top">
-          <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M1 6L5.5 1L10 6" stroke="#4E8B61" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <h1 class="headline">
+        Get the Playbook<span class="divider">—</span><span class="price">$6.99</span>
+      </h1>
+
+      <div class="buttons">
+        <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
+          <span class="btn-logo-wrap"><img class="logo-amazon" src="amazon-logo.svg" alt="Amazon logo" width="60" height="18"></span>
+          <span>Buy on Amazon</span>
+        </a>
+        <a href="https://payhip.com/b/eBook-Nutrition-Invested" target="_blank" rel="noopener" class="buy-btn secondary">
+          <span class="btn-logo-wrap"><img class="logo-payhip" src="payhip-logo.svg" alt="Payhip logo" width="54" height="14"></span>
+          <span>Buy on Payhip</span>
+        </a>
+      </div>
+
+      <div class="payment-section">
+        <p>Opens in Amazon Kindle, Apple Books and Google Play Books.</p>
+
+        <p>Secure Checkout</p>
+        <div class="payment-logos">
+          <img src="apple-pay.svg"  alt="Apple Pay"  width="38" height="16">
+          <img src="google-pay.svg" alt="Google Pay" width="38" height="16">
+          <img src="paypal.svg"     alt="PayPal"     width="50" height="16">
+          <img src="visa.svg"       alt="Visa"       width="38" height="16">
+          <img src="mastercard.svg" alt="Mastercard" width="24" height="16">
+          <img src="amex.svg"       alt="Amex"       width="24" height="16">
+        </div>
+      </div>
+
+      <div class="scroll-hint-spacer"></div>
+
+      <button id="scroll-down" class="scroll-hint" aria-label="Scroll to more info">
+        <span class="scroll-hint-label">What's Inside</span>
+        <span class="scroll-hint-chevron">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6l4 4 4-4" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </button>
+        </span>
+      </button>
 
-        <div class="page-2-header">
-          <p class="info-section-sublabel">The Quick Bites</p>
-        </div>
-
-        <div class="page-2-rule"></div>
-
-        <div class="blurb-wrapper" id="blurb-wrapper">
-          <div class="blurb-list" id="blurb-list">
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">🥩</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Eat</span>
-                <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">📏</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Measure</span>
-                <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">📈</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Compound</span>
-                <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">⚙️</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Fix</span>
-                <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">💊</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Stack</span>
-                <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">🩸</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Audit</span>
-                <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">🔄</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Recover</span>
-                <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
-              </div>
-            </div>
-
-            <div class="blurb-item">
-              <span class="blurb-emoji" aria-hidden="true">⚡</span>
-              <div class="blurb-text">
-                <span class="blurb-title">Deploy</span>
-                <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- COUNTER BAR -->
-        <div class="counter-bar" id="counter-bar">
-          <div class="counter-bar-left">
-            <span class="counter-bar-label">In the Market</span>
-            <div class="counter-bar-number" data-target="100">
-              <span id="counter-display">—</span>
-            </div>
-            <p class="counter-bar-word">Investors</p>
-          </div>
-          <div class="counter-bar-divider" aria-hidden="true"></div>
-          <div class="counter-bar-right">
-            <p class="counter-bar-tagline">DRIP ON.<br>COMPOUNDS UP.</p>
-          </div>
-        </div>
-
-      </div>
     </div>
+  </section>
 
-  </div>
+  <section class="page page-2">
+    <div class="page-2-inner">
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
+      <button id="scroll-up" class="scroll-up" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
 
-      var slideContainer = document.getElementById('slide-container');
-      var blurbList      = document.getElementById('blurb-list');
-      var blurbWrapper   = document.getElementById('blurb-wrapper');
-      var counterBar     = document.getElementById('counter-bar');
-      var currentPage    = 0;
-      var isAnimating    = false;
+      <header class="page-2-header">
+        <h2 class="info-section-sublabel">The Quick Bites</h2>
+      </header>
 
-      var counterEl     = document.querySelector('.counter-bar-number');
-      var displayEl     = document.getElementById('counter-display');
-      var counterTarget = counterEl ? parseInt(counterEl.getAttribute('data-target'), 10) : 0;
-      var animated      = false;
+      <div class="page-2-rule" aria-hidden="true"></div>
 
-      if (displayEl) {
-        displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
-      }
+      <div id="blurb-wrapper" class="blurb-wrapper at-top">
+        <div id="blurb-list" class="blurb-list" role="list">
 
-      var menuBtn      = document.getElementById('menu-btn');
-      var menuEnvelope = document.getElementById('menu-envelope');
-      var menuOpen     = false;
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x1F969;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Eat</span>
+              <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
+            </div>
+          </article>
 
-      function openMenu() {
-        menuOpen = true;
-        menuEnvelope.classList.add('open');
-        menuBtn.setAttribute('aria-expanded', 'true');
-      }
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x1F4CF;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Measure</span>
+              <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
+            </div>
+          </article>
 
-      function closeMenu() {
-        menuOpen = false;
-        menuEnvelope.classList.remove('open');
-        menuBtn.setAttribute('aria-expanded', 'false');
-      }
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x1F4C8;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Compound</span>
+              <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
+            </div>
+          </article>
 
-      menuBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (menuOpen) { closeMenu(); } else { openMenu(); }
-      });
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x2699;&#xFE0F;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Fix</span>
+              <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
+            </div>
+          </article>
 
-      document.addEventListener('touchstart', function (e) {
-        if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
-          closeMenu();
-        }
-      }, { passive: true });
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x1F48A;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Stack</span>
+              <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
+            </div>
+          </article>
 
-      document.addEventListener('click', function (e) {
-        if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
-          closeMenu();
-        }
-      });
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x1FA78;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Audit</span>
+              <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
+            </div>
+          </article>
 
-      menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x1F504;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Recover</span>
+              <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
+            </div>
+          </article>
 
-      function animateCount(from, to, dur) {
-        if (!displayEl) return;
-        if (to === 0) { displayEl.textContent = '—'; return; }
-        var t0 = performance.now();
-        function tick(now) {
-          var p    = Math.min((now - t0) / dur, 1);
-          var ease = 1 - Math.pow(1 - p, 3);
-          displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
-          if (p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      }
+          <article class="blurb-item" role="listitem">
+            <span class="blurb-emoji" aria-hidden="true">&#x26A1;</span>
+            <div class="blurb-text">
+              <span class="blurb-title">Deploy</span>
+              <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
+            </div>
+          </article>
 
-      function setBlurbPadding() {
-        if (counterBar && blurbWrapper) {
-          blurbWrapper.style.marginBottom = counterBar.offsetHeight + 'px';
-        }
-      }
+        </div>
+      </div>
 
-      var coverWrapper = document.querySelector('.cover-wrapper');
-      var coverImg     = document.querySelector('.cover-wrapper img');
+      <footer id="counter-bar" class="counter-bar">
+        <div class="counter-bar-left">
+          <span class="counter-bar-label">In the Market</span>
+          <span class="counter-bar-number" data-target="87"><span id="counter-display">—</span></span>
+          <span class="counter-bar-word">Investors</span>
+        </div>
+        <div class="counter-bar-divider" aria-hidden="true"></div>
+        <div class="counter-bar-right">
+          <span class="counter-bar-tagline">Drip on. Compounds up.</span>
+        </div>
+      </footer>
 
-      function setAdaptiveLayout() {
-        var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-        var low = 700, high = 830;
-        var t   = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-        var cvh = 46 + (56 - 46) * t;
-        var coverVal = cvh.toFixed(1) + 'dvh';
-        if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
-        if (coverImg)     coverImg.style.setProperty('--cover-mh',     coverVal);
-      }
+    </div>
+  </section>
 
-      function setViewportClass() {
-        var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-        document.body.classList.toggle('vp-short', vvh < 750);
-      }
+</div>
 
-      setViewportClass();
-      setAdaptiveLayout();
-      setBlurbPadding();
-      window.addEventListener('resize', function() { setViewportClass(); setAdaptiveLayout(); setBlurbPadding(); });
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', function() {
-          setViewportClass();
-          setAdaptiveLayout();
-          setBlurbPadding();
-        });
-      }
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
 
-      function getSlideOffset(index) {
-        return -(index * window.innerHeight);
-      }
+    var slideContainer = document.getElementById('slide-container');
+    var blurbList = document.getElementById('blurb-list');
+    var blurbWrapper = document.getElementById('blurb-wrapper');
+    var counterBar = document.getElementById('counter-bar');
+    var currentPage = 0;
+    var isAnimating = false;
 
-      function goToPage(index) {
-        if (isAnimating) return;
-        if (index === currentPage) return;
-        closeMenu();
-        isAnimating = true;
-        currentPage = index;
-        slideContainer.classList.remove('no-transition');
-        slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
+    var counterEl = document.querySelector('.counter-bar-number');
+    var displayEl = document.getElementById('counter-display');
+    var counterTarget = counterEl ? parseInt(counterEl.getAttribute('data-target'), 10) : 0;
+    var animated = false;
 
-        if (index === 1 && !animated) {
-          animated = true;
-          setTimeout(function () {
-            if (displayEl) displayEl.textContent = '0';
-            animateCount(0, counterTarget, 1800);
-          }, 480);
-        }
+    if (displayEl) {
+      displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
+    }
 
-        if (index === 0) {
-          animated = false;
-          if (displayEl) displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
-        }
+    var menuBtn = document.getElementById('menu-btn');
+    var menuEnvelope = document.getElementById('menu-envelope');
+    var menuOpen = false;
 
-        setTimeout(function () { isAnimating = false; }, 480);
-      }
+    function openMenu() {
+      menuOpen = true;
+      menuEnvelope.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
 
-      window.addEventListener('resize', function () {
-        slideContainer.classList.add('no-transition');
-        slideContainer.style.transform = 'translateY(' + getSlideOffset(currentPage) + 'px)';
-        requestAnimationFrame(function () {
-          slideContainer.classList.remove('no-transition');
-        });
-      });
+    function closeMenu() {
+      menuOpen = false;
+      menuEnvelope.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
 
-      document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
-      document.getElementById('scroll-up').addEventListener('click',   function () { goToPage(0); });
-
-      var touchStartY = 0, touchStartX = 0, touchStartTime = 0, touchStartScrollTop = 0;
-
-      document.addEventListener('touchstart', function (e) {
-        touchStartY         = e.touches[0].clientY;
-        touchStartX         = e.touches[0].clientX;
-        touchStartTime      = Date.now();
-        touchStartScrollTop = blurbList ? blurbList.scrollTop : 0;
-      }, { passive: true });
-
-      document.addEventListener('touchmove', function (e) {
-        var isInList = blurbList && blurbList.contains(e.target);
-        if (isInList) {
-          var dy       = touchStartY - e.touches[0].clientY;
-          var atTop    = blurbList.scrollTop <= 0;
-          var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
-          if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
-        } else {
-          e.preventDefault();
-        }
-      }, { passive: false });
-
-      document.addEventListener('touchend', function (e) {
-        var dy     = touchStartY - e.changedTouches[0].clientY;
-        var dx     = touchStartX - e.changedTouches[0].clientX;
-        var dt     = Date.now() - touchStartTime;
-        var isInList = blurbList && blurbList.contains(e.target);
-
-        if (Math.abs(dx) > Math.abs(dy)) return;
-        if (!(Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300))) return;
-
-        if (isInList) {
-          if      (dy > 0 && currentPage === 0)                              { goToPage(1); }
-          else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0)  { goToPage(0); }
-        } else {
-          if      (dy > 0 && currentPage === 0) { goToPage(1); }
-          else if (dy < 0 && currentPage === 1) { goToPage(0); }
-        }
-      }, { passive: true });
-
-      function updateFade() {
-        if (!blurbList || !blurbWrapper) return;
-        var st = blurbList.scrollTop;
-        blurbWrapper.classList.toggle('at-bottom', st + blurbList.clientHeight >= blurbList.scrollHeight - 4);
-        blurbWrapper.classList.toggle('at-top',    st <= 0);
-        blurbWrapper.classList.toggle('scrolled',  st > 4);
-      }
-
-      if (blurbList) {
-        blurbList.addEventListener('scroll', updateFade);
-        updateFade();
-      }
-
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (menuOpen) { closeMenu(); } else { openMenu(); }
     });
-  </script>
+
+    document.addEventListener('touchstart', function (e) {
+      if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
+        closeMenu();
+      }
+    }, { passive: true });
+
+    document.addEventListener('click', function (e) {
+      if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
+
+    function animateCount(from, to, dur) {
+      if (!displayEl) return;
+      if (to === 0) { displayEl.textContent = '—'; return; }
+      var t0 = performance.now();
+      function tick(now) {
+        var p = Math.min((now - t0) / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function setBlurbPadding() {
+      if (counterBar && blurbWrapper) {
+        blurbWrapper.style.marginBottom = counterBar.offsetHeight + 'px';
+      }
+    }
+
+    var coverWrapper = document.querySelector('.cover-wrapper');
+    var coverImg = document.querySelector('.cover-wrapper img');
+
+    function setAdaptiveLayout() {
+      var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+      var low = 700, high = 830;
+      var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
+      var cvh = 46 + (56 - 46) * t;
+      var coverVal = cvh.toFixed(1) + 'dvh';
+      if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
+      if (coverImg) coverImg.style.setProperty('--cover-mh', coverVal);
+    }
+
+    function setViewportClass() {
+      var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+      document.body.classList.toggle('vp-short', vvh < 750);
+    }
+
+    setViewportClass();
+    setAdaptiveLayout();
+    setBlurbPadding();
+    window.addEventListener('resize', function() { setViewportClass(); setAdaptiveLayout(); setBlurbPadding(); });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function() {
+        setViewportClass();
+        setAdaptiveLayout();
+        setBlurbPadding();
+      });
+    }
+
+    function getSlideOffset(index) {
+      return -(index * window.innerHeight);
+    }
+
+    function goToPage(index) {
+      if (isAnimating) return;
+      if (index === currentPage) return;
+      closeMenu();
+      isAnimating = true;
+      currentPage = index;
+      slideContainer.classList.remove('no-transition');
+      slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
+
+      if (index === 1 && !animated) {
+        animated = true;
+        setTimeout(function () {
+          if (displayEl) displayEl.textContent = '0';
+          animateCount(0, counterTarget, 1800);
+        }, 480);
+      }
+
+      if (index === 0) {
+        animated = false;
+        if (displayEl) displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
+      }
+
+      setTimeout(function () { isAnimating = false; }, 480);
+    }
+
+    window.addEventListener('resize', function () {
+      slideContainer.classList.add('no-transition');
+      slideContainer.style.transform = 'translateY(' + getSlideOffset(currentPage) + 'px)';
+      requestAnimationFrame(function () {
+        slideContainer.classList.remove('no-transition');
+      });
+    });
+
+    document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
+    document.getElementById('scroll-up').addEventListener('click', function () { goToPage(0); });
+
+    var touchStartY = 0, touchStartX = 0, touchStartTime = 0, touchStartScrollTop = 0;
+
+    document.addEventListener('touchstart', function (e) {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
+      touchStartScrollTop = blurbList ? blurbList.scrollTop : 0;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      var isInList = blurbList && blurbList.contains(e.target);
+      if (isInList) {
+        var dy = touchStartY - e.touches[0].clientY;
+        var atTop = blurbList.scrollTop <= 0;
+        var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+        if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
+      } else {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchend', function (e) {
+      var dy = touchStartY - e.changedTouches[0].clientY;
+      var dx = touchStartX - e.changedTouches[0].clientX;
+      var dt = Date.now() - touchStartTime;
+      var isInList = blurbList && blurbList.contains(e.target);
+
+      if (Math.abs(dx) > Math.abs(dy)) return;
+      if (!(Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300))) return;
+
+      if (isInList) {
+        if (dy > 0 && currentPage === 0) { goToPage(1); }
+        else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0) { goToPage(0); }
+      } else {
+        if (dy > 0 && currentPage === 0) { goToPage(1); }
+        else if (dy < 0 && currentPage === 1) { goToPage(0); }
+      }
+    }, { passive: true });
+
+    function updateFade() {
+      if (!blurbList || !blurbWrapper) return;
+      var st = blurbList.scrollTop;
+      blurbWrapper.classList.toggle('at-bottom', st + blurbList.clientHeight >= blurbList.scrollHeight - 4);
+      blurbWrapper.classList.toggle('at-top', st <= 0);
+      blurbWrapper.classList.toggle('scrolled', st > 4);
+    }
+
+    if (blurbList) {
+      blurbList.addEventListener('scroll', updateFade);
+      updateFade();
+    }
+
+  });
+</script>
 
 </body>
 </html>
