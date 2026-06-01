@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Added relative pathing (./) to fix GitHub Pages routing -->
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
@@ -42,7 +41,7 @@
       --color-accent: #4E8B61;
       --color-label: #4E8B61;
       --color-body: #333333;
-      --color-muted: #999999;
+      --color-muted: #8E8E93; /* Apple HIG Secondary System Gray */
       --color-white: #ffffff;
       --color-bar-bg: #4E8B61;
 
@@ -50,22 +49,18 @@
       --fade-mid: rgba(232,232,232,0.6);
       --fade-to: rgb(232,232,232);
 
-      --font: system-ui, -apple-system, BlinkMacSystemFont,
-              'Helvetica Neue', Arial, sans-serif;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
 
-      /* Apple-style type scale - readable but compact */
       --text-caption: clamp(0.6875rem, 2.8vw, 0.75rem);
       --text-label: clamp(0.75rem, 3vw, 0.8125rem);
       --text-body: clamp(0.8125rem, 3.4vw, 0.9375rem);
       --text-headline: clamp(0.9375rem, 4vw, 1.0625rem);
       --text-counter: clamp(1.5rem, 6vw, 1.875rem);
 
-      /* Apple uses tighter tracking on larger text, looser on small caps */
       --track-tight: -0.022em;
       --track-normal: -0.011em;
       --track-wide: 0.02em;
 
-      /* Apple-style spacing scale - more generous */
       --sp-1: 4px;
       --sp-2: 8px;
       --sp-3: 12px;
@@ -77,16 +72,12 @@
       --sp-12: 48px;
       --sp-16: 64px;
 
-      --gap: 16px;
-
-      /* Apple-style radii */
       --radius-sm: 12px;
       --radius-md: 16px;
       --radius-lg: 22px;
       --radius-pill: 980px;
       --radius-circle: 50%;
 
-      /* Apple-style shadows - softer, more diffuse */
       --shadow-cover: drop-shadow(0 12px 40px rgba(0,0,0,0.15))
                       drop-shadow(0 4px 12px rgba(0,0,0,0.08));
       --shadow-btn: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
@@ -95,7 +86,6 @@
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
-      --vh-full: 100dvh;
     }
 
     html {
@@ -103,6 +93,7 @@
       height: 100vh;
       height: 100dvh;
       background: var(--color-bg);
+      overscroll-behavior: none; /* Prevents Safari bounce on the full wrapper */
     }
 
     body {
@@ -114,6 +105,7 @@
       font-family: var(--font);
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none; /* App-like feel: stops long-press menus */
     }
 
     .slide-container {
@@ -123,7 +115,8 @@
       height: 100dvh;
       background: var(--color-bg);
       will-change: transform;
-      transition: transform 0.45s cubic-bezier(0.77,0,0.18,1);
+      /* Apple HIG specific spring curve */
+      transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     .slide-container.no-transition { transition: none; }
@@ -148,10 +141,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding-top: calc(var(--safe-top) + 48px);
+      padding-top: calc(var(--safe-top) + 40px);
       padding-left: var(--sp-6);
       padding-right: var(--sp-6);
-      padding-bottom: max(calc(var(--safe-bottom) + 28px), 32px);
+      padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
       overflow: hidden;
       position: relative;
     }
@@ -164,23 +157,25 @@
       }
     }
 
-    .page-inner.compact .headline {
-      font-size: clamp(0.82rem, 3.4vw, 0.95rem);
+    body.vp-short .page-inner {
+      padding-top: calc(var(--safe-top) + 24px);
+      padding-bottom: max(calc(var(--safe-bottom) + 8px), 16px);
+    }
+    body.vp-short .headline {
+      font-size: clamp(0.85rem, 3.4vw, 0.95rem);
       margin-top: var(--sp-1);
-      margin-bottom: 0;
+      margin-bottom: var(--sp-1);
     }
-    .page-inner.compact .preview-hint {
-      margin-top: var(--sp-1);
-    }
-    .page-inner.compact .buttons {
-      gap: var(--sp-1);
-    }
-    .page-inner.compact .buy-btn {
+    body.vp-short .preview-hint { margin-top: var(--sp-2); }
+    body.vp-short .buttons { gap: var(--sp-2); }
+    body.vp-short .buy-btn {
+      min-height: 48px;
       padding: 10px var(--sp-4);
       font-size: var(--text-caption);
     }
-    .page-inner.compact .btn-logo-wrap { width: 24px; height: 24px; }
-    .page-inner.compact .payment-section { margin-top: var(--sp-1); }
+    body.vp-short .payment-section { margin-top: var(--sp-2); }
+    body.vp-short .payment-section p { margin-bottom: var(--sp-1); }
+    body.vp-short .scroll-hint { min-height: 36px; margin-top: 0; }
 
     .menu-btn {
       position: absolute;
@@ -196,70 +191,68 @@
       padding: 10px;
       background: none;
       border: none;
-      appearance: none;
-      -webkit-appearance: none;
       cursor: pointer;
       z-index: 20;
       transition: opacity 0.15s ease;
     }
 
     .menu-btn:active { opacity: 0.4; }
-
     .menu-btn span {
-      display: block;
-      width: 18px; height: 2px;
-      background: rgba(0,0,0,0.35);
-      border-radius: 1px;
+      display: block; width: 18px; height: 2px;
+      background: rgba(0,0,0,0.35); border-radius: 1px;
     }
 
     .menu-envelope {
       position: absolute;
       top: calc(var(--safe-top) + 64px);
       left: var(--sp-5);
-      width: 48px;
-      height: 48px;
-      background: var(--color-surface);
+      width: 48px; height: 48px;
+      
+      /* Apple HIG Glassmorphism */
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      
       border: 1px solid rgba(0,0,0,0.06);
       border-radius: var(--radius-circle);
       box-shadow: var(--shadow-surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       text-decoration: none;
-      z-index: 20;
-      opacity: 0;
-      pointer-events: none;
+      z-index: 20; opacity: 0; pointer-events: none;
       transform: translateY(-6px);
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
-    .menu-envelope.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .menu-envelope:active { opacity: 0.6; }
+    .menu-envelope.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
     .cover-wrapper {
       width: 100%; max-width: 380px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
-      max-height: var(--cover-mh, 48dvh);
+      flex: 1 1 0%; 
+      min-height: 15vh; 
+      max-height: var(--cover-mh, 45dvh);
     }
 
-    .cover-wrapper a { display: block; width: 100%; }
+    .cover-wrapper a { 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      width: 100%; 
+      height: 100%; 
+    }
 
     .cover-wrapper img {
       display: block;
-      width: 100%; height: auto;
-      max-height: var(--cover-mh, 48dvh);
+      width: auto;
+      max-width: 100%; 
+      height: 100%; 
       object-fit: contain;
       filter: var(--shadow-cover);
       will-change: filter;
       cursor: pointer;
+      -webkit-user-drag: none; /* App-like feel: prevents ghost image dragging */
       transition: transform 0.22s ease, filter 0.22s ease;
     }
 
@@ -269,7 +262,7 @@
     }
 
     .preview-hint {
-      margin-top: var(--sp-4);
+      margin-top: var(--sp-3);
       font-size: var(--text-caption);
       color: var(--color-muted);
       letter-spacing: var(--track-wide);
@@ -281,8 +274,8 @@
     .headline {
       width: 100%; max-width: 480px;
       text-align: center;
-      margin-top: var(--sp-3);
-      margin-bottom: var(--sp-4);
+      margin-top: var(--sp-2);
+      margin-bottom: var(--sp-3);
       font-size: var(--text-headline);
       font-weight: 600;
       font-synthesis: none;
@@ -293,9 +286,7 @@
 
     .headline .price {
       color: var(--color-body);
-      font-size: var(--text-headline);
       font-weight: 600;
-      letter-spacing: var(--track-tight);
     }
 
     .headline .divider {
@@ -309,6 +300,7 @@
       display: flex;
       flex-direction: column;
       gap: var(--sp-3);
+      flex-shrink: 0;
     }
 
     .buy-btn {
@@ -329,25 +321,16 @@
       font-synthesis: none;
       letter-spacing: var(--track-normal);
       text-decoration: none;
-      cursor: pointer;
       box-shadow: var(--shadow-btn);
-      appearance: none;
-      -webkit-appearance: none;
-      transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1), 
-                  box-shadow 0.2s ease,
-                  opacity 0.15s ease;
       user-select: none;
       -webkit-user-select: none;
+      /* Adjusted springiness */
+      transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), 
+                  box-shadow 0.2s ease, opacity 0.15s ease;
     }
 
-    .buy-btn:hover {
-      transform: scale(1.01);
-    }
-
-    .buy-btn:active {
-      transform: scale(0.98);
-      opacity: 0.9;
-    }
+    /* Apple buttons squash slightly more than websites */
+    .buy-btn:active { transform: scale(0.96); opacity: 0.9; }
 
     .buy-btn.primary {
       background: var(--color-accent);
@@ -356,96 +339,66 @@
       box-shadow: var(--shadow-primary);
     }
 
-    .buy-btn.primary:hover {
-      box-shadow: 0 4px 12px rgba(78,139,97,0.25), 0 12px 32px rgba(78,139,97,0.2);
-    }
-
     .buy-btn.secondary {
       background: var(--color-surface);
-      color: var(--color-body);
       border-color: rgba(0,0,0,0.1);
-      box-shadow: var(--shadow-btn);
-    }
-
-    .buy-btn span:last-child { text-align: left; }
-
-    .btn-logo-wrap {
-      width: 36px; height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
     }
 
     .payment-section {
       width: 100%; max-width: 480px;
       text-align: center;
-      margin-top: var(--sp-5);
+      margin-top: var(--sp-4);
       flex-shrink: 0;
     }
 
     .payment-section p {
       font-size: var(--text-caption);
       color: var(--color-muted);
-      margin-bottom: var(--sp-4);
+      margin-bottom: var(--sp-3);
       font-weight: 500;
       letter-spacing: var(--track-normal);
       line-height: 1.5;
-      font-variant-ligatures: none;
     }
 
-    .scroll-hint-spacer {
-      width: 100%;
-      flex: 1 1 0px;
-      min-height: 0;
-      max-height: 20px;
+    .payment-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      opacity: 0.5;
+      margin-top: 8px;
     }
+
+    .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
+
+    .scroll-hint-spacer { width: 100%; flex: 1 1 0px; min-height: 0; max-height: 16px; }
 
     .scroll-hint {
       flex-shrink: 0;
       min-height: 48px;
-      margin-top: var(--sp-2);
-      background: none;
-      border: none;
-      appearance: none;
-      -webkit-appearance: none;
-      cursor: pointer;
+      margin-top: var(--sp-1);
+      background: none; border: none; cursor: pointer;
       padding: var(--sp-2) var(--sp-3);
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-2);
-      touch-action: manipulation;
+      display: inline-flex; align-items: center; gap: var(--sp-2);
       border-radius: var(--radius-sm);
       transition: background 0.15s ease;
     }
-
-    .scroll-hint:hover {
-      background: rgba(78,139,97,0.06);
-    }
-
-    .scroll-hint:active { opacity: 0.6; }
 
     .scroll-hint-label {
       font-size: var(--text-caption);
       letter-spacing: var(--track-normal);
       font-weight: 600;
       color: var(--color-label);
-      text-decoration: none;
-      font-variant-ligatures: none;
     }
 
     .scroll-hint-chevron {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .scroll-hint-chevron {
-        animation: chevron-pulse 1.6s ease-in-out infinite;
-      }
+      .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; }
     }
-
-    .scroll-hint-chevron svg { display: block; }
 
     @keyframes chevron-pulse {
       0%, 100% { opacity: 1; }
@@ -454,241 +407,83 @@
 
     .page-2-inner {
       position: relative;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      width: 100%; height: 100vh; height: 100dvh;
+      display: flex; flex-direction: column; align-items: center;
       padding-top: calc(var(--safe-top) + 48px);
-      padding-left: var(--sp-6);
-      padding-right: var(--sp-6);
-      padding-bottom: 0;
+      padding-left: var(--sp-6); padding-right: var(--sp-6);
       overflow: hidden;
     }
 
     .scroll-up {
       position: absolute;
-      top: calc(var(--safe-top) + var(--sp-4));
-      right: var(--sp-6);
-      background: var(--color-surface);
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--radius-circle);
-      appearance: none;
-      -webkit-appearance: none;
-      cursor: pointer;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      touch-action: manipulation;
-      box-shadow: var(--shadow-surface);
-      z-index: 10;
+      top: calc(var(--safe-top) + var(--sp-4)); right: var(--sp-6);
+      
+      /* Apple HIG Glassmorphism */
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+
+      border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle);
+      width: 48px; height: 48px; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-surface); z-index: 10;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .scroll-up:hover {
-      transform: scale(1.05);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.1);
-    }
+    .scroll-up:active { opacity: 0.7; transform: scale(0.95); }
 
-    .scroll-up:active { 
-      opacity: 0.7;
-      transform: scale(0.95);
-    }
-
-    .page-2-header {
-      width: 100%; max-width: 480px;
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      min-height: 40px;
-    }
-
+    .page-2-header { width: 100%; max-width: 480px; display: flex; align-items: center; flex-shrink: 0; min-height: 40px; }
+    
     .info-section-sublabel {
       font-size: clamp(1.125rem, 4.5vw, 1.3125rem);
-      letter-spacing: var(--track-tight);
-      font-weight: 600;
-      color: var(--color-label);
-      line-height: 1.2;
-      font-variant-ligatures: none;
+      letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-label);
     }
 
-    .page-2-rule {
-      width: 100%; max-width: 480px;
-      height: 1px;
-      background: rgba(0,0,0,0.08);
-      margin: var(--sp-4) 0 var(--sp-5);
-      flex-shrink: 0;
-    }
+    .page-2-rule { width: 100%; max-width: 480px; height: 1px; background: rgba(0,0,0,0.08); margin: var(--sp-4) 0 var(--sp-5); flex-shrink: 0; }
 
-    .blurb-wrapper {
-      width: 100%; max-width: 480px;
-      flex: 1;
-      position: relative;
-      min-height: 0;
-      margin-bottom: 0;
-    }
+    .blurb-wrapper { width: 100%; max-width: 480px; flex: 1; position: relative; min-height: 0; margin-bottom: 0; }
 
     .blurb-list {
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-6);
-      overflow-x: hidden;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding-bottom: var(--sp-6);
-      touch-action: pan-y;
-      overscroll-behavior-y: contain;
+      width: 100%; height: 100%; display: flex; flex-direction: column; gap: var(--sp-6);
+      overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none;
+      padding-bottom: var(--sp-6); touch-action: pan-y; overscroll-behavior-y: contain;
     }
-
     .blurb-list::-webkit-scrollbar { display: none; }
 
     .blurb-wrapper::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 40px;
-      background: linear-gradient(
-        to bottom,
-        var(--fade-from) 0%,
-        var(--fade-mid) 50%,
-        var(--fade-to) 100%
-      );
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      opacity: 1;
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+      background: linear-gradient(to bottom, var(--fade-from) 0%, var(--fade-mid) 50%, var(--fade-to) 100%);
+      pointer-events: none; transition: opacity 0.25s ease; opacity: 1;
     }
-
     .blurb-wrapper::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 40px;
-      background: linear-gradient(
-        to top,
-        var(--fade-from) 0%,
-        var(--fade-mid) 50%,
-        var(--fade-to) 100%
-      );
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      opacity: 0;
-      z-index: 1;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40px;
+      background: linear-gradient(to top, var(--fade-from) 0%, var(--fade-mid) 50%, var(--fade-to) 100%);
+      pointer-events: none; transition: opacity 0.25s ease; opacity: 0; z-index: 1;
     }
-
     .blurb-wrapper.at-bottom::after { opacity: 0; }
     .blurb-wrapper.at-top::before { opacity: 0; }
     .blurb-wrapper.scrolled::before { opacity: 1; }
 
-    .blurb-item {
-      display: flex;
-      align-items: baseline;
-      gap: var(--sp-3);
-    }
-
-    .blurb-emoji {
-      font-size: var(--text-body);
-      line-height: 1.6;
-      flex-shrink: 0;
-      width: 26px;
-      text-align: center;
-    }
-
+    .blurb-item { display: flex; align-items: baseline; gap: var(--sp-3); }
+    .blurb-emoji { font-size: var(--text-body); line-height: 1.6; flex-shrink: 0; width: 26px; text-align: center; }
     .blurb-text { flex: 1; }
-
-    .blurb-title {
-      font-size: var(--text-label);
-      font-weight: 600;
-      font-synthesis: none;
-      color: var(--color-label);
-      letter-spacing: var(--track-normal);
-      line-height: 1.6;
-      display: inline;
-      margin-right: var(--sp-2);
-    }
-
-    .blurb-body {
-      font-size: var(--text-body);
-      color: var(--color-body);
-      line-height: 1.6;
-      font-weight: 400;
-      letter-spacing: var(--track-normal);
-      display: inline;
-    }
+    .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
+    .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; }
 
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--color-bar-bg);
-      padding-top: var(--sp-5);
-      padding-left: var(--sp-6);
-      padding-right: var(--sp-6);
+      padding-top: var(--sp-5); padding-left: var(--sp-6); padding-right: var(--sp-6);
       padding-bottom: max(calc(var(--safe-bottom) + var(--sp-5)), 24px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--sp-4);
-      flex-shrink: 0;
-      z-index: 5;
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
+      flex-shrink: 0; z-index: 5;
     }
-
-    .counter-bar-left {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .counter-bar-label {
-      font-size: var(--text-caption);
-      letter-spacing: var(--track-wide);
-      font-weight: 500;
-      color: rgba(255,255,255,0.6);
-      text-transform: uppercase;
-      font-variant-ligatures: none;
-    }
-
-    .counter-bar-number {
-      font-size: var(--text-counter);
-      font-weight: 700;
-      font-synthesis: none;
-      color: var(--color-white);
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-
-    .counter-bar-word {
-      font-size: var(--text-caption);
-      font-weight: 500;
-      letter-spacing: var(--track-wide);
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-top: 2px;
-      font-variant-ligatures: none;
-    }
-
-    .counter-bar-divider {
-      width: 1px; height: 36px;
-      background: rgba(255,255,255,0.25);
-      flex-shrink: 0;
-    }
-
-    .counter-bar-right {
-      flex: 1;
-      text-align: right;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .counter-bar-tagline {
-      font-size: var(--text-body);
-      font-weight: 500;
-      font-synthesis: none;
-      letter-spacing: var(--track-normal);
-      color: var(--color-white);
-      line-height: 1.4;
-    }
+    .counter-bar-left { display: flex; flex-direction: column; gap: 3px; }
+    .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .counter-bar-number { font-size: var(--text-counter); font-weight: 700; color: var(--color-white); line-height: 1; }
+    .counter-bar-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+    .counter-bar-right { flex: 1; text-align: right; display: flex; align-items: center; justify-content: flex-end; }
+    .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); }
   </style>
 </head>
 <body>
@@ -699,8 +494,7 @@
     <div class="page-inner">
 
       <button id="menu-btn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu-envelope">
-        <span></span>
-        <span></span>
+        <span></span><span></span>
       </button>
 
       <a id="menu-envelope" class="menu-envelope" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
@@ -709,15 +503,8 @@
 
       <div class="cover-wrapper">
         <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
-          <!-- Added relative pathing (./) to the cover image -->
-          <img
-            src="./cover.webp"
-            alt="Nutrition, Invested book cover featuring an hourglass with a yolk dripping, titled The Tactical Nutrition Playbook — One Choice, Compounded"
-            width="800"
-            height="1280"
-            fetchpriority="high"
-            decoding="async"
-          >
+          <!-- IF YOUR IMAGE IS A PNG OR JPG, CHANGE THE EXTENSION BELOW -->
+          <img src="./cover.webp" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
         </a>
       </div>
 
@@ -727,19 +514,18 @@
         Get the Playbook<span class="divider">—</span><span class="price">$6.99</span>
       </h1>
 
-      <!-- NEW SVG CHECKOUT BUTTONS -->
       <div class="buttons">
         <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
-          <span class="btn-logo-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:20px; height:20px;">
+          <span style="display:flex; align-items:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:20px; height:20px; margin-right: 8px;">
               <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
             </svg>
           </span>
           <span>Buy on Amazon</span>
         </a>
         <a href="https://payhip.com/b/eBook-Nutrition-Invested" target="_blank" rel="noopener" class="buy-btn secondary">
-          <span class="btn-logo-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:20px; height:20px;">
+          <span style="display:flex; align-items:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:20px; height:20px; margin-right: 8px;">
               <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
             </svg>
           </span>
@@ -747,7 +533,6 @@
         </a>
       </div>
 
-      <!-- NEW APPLE-STYLE SECURE CHECKOUT FOOTER -->
       <div class="payment-section">
         <p>Opens in Amazon Kindle, Apple Books and Google Play Books.</p>
         <div style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--text-caption); color: var(--color-muted); font-weight: 500;">
@@ -755,6 +540,15 @@
             <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
           </svg>
           Secure Checkout
+        </div>
+        <div class="payment-logos">
+          <!-- Hides automatically if these images don't exist in your GitHub -->
+          <img src="apple-pay.svg" alt="Apple Pay" width="38" height="16" onerror="this.style.display='none'">
+          <img src="google-pay.svg" alt="Google Pay" width="38" height="16" onerror="this.style.display='none'">
+          <img src="paypal.svg" alt="PayPal" width="50" height="16" onerror="this.style.display='none'">
+          <img src="visa.svg" alt="Visa" width="38" height="16" onerror="this.style.display='none'">
+          <img src="mastercard.svg" alt="Mastercard" width="24" height="16" onerror="this.style.display='none'">
+          <img src="amex.svg" alt="Amex" width="24" height="16" onerror="this.style.display='none'">
         </div>
       </div>
 
@@ -789,71 +583,38 @@
 
       <div id="blurb-wrapper" class="blurb-wrapper at-top">
         <div id="blurb-list" class="blurb-list" role="list">
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x1F969;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Eat</span>
-              <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Eat</span><span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x1F4CF;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Measure</span>
-              <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Measure</span><span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x1F4C8;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Compound</span>
-              <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Compound</span><span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x2699;&#xFE0F;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Fix</span>
-              <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Fix</span><span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x1F48A;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Stack</span>
-              <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Stack</span><span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x1FA78;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Audit</span>
-              <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Audit</span><span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x1F504;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Recover</span>
-              <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Recover</span><span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
           </article>
-
           <article class="blurb-item" role="listitem">
             <span class="blurb-emoji" aria-hidden="true">&#x26A1;</span>
-            <div class="blurb-text">
-              <span class="blurb-title">Deploy</span>
-              <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span>
-            </div>
+            <div class="blurb-text"><span class="blurb-title">Deploy</span><span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
           </article>
-
         </div>
       </div>
 
@@ -876,7 +637,6 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-
     var slideContainer = document.getElementById('slide-container');
     var blurbList = document.getElementById('blurb-list');
     var blurbWrapper = document.getElementById('blurb-wrapper');
@@ -957,18 +717,23 @@
       var cvh = 46 + (56 - 46) * t;
       var coverVal = cvh.toFixed(1) + 'dvh';
       if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
-      if (coverImg) coverImg.style.setProperty('--cover-mh', coverVal);
     }
 
     function setViewportClass() {
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-      document.body.classList.toggle('vp-short', vvh < 750);
+      document.body.classList.toggle('vp-short', vvh < 780);
     }
 
     setViewportClass();
     setAdaptiveLayout();
     setBlurbPadding();
-    window.addEventListener('resize', function() { setViewportClass(); setAdaptiveLayout(); setBlurbPadding(); });
+    
+    window.addEventListener('resize', function() { 
+      setViewportClass(); 
+      setAdaptiveLayout(); 
+      setBlurbPadding(); 
+    });
+    
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', function() {
         setViewportClass();
@@ -1068,7 +833,6 @@
       blurbList.addEventListener('scroll', updateFade);
       updateFade();
     }
-
   });
 </script>
 
