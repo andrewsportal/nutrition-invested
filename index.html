@@ -173,7 +173,6 @@
       font-size: var(--text-caption);
     }
     body.vp-short .payment-section { margin-top: var(--sp-2); }
-    body.vp-short .payment-section p { margin-bottom: var(--sp-1); }
     body.vp-short .scroll-hint { min-height: 36px; margin-top: 0; }
 
     .menu-btn {
@@ -338,9 +337,13 @@
       border-color: rgba(0,0,0,0.1);
     }
 
+    /* Refactored for mathematically perfect Apple HIG spacing */
     .payment-section {
       width: 100%; max-width: 480px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px; /* Perfect uniform gap between text, lock, and logos */
       margin-top: var(--sp-4);
       flex-shrink: 0;
     }
@@ -348,10 +351,11 @@
     .payment-section p {
       font-size: var(--text-caption);
       color: var(--color-muted);
-      margin-bottom: var(--sp-3);
+      margin-bottom: 0; /* Let the flex gap handle the spacing perfectly */
       font-weight: 500;
       letter-spacing: var(--track-normal);
-      line-height: 1.5;
+      line-height: 1.4;
+      text-align: center;
     }
 
     .payment-logos {
@@ -361,7 +365,7 @@
       gap: var(--sp-3);
       flex-wrap: wrap;
       opacity: 0.5;
-      margin-top: 12px;
+      margin-top: 4px; /* Tiny visual bump to separate logos slightly more than text */
     }
 
     .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
@@ -374,7 +378,7 @@
       margin-top: var(--sp-1);
       background: none; border: none; cursor: pointer;
       padding: var(--sp-2) var(--sp-3);
-      display: inline-flex; align-items: center; gap: var(--sp-2);
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
       border-radius: var(--radius-sm);
       transition: background 0.15s ease;
     }
@@ -507,7 +511,6 @@
         </a>
       </div>
 
-      <!-- INJECTED EYE ICON TO MATCH PADLOCK -->
       <p class="preview-hint" style="display: flex; align-items: center; justify-content: center; gap: 6px;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;">
           <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
