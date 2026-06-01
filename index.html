@@ -12,9 +12,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <!-- Added relative pathing (./) to fix GitHub Pages routing -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 
   <style>
     *, *::before, *::after {
@@ -178,8 +179,6 @@
       padding: 10px var(--sp-4);
       font-size: var(--text-caption);
     }
-    .page-inner.compact .buy-btn .logo-amazon { height: 16px; }
-    .page-inner.compact .buy-btn .logo-payhip { height: 14px; }
     .page-inner.compact .btn-logo-wrap { width: 24px; height: 24px; }
     .page-inner.compact .payment-section { margin-top: var(--sp-1); }
 
@@ -361,10 +360,6 @@
       box-shadow: 0 4px 12px rgba(78,139,97,0.25), 0 12px 32px rgba(78,139,97,0.2);
     }
 
-    .buy-btn.primary .logo-amazon {
-      filter: brightness(0) invert(1);
-    }
-
     .buy-btn.secondary {
       background: var(--color-surface);
       color: var(--color-body);
@@ -373,10 +368,6 @@
     }
 
     .buy-btn span:last-child { text-align: left; }
-
-    .buy-btn img { width: auto; display: block; }
-    .buy-btn .logo-amazon { height: 24px; }
-    .buy-btn .logo-payhip { height: 20px; margin-top: 1px; }
 
     .btn-logo-wrap {
       width: 36px; height: 36px;
@@ -402,17 +393,6 @@
       line-height: 1.5;
       font-variant-ligatures: none;
     }
-
-    .payment-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--sp-4);
-      flex-wrap: wrap;
-      opacity: 0.5;
-    }
-
-    .payment-logos img { height: 18px; width: auto; display: block; }
 
     .scroll-hint-spacer {
       width: 100%;
@@ -729,8 +709,9 @@
 
       <div class="cover-wrapper">
         <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
+          <!-- Added relative pathing (./) to the cover image -->
           <img
-            src="cover.webp"
+            src="./cover.webp"
             alt="Nutrition, Invested book cover featuring an hourglass with a yolk dripping, titled The Tactical Nutrition Playbook — One Choice, Compounded"
             width="800"
             height="1280"
@@ -746,28 +727,34 @@
         Get the Playbook<span class="divider">—</span><span class="price">$6.99</span>
       </h1>
 
+      <!-- NEW SVG CHECKOUT BUTTONS -->
       <div class="buttons">
         <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
-          <span class="btn-logo-wrap"><img class="logo-amazon" src="amazon-logo.svg" alt="Amazon logo" width="60" height="18"></span>
+          <span class="btn-logo-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:20px; height:20px;">
+              <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+            </svg>
+          </span>
           <span>Buy on Amazon</span>
         </a>
         <a href="https://payhip.com/b/eBook-Nutrition-Invested" target="_blank" rel="noopener" class="buy-btn secondary">
-          <span class="btn-logo-wrap"><img class="logo-payhip" src="payhip-logo.svg" alt="Payhip logo" width="54" height="14"></span>
+          <span class="btn-logo-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:20px; height:20px;">
+              <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
+            </svg>
+          </span>
           <span>Buy on Payhip</span>
         </a>
       </div>
 
+      <!-- NEW APPLE-STYLE SECURE CHECKOUT FOOTER -->
       <div class="payment-section">
         <p>Opens in Amazon Kindle, Apple Books and Google Play Books.</p>
-
-        <p>Secure Checkout</p>
-        <div class="payment-logos">
-          <img src="apple-pay.svg"  alt="Apple Pay"  width="38" height="16">
-          <img src="google-pay.svg" alt="Google Pay" width="38" height="16">
-          <img src="paypal.svg"     alt="PayPal"     width="50" height="16">
-          <img src="visa.svg"       alt="Visa"       width="38" height="16">
-          <img src="mastercard.svg" alt="Mastercard" width="24" height="16">
-          <img src="amex.svg"       alt="Amex"       width="24" height="16">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--text-caption); color: var(--color-muted); font-weight: 500;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;">
+            <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+          </svg>
+          Secure Checkout
         </div>
       </div>
 
