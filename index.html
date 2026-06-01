@@ -209,7 +209,9 @@
       padding: var(--sp-2) var(--sp-3); display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
       border-radius: var(--radius-sm); transition: background 0.15s ease;
     }
-    .scroll-hint-label { font-size: var(--text-caption); letter-spacing: var(--track-normal); font-weight: 600; color: var(--color-label); }
+    
+    /* Updated Font Size Here */
+    .scroll-hint-label { font-size: var(--text-label); letter-spacing: var(--track-normal); font-weight: 600; color: var(--color-label); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
@@ -295,16 +297,11 @@
       opacity: 1;
     }
 
-    /* Soft, native-feeling bounce animation */
+    /* Updated Animation Here */
     .more-content-indicator svg {
       width: 24px;
       height: 24px;
-      animation: subtle-bounce 2s infinite ease-in-out;
-    }
-
-    @keyframes subtle-bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+      animation: chevron-pulse 1.6s ease-in-out infinite;
     }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
@@ -496,7 +493,6 @@
           
         </div>
 
-        <!-- NEW: Apple-style fading chevron -->
         <div class="more-content-indicator" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="m6 9 6 6 6-6"/>
