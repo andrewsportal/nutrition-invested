@@ -215,17 +215,18 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-    /* ─── PAGE 2 — 3 targeted fixes ─── */
+    /* ─── PAGE 2 — fixes ─── */
 
     .page-2-inner {
       position: relative; width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      padding-top: calc(var(--safe-top) + 20px); /* was 32px */
+      padding-top: calc(var(--safe-top) + 28px); /* was 20px — adds HIG-compliant breathing room */
       padding-left: var(--sp-6); padding-right: var(--sp-6); overflow: hidden;
     }
 
     .scroll-up {
-      position: absolute; top: calc(var(--safe-top) + var(--sp-4)); right: var(--sp-6);
+      position: absolute; top: calc(var(--safe-top) + 24px); right: var(--sp-6);
+      /* was sp-4 (16px) — now matches padding-top so button aligns with header cap height */
       background: rgba(255, 255, 255, 0.75); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
       border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle); width: 48px; height: 48px; padding: 0;
       display: inline-flex; align-items: center; justify-content: center; box-shadow: var(--shadow-surface); z-index: 10;
@@ -235,14 +236,14 @@
 
     .page-2-header {
       width: 100%; max-width: 480px; display: flex; align-items: center;
-      flex-shrink: 0; min-height: auto; /* was 40px — text owns its height now */
+      flex-shrink: 0; min-height: auto; /* text owns its height */
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-label); }
 
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(0,0,0,0.08);
-      margin: var(--sp-3) 0 var(--sp-3); /* was sp-4 both sides */
+      margin: var(--sp-3) 0 var(--sp-3);
       flex-shrink: 0;
     }
 
