@@ -248,10 +248,16 @@
     }
 
     .blurb-wrapper { width: 100%; max-width: 480px; flex: 1; position: relative; min-height: 0; margin-bottom: 0; }
+    
     .blurb-list {
       width: 100%; height: 100%; display: flex; flex-direction: column; gap: var(--sp-6);
       overflow-x: hidden; overflow-y: auto;
       padding-bottom: var(--sp-6); touch-action: pan-y; overscroll-behavior-y: contain;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+    }
+    .blurb-list::-webkit-scrollbar { 
+      display: none; /* Safari/Chrome */
     }
 
     .blurb-wrapper::after {
@@ -267,6 +273,39 @@
     .blurb-wrapper.at-bottom::after { opacity: 0; }
     .blurb-wrapper.at-top::before { opacity: 0; }
     .blurb-wrapper.scrolled::before { opacity: 1; }
+
+    /* Fading Apple-style Scroll Indicator */
+    .more-content-indicator {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--color-label);
+      opacity: 0;
+      pointer-events: none; /* Prevents blocking taps */
+      z-index: 10;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Only show the indicator when the user is at the top of the list */
+    .blurb-wrapper.at-top .more-content-indicator {
+      opacity: 1;
+    }
+
+    /* Soft, native-feeling bounce animation */
+    .more-content-indicator svg {
+      width: 24px;
+      height: 24px;
+      animation: subtle-bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes subtle-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -456,6 +495,14 @@
           </article>
           
         </div>
+
+        <!-- NEW: Apple-style fading chevron -->
+        <div class="more-content-indicator" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </div>
+
       </div>
 
       <footer id="counter-bar" class="counter-bar">
