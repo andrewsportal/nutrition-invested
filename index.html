@@ -52,16 +52,19 @@
       --font: system-ui, -apple-system, BlinkMacSystemFont,
               'Helvetica Neue', Arial, sans-serif;
 
-      --text-caption: clamp(0.65rem, 2.6vw, 0.72rem);
-      --text-label: clamp(0.72rem, 2.9vw, 0.80rem);
-      --text-body: clamp(0.82rem, 3.3vw, 0.92rem);
-      --text-headline: clamp(0.90rem, 3.8vw, 1.05rem);
-      --text-counter: clamp(1.4rem, 5.6vw, 1.75rem);
+      /* Apple-style type scale - larger, more readable */
+      --text-caption: clamp(0.75rem, 3vw, 0.8125rem);
+      --text-label: clamp(0.8125rem, 3.2vw, 0.9375rem);
+      --text-body: clamp(0.9375rem, 3.8vw, 1.0625rem);
+      --text-headline: clamp(1.125rem, 4.5vw, 1.3125rem);
+      --text-counter: clamp(1.75rem, 7vw, 2.25rem);
 
-      --track-tight: 0.8px;
-      --track-mid: 1.5px;
-      --track-wide: 0.07em;
+      /* Apple uses tighter tracking on larger text, looser on small caps */
+      --track-tight: -0.022em;
+      --track-normal: -0.011em;
+      --track-wide: 0.02em;
 
+      /* Apple-style spacing scale - more generous */
       --sp-1: 4px;
       --sp-2: 8px;
       --sp-3: 12px;
@@ -69,18 +72,25 @@
       --sp-5: 20px;
       --sp-6: 24px;
       --sp-8: 32px;
-      --sp-10:40px;
+      --sp-10: 40px;
+      --sp-12: 48px;
+      --sp-16: 64px;
 
-      --gap: 12px;
+      --gap: 16px;
 
-      --radius-pill: 50px;
+      /* Apple-style radii */
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-pill: 980px;
       --radius-circle: 50%;
 
-      --shadow-cover: drop-shadow(0 8px 24px rgba(0,0,0,0.12))
-                      drop-shadow(0 2px 6px rgba(0,0,0,0.07));
-      --shadow-btn: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
-      --shadow-surface: 0 2px 10px rgba(0,0,0,0.07);
-      --shadow-primary: 0 4px 20px rgba(78,139,97,0.28), 0 1px 4px rgba(78,139,97,0.12);
+      /* Apple-style shadows - softer, more diffuse */
+      --shadow-cover: drop-shadow(0 12px 40px rgba(0,0,0,0.15))
+                      drop-shadow(0 4px 12px rgba(0,0,0,0.08));
+      --shadow-btn: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-surface: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-primary: 0 2px 8px rgba(78,139,97,0.2), 0 8px 24px rgba(78,139,97,0.15);
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -137,10 +147,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding-top: calc(var(--safe-top) + 36px);
-      padding-left: var(--sp-5);
-      padding-right: var(--sp-5);
-      padding-bottom: max(calc(var(--safe-bottom) + 20px), 24px);
+      padding-top: calc(var(--safe-top) + 48px);
+      padding-left: var(--sp-6);
+      padding-right: var(--sp-6);
+      padding-bottom: max(calc(var(--safe-bottom) + 28px), 32px);
       overflow: hidden;
       position: relative;
     }
@@ -175,13 +185,15 @@
 
     .menu-btn {
       position: absolute;
-      top: calc(var(--safe-top) + 14px);
-      left: var(--sp-4);
+      top: calc(var(--safe-top) + 16px);
+      left: var(--sp-5);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: var(--sp-1);
+      gap: 5px;
+      width: 44px;
+      height: 44px;
       padding: 10px;
       background: none;
       border: none;
@@ -196,19 +208,19 @@
 
     .menu-btn span {
       display: block;
-      width: 16px; height: 1.5px;
-      background: rgba(0,0,0,0.28);
+      width: 18px; height: 2px;
+      background: rgba(0,0,0,0.35);
       border-radius: 1px;
     }
 
     .menu-envelope {
       position: absolute;
-      top: calc(var(--safe-top) + 52px);
-      left: var(--sp-4);
-      width: 44px;
-      height: 44px;
+      top: calc(var(--safe-top) + 64px);
+      left: var(--sp-5);
+      width: 48px;
+      height: 48px;
       background: var(--color-surface);
-      border: 0.5px solid var(--color-border);
+      border: 1px solid rgba(0,0,0,0.06);
       border-radius: var(--radius-circle);
       box-shadow: var(--shadow-surface);
       display: flex;
@@ -218,8 +230,8 @@
       z-index: 20;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-4px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
+      transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
     .menu-envelope.open {
@@ -228,7 +240,7 @@
       transform: translateY(0);
     }
 
-    .menu-envelope:active { opacity: 0.5; }
+    .menu-envelope:active { opacity: 0.6; }
 
     .cover-wrapper {
       width: 100%; max-width: 380px;
@@ -258,11 +270,11 @@
     }
 
     .preview-hint {
-      margin-top: var(--sp-2);
+      margin-top: var(--sp-4);
       font-size: var(--text-caption);
       color: var(--color-muted);
       letter-spacing: var(--track-wide);
-      font-weight: 600;
+      font-weight: 500;
       flex-shrink: 0;
       font-variant-ligatures: none;
     }
@@ -270,8 +282,8 @@
     .headline {
       width: 100%; max-width: 480px;
       text-align: center;
-      margin-top: var(--sp-2);
-      margin-bottom: var(--sp-2);
+      margin-top: var(--sp-3);
+      margin-bottom: var(--sp-4);
       font-size: var(--text-headline);
       font-weight: 600;
       font-synthesis: none;
@@ -289,7 +301,7 @@
 
     .headline .divider {
       color: #aaaaaa;
-      margin: 0 var(--sp-1);
+      margin: 0 var(--sp-2);
       font-weight: 400;
     }
 
@@ -297,40 +309,56 @@
       width: 100%; max-width: 480px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: var(--sp-3);
     }
 
     .buy-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--sp-2);
+      gap: var(--sp-3);
       width: 100%;
+      min-height: 56px;
       background: var(--color-surface);
       color: var(--color-body);
-      border: 0.5px solid #d4d4d4;
-      border-radius: var(--radius-pill);
-      padding: var(--sp-3) var(--sp-5);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-4) var(--sp-6);
       font-family: var(--font);
       font-size: var(--text-label);
       font-weight: 600;
       font-synthesis: none;
-      letter-spacing: var(--track-tight);
+      letter-spacing: var(--track-normal);
       text-decoration: none;
       cursor: pointer;
       box-shadow: var(--shadow-btn);
       appearance: none;
       -webkit-appearance: none;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                  box-shadow 0.2s ease,
+                  opacity 0.15s ease;
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    .buy-btn:hover {
+      transform: scale(1.01);
+    }
+
+    .buy-btn:active {
+      transform: scale(0.98);
+      opacity: 0.9;
     }
 
     .buy-btn.primary {
       background: var(--color-accent);
       color: var(--color-white);
-      border-color: var(--color-accent);
+      border-color: transparent;
       box-shadow: var(--shadow-primary);
+    }
+
+    .buy-btn.primary:hover {
+      box-shadow: 0 4px 12px rgba(78,139,97,0.25), 0 12px 32px rgba(78,139,97,0.2);
     }
 
     .buy-btn.primary .logo-amazon {
@@ -340,19 +368,18 @@
     .buy-btn.secondary {
       background: var(--color-surface);
       color: var(--color-body);
-      border-color: #c8c8c8;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border-color: rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-btn);
     }
 
     .buy-btn span:last-child { text-align: left; }
-    .buy-btn:active { transform: scale(0.97); }
 
     .buy-btn img { width: auto; display: block; }
-    .buy-btn .logo-amazon { height: 22px; }
-    .buy-btn .logo-payhip { height: 18px; margin-top: 2px; }
+    .buy-btn .logo-amazon { height: 24px; }
+    .buy-btn .logo-payhip { height: 20px; margin-top: 1px; }
 
     .btn-logo-wrap {
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -362,16 +389,17 @@
     .payment-section {
       width: 100%; max-width: 480px;
       text-align: center;
-      margin-top: var(--sp-2);
+      margin-top: var(--sp-5);
       flex-shrink: 0;
     }
 
     .payment-section p {
       font-size: var(--text-caption);
       color: var(--color-muted);
-      margin-bottom: var(--gap);
-      font-weight: 600;
-      letter-spacing: var(--track-wide);
+      margin-bottom: var(--sp-4);
+      font-weight: 500;
+      letter-spacing: var(--track-normal);
+      line-height: 1.5;
       font-variant-ligatures: none;
     }
 
@@ -379,46 +407,50 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: var(--sp-3);
+      gap: var(--sp-4);
       flex-wrap: wrap;
-      opacity: 0.65;
+      opacity: 0.5;
     }
 
-    .payment-logos img { height: 16px; width: auto; display: block; }
+    .payment-logos img { height: 18px; width: auto; display: block; }
 
     .scroll-hint-spacer {
       width: 100%;
       flex: 1 1 0px;
       min-height: 0;
-      max-height: 16px;
+      max-height: 20px;
     }
 
     .scroll-hint {
       flex-shrink: 0;
-      min-height: 44px;
-      margin-top: 6px;
+      min-height: 48px;
+      margin-top: var(--sp-2);
       background: none;
       border: none;
       appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
-      padding: var(--sp-1) 0;
+      padding: var(--sp-2) var(--sp-3);
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
+      gap: var(--sp-2);
       touch-action: manipulation;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s ease;
+    }
+
+    .scroll-hint:hover {
+      background: rgba(78,139,97,0.06);
     }
 
     .scroll-hint:active { opacity: 0.6; }
 
     .scroll-hint-label {
       font-size: var(--text-caption);
-      letter-spacing: var(--track-wide);
+      letter-spacing: var(--track-normal);
       font-weight: 600;
       color: var(--color-label);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: rgba(78,139,97,0.4);
+      text-decoration: none;
       font-variant-ligatures: none;
     }
 
@@ -448,25 +480,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: calc(var(--safe-top) + 36px);
-      padding-left: var(--sp-5);
-      padding-right: var(--sp-5);
+      padding-top: calc(var(--safe-top) + 48px);
+      padding-left: var(--sp-6);
+      padding-right: var(--sp-6);
       padding-bottom: 0;
       overflow: hidden;
     }
 
     .scroll-up {
       position: absolute;
-      top: calc(var(--safe-top) + var(--sp-3));
-      right: var(--sp-5);
+      top: calc(var(--safe-top) + var(--sp-4));
+      right: var(--sp-6);
       background: var(--color-surface);
-      border: 0.5px solid var(--color-border);
+      border: 1px solid rgba(0,0,0,0.06);
       border-radius: var(--radius-circle);
       appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       padding: 0;
       display: inline-flex;
       align-items: center;
@@ -474,32 +506,41 @@
       touch-action: manipulation;
       box-shadow: var(--shadow-surface);
       z-index: 10;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .scroll-up:active { opacity: 0.6; }
+    .scroll-up:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .scroll-up:active { 
+      opacity: 0.7;
+      transform: scale(0.95);
+    }
 
     .page-2-header {
       width: 100%; max-width: 480px;
       display: flex;
       align-items: center;
       flex-shrink: 0;
-      min-height: 36px;
+      min-height: 40px;
     }
 
     .info-section-sublabel {
-      font-size: clamp(0.90rem, 3.8vw, 1.05rem);
-      letter-spacing: -0.2px;
+      font-size: clamp(1.125rem, 4.5vw, 1.3125rem);
+      letter-spacing: var(--track-tight);
       font-weight: 600;
       color: var(--color-label);
-      line-height: 1.15;
+      line-height: 1.2;
       font-variant-ligatures: none;
     }
 
     .page-2-rule {
       width: 100%; max-width: 480px;
-      height: 0.5px;
-      background: rgba(0,0,0,0.12);
-      margin: var(--sp-3) 0 var(--sp-4);
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+      margin: var(--sp-4) 0 var(--sp-5);
       flex-shrink: 0;
     }
 
@@ -515,11 +556,11 @@
       width: 100%; height: 100%;
       display: flex;
       flex-direction: column;
-      gap: var(--sp-4);
+      gap: var(--sp-6);
       overflow-x: hidden;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding-bottom: var(--sp-5);
+      padding-bottom: var(--sp-6);
       touch-action: pan-y;
       overscroll-behavior-y: contain;
     }
@@ -564,14 +605,14 @@
     .blurb-item {
       display: flex;
       align-items: baseline;
-      gap: var(--sp-2);
+      gap: var(--sp-3);
     }
 
     .blurb-emoji {
       font-size: var(--text-body);
-      line-height: 1.5;
+      line-height: 1.6;
       flex-shrink: 0;
-      width: 22px;
+      width: 26px;
       text-align: center;
     }
 
@@ -582,31 +623,32 @@
       font-weight: 600;
       font-synthesis: none;
       color: var(--color-label);
-      letter-spacing: var(--track-tight);
-      line-height: 1.5;
+      letter-spacing: var(--track-normal);
+      line-height: 1.6;
       display: inline;
-      margin-right: var(--sp-1);
+      margin-right: var(--sp-2);
     }
 
     .blurb-body {
       font-size: var(--text-body);
       color: var(--color-body);
-      line-height: 1.5;
+      line-height: 1.6;
       font-weight: 400;
+      letter-spacing: var(--track-normal);
       display: inline;
     }
 
     .counter-bar {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--color-bar-bg);
-      padding-top: var(--sp-4);
-      padding-left: var(--sp-5);
-      padding-right: var(--sp-5);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 20px);
+      padding-top: var(--sp-5);
+      padding-left: var(--sp-6);
+      padding-right: var(--sp-6);
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-5)), 24px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-3);
+      gap: var(--sp-4);
       flex-shrink: 0;
       z-index: 5;
     }
@@ -614,40 +656,40 @@
     .counter-bar-left {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .counter-bar-label {
       font-size: var(--text-caption);
       letter-spacing: var(--track-wide);
-      font-weight: 600;
-      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
       text-transform: uppercase;
       font-variant-ligatures: none;
     }
 
     .counter-bar-number {
       font-size: var(--text-counter);
-      font-weight: 800;
+      font-weight: 700;
       font-synthesis: none;
       color: var(--color-white);
-      letter-spacing: -1px;
+      letter-spacing: -0.03em;
       line-height: 1;
     }
 
     .counter-bar-word {
       font-size: var(--text-caption);
-      font-weight: 600;
+      font-weight: 500;
       letter-spacing: var(--track-wide);
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-top: 1px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 2px;
       font-variant-ligatures: none;
     }
 
     .counter-bar-divider {
-      width: 0.5px; height: 32px;
-      background: rgba(255,255,255,0.3);
+      width: 1px; height: 36px;
+      background: rgba(255,255,255,0.25);
       flex-shrink: 0;
     }
 
@@ -660,12 +702,12 @@
     }
 
     .counter-bar-tagline {
-      font-size: var(--text-label);
-      font-weight: 600;
+      font-size: var(--text-body);
+      font-weight: 500;
       font-synthesis: none;
-      letter-spacing: var(--track-tight);
+      letter-spacing: var(--track-normal);
       color: var(--color-white);
-      line-height: 1.35;
+      line-height: 1.4;
     }
   </style>
 </head>
