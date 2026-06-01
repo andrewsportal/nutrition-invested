@@ -41,7 +41,7 @@
       --color-accent: #4E8B61;
       --color-label: #4E8B61;
       --color-body: #333333;
-      --color-muted: #8E8E93; /* Apple HIG Secondary System Gray */
+      --color-muted: #8E8E93;
       --color-white: #ffffff;
       --color-bar-bg: #4E8B61;
 
@@ -93,7 +93,7 @@
       height: 100vh;
       height: 100dvh;
       background: var(--color-bg);
-      overscroll-behavior: none; /* Prevents Safari bounce on the full wrapper */
+      overscroll-behavior: none;
     }
 
     body {
@@ -105,7 +105,7 @@
       font-family: var(--font);
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none; /* App-like feel: stops long-press menus */
+      -webkit-touch-callout: none;
     }
 
     .slide-container {
@@ -115,7 +115,6 @@
       height: 100dvh;
       background: var(--color-bg);
       will-change: transform;
-      /* Apple HIG specific spring curve */
       transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
@@ -207,12 +206,9 @@
       top: calc(var(--safe-top) + 64px);
       left: var(--sp-5);
       width: 48px; height: 48px;
-      
-      /* Apple HIG Glassmorphism */
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      
       border: 1px solid rgba(0,0,0,0.06);
       border-radius: var(--radius-circle);
       box-shadow: var(--shadow-surface);
@@ -252,7 +248,7 @@
       filter: var(--shadow-cover);
       will-change: filter;
       cursor: pointer;
-      -webkit-user-drag: none; /* App-like feel: prevents ghost image dragging */
+      -webkit-user-drag: none;
       transition: transform 0.22s ease, filter 0.22s ease;
     }
 
@@ -324,12 +320,10 @@
       box-shadow: var(--shadow-btn);
       user-select: none;
       -webkit-user-select: none;
-      /* Adjusted springiness */
       transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), 
                   box-shadow 0.2s ease, opacity 0.15s ease;
     }
 
-    /* Apple buttons squash slightly more than websites */
     .buy-btn:active { transform: scale(0.96); opacity: 0.9; }
 
     .buy-btn.primary {
@@ -417,12 +411,9 @@
     .scroll-up {
       position: absolute;
       top: calc(var(--safe-top) + var(--sp-4)); right: var(--sp-6);
-      
-      /* Apple HIG Glassmorphism */
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-
       border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle);
       width: 48px; height: 48px; padding: 0;
       display: inline-flex; align-items: center; justify-content: center;
@@ -503,8 +494,7 @@
 
       <div class="cover-wrapper">
         <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
-          <!-- IF YOUR IMAGE IS A PNG OR JPG, CHANGE THE EXTENSION BELOW -->
-          <img src="./cover.webp" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
+          <img src="./cover.png" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
         </a>
       </div>
 
@@ -542,13 +532,12 @@
           Secure Checkout
         </div>
         <div class="payment-logos">
-          <!-- Hides automatically if these images don't exist in your GitHub -->
-          <img src="apple-pay.svg" alt="Apple Pay" width="38" height="16" onerror="this.style.display='none'">
-          <img src="google-pay.svg" alt="Google Pay" width="38" height="16" onerror="this.style.display='none'">
-          <img src="paypal.svg" alt="PayPal" width="50" height="16" onerror="this.style.display='none'">
-          <img src="visa.svg" alt="Visa" width="38" height="16" onerror="this.style.display='none'">
-          <img src="mastercard.svg" alt="Mastercard" width="24" height="16" onerror="this.style.display='none'">
-          <img src="amex.svg" alt="Amex" width="24" height="16" onerror="this.style.display='none'">
+          <img src="./applepay.svg" alt="Apple Pay" width="38" height="16" onerror="this.style.display='none'">
+          <img src="./googlepay.svg" alt="Google Pay" width="38" height="16" onerror="this.style.display='none'">
+          <img src="./paypal.svg" alt="PayPal" width="50" height="16" onerror="this.style.display='none'">
+          <img src="./visa.svg" alt="Visa" width="38" height="16" onerror="this.style.display='none'">
+          <img src="./mastercard.svg" alt="Mastercard" width="24" height="16" onerror="this.style.display='none'">
+          <img src="./americanexpress.svg" alt="Amex" width="24" height="16" onerror="this.style.display='none'">
         </div>
       </div>
 
