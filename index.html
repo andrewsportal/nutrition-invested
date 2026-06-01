@@ -282,7 +282,7 @@
     /* Fading Apple-style Scroll Indicator */
     .more-content-indicator {
       position: absolute;
-      bottom: 12px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       color: var(--color-label);
@@ -293,6 +293,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: var(--radius-circle);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     }
 
     /* Only show the indicator when the user is at the top of the list */
@@ -301,8 +309,8 @@
     }
 
     .more-content-indicator svg {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       animation: chevron-pulse 1.6s ease-in-out infinite;
     }
 
