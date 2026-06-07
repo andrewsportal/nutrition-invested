@@ -283,12 +283,14 @@
     .blurb-wrapper::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 64px;
       background: linear-gradient(to bottom, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
-      pointer-events: none; transition: opacity 0.25s ease; opacity: 1;
+      pointer-events: none; transition: opacity 0.25s ease; opacity: 1; 
+      z-index: 2; transform: translateZ(0);
     }
     .blurb-wrapper::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 64px;
       background: linear-gradient(to top, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
-      pointer-events: none; transition: opacity 0.25s ease; opacity: 0; z-index: 1;
+      pointer-events: none; transition: opacity 0.25s ease; opacity: 0; 
+      z-index: 2; transform: translateZ(0);
     }
     .blurb-wrapper.at-bottom::after { opacity: 0; }
     .blurb-wrapper.at-top::before { opacity: 0; }
