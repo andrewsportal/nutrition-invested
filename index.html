@@ -238,8 +238,8 @@
       position: relative;
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      /* INCREASED PADDING FOR MORE BREATHING ROOM */
-      padding-top: calc(var(--safe-top) + 24px);
+      /* REVERTED PADDING TO ORIGINAL 14px */
+      padding-top: calc(var(--safe-top) + 14px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       overflow: hidden;
     }
@@ -263,7 +263,8 @@
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-4) 0 var(--sp-3);
+      /* INCREASED BOTTOM MARGIN TO 20px FOR BETTER APPLE HIG SPACING */
+      margin: var(--sp-4) 0 var(--sp-5);
       flex-shrink: 0;
     }
 
@@ -314,7 +315,6 @@
       position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--color-bar-bg);
       border-top: 1px solid rgba(255, 255, 255, 0.15);
-      /* REDUCED PADDING TO TIGHTEN FOOTER HEIGHT */
       padding-top: var(--sp-3); padding-left: var(--sp-6); padding-right: var(--sp-6);
       padding-bottom: max(calc(var(--safe-bottom) + var(--sp-3)), 16px);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
