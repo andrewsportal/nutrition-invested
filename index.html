@@ -238,7 +238,6 @@
       position: relative;
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      /* Perfect 24px top anchoring */
       padding-top: calc(var(--safe-top) + 24px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       overflow: hidden;
@@ -263,7 +262,6 @@
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(60, 60, 67, 0.29);
-      /* 16px bottom margin for perfect spacing above "Eat" */
       margin: var(--sp-4) 0 var(--sp-4);
       flex-shrink: 0;
     }
@@ -273,7 +271,6 @@
     .blurb-list {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; 
-      /* Perfect 20px rhythm between list items */
       gap: var(--sp-5); 
       overflow-x: hidden; overflow-y: auto;
       padding-bottom: var(--sp-6); touch-action: pan-y; overscroll-behavior-y: contain;
@@ -317,8 +314,8 @@
       position: absolute; bottom: 0; left: 0; right: 0;
       background: var(--color-bar-bg);
       border-top: 1px solid rgba(255, 255, 255, 0.15);
-      padding-top: var(--sp-3); padding-left: var(--sp-6); padding-right: var(--sp-6);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-3)), 16px);
+      padding-top: var(--sp-4); padding-left: var(--sp-6); padding-right: var(--sp-6);
+      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 16px);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
       flex-shrink: 0; z-index: 5;
     }
