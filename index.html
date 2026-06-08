@@ -48,7 +48,6 @@
       --fade-from: rgba(232,232,232,0);
       --fade-mid: rgba(232,232,232,0.6);
       --fade-to: rgb(232,232,232);
-
       --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
 
       --text-caption: clamp(0.6875rem, 2.8vw, 0.75rem);
@@ -158,8 +157,7 @@
     }
 
     .menu-envelope {
-      position: absolute; top: calc(var(--safe-top) + 64px);
-      left: var(--sp-5);
+      position: absolute; top: calc(var(--safe-top) + 64px); left: var(--sp-5);
       width: 48px; height: 48px; background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
       border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle); box-shadow: var(--shadow-surface);
@@ -256,13 +254,14 @@
       display: flex; align-items: center;
       justify-content: space-between;
       flex-shrink: 0; gap: var(--sp-3);
+      margin-top: 4px;
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-label); }
 
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-4) 0 var(--sp-3);
+      margin: var(--sp-3) 0 var(--sp-3);
       flex-shrink: 0;
     }
 
