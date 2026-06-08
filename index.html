@@ -238,7 +238,7 @@
       position: relative;
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      /* INCREASED PADDING FOR BETTER APPLE HIG BREATHING ROOM */
+      /* Perfect 24px top anchoring */
       padding-top: calc(var(--safe-top) + 24px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       overflow: hidden;
@@ -263,7 +263,8 @@
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-4) 0 var(--sp-5);
+      /* 16px bottom margin for perfect spacing above "Eat" */
+      margin: var(--sp-4) 0 var(--sp-4);
       flex-shrink: 0;
     }
 
@@ -271,7 +272,9 @@
     
     .blurb-list {
       width: 100%; height: 100%;
-      display: flex; flex-direction: column; gap: var(--sp-6);
+      display: flex; flex-direction: column; 
+      /* Perfect 24px gap between list items */
+      gap: var(--sp-6); 
       overflow-x: hidden; overflow-y: auto;
       padding-bottom: var(--sp-6); touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none;
