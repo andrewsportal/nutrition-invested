@@ -50,7 +50,7 @@
       --text-caption: clamp(0.6875rem, 2.8vw, 0.75rem);
       --text-label: clamp(0.75rem, 3vw, 0.8125rem);
       --text-body: clamp(0.8125rem, 3.4vw, 0.9375rem);
-      --text-headline: clamp(0.9rem, 3.5vw, 1rem);
+      --text-headline: clamp(1rem, 4vw, 1.1875rem); /* Scaled down headline */
       --text-counter: clamp(1.5rem, 6vw, 1.875rem);
 
       --track-tight: -0.022em;
@@ -128,7 +128,7 @@
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
-    body.vp-short .preview-hint { margin-top: 12px; margin-bottom: 12px; }
+    body.vp-short .preview-hint { margin-top: 8px; margin-bottom: 8px; }
     body.vp-short .content-platter { padding: 12px; margin-top: 0; margin-bottom: 12px; }
     body.vp-short .scroll-hint { margin-top: 0; margin-bottom: 0; }
 
@@ -161,7 +161,7 @@
     .cover-wrapper {
       width: 100%; max-width: 380px;
       display: flex; align-items: center; justify-content: center;
-      flex: 1 1 0%; min-height: 15vh; max-height: var(--cover-mh, 45dvh);
+      flex: 1 1 0%; min-height: 15vh; max-height: var(--cover-mh, 48dvh); /* Allowed slightly more max-height for cover scaling */
     }
     .cover-wrapper a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
     .cover-wrapper img {
@@ -172,14 +172,14 @@
     }
     .cover-wrapper img:active { transform: scale(0.99); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10)); }
 
-    /* Shared Pill Styling */
+    /* Scaled down Pill buttons to compact layout */
     .preview-hint, .scroll-hint {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      height: 40px; 
-      padding: 0 20px; 
+      height: 36px; /* Reduced from 40px */
+      padding: 0 16px; /* Tighter side padding */
       font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
       font-weight: 600;
       border-radius: var(--radius-pill);
@@ -190,8 +190,8 @@
     }
 
     .preview-hint {
-      margin-top: 20px; 
-      margin-bottom: 20px;
+      margin-top: 16px; /* Tightened margins */
+      margin-bottom: 16px;
       color: var(--color-body);
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px);
@@ -205,7 +205,7 @@
 
     .scroll-hint {
       margin-top: 0; 
-      margin-bottom: 20px;
+      margin-bottom: 16px; /* Tightened margins */
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       color: var(--color-label);
@@ -216,28 +216,27 @@
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
-    /* Content Platter for Main Page */
+    /* Condensed Content Platter */
     .content-platter {
       width: 100%;
       max-width: 440px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      padding: 20px 20px 24px 20px; 
+      padding: 16px 16px 20px 16px; /* Reduced padding footprint */
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 0; 
-      margin-bottom: 20px; 
+      margin-bottom: 16px; /* Tighter gap below */
       flex-shrink: 0;
       z-index: 5;
     }
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: 16px; 
-      font-size: clamp(1.125rem, 4.5vw, 1.3125rem); 
-      font-weight: 600; font-synthesis: none;
+      text-align: center; margin-bottom: 12px; /* Tighter */
+      font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
     }
     .headline .price { color: var(--color-accent); font-weight: 700; }
@@ -247,7 +246,7 @@
     .buy-btn {
       display: flex; align-items: center;
       justify-content: center; gap: var(--sp-2); width: 100%; 
-      min-height: 44px;
+      min-height: 44px; /* Retained 44px minimum for Apple touch accessibility */
       background: var(--color-surface); color: var(--color-body); 
       border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
       padding: 8px 16px; font-family: var(--font); font-size: var(--text-label); font-weight: 600;
@@ -259,7 +258,7 @@
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-btn); }
     .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
 
-    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; }
+    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
     .payment-logos { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; opacity: 0.45; margin-top: 4px; }
     .payment-logos img { height: 12px; width: auto; display: block; -webkit-user-drag: none; }
@@ -290,11 +289,12 @@
       position: relative;
     }
 
+    /* Tightened Page 2 Header Structure */
     .page-2-header {
       width: 100%;
       display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0; gap: var(--sp-3);
-      padding: 20px 20px 0 20px;
+      padding: 16px 20px 0 20px; /* Reduced top padding */
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
@@ -310,25 +310,25 @@
     .page-2-rule {
       width: calc(100% - 40px); height: 1px;
       background: rgba(0, 0, 0, 0.08); 
-      margin: 16px 20px 0 20px;
+      margin: 12px 20px 0 20px; /* Pulled tighter to header */
       flex-shrink: 0;
     }
 
-    /* THE FIX: Native Apple GPU Masking. Zero HTML blockers. Zero JavaScript. */
+    /* Enhanced Native Fade Masks - Deeper bottom gradient */
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
       margin-top: 0; 
-      /* Perfect Symmetrical Fade: 24px mask at top, 24px mask at bottom */
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 24px, black calc(100% - 24px), transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0px, black 24px, black calc(100% - 24px), transparent 100%);
+      /* 12px top fade, 48px deep bottom fade */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 12px, black calc(100% - 48px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0px, black 12px, black calc(100% - 48px), transparent 100%);
     }
     
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect Symmetrical Space: 24px padding precisely matches the 24px mask above it */
-      padding: 24px 20px 24px 20px; 
+      /* 12px top padding matches 12px fade. 48px bottom padding matches 48px deep fade. */
+      padding: 12px 20px 48px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
@@ -464,6 +464,7 @@
         <div class="page-2-rule" aria-hidden="true"></div>
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
+          
           <div id="blurb-list" class="blurb-list" role="list">
             
             <article class="blurb-item" role="listitem">
@@ -608,7 +609,7 @@
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       var low = 700, high = 830;
       var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-      var cvh = 56 + (70 - 56) * t;
+      var cvh = 58 + (72 - 58) * t; /* Slightly increased max cover height */
       var coverVal = cvh.toFixed(1) + 'dvh';
       if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
     }
@@ -705,8 +706,6 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
-    
-    // Javascript scroll listeners completely removed for native Apple Mask performance
   });
 </script>
 
