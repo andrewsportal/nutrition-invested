@@ -67,6 +67,9 @@
       --sp-8: 48px;
       --sp-9: 64px;
 
+      /* Unified Apple-HIG vertical rhythm for the page-1 stack */
+      --stack-gap: clamp(12px, 2.2dvh, 20px);
+
       --radius-sm: 12px;
       --radius-md: 16px;
       --radius-lg: 24px;
@@ -116,7 +119,8 @@
 
     .page-inner {
       width: 100%; height: 100vh; height: 100dvh;
-      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--stack-gap);
       padding-top: calc(var(--safe-top) + 24px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
@@ -128,12 +132,11 @@
     }
 
     body.vp-short .page-1 .page-inner {
+      gap: clamp(8px, 1.6dvh, 14px);
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
-    body.vp-short .preview-hint { margin-top: 4px; margin-bottom: 4px; }
-    body.vp-short .content-platter { padding: 16px; margin-top: 0; margin-bottom: 8px; }
-    body.vp-short .scroll-hint { margin-top: 0; margin-bottom: 0; }
+    body.vp-short .content-platter { padding: 12px; }
 
     .menu-btn {
       position: absolute; top: calc(var(--safe-top) + 16px); left: var(--sp-5);
@@ -180,7 +183,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      height: 44px;
+      height: 40px;
       padding: 0 16px;
       font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
       font-weight: 600;
@@ -192,8 +195,7 @@
     }
 
     .preview-hint {
-      margin-top: 8px;
-      margin-bottom: 8px;
+      margin: 0;
       color: var(--color-body);
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px);
@@ -206,8 +208,7 @@
     .preview-hint:active { transform: scale(0.96); }
 
     .scroll-hint {
-      margin-top: 0; 
-      margin-bottom: 8px;
+      margin: 0;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       color: var(--color-label);
@@ -224,20 +225,19 @@
       max-width: 432px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      padding: 16px;
+      padding: 14px;
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 0; 
-      margin-bottom: 8px;
+      margin: 0;
       flex-shrink: 0;
       z-index: 5;
     }
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: 16px;
+      text-align: center; margin-bottom: 12px;
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
       line-height: 1.4;
