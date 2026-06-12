@@ -124,7 +124,6 @@
       .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
     }
 
-    /* Aggressively compact short-viewport spacing */
     body.vp-short .page-inner {
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
@@ -187,7 +186,7 @@
       letter-spacing: var(--track-wide);
       flex-shrink: 0;
       z-index: 10;
-      text-decoration: none; /* For links */
+      text-decoration: none; 
     }
 
     .preview-hint {
@@ -217,7 +216,7 @@
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
-    /* Content Platter for Main Page - Highly Compacted */
+    /* Content Platter for Main Page */
     .content-platter {
       width: 100%;
       max-width: 400px;
@@ -261,8 +260,8 @@
 
     .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 10px; }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
-    .payment-logos { display: flex; justify-content: center; align-items: center; gap: var(--sp-3); flex-wrap: wrap; opacity: 0.5; margin-top: 2px; }
-    .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
+    .payment-logos { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; opacity: 0.45; margin-top: 2px; }
+    .payment-logos img { height: 12px; width: auto; display: block; -webkit-user-drag: none; }
 
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
@@ -291,14 +290,14 @@
       width: 100%; max-width: 480px;
       display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0; gap: var(--sp-3);
-      margin-top: 4px;
+      margin-top: 16px; 
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-4) 0 var(--sp-5);
+      margin: var(--sp-3) 0 var(--sp-4); 
       flex-shrink: 0;
     }
 
@@ -315,25 +314,27 @@
     .blurb-list {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Generous padding ensures scrolling completely clears the bottom blocker */
-      padding-bottom: 220px; 
+      padding-bottom: max(calc(var(--safe-bottom) + 130px), 140px); 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Solid DOM Divs to handle fades (Fixes Safari rendering bug) */
+    /* Solid DOM Divs to handle fades */
     .top-fade-blocker {
       position: absolute; top: 0; left: 0; right: 0; height: 32px;
       background: linear-gradient(to bottom, rgba(232,232,232,1) 0%, rgba(232,232,232,0) 100%);
       pointer-events: none; z-index: 4;
+      opacity: 0; transition: opacity 0.25s ease;
     }
     
+    /* Tied to Javascript toggle */
+    .blurb-wrapper.scrolled .top-fade-blocker { opacity: 1; }
+    
     .bottom-fade-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
-      /* Solid gray up to 120px to perfectly hide text behind the floating bar, then fades up */
-      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,1) 120px, rgba(232,232,232,0) 100%);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
+      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,1) 110px, rgba(232,232,232,0) 100%);
       pointer-events: none; z-index: 4;
     }
 
@@ -436,12 +437,12 @@
             Secure Checkout
           </div>
           <div class="payment-logos">
-            <img src="./applepay.svg" alt="Apple Pay" width="38" height="16" onerror="this.style.display='none'">
-            <img src="./googlepay.svg" alt="Google Pay" width="38" height="16" onerror="this.style.display='none'">
-            <img src="./paypal.svg" alt="PayPal" width="50" height="16" onerror="this.style.display='none'">
-            <img src="./visa.svg" alt="Visa" width="38" height="16" onerror="this.style.display='none'">
-            <img src="./mastercard.svg" alt="Mastercard" width="24" height="16" onerror="this.style.display='none'">
-            <img src="./americanexpress.svg" alt="Amex" width="24" height="16" onerror="this.style.display='none'">
+            <img src="./applepay.svg" alt="Apple Pay" width="38" height="12" onerror="this.style.display='none'">
+            <img src="./googlepay.svg" alt="Google Pay" width="38" height="12" onerror="this.style.display='none'">
+            <img src="./paypal.svg" alt="PayPal" width="50" height="12" onerror="this.style.display='none'">
+            <img src="./visa.svg" alt="Visa" width="38" height="12" onerror="this.style.display='none'">
+            <img src="./mastercard.svg" alt="Mastercard" width="24" height="12" onerror="this.style.display='none'">
+            <img src="./americanexpress.svg" alt="Amex" width="24" height="12" onerror="this.style.display='none'">
           </div>
         </div>
       </div>
@@ -620,7 +621,6 @@
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       var low = 700, high = 830;
       var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-      // Enhanced Book scaling math allows the hero cover to dynamically claim the saved padding space
       var cvh = 54 + (68 - 54) * t;
       var coverVal = cvh.toFixed(1) + 'dvh';
       if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
@@ -717,6 +717,17 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
+    
+    function updateFade() {
+      if (!blurbList || !blurbWrapper) return;
+      var st = blurbList.scrollTop;
+      blurbWrapper.classList.toggle('scrolled', st > 4);
+    }
+
+    if (blurbList) {
+      blurbList.addEventListener('scroll', updateFade);
+      updateFade();
+    }
   });
 </script>
 
