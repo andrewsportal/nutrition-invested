@@ -321,8 +321,8 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect padding: 24px top padding provides spacing before the fade begins. */
-      padding: 24px 20px max(calc(var(--safe-bottom) + 148px), 148px) 20px; 
+      /* Clean, symmetrical 24px padding at both top and bottom */
+      padding: 24px 20px 24px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
@@ -338,18 +338,10 @@
     }
     .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Bottom Solid Blocker: Never fades. Completely hides text behind the green bar */
-    .bottom-solid-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; 
-      height: max(calc(var(--safe-bottom) + 116px), 116px);
-      background: rgba(255,255,255,1);
-      pointer-events: none; z-index: 4;
-    }
-
-    /* Bottom Fade Blocker: Symmetrical to top. 56px fade sitting right above the solid blocker. */
+    /* Bottom Fade Blocker: Perfectly symmetrical to the top blocker */
     .bottom-fade-blocker {
-      position: absolute; bottom: max(calc(var(--safe-bottom) + 116px), 116px); left: 0; right: 0; height: 56px;
-      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 24px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       transition: opacity 0.25s ease;
     }
@@ -486,7 +478,6 @@
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
           <div class="top-fade-blocker"></div>
-          <div class="bottom-solid-blocker"></div>
           <div class="bottom-fade-blocker"></div>
           
           <div id="blurb-list" class="blurb-list" role="list">
@@ -572,7 +563,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var slideContainer = document.getElementById('slide-container');
     var blurbList = document.getElementById('blurb-list');
-    var blurbWrapper = document.getElementById('blurb-wrapper');
+    var blurbWrapper = document.getElementById('blurb-scroll-wrapper') || document.querySelector('.blurb-scroll-wrapper');
     var counterBar = document.getElementById('counter-bar');
     var currentPage = 0;
     var isAnimating = false;
