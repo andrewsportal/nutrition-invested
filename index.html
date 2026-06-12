@@ -124,7 +124,6 @@
       .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
     }
 
-    /* Aggressively compact short-viewport spacing */
     body.vp-short .page-inner {
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
@@ -190,7 +189,6 @@
       text-decoration: none; 
     }
 
-    /* Strict Equidistant Spacing System */
     .preview-hint {
       margin-top: 24px; 
       margin-bottom: 24px;
@@ -316,32 +314,32 @@
     .blurb-list {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect hard-stop padding so Deploy rests untouched above the fade mask */
-      padding-bottom: calc(var(--safe-bottom) + 180px); 
+      /* Perfect padding so "Deploy" drops cleanly into the space right above the green bar */
+      padding-bottom: max(calc(var(--safe-bottom) + 120px), 130px); 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Extended top fade blocker for a smoother, softer visual transition */
+    /* Solid DOM Divs to handle fades */
     .top-fade-blocker {
       position: absolute; top: 0; left: 0; right: 0; height: 72px;
       background: linear-gradient(to bottom, rgba(232,232,232,1) 0%, rgba(232,232,232,0.85) 30%, rgba(232,232,232,0) 100%);
       pointer-events: none; z-index: 4;
       opacity: 0; transition: opacity 0.3s ease;
     }
-    
     .blurb-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Mathematical invisible threshold safe-area blocker */
+    /* Bottom blocker covers the green card to hide text, but fades out when at bottom */
     .bottom-fade-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; 
-      height: calc(var(--safe-bottom) + 180px);
-      /* Solid gray extends exactly 20px above the green bar, then fades up */
-      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,1) calc(var(--safe-bottom) + 116px), rgba(232,232,232,0) 100%);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
+      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,1) 120px, rgba(232,232,232,0) 100%);
       pointer-events: none; z-index: 4;
+      transition: opacity 0.25s ease;
     }
+    /* When user hits the bottom, fade out the blocker so the text locks perfectly above the green card */
+    .blurb-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -727,6 +725,7 @@
       if (!blurbList || !blurbWrapper) return;
       var st = blurbList.scrollTop;
       blurbWrapper.classList.toggle('scrolled', st > 4);
+      blurbWrapper.classList.toggle('at-bottom', st + blurbList.clientHeight >= blurbList.scrollHeight - 4);
     }
 
     if (blurbList) {
