@@ -316,35 +316,43 @@
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
-      margin-top: 16px; /* Separates the scroll area from the horizontal rule completely */
+      margin-top: 16px; 
     }
     
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Clean 4px top padding keeps text perfectly positioned under the line when scrolled to the top */
-      padding: 4px 20px 24px 20px; 
+      /* Restored Perfect Padding: Allows "Deploy" to safely clear the green card and lock 32px above it */
+      padding: 4px 20px max(calc(var(--safe-bottom) + 148px), 148px) 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Top fade blocker: 48px smooth white fade */
+    /* Top fade blocker: Solid white for 24px to prevent line crunch, then a smooth fade */
     .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 48px;
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 24px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
-      opacity: 0; 
+      opacity: 0; transition: opacity 0.3s ease;
     }
     .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
+    
+    /* Bottom Solid Blocker: Restored. Completely hides text permanently sliding behind the green bar area */
+    .bottom-solid-blocker {
+      position: absolute; bottom: 0; left: 0; right: 0; 
+      height: max(calc(var(--safe-bottom) + 116px), 116px);
+      background: rgba(255,255,255,1);
+      pointer-events: none; z-index: 4;
+    }
 
-    /* Bottom Fade Blocker: 48px smooth white fade. Symmetrical to top. */
+    /* Bottom Fade Blocker: Symmetrical to top. Sits perfectly on top of the solid blocker */
     .bottom-fade-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 48px;
+      position: absolute; bottom: max(calc(var(--safe-bottom) + 116px), 116px); left: 0; right: 0; height: 56px;
       background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
-      opacity: 1;
+      transition: opacity 0.25s ease;
     }
     /* When user hits the bottom, fade out the gradient instantly so the "Deploy" text locks perfectly crisp */
     .blurb-scroll-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
@@ -479,6 +487,7 @@
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
           <div class="top-fade-blocker"></div>
+          <div class="bottom-solid-blocker"></div>
           <div class="bottom-fade-blocker"></div>
           
           <div id="blurb-list" class="blurb-list" role="list">
