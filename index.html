@@ -313,46 +313,25 @@
       flex-shrink: 0;
     }
 
+    /* NATIVE APPLE SCROLL MASK APPLIED HERE - NO JAVASCRIPT REQUIRED */
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
-      margin-top: 8px; 
+      margin-top: 8px; /* Creates permanent breathing room below the divider line */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
     }
     
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect Static Padding System - Replaces Javascript toggling */
-      padding: 40px 20px 150px 20px; 
+      /* Symmetrical 24px Padding. This locks perfectly with the 24px mask-image above, making elements crisp at top/bottom bounds */
+      padding: 24px 20px 24px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
-
-    /* Static Fades - Always On, No Javascript Required */
-    .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 40px;
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 8px, rgba(255,255,255,0) 100%);
-      pointer-events: none; z-index: 4;
-      opacity: 1; 
-    }
-    
-    /* Solid gray blocker permanently covers the space behind the green card */
-    .bottom-solid-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; 
-      height: 88px;
-      background: rgba(255,255,255,1);
-      pointer-events: none; z-index: 4;
-    }
-
-    /* Gradient sits permanently on top of the solid block */
-    .bottom-fade-blocker {
-      position: absolute; bottom: 88px; left: 0; right: 0; height: 40px;
-      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-      pointer-events: none; z-index: 4;
-      opacity: 1; 
-    }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -363,7 +342,7 @@
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
-    /* Floating Island Counter Bar */
+    /* Floating Island Counter Bar - Rendered dynamically via Flexbox */
     .counter-bar {
       width: 100%; max-width: 440px; flex-shrink: 0;
       background: var(--color-bar-bg);
@@ -483,9 +462,6 @@
         <div class="page-2-rule" aria-hidden="true"></div>
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
-          <div class="top-fade-blocker"></div>
-          <div class="bottom-solid-blocker"></div>
-          <div class="bottom-fade-blocker"></div>
           
           <div id="blurb-list" class="blurb-list" role="list">
             
@@ -728,6 +704,8 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
+    
+    // Notice: updateFade Javascript entirely removed. CSS Mask natively handles the visual masking with zero Safari flickering on load.
   });
 </script>
 
