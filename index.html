@@ -322,7 +322,6 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect Symmetrical Padding: Ensures text rests perfectly spaced and clear of the fade blockers */
       padding: 32px 20px 40px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
@@ -330,20 +329,21 @@
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Perfect Symmetrical 32px Solid White Safe Zones + Smooth Fade */
+    /* Top fade blocker */
     .top-fade-blocker {
       position: absolute; top: 0; left: 0; right: 0; height: 96px;
       background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 32px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
-      opacity: 0; transition: opacity 0.2s ease;
+      opacity: 0; transition: opacity 0.15s ease;
     }
     .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
+    /* Bottom Fade Blocker: Accelerated CSS transition */
     .bottom-fade-blocker {
       position: absolute; bottom: 0; left: 0; right: 0; height: 96px;
       background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 32px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
-      transition: opacity 0.2s ease;
+      opacity: 1; transition: opacity 0.15s ease;
     }
     .blurb-scroll-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
 
@@ -731,8 +731,10 @@
       var st = blurbList.scrollTop;
       blurbWrapper.classList.toggle('scrolled', st > 4);
       
+      // Strict safeguard: The bottom fade CANNOT turn off if the user is at the top of the list (st <= 10).
+      // This mathematically guarantees no Safari "flicker" on load.
       var isScrollable = blurbList.scrollHeight > blurbList.clientHeight + 10;
-      var isAtBottom = isScrollable && (st + blurbList.clientHeight >= blurbList.scrollHeight - 24);
+      var isAtBottom = isScrollable && st > 10 && (st + blurbList.clientHeight >= blurbList.scrollHeight - 16);
       
       blurbWrapper.classList.toggle('at-bottom', isAtBottom);
     }
