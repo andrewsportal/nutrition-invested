@@ -319,9 +319,9 @@
     /* "More below" cue — same chevron language as page 1. Only shown when
        there is hidden content below; hidden at the bottom and when it all fits. */
     .more-cue {
-      position: absolute; left: 50%; bottom: 6px;
+      position: absolute; left: 50%; bottom: 16px;
       transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 1px;
+      display: flex; flex-direction: row; align-items: center; gap: 5px;
       color: var(--color-muted);
       opacity: 0; pointer-events: none;
       transition: opacity 0.3s ease;
@@ -334,11 +334,7 @@
     .more-cue svg { display: block; }
     .page-2-platter.has-more .more-cue { opacity: 1; }
     @media (prefers-reduced-motion: no-preference) {
-      .page-2-platter.has-more .more-cue > * { animation: cue-flash 1.7s ease-in-out infinite; }
-    }
-    @keyframes cue-flash {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
+      .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
     }
 
     .page-2-rule {
@@ -641,8 +637,9 @@
       var atBottom = st >= max - 1;
       blurbWrapper.classList.toggle('at-top', atTop);
       blurbWrapper.classList.toggle('at-bottom', atBottom);
-      // Show the "more below" cue only when there's hidden content below.
-      if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && !atBottom);
+      // Show the scroll hint only at the very top; the first scroll dismisses
+      // it (its job is done the moment you engage).
+      if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && atTop);
     }
     if (blurbList) {
       blurbList.addEventListener('scroll', updateFades, { passive: true });
