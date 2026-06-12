@@ -321,30 +321,39 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Added top padding for the buffer zone */
-      padding: 16px 20px 32px 20px; 
+      /* Perfect padding: 24px top padding provides spacing before the fade begins. */
+      padding: 24px 20px max(calc(var(--safe-bottom) + 148px), 148px) 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Top White Fade - Engineered with a 16px solid block so text disappears safely below the line */
+    /* Top fade blocker: Solid white for 24px to prevent line crunch, then a smooth 56px fade */
     .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 56px;
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 16px, rgba(255,255,255,0) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 24px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       opacity: 0; transition: opacity 0.3s ease;
     }
     .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Bottom White Fade - Mirrored with a 24px solid block so text disappears safely above the bottom curve */
+    /* Bottom Solid Blocker: Never fades. Completely hides text behind the green bar */
+    .bottom-solid-blocker {
+      position: absolute; bottom: 0; left: 0; right: 0; 
+      height: max(calc(var(--safe-bottom) + 116px), 116px);
+      background: rgba(255,255,255,1);
+      pointer-events: none; z-index: 4;
+    }
+
+    /* Bottom Fade Blocker: Symmetrical to top. 56px fade sitting right above the solid blocker. */
     .bottom-fade-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
-      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 24px, rgba(255,255,255,0) 100%);
+      position: absolute; bottom: max(calc(var(--safe-bottom) + 116px), 116px); left: 0; right: 0; height: 56px;
+      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       transition: opacity 0.25s ease;
     }
+    /* When user hits the bottom, fade out the gradient so the "Deploy" text locks perfectly crisp */
     .blurb-scroll-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
@@ -477,6 +486,7 @@
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
           <div class="top-fade-blocker"></div>
+          <div class="bottom-solid-blocker"></div>
           <div class="bottom-fade-blocker"></div>
           
           <div id="blurb-list" class="blurb-list" role="list">
