@@ -66,7 +66,7 @@
 
       --radius-sm: 12px;
       --radius-md: 16px;
-      --radius-lg: 22px;
+      --radius-lg: 24px; /* Matched to Platter for structural harmony */
       --radius-pill: 980px;
       --radius-circle: 50%;
 
@@ -120,8 +120,8 @@
       overflow: hidden; position: relative;
     }
 
-    /* Fixed Bug: Only Page 1 is allowed to rubber-band scroll on small devices. */
     @media (max-height: 900px) {
+      /* Only allow page 1 to overflow-y natively */
       .page-1 .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
     }
 
@@ -220,9 +220,9 @@
     /* Content Platter for Main Page */
     .content-platter {
       width: 100%;
-      max-width: 400px;
+      max-width: 440px;
       background: var(--color-surface);
-      border-radius: 24px;
+      border-radius: var(--radius-lg);
       padding: 14px 16px 16px; 
       box-shadow: var(--shadow-surface);
       display: flex;
@@ -267,15 +267,41 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-    /* PAGE 2 */
+    /* PAGE 2 - Structural Overhaul for Apple HIG Modularity */
 
-    /* Perfect 32px top padding to match bottom bar distance */
-    .page-2 .page-inner {
-      padding-top: max(calc(var(--safe-top) + 32px), 32px);
+    .page-2-inner {
+      width: 100%; height: 100vh; height: 100dvh;
+      display: flex; flex-direction: column; align-items: center;
+      /* Generous top padding */
+      padding-top: max(calc(var(--safe-top) + 24px), 24px);
+      padding-left: var(--sp-6); padding-right: var(--sp-6);
+      padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
+      gap: 16px; /* Physical space between the White Card and Green Card */
+      overflow: hidden;
     }
 
+    /* Page 2 is now a contained white card sibling to the green bar */
+    .page-2-platter {
+      width: 100%; max-width: 440px; 
+      flex: 1; min-height: 0; /* Ensures it fills space but allows internal scrolling */
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-surface);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page-2-header {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; gap: var(--sp-3);
+      padding: 20px 20px 0 20px;
+    }
+    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
+
     .scroll-up {
-      margin-left: auto; flex-shrink: 0; align-self: center;
+      margin-left: auto; flex-shrink: 0;
       background: rgba(255, 255, 255, 0.75); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
       border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle); width: 44px; height: 44px; padding: 0;
       display: inline-flex; align-items: center; justify-content: center; box-shadow: var(--shadow-surface); z-index: 10;
@@ -283,68 +309,46 @@
     }
     .scroll-up:active { opacity: 0.7; transform: scale(0.95); }
 
-    .page-2-header {
-      width: 100%; max-width: 480px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-shrink: 0; gap: var(--sp-3);
-      margin-top: 0; 
-    }
-    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
-
     .page-2-rule {
-      width: 100%; max-width: 480px; height: 1px;
-      background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-3) 0 var(--sp-4); 
+      width: calc(100% - 40px); height: 1px;
+      background: rgba(0, 0, 0, 0.08); /* Smoother HIG divider inside white card */
+      margin: 16px 20px 0 20px;
       flex-shrink: 0;
     }
 
-    .blurb-wrapper { 
-      width: 100%; 
-      max-width: 480px; 
-      flex: 1; 
-      position: relative; 
-      min-height: 0; 
-      margin-bottom: 0; 
-      z-index: 1; 
+    .blurb-scroll-wrapper { 
+      flex: 1; position: relative; min-height: 0;
+      display: flex; flex-direction: column;
     }
     
     .blurb-list {
-      width: 100%; height: 100%;
+      flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect padding so "Deploy" drops cleanly into the space right above the solid blocker */
-      padding-bottom: max(calc(var(--safe-bottom) + 168px), 168px); 
+      /* Perfect padding inside the white card */
+      padding: 20px 20px 32px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Top fade blocker: Solid 16px buffer zone, then fade */
+    /* Top White Fade */
     .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 80px;
-      background: linear-gradient(to bottom, rgba(232,232,232,1) 0%, rgba(232,232,232,1) 16px, rgba(232,232,232,0) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 32px;
+      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       opacity: 0; transition: opacity 0.3s ease;
     }
-    .blurb-wrapper.scrolled .top-fade-blocker { opacity: 1; }
+    .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Bottom Solid Blocker: Never fades. Completely hides text behind the green bar and extends exactly 24px above it */
-    .bottom-solid-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; 
-      height: max(calc(var(--safe-bottom) + 136px), 136px);
-      background: rgba(232,232,232,1);
-      pointer-events: none; z-index: 4;
-    }
-
-    /* Bottom Fade Blocker: Symmetrical to top. Sits right above the solid blocker. */
+    /* Bottom White Fade */
     .bottom-fade-blocker {
-      position: absolute; bottom: max(calc(var(--safe-bottom) + 136px), 136px); left: 0; right: 0; height: 64px;
-      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,0) 100%);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 64px;
+      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       transition: opacity 0.25s ease;
     }
-    /* When user hits the bottom, fade out the gradient so the "Deploy" text locks perfectly crisp */
-    .blurb-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
+    .blurb-scroll-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -355,24 +359,16 @@
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
-    /* Floating Island Counter Bar */
+    /* Floating Island Counter Bar (No longer absolute, stacks natively in Flexbox) */
     .counter-bar {
-      position: absolute;
-      bottom: max(calc(var(--safe-bottom) + 32px), 32px);
-      left: var(--sp-4);
-      right: var(--sp-4);
-      max-width: 440px;
-      margin: 0 auto;
+      width: 100%; max-width: 440px; flex-shrink: 0;
       background: var(--color-bar-bg);
       border-radius: var(--radius-lg);
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: var(--shadow-primary);
       padding: var(--sp-4) var(--sp-5);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       gap: var(--sp-4);
-      flex-shrink: 0;
       z-index: 100; 
     }
     .counter-bar-left { display: flex; flex-direction: column; gap: 3px; }
@@ -470,80 +466,81 @@
   <section class="page page-2">
     <div class="page-2-inner">
 
-      <header class="page-2-header">
-        <h2 class="info-section-sublabel">The Quick Bites</h2>
-        <button id="scroll-up" class="scroll-up" aria-label="Back to top">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </header>
+      <div class="page-2-platter">
+        <header class="page-2-header">
+          <h2 class="info-section-sublabel">The Quick Bites</h2>
+          <button id="scroll-up" class="scroll-up" aria-label="Back to top">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </header>
 
-      <div class="page-2-rule" aria-hidden="true"></div>
+        <div class="page-2-rule" aria-hidden="true"></div>
 
-      <div id="blurb-wrapper" class="blurb-wrapper">
-        <div class="top-fade-blocker"></div>
-        <div class="bottom-solid-blocker"></div>
-        <div class="bottom-fade-blocker"></div>
-        
-        <div id="blurb-list" class="blurb-list" role="list">
+        <div id="blurb-wrapper" class="blurb-scroll-wrapper">
+          <div class="top-fade-blocker"></div>
+          <div class="bottom-fade-blocker"></div>
           
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Eat</span><span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Measure</span><span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Compound</span><span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Fix</span><span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Stack</span><span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Audit</span><span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Recover</span><span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Deploy</span><span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
-          </article>
-          
+          <div id="blurb-list" class="blurb-list" role="list">
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Eat</span><span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Measure</span><span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Compound</span><span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Fix</span><span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Stack</span><span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Audit</span><span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Recover</span><span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
+            </article>
+            
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Deploy</span><span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
+            </article>
+            
+          </div>
         </div>
       </div>
 
