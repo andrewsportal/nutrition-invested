@@ -222,7 +222,8 @@
       max-width: 440px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      padding: 14px 16px 16px; 
+      /* UNIFIED: Snapped to pure 20px symmetrical padding to match Page 2 */
+      padding: 20px 20px 24px 20px; 
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
@@ -235,8 +236,11 @@
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: 10px; 
-      font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
+      text-align: center; 
+      /* UNIFIED: Snapped to 16px bottom margin, scaled font perfectly to match Page 2 Header */
+      margin-bottom: 16px; 
+      font-size: clamp(1.125rem, 4.5vw, 1.3125rem); 
+      font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
     }
     .headline .price { color: var(--color-accent); font-weight: 700; }
@@ -258,9 +262,10 @@
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-btn); }
     .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
 
-    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 10px; }
+    /* UNIFIED: Standardized Apple spacing increments */
+    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
-    .payment-logos { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; opacity: 0.45; margin-top: 2px; }
+    .payment-logos { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; opacity: 0.45; margin-top: 4px; }
     .payment-logos img { height: 12px; width: auto; display: block; -webkit-user-drag: none; }
 
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
@@ -313,11 +318,11 @@
       flex-shrink: 0;
     }
 
-    /* NATIVE APPLE SCROLL MASK APPLIED HERE - NO JAVASCRIPT REQUIRED */
+    /* UNIFIED: Zeroed out the margin. The CSS Mask is natively glued right under the divider line */
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
-      margin-top: 8px; /* Creates permanent breathing room below the divider line */
+      margin-top: 0; 
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
       mask-image: linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
     }
@@ -325,8 +330,9 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Symmetrical 24px Padding. This locks perfectly with the 24px mask-image above, making elements crisp at top/bottom bounds */
-      padding: 24px 20px 24px 20px; 
+      /* UNIFIED: Perfect Symmetrical 28px Padding. 
+         Provides exactly 4px of pure clear "Safe Buffer" outside of the 24px fade masks */
+      padding: 28px 20px 28px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
@@ -342,7 +348,7 @@
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
-    /* Floating Island Counter Bar - Rendered dynamically via Flexbox */
+    /* Floating Island Counter Bar */
     .counter-bar {
       width: 100%; max-width: 440px; flex-shrink: 0;
       background: var(--color-bar-bg);
@@ -704,8 +710,6 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
-    
-    // Notice: updateFade Javascript entirely removed. CSS Mask natively handles the visual masking with zero Safari flickering on load.
   });
 </script>
 
