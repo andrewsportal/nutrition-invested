@@ -120,11 +120,12 @@
       overflow: hidden; position: relative;
     }
 
+    /* Fixed Bug: Only Page 1 is allowed to rubber-band scroll on small devices. */
     @media (max-height: 900px) {
-      .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
+      .page-1 .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
     }
 
-    body.vp-short .page-inner {
+    body.vp-short .page-1 .page-inner {
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
@@ -268,13 +269,9 @@
 
     /* PAGE 2 */
 
-    .page-2-inner {
-      position: relative;
-      width: 100%; height: 100vh; height: 100dvh;
-      display: flex; flex-direction: column; align-items: center;
-      padding-top: calc(var(--safe-top) + 14px);
-      padding-left: var(--sp-6); padding-right: var(--sp-6);
-      overflow: hidden;
+    /* Perfect 32px top padding to match bottom bar distance */
+    .page-2 .page-inner {
+      padding-top: max(calc(var(--safe-top) + 32px), 32px);
     }
 
     .scroll-up {
@@ -290,7 +287,7 @@
       width: 100%; max-width: 480px;
       display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0; gap: var(--sp-3);
-      margin-top: 16px; 
+      margin-top: 0; 
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
@@ -314,29 +311,40 @@
     .blurb-list {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect padding for HIG lock */
-      padding-bottom: max(calc(var(--safe-bottom) + 140px), 140px); 
+      /* Perfect padding so "Deploy" drops cleanly into the space right above the solid blocker */
+      padding-bottom: max(calc(var(--safe-bottom) + 168px), 168px); 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Top fade: Symmetrical 72px */
+    /* Top fade blocker: Solid 16px buffer zone, then fade */
     .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 72px;
-      background: linear-gradient(to bottom, rgba(232,232,232,1) 0%, rgba(232,232,232,0) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to bottom, rgba(232,232,232,1) 0%, rgba(232,232,232,1) 16px, rgba(232,232,232,0) 100%);
       pointer-events: none; z-index: 4;
       opacity: 0; transition: opacity 0.3s ease;
     }
     .blurb-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Bottom Fade Blocker: Exactly 72px tall to match top */
-    .bottom-fade-blocker {
-      position: absolute; bottom: 100px; left: 0; right: 0; height: 72px;
-      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,0) 100%);
+    /* Bottom Solid Blocker: Never fades. Completely hides text behind the green bar and extends exactly 24px above it */
+    .bottom-solid-blocker {
+      position: absolute; bottom: 0; left: 0; right: 0; 
+      height: max(calc(var(--safe-bottom) + 136px), 136px);
+      background: rgba(232,232,232,1);
       pointer-events: none; z-index: 4;
     }
+
+    /* Bottom Fade Blocker: Symmetrical to top. Sits right above the solid blocker. */
+    .bottom-fade-blocker {
+      position: absolute; bottom: max(calc(var(--safe-bottom) + 136px), 136px); left: 0; right: 0; height: 64px;
+      background: linear-gradient(to top, rgba(232,232,232,1) 0%, rgba(232,232,232,0) 100%);
+      pointer-events: none; z-index: 4;
+      transition: opacity 0.25s ease;
+    }
+    /* When user hits the bottom, fade out the gradient so the "Deploy" text locks perfectly crisp */
+    .blurb-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -350,7 +358,7 @@
     /* Floating Island Counter Bar */
     .counter-bar {
       position: absolute;
-      bottom: max(calc(var(--safe-bottom) + 24px), 32px);
+      bottom: max(calc(var(--safe-bottom) + 32px), 32px);
       left: var(--sp-4);
       right: var(--sp-4);
       max-width: 440px;
@@ -387,7 +395,7 @@
       </button>
 
       <a id="menu-envelope" class="menu-envelope" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
       </a>
 
       <div class="cover-wrapper">
@@ -475,6 +483,7 @@
 
       <div id="blurb-wrapper" class="blurb-wrapper">
         <div class="top-fade-blocker"></div>
+        <div class="bottom-solid-blocker"></div>
         <div class="bottom-fade-blocker"></div>
         
         <div id="blurb-list" class="blurb-list" role="list">
@@ -722,6 +731,7 @@
       if (!blurbList || !blurbWrapper) return;
       var st = blurbList.scrollTop;
       blurbWrapper.classList.toggle('scrolled', st > 4);
+      blurbWrapper.classList.toggle('at-bottom', st + blurbList.clientHeight >= blurbList.scrollHeight - 16);
     }
 
     if (blurbList) {
