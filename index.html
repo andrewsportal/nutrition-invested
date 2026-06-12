@@ -172,7 +172,6 @@
     }
     .cover-wrapper img:active { transform: scale(0.99); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10)); }
 
-    /* Apple HIG polished pill buttons — scaled for maximum cover impact */
     .preview-hint, .scroll-hint {
       display: inline-flex;
       align-items: center;
@@ -217,7 +216,6 @@
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
-    /* Condensed, even content platter */
     .content-platter {
       width: 100%;
       max-width: 440px;
@@ -268,13 +266,12 @@
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
     /* PAGE 2 — Apple HIG perfect 32px symmetric spacing + fade */
-
     .page-2-inner {
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      padding-top: max(calc(var(--safe-top) + 24px), 24px);
+      padding-top: 32px;
+      padding-bottom: 32px;
       padding-left: var(--sp-6); padding-right: var(--sp-6);
-      padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
       gap: 16px;
       overflow: hidden;
     }
@@ -314,13 +311,12 @@
       flex-shrink: 0;
     }
 
-    /* 32px top + 32px bottom symmetric fade for perfect Apple balance */
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
       margin-top: 0; 
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 32px, black calc(100% - 32px), transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0px, black 32px, black calc(100% - 32px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 24px, black calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0px, black 24px, black calc(100% - 24px), transparent 100%);
     }
     
     .blurb-list {
@@ -332,6 +328,12 @@
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
+    
+    .blurb-list::after {
+      content: '';
+      display: block;
+      height: 28px;
+    }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -342,7 +344,6 @@
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
-    /* Floating Island Counter Bar */
     .counter-bar {
       width: 100%; max-width: 440px; flex-shrink: 0;
       background: var(--color-bar-bg);
