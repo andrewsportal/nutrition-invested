@@ -18,7 +18,7 @@
 
   <style>
     @property --fade-top { syntax: '<length>'; inherits: false; initial-value: 36px; }
-    @property --fade-bottom { syntax: '<length>'; inherits: false; initial-value: 44px; }
+    @property --fade-bottom { syntax: '<length>'; inherits: false; initial-value: 60px; }
 
     *, *::before, *::after {
       box-sizing: border-box;
@@ -319,7 +319,7 @@
     /* "More below" cue — same chevron language as page 1. Only shown when
        there is hidden content below; hidden at the bottom and when it all fits. */
     .more-cue {
-      position: absolute; left: 50%; bottom: 12px;
+      position: absolute; left: 50%; bottom: 14px;
       transform: translateX(-50%);
       display: flex; flex-direction: row; align-items: center; gap: 5px;
       color: var(--color-muted);
@@ -352,7 +352,7 @@
       margin: 14px 0;
       /* Fade ramp happens INSIDE that band. Bottom > top. */
       --fade-top: 36px;
-      --fade-bottom: 44px;
+      --fade-bottom: 60px;
       transition: --fade-top 0.18s ease, --fade-bottom 0.18s ease;
       -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
       mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
