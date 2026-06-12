@@ -5,19 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#e8e8e8">
+  <meta name="theme-color" content="#eff3ef">
   <meta name="description" content="The Tactical Nutrition Playbook — One Choice, Compounded. A practical guide to building sustainable nutrition habits.">
   <title>Nutrition, Invested — The Tactical Nutrition Playbook</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 
   <style>
-    *, *::before, *::after {
+    :root {
+      color-scheme: light;
+      --accent: #4E8B61;
+      --accent-deep: #3f7551;
+      --bg: #eff3ef;
+      --bg-soft: #f8faf8;
+      --text-primary: #111418;
+      --text-secondary: #5d646e;
+      --line: rgba(23, 28, 36, 0.12);
+      --line-strong: rgba(23, 28, 36, 0.2);
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-solid: #ffffff;
+      --shadow-elevated: 0 24px 60px rgba(13, 26, 18, 0.12), 0 8px 20px rgba(13, 26, 18, 0.08);
+      --shadow-soft: 0 10px 28px rgba(24, 32, 42, 0.08), 0 2px 8px rgba(24, 32, 42, 0.05);
+      --shadow-accent: 0 14px 32px rgba(78, 139, 97, 0.28), 0 2px 10px rgba(78, 139, 97, 0.2);
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
+      --radius-xl: 30px;
+      --radius-pill: 999px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --app-height: 100dvh;
+      --edge: clamp(16px, 5vw, 24px);
+      --content-max: 560px;
+      --transition-smooth: 560ms cubic-bezier(0.22, 1, 0.36, 1);
+      --transition-fast: 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      --font: "SF Pro Display", "SF Pro Text", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -26,1064 +55,1098 @@
       text-rendering: optimizeLegibility;
     }
 
-    :focus:not(:focus-visible) { outline: none; }
-    :focus-visible {
-      outline: 2px solid rgba(78,139,97,0.6);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    :root {
-      color-scheme: light;
-      --color-bg: #e8e8e8;
-      --color-surface: #ffffff;
-      --color-border: rgba(0,0,0,0.09);
-      --color-accent: #4E8B61;
-      --color-label: #4E8B61;
-      --color-body: #333333;
-      --color-muted: #8E8E93;
-      --color-white: #ffffff;
-      --color-bar-bg: #4E8B61;
-
-      --fade-from: rgba(232,232,232,0);
-      --fade-mid: rgba(232,232,232,0.6);
-      --fade-to: rgb(232,232,232);
-
-      --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
-
-      --text-caption: clamp(0.72rem, 2.4vw, 0.8rem);
-      --text-label: clamp(0.82rem, 2.9vw, 0.92rem);
-      --text-body: clamp(0.9rem, 3.2vw, 1rem);
-      --text-headline: clamp(1.12rem, 4.1vw, 1.45rem);
-      --text-counter: clamp(1.55rem, 6.2vw, 1.96rem);
-
-      --track-tight: -0.022em;
-      --track-normal: -0.011em;
-      --track-wide: 0.02em;
-
-      --sp-1: 4px;
-      --sp-2: 8px;
-      --sp-3: 12px;
-      --sp-4: 16px;
-      --sp-5: 20px;
-      --sp-6: 24px;
-      --sp-8: 32px;
-      --sp-10: 40px;
-      --sp-12: 48px;
-      --sp-16: 64px;
-
-      --radius-sm: 12px;
-      --radius-md: 16px;
-      --radius-lg: 22px;
-      --radius-xl: 28px;
-      --radius-pill: 980px;
-      --radius-circle: 50%;
-      --content-width: 520px;
-
-      --shadow-cover: drop-shadow(0 18px 44px rgba(0,0,0,0.15))
-                      drop-shadow(0 8px 24px rgba(0,0,0,0.08));
-      --shadow-btn: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
-      --shadow-surface: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
-      --shadow-primary: 0 2px 8px rgba(78,139,97,0.2), 0 8px 24px rgba(78,139,97,0.15);
-
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-    }
-
-    html {
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      background: var(--color-bg);
-      overscroll-behavior: none;
-    }
-
+    html,
     body {
       width: 100%;
-      height: 100vh;
-      height: 100dvh;
+      height: var(--app-height);
       overflow: hidden;
-      background: var(--color-bg);
+      overscroll-behavior: none;
+      background: radial-gradient(140% 100% at 0% 0%, #f8fcf9 0%, var(--bg) 46%, #e8eee9 100%);
       font-family: var(--font);
-      color: var(--color-body);
+      color: var(--text-primary);
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-      user-select: none;
-      -webkit-user-select: none;
     }
 
-    svg { pointer-events: none; }
+    body.compact {
+      --edge: 14px;
+    }
 
-    .slide-container {
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid rgba(78, 139, 97, 0.56);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    a,
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      background: transparent;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    svg {
+      pointer-events: none;
+      display: block;
+    }
+
+    .site-frame {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      background: var(--color-bg);
-      will-change: transform;
-      transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+      inset: 0;
+      overflow: hidden;
     }
-    .slide-container.no-transition { transition: none; }
+
+    .ambient-glow {
+      position: absolute;
+      inset: -20% -12% auto;
+      height: 44%;
+      background:
+        radial-gradient(65% 65% at 28% 22%, rgba(78, 139, 97, 0.22), transparent 74%),
+        radial-gradient(48% 56% at 74% 12%, rgba(255, 255, 255, 0.64), transparent 76%);
+      filter: blur(14px);
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-track {
+      position: absolute;
+      inset: 0;
+      height: calc(var(--app-height) * 2);
+      display: flex;
+      flex-direction: column;
+      transform: translate3d(0, 0, 0);
+      transition: transform var(--transition-smooth);
+      will-change: transform;
+      z-index: 1;
+    }
+
+    .slide-track.no-transition {
+      transition: none;
+    }
 
     .page {
-      position: absolute;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      overflow: hidden;
-      background: var(--color-bg);
-    }
-    .page-1 { top: 0; }
-    .page-2 { top: 100vh; top: 100dvh; }
-
-    .page-inner {
       position: relative;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: var(--sp-4);
-      padding-top: calc(var(--safe-top) + 32px);
-      padding-left: var(--sp-6);
-      padding-right: var(--sp-6);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-6)), 32px);
+      height: var(--app-height);
+      padding: calc(var(--safe-top) + 16px) var(--edge) calc(var(--safe-bottom) + 18px);
       overflow: hidden;
     }
 
-    .page-inner > *:not(.menu-btn):not(.menu-envelope) {
-      width: 100%;
-      max-width: var(--content-width);
+    .page-shell {
+      width: min(100%, var(--content-max));
+      margin: 0 auto;
+      height: 100%;
+      position: relative;
     }
 
-    @media (max-height: 900px) {
-      .page-inner {
-        overflow-y: auto;
-        overscroll-behavior-y: contain;
-        touch-action: pan-y;
-      }
-    }
-
-    body.vp-short .page-inner {
-      padding-top: calc(var(--safe-top) + var(--sp-5));
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 24px);
-      gap: var(--sp-3);
-    }
-    body.vp-short .headline {
-      font-size: clamp(1rem, 3.8vw, 1.15rem);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    body.vp-short .cover-wrapper { padding: var(--sp-3); }
-    body.vp-short .buttons { gap: var(--sp-2); }
-    body.vp-short .buy-btn {
-      min-height: 50px;
-      padding: 10px var(--sp-4);
-      font-size: var(--text-caption);
-    }
-    body.vp-short .payment-section { margin-top: 0; }
-    body.vp-short .scroll-hint {
-      min-height: 40px;
-      margin-top: auto;
-    }
-
-    .menu-btn {
-      position: absolute;
-      top: calc(var(--safe-top) + 16px);
-      left: var(--sp-5);
+    .hero-page .page-shell {
       display: flex;
       flex-direction: column;
+      gap: clamp(12px, 2vh, 18px);
+    }
+
+    .floating-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 30;
+      display: grid;
+      gap: 10px;
+    }
+
+    .icon-fab {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(23, 28, 36, 0.16);
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px) saturate(130%);
+      -webkit-backdrop-filter: blur(14px) saturate(130%);
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    .icon-fab:active {
+      transform: scale(0.95);
+      opacity: 0.9;
+    }
+
+    .menu-toggle {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      width: 44px;
-      height: 44px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--radius-circle);
-      box-shadow: var(--shadow-surface);
-      cursor: pointer;
-      z-index: 20;
-      transition: transform 0.2s ease, opacity 0.15s ease;
     }
-    .menu-btn:active {
-      opacity: 0.7;
-      transform: scale(0.95);
-    }
-    .menu-btn span {
-      display: block;
+
+    .menu-toggle span {
       width: 18px;
       height: 2px;
-      background: rgba(0,0,0,0.35);
-      border-radius: 1px;
+      border-radius: 2px;
+      background: rgba(17, 20, 24, 0.7);
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
     }
 
-    .menu-envelope {
-      position: absolute;
-      top: calc(var(--safe-top) + 68px);
-      left: var(--sp-5);
-      width: 48px;
-      height: 48px;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--radius-circle);
-      box-shadow: var(--shadow-surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      z-index: 20;
+    .menu-toggle[aria-expanded="true"] span:first-child {
+      transform: translateY(3px) rotate(22deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:last-child {
+      transform: translateY(-3px) rotate(-22deg);
+    }
+
+    .email-fab {
       opacity: 0;
+      transform: translateY(-6px) scale(0.96);
       pointer-events: none;
-      transform: translateY(-6px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
     }
-    .menu-envelope.open {
+
+    .email-fab.open {
       opacity: 1;
+      transform: translateY(0) scale(1);
       pointer-events: auto;
-      transform: translateY(0);
     }
 
-    .cover-wrapper {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1 1 0%;
-      min-height: 18vh;
-      max-height: var(--cover-mh, 46dvh);
-      padding: var(--sp-4);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
+    .hero-card {
+      margin-top: 56px;
+      flex: 1 1 auto;
+      min-height: 0;
       border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-surface);
-    }
-    .cover-wrapper a {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(170deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 248, 0.92)),
+        var(--surface-solid);
+      box-shadow: var(--shadow-elevated);
+      backdrop-filter: blur(20px) saturate(130%);
+      -webkit-backdrop-filter: blur(20px) saturate(130%);
+      padding: clamp(16px, 3vw, 22px);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      text-decoration: none;
-    }
-    .cover-wrapper img {
-      display: block;
-      width: auto;
-      max-width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: var(--shadow-cover);
-      will-change: transform, filter;
-      cursor: pointer;
-      -webkit-user-drag: none;
-      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.28s ease;
-    }
-    .cover-wrapper img:active {
-      transform: scale(0.99);
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
+      flex-direction: column;
+      gap: clamp(12px, 1.8vh, 18px);
     }
 
-    .preview-hint {
-      margin-top: var(--sp-1);
+    .label-row {
+      display: inline-flex;
+      align-self: flex-start;
+      gap: 8px;
+      align-items: center;
+      min-height: 30px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(78, 139, 97, 0.26);
+      background: rgba(78, 139, 97, 0.1);
+      color: var(--accent);
+      letter-spacing: 0.01em;
+      font-size: 0.74rem;
+      font-weight: 650;
+      padding: 0 12px;
+      text-transform: uppercase;
+    }
+
+    .cover-shell {
+      border-radius: calc(var(--radius-xl) - 6px);
+      border: 1px solid var(--line);
+      background: linear-gradient(170deg, #ffffff, #f3f5f3);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), var(--shadow-soft);
+      padding: clamp(14px, 3.6vw, 22px);
+      display: grid;
+      place-items: center;
+      min-height: clamp(215px, 42vh, 380px);
+    }
+
+    .cover-shell a {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+
+    .cover-shell img {
+      width: auto;
+      max-width: min(100%, 320px);
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 28px rgba(19, 27, 22, 0.18)) drop-shadow(0 8px 14px rgba(19, 27, 22, 0.1));
+      transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 280ms ease;
+      -webkit-user-drag: none;
+    }
+
+    .cover-shell a:active img {
+      transform: scale(0.985);
+      filter: drop-shadow(0 14px 20px rgba(19, 27, 22, 0.15));
+    }
+
+    .preview-chip {
       align-self: center;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: var(--sp-2) var(--sp-4);
+      padding: 8px 14px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(0,0,0,0.08);
-      background: var(--color-surface);
-      box-shadow: var(--shadow-btn);
-      font-size: var(--text-caption);
-      color: var(--color-muted);
-      letter-spacing: var(--track-wide);
-      font-weight: 500;
-      flex-shrink: 0;
-      font-variant-ligatures: none;
+      border: 1px solid var(--line);
+      background: var(--surface-solid);
+      color: var(--text-secondary);
+      font-size: 0.79rem;
+      font-weight: 560;
+      letter-spacing: 0.015em;
+      box-shadow: var(--shadow-soft);
     }
-    .preview-icon {
+
+    .preview-chip svg {
       width: 14px;
       height: 14px;
     }
 
-    .headline {
+    .hero-title {
       text-align: center;
-      margin-top: var(--sp-1);
-      margin-bottom: 0;
-      font-size: var(--text-headline);
-      line-height: 1.24;
-      font-weight: 650;
-      font-synthesis: none;
-      letter-spacing: var(--track-tight);
-      color: var(--color-label);
-      flex-shrink: 0;
+      font-size: clamp(1.26rem, 5.6vw, 1.74rem);
+      line-height: 1.16;
+      letter-spacing: -0.03em;
+      font-weight: 680;
+      color: var(--accent);
       text-wrap: balance;
     }
-    .headline .price {
-      color: var(--color-body);
-      font-weight: 650;
-    }
-    .headline .divider {
-      color: #aaaaaa;
-      margin: 0 var(--sp-2);
-      font-weight: 400;
+
+    .hero-title .price {
+      color: var(--text-primary);
+      font-weight: 710;
     }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--sp-3);
-      flex-shrink: 0;
+    .hero-title .divider {
+      color: rgba(17, 20, 24, 0.34);
+      font-weight: 500;
+      margin: 0 6px;
     }
-    .buy-btn {
-      display: flex;
+
+    .purchase-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      min-height: 56px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: var(--sp-2);
-      width: 100%;
-      min-height: 58px;
-      background: var(--color-surface);
-      color: var(--color-body);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--radius-lg);
-      padding: var(--sp-4) var(--sp-6);
-      font-family: var(--font);
-      font-size: var(--text-label);
-      font-weight: 620;
-      font-synthesis: none;
-      letter-spacing: var(--track-normal);
-      text-decoration: none;
-      box-shadow: var(--shadow-btn);
+      gap: 8px;
+      font-size: 0.94rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast), border-color var(--transition-fast);
+      box-shadow: var(--shadow-soft);
       user-select: none;
       -webkit-user-select: none;
-      transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.22s ease, opacity 0.15s ease;
-    }
-    .buy-btn:active {
-      transform: scale(0.97);
-      opacity: 0.9;
-    }
-    .buy-btn.primary {
-      background: var(--color-accent);
-      color: var(--color-white);
-      border-color: transparent;
-      box-shadow: var(--shadow-primary);
-    }
-    .buy-btn.secondary {
-      background: var(--color-surface);
-      border-color: rgba(0,0,0,0.1);
-    }
-    .btn-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .btn-icon svg {
-      width: 20px;
-      height: 20px;
-      margin-right: var(--sp-2);
     }
 
-    .payment-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: var(--sp-1);
-      padding: var(--sp-4);
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      opacity: 0.95;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #5a9a6f, var(--accent-deep));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: var(--shadow-accent);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--text-primary);
+    }
+
+    .trust-card {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(0,0,0,0.08);
-      background: var(--color-surface);
-      box-shadow: var(--shadow-btn);
-      flex-shrink: 0;
+      border: 1px solid var(--line);
+      background: #fbfcfb;
+      box-shadow: var(--shadow-soft);
+      padding: 12px 14px;
+      display: grid;
+      gap: 8px;
     }
-    .payment-section p {
-      font-size: var(--text-caption);
-      color: var(--color-muted);
-      margin-bottom: 0;
-      font-weight: 500;
-      letter-spacing: var(--track-normal);
-      line-height: 1.5;
+
+    .trust-card p {
+      font-size: 0.78rem;
+      line-height: 1.45;
       text-align: center;
-      text-wrap: pretty;
+      color: var(--text-secondary);
+      font-weight: 510;
     }
-    .payment-row {
-      display: flex;
+
+    .secure-row {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      font-size: var(--text-caption);
-      color: var(--color-muted);
-      font-weight: 500;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 590;
     }
-    .payment-row-icon {
+
+    .secure-row svg {
       width: 14px;
       height: 14px;
     }
+
     .payment-logos {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--sp-3);
       flex-wrap: wrap;
-      opacity: 0.5;
-      margin-top: 2px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0.56;
     }
+
     .payment-logos img {
       height: 16px;
       width: auto;
-      display: block;
       -webkit-user-drag: none;
     }
 
-    .scroll-hint-spacer {
-      flex: 1 1 0px;
-      min-height: 0;
-      max-height: 12px;
-    }
-    .scroll-hint {
-      align-self: center;
-      flex-shrink: 0;
-      min-height: 48px;
+    .inside-trigger-wrap {
       margin-top: auto;
-      background: var(--color-surface);
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: var(--shadow-btn);
-      cursor: pointer;
-      padding: var(--sp-2) var(--sp-4);
+      padding-top: 4px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .inside-trigger {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 7px;
       border-radius: var(--radius-pill);
-      transition: transform 0.2s ease, opacity 0.15s ease;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-soft);
+      min-height: 46px;
+      padding: 0 16px;
+      font-size: 0.9rem;
+      font-weight: 650;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
     }
-    .scroll-hint:active {
-      opacity: 0.8;
+
+    .inside-trigger:active {
       transform: scale(0.97);
+      opacity: 0.9;
     }
-    .scroll-hint-label {
-      font-size: var(--text-label);
-      letter-spacing: var(--track-normal);
-      font-weight: 600;
-      color: var(--color-label);
+
+    .inside-trigger svg {
+      width: 16px;
+      height: 16px;
     }
-    .scroll-hint-chevron {
+
+    .inside-page .page-shell {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 12px;
+    }
+
+    .inside-header {
+      margin-top: 4px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-      .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; }
-    }
-    @keyframes chevron-pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+    .inside-header .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: 640;
+      color: var(--text-secondary);
+      margin-bottom: 3px;
     }
 
-    .page-2-inner {
+    .inside-header h2 {
+      font-size: clamp(1.42rem, 6vw, 1.95rem);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      font-weight: 730;
+      color: var(--accent);
+      text-wrap: balance;
+    }
+
+    .inside-header .sub {
+      margin-top: 4px;
+      font-size: 0.92rem;
+      font-weight: 560;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+
+    .back-top {
+      flex: 0 0 auto;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--line-strong) 24%, var(--line-strong) 76%, transparent 100%);
+    }
+
+    .benefits-wrap {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f8faf8);
+      box-shadow: var(--shadow-elevated);
+      padding: 14px;
+      min-height: 0;
       position: relative;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: calc(var(--safe-top) + 24px);
-      padding-left: var(--sp-6);
-      padding-right: var(--sp-6);
       overflow: hidden;
     }
 
-    .page-2-header {
-      width: 100%;
-      max-width: var(--content-width);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-      gap: var(--sp-3);
-      margin-top: var(--sp-1);
-    }
-    .info-section-sublabel {
-      font-size: clamp(1.26rem, 4.7vw, 1.6rem);
-      letter-spacing: var(--track-tight);
-      font-weight: 650;
-      color: var(--color-label);
-    }
-
-    .scroll-up {
-      margin-left: auto;
-      flex-shrink: 0;
-      align-self: center;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: var(--radius-circle);
-      width: 44px;
-      height: 44px;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-surface);
-      z-index: 10;
-      transition: transform 0.2s ease, opacity 0.15s ease;
-    }
-    .scroll-up:active {
-      opacity: 0.7;
-      transform: scale(0.95);
-    }
-
-    .page-2-rule {
-      width: 100%;
-      max-width: var(--content-width);
-      height: 1px;
-      background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-3) 0 var(--sp-4);
-      flex-shrink: 0;
-    }
-
-    .blurb-wrapper {
-      width: 100%;
-      max-width: var(--content-width);
-      flex: 1;
-      min-height: 0;
-      position: relative;
-      margin-bottom: 0;
-      padding: var(--sp-5);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-surface);
-    }
-
-    .blurb-list {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-5);
-      overflow-x: hidden;
-      overflow-y: auto;
-      padding-bottom: var(--sp-4);
-      touch-action: pan-y;
-      overscroll-behavior-y: contain;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .blurb-list::-webkit-scrollbar { display: none; }
-
-    .blurb-wrapper::after {
-      content: '';
+    .benefits-wrap::before,
+    .benefits-wrap::after {
+      content: "";
       position: absolute;
-      bottom: var(--sp-5);
-      left: var(--sp-5);
-      right: var(--sp-5);
-      height: 48px;
-      background: linear-gradient(to bottom, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
+      left: 14px;
+      right: 14px;
+      height: 34px;
       pointer-events: none;
-      transition: opacity 0.25s ease;
-      opacity: 1;
-      z-index: 2;
-      transform: translateZ(0);
-    }
-    .blurb-wrapper::before {
-      content: '';
-      position: absolute;
-      top: var(--sp-5);
-      left: var(--sp-5);
-      right: var(--sp-5);
-      height: 48px;
-      background: linear-gradient(to top, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
-      pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 220ms ease;
+      z-index: 3;
       opacity: 0;
-      z-index: 2;
-      transform: translateZ(0);
-    }
-    .blurb-wrapper.at-bottom::after { opacity: 0; }
-    .blurb-wrapper.at-top::before { opacity: 0; }
-    .blurb-wrapper.scrolled::before { opacity: 1; }
-
-    .blurb-item {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--sp-3);
-      padding-bottom: var(--sp-4);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .blurb-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
     }
 
-    .blurb-icon {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      color: var(--color-label);
-      margin-top: 2px;
+    .benefits-wrap::before {
+      top: 14px;
+      background: linear-gradient(180deg, rgba(248, 250, 248, 1), rgba(248, 250, 248, 0));
     }
-    .blurb-icon svg {
-      width: 100%;
+
+    .benefits-wrap::after {
+      bottom: 14px;
+      background: linear-gradient(0deg, rgba(248, 250, 248, 1), rgba(248, 250, 248, 0));
+      opacity: 1;
+    }
+
+    .benefits-wrap.has-top-shadow::before {
+      opacity: 1;
+    }
+
+    .benefits-wrap.has-bottom-shadow::after {
+      opacity: 1;
+    }
+
+    .benefits-wrap:not(.has-bottom-shadow)::after {
+      opacity: 0;
+    }
+
+    .benefits-list {
       height: 100%;
-      display: block;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+      padding-right: 3px;
+      scrollbar-width: none;
+      display: grid;
+      gap: 14px;
     }
 
-    .blurb-text { flex: 1; }
-    .blurb-title {
-      display: inline-block;
-      font-size: var(--text-label);
-      font-weight: 650;
-      color: var(--color-label);
-      margin-right: var(--sp-2);
+    .benefits-list::-webkit-scrollbar {
+      display: none;
     }
-    .blurb-body {
-      font-size: var(--text-body);
-      color: var(--color-body);
-      line-height: 1.65;
+
+    .benefit-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: flex-start;
+      padding-bottom: 13px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .benefit-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 2px;
+    }
+
+    .benefit-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+      margin-top: 1px;
+    }
+
+    .benefit-title {
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: 7px;
+    }
+
+    .benefit-body {
+      font-size: 0.9rem;
+      line-height: 1.58;
+      color: #222831;
       user-select: text;
       -webkit-user-select: text;
     }
 
-    .counter-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--color-bar-bg);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      border-top-left-radius: var(--radius-xl);
-      border-top-right-radius: var(--radius-xl);
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
-      padding-top: var(--sp-5);
-      padding-left: var(--sp-6);
-      padding-right: var(--sp-6);
-      padding-bottom: max(calc(var(--safe-bottom) + var(--sp-5)), 24px);
-      display: flex;
+    .market-bar {
+      margin-top: 4px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(180deg, #57976b, var(--accent-deep));
+      box-shadow: var(--shadow-accent);
+      color: #ffffff;
+      display: grid;
+      grid-template-columns: auto 1px 1fr;
       align-items: center;
-      justify-content: space-between;
-      gap: var(--sp-4);
-      flex-shrink: 0;
-      z-index: 5;
-    }
-    .counter-bar-left {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .counter-bar-label, .counter-bar-word {
-      font-size: var(--text-caption);
-      font-weight: 500;
-      letter-spacing: var(--track-wide);
-      color: rgba(255,255,255,0.8);
-    }
-    .counter-bar-number {
-      font-size: var(--text-counter);
-      font-weight: 700;
-      color: var(--color-white);
-      line-height: 1;
-    }
-    .counter-bar-divider {
-      width: 1px;
-      height: 38px;
-      background: rgba(255,255,255,0.3);
-      flex-shrink: 0;
-    }
-    .counter-bar-right {
-      flex: 1;
-      text-align: right;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-    .counter-bar-tagline {
-      font-size: var(--text-body);
-      font-weight: 500;
-      color: var(--color-white);
-      letter-spacing: var(--track-normal);
-      line-height: 1.35;
+      gap: 12px;
+      padding: 14px 16px calc(14px + var(--safe-bottom));
     }
 
-    @media (min-width: 740px) {
-      .buttons { grid-template-columns: 1fr 1fr; }
-      .scroll-hint-spacer { max-height: 4px; }
+    .market-left {
+      display: grid;
+      gap: 2px;
+    }
+
+    .market-label,
+    .market-word {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 560;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .market-number {
+      font-size: clamp(1.6rem, 8vw, 2.2rem);
+      font-weight: 760;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .market-divider {
+      width: 1px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .market-right {
+      text-align: right;
+      font-size: 0.94rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      font-weight: 590;
+      color: rgba(255, 255, 255, 0.96);
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 420ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    .ready [data-reveal] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .purchase-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn:hover,
+      .inside-trigger:hover,
+      .icon-fab:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn:hover {
+        box-shadow: 0 14px 28px rgba(24, 32, 42, 0.12);
+      }
+
+      .btn-primary:hover {
+        box-shadow: 0 18px 34px rgba(78, 139, 97, 0.34);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: 0ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
+  <main class="site-frame" id="site-frame">
+    <div class="ambient-glow" aria-hidden="true"></div>
 
-<div id="slide-container" class="slide-container">
+    <div class="slide-track no-transition" id="slide-track">
+      <section class="page hero-page" aria-label="Hero">
+        <div class="page-shell">
+          <div class="floating-controls">
+            <button id="menu-toggle" class="icon-fab menu-toggle" type="button" aria-label="Open menu" aria-controls="email-fab" aria-expanded="false" data-reveal style="--reveal-delay:40ms;">
+              <span></span>
+              <span></span>
+            </button>
+            <a id="email-fab" class="icon-fab email-fab" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(17,20,24,0.72)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="M22 6 12 13 2 6"></path>
+              </svg>
+            </a>
+          </div>
 
-  <section class="page page-1">
-    <div class="page-inner">
+          <article class="hero-card">
+            <p class="label-row" data-reveal style="--reveal-delay:70ms;">The Tactical Nutrition Playbook</p>
 
-      <button id="menu-btn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu-envelope">
-        <span></span><span></span>
-      </button>
+            <div class="cover-shell" data-reveal style="--reveal-delay:130ms;">
+              <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
+                <img src="./cover.png" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
+              </a>
+            </div>
 
-      <a id="menu-envelope" class="menu-envelope" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
-      </a>
+            <p class="preview-chip" data-reveal style="--reveal-delay:160ms;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path>
+                <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+              </svg>
+              Tap to preview
+            </p>
 
-      <div class="cover-wrapper">
-        <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
-          <img src="./cover.png" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
-        </a>
-      </div>
+            <h1 class="hero-title" data-reveal style="--reveal-delay:190ms;">
+              Get the Playbook<span class="divider">—</span><span class="price">$9.99</span>
+            </h1>
 
-      <p class="preview-hint">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="preview-icon">
-          <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-          <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-        </svg>
-        Tap to preview
-      </p>
+            <div class="purchase-grid" data-reveal style="--reveal-delay:220ms;">
+              <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                  <path d="M3 6h18"></path>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span>Buy on Amazon</span>
+              </a>
+              <a href="https://payhip.com/b/eBook-Nutrition-Invested" target="_blank" rel="noopener" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" x2="12" y1="15" y2="3"></line>
+                </svg>
+                <span>Buy on Payhip</span>
+              </a>
+            </div>
 
-      <h1 class="headline">
-        Get the Playbook<span class="divider">—</span><span class="price">$9.99</span>
-      </h1>
+            <div class="trust-card" data-reveal style="--reveal-delay:250ms;">
+              <p>Opens in Apple Books, Google Play Books and Amazon Kindle.</p>
+              <div class="secure-row">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd"></path>
+                </svg>
+                Secure Checkout
+              </div>
+              <div class="payment-logos">
+                <img src="./applepay.svg" alt="Apple Pay" width="38" height="16" onerror="this.style.display='none'">
+                <img src="./googlepay.svg" alt="Google Pay" width="38" height="16" onerror="this.style.display='none'">
+                <img src="./paypal.svg" alt="PayPal" width="50" height="16" onerror="this.style.display='none'">
+                <img src="./visa.svg" alt="Visa" width="38" height="16" onerror="this.style.display='none'">
+                <img src="./mastercard.svg" alt="Mastercard" width="24" height="16" onerror="this.style.display='none'">
+                <img src="./americanexpress.svg" alt="Amex" width="24" height="16" onerror="this.style.display='none'">
+              </div>
+            </div>
 
-      <div class="buttons">
-        <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
-          <span class="btn-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
-            </svg>
-          </span>
-          <span>Buy on Amazon</span>
-        </a>
-        <a href="https://payhip.com/b/eBook-Nutrition-Invested" target="_blank" rel="noopener" class="buy-btn secondary">
-          <span class="btn-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
-            </svg>
-          </span>
-          <span>Buy on Payhip</span>
-        </a>
-      </div>
-
-      <div class="payment-section">
-        <p>Opens in Apple Books, Google Play Books and Amazon Kindle.</p>
-        <div class="payment-row">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="payment-row-icon">
-            <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
-          </svg>
-          Secure Checkout
+            <div class="inside-trigger-wrap" data-reveal style="--reveal-delay:280ms;">
+              <button id="scroll-down" class="inside-trigger" type="button" aria-label="Scroll to more info">
+                <span>What's Inside</span>
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M4 6l4 4 4-4" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+          </article>
         </div>
-        <div class="payment-logos">
-          <img src="./applepay.svg" alt="Apple Pay" width="38" height="16" onerror="this.style.display='none'">
-          <img src="./googlepay.svg" alt="Google Pay" width="38" height="16" onerror="this.style.display='none'">
-          <img src="./paypal.svg" alt="PayPal" width="50" height="16" onerror="this.style.display='none'">
-          <img src="./visa.svg" alt="Visa" width="38" height="16" onerror="this.style.display='none'">
-          <img src="./mastercard.svg" alt="Mastercard" width="24" height="16" onerror="this.style.display='none'">
-          <img src="./americanexpress.svg" alt="Amex" width="24" height="16" onerror="this.style.display='none'">
+      </section>
+
+      <section class="page inside-page" aria-label="What's Inside">
+        <div class="page-shell">
+          <header class="inside-header">
+            <div>
+              <p class="eyebrow">The Tactical Nutrition Playbook</p>
+              <h2>What's Inside</h2>
+              <p class="sub">The Quick Bites</p>
+            </div>
+            <button id="scroll-up" class="icon-fab back-top" type="button" aria-label="Back to top">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="#1e2630" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </header>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <section class="benefits-wrap has-bottom-shadow" id="benefits-wrap">
+            <div class="benefits-list" id="benefits-list" role="list">
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                    <path d="M7 2v20"></path>
+                    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Eat</span><span class="benefit-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path>
+                    <path d="m14.5 12.5 2-2"></path>
+                    <path d="m11.5 9.5 2-2"></path>
+                    <path d="m8.5 6.5 2-2"></path>
+                    <path d="m17.5 15.5 2-2"></path>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Measure</span><span class="benefit-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                    <polyline points="16 7 22 7 22 13"></polyline>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Compound</span><span class="benefit-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Fix</span><span class="benefit-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+                    <path d="m8.5 8.5 7 7"></path>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Stack</span><span class="benefit-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Audit</span><span class="benefit-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Recover</span><span class="benefit-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
+              </article>
+
+              <article class="benefit-item" role="listitem">
+                <span class="benefit-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </span>
+                <div><span class="benefit-title">Deploy</span><span class="benefit-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
+              </article>
+            </div>
+          </section>
+
+          <footer class="market-bar">
+            <div class="market-left">
+              <span class="market-label">In the Market</span>
+              <span class="market-number" data-target="87" id="counter-display">87</span>
+              <span class="market-word">Investors</span>
+            </div>
+            <div class="market-divider" aria-hidden="true"></div>
+            <div class="market-right">Drip on.<br>Compounds up.</div>
+          </footer>
         </div>
-      </div>
-
-      <div class="scroll-hint-spacer"></div>
-
-      <button id="scroll-down" class="scroll-hint" aria-label="Scroll to more info">
-        <span class="scroll-hint-label">What's Inside</span>
-        <span class="scroll-hint-chevron">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="#4E8B61" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </button>
-
+      </section>
     </div>
-  </section>
+  </main>
 
-  <section class="page page-2">
-    <div class="page-2-inner">
+  <script>
+    (function () {
+      var docEl = document.documentElement;
+      var body = document.body;
+      var track = document.getElementById('slide-track');
+      var menuToggle = document.getElementById('menu-toggle');
+      var emailFab = document.getElementById('email-fab');
+      var scrollDownBtn = document.getElementById('scroll-down');
+      var scrollUpBtn = document.getElementById('scroll-up');
+      var benefitsList = document.getElementById('benefits-list');
+      var benefitsWrap = document.getElementById('benefits-wrap');
+      var counterDisplay = document.getElementById('counter-display');
 
-      <header class="page-2-header">
-        <h2 class="info-section-sublabel">The Quick Bites</h2>
-        <button id="scroll-up" class="scroll-up" aria-label="Back to top">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </header>
+      var currentPage = 0;
+      var isTransitioning = false;
+      var menuOpen = false;
+      var counterAnimated = false;
+      var viewportHeight = 0;
+      var counterTarget = counterDisplay ? Number(counterDisplay.getAttribute('data-target') || 0) : 0;
 
-      <div class="page-2-rule" aria-hidden="true"></div>
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var touchStartTime = 0;
+      var touchStartInList = false;
+      var touchStartListTop = 0;
 
-      <div id="blurb-wrapper" class="blurb-wrapper at-top">
-        <div id="blurb-list" class="blurb-list" role="list">
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Eat</span><span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Measure</span><span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Compound</span><span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Fix</span><span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Stack</span><span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Audit</span><span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Recover</span><span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
-          </article>
-          
-          <article class="blurb-item" role="listitem">
-            <span class="blurb-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </span>
-            <div class="blurb-text"><span class="blurb-title">Deploy</span><span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
-          </article>
-          
-        </div>
-      </div>
+      function getViewportHeight() {
+        return Math.max(window.innerHeight, window.visualViewport ? window.visualViewport.height : 0);
+      }
 
-      <footer id="counter-bar" class="counter-bar">
-        <div class="counter-bar-left">
-          <span class="counter-bar-label">In the Market</span>
-          <span class="counter-bar-number" data-target="87"><span id="counter-display">—</span></span>
-          <span class="counter-bar-word">Investors</span>
-        </div>
-        <div class="counter-bar-divider" aria-hidden="true"></div>
-        <div class="counter-bar-right">
-          <span class="counter-bar-tagline">Drip on.<br>Compounds up.</span>
-        </div>
-      </footer>
+      function syncViewport() {
+        viewportHeight = getViewportHeight();
+        docEl.style.setProperty('--app-height', viewportHeight + 'px');
+        body.classList.toggle('compact', viewportHeight < 760);
+      }
 
-    </div>
-  </section>
+      function updateTrackPosition(immediate) {
+        if (immediate) {
+          track.classList.add('no-transition');
+        }
 
-</div>
+        track.style.transform = 'translate3d(0,' + (-currentPage * viewportHeight) + 'px,0)';
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var slideContainer = document.getElementById('slide-container');
-    var blurbList = document.getElementById('blurb-list');
-    var blurbWrapper = document.getElementById('blurb-wrapper');
-    var counterBar = document.getElementById('counter-bar');
-    var currentPage = 0;
-    var isAnimating = false;
+        if (immediate) {
+          requestAnimationFrame(function () {
+            track.classList.remove('no-transition');
+          });
+        }
+      }
 
-    var counterEl = document.querySelector('.counter-bar-number');
-    var displayEl = document.getElementById('counter-display');
-    var counterTarget = counterEl ? parseInt(counterEl.getAttribute('data-target'), 10) : 0;
-    var animated = false;
-    if (displayEl) {
-      displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
-    }
+      function openMenu() {
+        menuOpen = true;
+        menuToggle.setAttribute('aria-expanded', 'true');
+        emailFab.classList.add('open');
+      }
 
-    var menuBtn = document.getElementById('menu-btn');
-    var menuEnvelope = document.getElementById('menu-envelope');
-    var menuOpen = false;
-    function openMenu() {
-      menuOpen = true;
-      menuEnvelope.classList.add('open');
-      menuBtn.setAttribute('aria-expanded', 'true');
-    }
+      function closeMenu() {
+        menuOpen = false;
+        menuToggle.setAttribute('aria-expanded', 'false');
+        emailFab.classList.remove('open');
+      }
 
-    function closeMenu() {
-      menuOpen = false;
-      menuEnvelope.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }
+      function animateCounter(fromValue, toValue, duration) {
+        if (!counterDisplay) {
+          return;
+        }
 
-    menuBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      if (menuOpen) { closeMenu(); } else { openMenu(); }
-    });
-    document.addEventListener('touchstart', function (e) {
-      if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
+        var start = performance.now();
+        function step(now) {
+          var progress = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(fromValue + (toValue - fromValue) * eased);
+          counterDisplay.textContent = String(current);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      function goToPage(pageIndex) {
+        if (isTransitioning || pageIndex === currentPage || pageIndex < 0 || pageIndex > 1) {
+          return;
+        }
+
         closeMenu();
-      }
-    }, { passive: true });
-    document.addEventListener('click', function (e) {
-      if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
-        closeMenu();
-      }
-    });
-    menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
+        isTransitioning = true;
+        currentPage = pageIndex;
+        updateTrackPosition(false);
 
-    function animateCount(from, to, dur) {
-      if (!displayEl) return;
-      if (to === 0) { displayEl.textContent = '—'; return; }
-      var t0 = performance.now();
-      function tick(now) {
-        var p = Math.min((now - t0) / dur, 1);
-        var ease = 1 - Math.pow(1 - p, 3);
-        displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
+        if (currentPage === 1 && !counterAnimated && counterTarget > 0) {
+          counterAnimated = true;
+          counterDisplay.textContent = '0';
+          window.setTimeout(function () {
+            animateCounter(0, counterTarget, 1700);
+          }, 220);
+        }
 
-    function setBlurbPadding() {
-      if (counterBar && blurbWrapper) {
-        blurbWrapper.style.marginBottom = counterBar.offsetHeight + 'px';
-      }
-    }
+        if (currentPage === 0 && counterDisplay) {
+          counterDisplay.textContent = String(counterTarget);
+          counterAnimated = false;
+        }
 
-    var coverWrapper = document.querySelector('.cover-wrapper');
-    function setAdaptiveLayout() {
-      var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-      var low = 700, high = 830;
-      var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-      var cvh = 46 + (56 - 46) * t;
-      var coverVal = cvh.toFixed(1) + 'dvh';
-      if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
-    }
-
-    function setViewportClass() {
-      var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-      document.body.classList.toggle('vp-short', vvh < 780);
-    }
-
-    setViewportClass();
-    setAdaptiveLayout();
-    setBlurbPadding();
-    window.addEventListener('resize', function() {
-      setViewportClass();
-      setAdaptiveLayout();
-      setBlurbPadding();
-    });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', function() {
-        setViewportClass();
-        setAdaptiveLayout();
-        setBlurbPadding();
-      });
-    }
-
-    function getSlideOffset(index) {
-      return -(index * window.innerHeight);
-    }
-
-    function goToPage(index) {
-      if (isAnimating) return;
-      if (index === currentPage) return;
-      closeMenu();
-      isAnimating = true;
-      currentPage = index;
-      slideContainer.classList.remove('no-transition');
-      slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
-      if (index === 1 && !animated) {
-        animated = true;
-        setTimeout(function () {
-          if (displayEl) displayEl.textContent = '0';
-          animateCount(0, counterTarget, 1800);
-        }, 480);
+        window.setTimeout(function () {
+          isTransitioning = false;
+        }, 520);
       }
 
-      if (index === 0) {
-        animated = false;
-        if (displayEl) displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
+      function updateBenefitShadows() {
+        if (!benefitsList || !benefitsWrap) {
+          return;
+        }
+
+        var scrollTop = benefitsList.scrollTop;
+        var maxScroll = benefitsList.scrollHeight - benefitsList.clientHeight;
+        var hasTop = scrollTop > 4;
+        var hasBottom = scrollTop < maxScroll - 4;
+
+        benefitsWrap.classList.toggle('has-top-shadow', hasTop);
+        benefitsWrap.classList.toggle('has-bottom-shadow', hasBottom);
       }
 
-      setTimeout(function () { isAnimating = false; }, 480);
-    }
+      function onTouchStart(event) {
+        var touch = event.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchStartTime = Date.now();
+        touchStartInList = Boolean(benefitsList && benefitsList.contains(event.target));
+        touchStartListTop = benefitsList ? benefitsList.scrollTop : 0;
+      }
 
-    window.addEventListener('resize', function () {
-      slideContainer.classList.add('no-transition');
-      slideContainer.style.transform = 'translateY(' + getSlideOffset(currentPage) + 'px)';
+      function onTouchMove(event) {
+        var touch = event.touches[0];
+        var deltaY = touch.clientY - touchStartY;
+        var inList = Boolean(benefitsList && benefitsList.contains(event.target));
+
+        if (inList && currentPage === 1) {
+          var atTop = benefitsList.scrollTop <= 0;
+          var atBottom = benefitsList.scrollTop + benefitsList.clientHeight >= benefitsList.scrollHeight - 2;
+          if ((deltaY > 0 && atTop) || (deltaY < 0 && atBottom)) {
+            event.preventDefault();
+          }
+        } else {
+          event.preventDefault();
+        }
+      }
+
+      function onTouchEnd(event) {
+        var touch = event.changedTouches[0];
+        var deltaX = touch.clientX - touchStartX;
+        var deltaY = touch.clientY - touchStartY;
+        var elapsed = Date.now() - touchStartTime;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          return;
+        }
+
+        var strongSwipe = Math.abs(deltaY) > 52;
+        var quickSwipe = Math.abs(deltaY) > 24 && elapsed < 260;
+        if (!strongSwipe && !quickSwipe) {
+          return;
+        }
+
+        if (deltaY < 0 && currentPage === 0) {
+          goToPage(1);
+          return;
+        }
+
+        if (deltaY > 0 && currentPage === 1) {
+          if (touchStartInList && touchStartListTop > 0) {
+            return;
+          }
+          goToPage(0);
+        }
+      }
+
+      syncViewport();
+      updateTrackPosition(true);
+      updateBenefitShadows();
       requestAnimationFrame(function () {
-        slideContainer.classList.remove('no-transition');
+        body.classList.add('ready');
       });
-    });
-    document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
-    document.getElementById('scroll-up').addEventListener('click', function () { goToPage(0); });
-    var touchStartY = 0, touchStartX = 0, touchStartTime = 0, touchStartScrollTop = 0;
-    document.addEventListener('touchstart', function (e) {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-      touchStartTime = Date.now();
-      touchStartScrollTop = blurbList ? blurbList.scrollTop : 0;
-    }, { passive: true });
-    document.addEventListener('touchmove', function (e) {
-      var isInList = blurbList && blurbList.contains(e.target);
-      if (isInList) {
-        var dy = touchStartY - e.touches[0].clientY;
-        var atTop = blurbList.scrollTop <= 0;
-        var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
-        if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
-      } else {
-        e.preventDefault();
+
+      menuToggle.addEventListener('click', function (event) {
+        event.stopPropagation();
+        if (menuOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!menuOpen) {
+          return;
+        }
+        if (event.target !== menuToggle && !menuToggle.contains(event.target) && event.target !== emailFab && !emailFab.contains(event.target)) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener('touchstart', function (event) {
+        if (menuOpen && event.target !== menuToggle && !menuToggle.contains(event.target) && event.target !== emailFab && !emailFab.contains(event.target)) {
+          closeMenu();
+        }
+      }, { passive: true });
+
+      emailFab.addEventListener('click', function () {
+        window.setTimeout(closeMenu, 180);
+      });
+
+      scrollDownBtn.addEventListener('click', function () {
+        goToPage(1);
+      });
+
+      scrollUpBtn.addEventListener('click', function () {
+        goToPage(0);
+      });
+
+      benefitsList.addEventListener('scroll', updateBenefitShadows, { passive: true });
+      document.addEventListener('touchstart', onTouchStart, { passive: true });
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
+      document.addEventListener('touchend', onTouchEnd, { passive: true });
+
+      window.addEventListener('resize', function () {
+        syncViewport();
+        updateTrackPosition(true);
+        updateBenefitShadows();
+      });
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+          syncViewport();
+          updateTrackPosition(true);
+          updateBenefitShadows();
+        });
       }
-    }, { passive: false });
-    document.addEventListener('touchend', function (e) {
-      var dy = touchStartY - e.changedTouches[0].clientY;
-      var dx = touchStartX - e.changedTouches[0].clientX;
-      var dt = Date.now() - touchStartTime;
-      var isInList = blurbList && blurbList.contains(e.target);
-
-      if (Math.abs(dx) > Math.abs(dy)) return;
-      if (!(Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300))) return;
-
-      if (isInList) {
-        if (dy > 0 && currentPage === 0) { goToPage(1); }
-        else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0) { goToPage(0); }
-      } else {
-        if (dy > 0 && currentPage === 0) { goToPage(1); }
-        else if (dy < 0 && currentPage === 1) { goToPage(0); }
-      }
-    }, { passive: true });
-    function updateFade() {
-      if (!blurbList || !blurbWrapper) return;
-      var st = blurbList.scrollTop;
-      blurbWrapper.classList.toggle('at-bottom', st + blurbList.clientHeight >= blurbList.scrollHeight - 4);
-      blurbWrapper.classList.toggle('at-top', st <= 0);
-      blurbWrapper.classList.toggle('scrolled', st > 4);
-    }
-
-    if (blurbList) {
-      blurbList.addEventListener('scroll', updateFade);
-      updateFade();
-    }
-  });
-</script>
-
+    })();
+  </script>
 </body>
 </html>
