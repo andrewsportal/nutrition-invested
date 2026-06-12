@@ -319,21 +319,25 @@
     /* "More below" cue — same chevron language as page 1. Only shown when
        there is hidden content below; hidden at the bottom and when it all fits. */
     .more-cue {
-      position: absolute; left: 50%; bottom: 4px;
+      position: absolute; left: 50%; bottom: 6px;
       transform: translateX(-50%);
-      display: flex; align-items: center; justify-content: center;
-      width: 30px; height: 30px;
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
       color: var(--color-muted);
       opacity: 0; pointer-events: none;
       transition: opacity 0.3s ease;
       z-index: 6;
     }
+    .more-cue-label {
+      font-size: 10px; font-weight: 600; line-height: 1;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .more-cue svg { display: block; }
     .page-2-platter.has-more .more-cue { opacity: 1; }
     @media (prefers-reduced-motion: no-preference) {
-      .page-2-platter.has-more .more-cue svg { animation: cue-flash 1.7s ease-in-out infinite; }
+      .page-2-platter.has-more .more-cue > * { animation: cue-flash 1.7s ease-in-out infinite; }
     }
     @keyframes cue-flash {
-      0%, 100% { opacity: 0.25; }
+      0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
 
@@ -592,7 +596,8 @@
         </div>
 
         <div class="more-cue" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <span class="more-cue-label">Scroll</span>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
             <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
