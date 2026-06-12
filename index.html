@@ -66,7 +66,7 @@
 
       --radius-sm: 12px;
       --radius-md: 16px;
-      --radius-lg: 24px; /* Matched to Platter for structural harmony */
+      --radius-lg: 24px;
       --radius-pill: 980px;
       --radius-circle: 50%;
 
@@ -121,7 +121,6 @@
     }
 
     @media (max-height: 900px) {
-      /* Only allow page 1 to overflow-y natively */
       .page-1 .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
     }
 
@@ -267,23 +266,21 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-    /* PAGE 2 - Structural Overhaul for Apple HIG Modularity */
+    /* PAGE 2 */
 
     .page-2-inner {
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      /* Generous top padding */
       padding-top: max(calc(var(--safe-top) + 24px), 24px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
-      gap: 16px; /* Physical space between the White Card and Green Card */
+      gap: 16px;
       overflow: hidden;
     }
 
-    /* Page 2 is now a contained white card sibling to the green bar */
     .page-2-platter {
       width: 100%; max-width: 440px; 
-      flex: 1; min-height: 0; /* Ensures it fills space but allows internal scrolling */
+      flex: 1; min-height: 0; 
       background: var(--color-surface);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-surface);
@@ -311,7 +308,7 @@
 
     .page-2-rule {
       width: calc(100% - 40px); height: 1px;
-      background: rgba(0, 0, 0, 0.08); /* Smoother HIG divider inside white card */
+      background: rgba(0, 0, 0, 0.08); 
       margin: 16px 20px 0 20px;
       flex-shrink: 0;
     }
@@ -324,27 +321,27 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Perfect padding inside the white card */
-      padding: 20px 20px 32px 20px; 
+      /* Added top padding for the buffer zone */
+      padding: 16px 20px 32px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Top White Fade */
+    /* Top White Fade - Engineered with a 16px solid block so text disappears safely below the line */
     .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 32px;
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 56px;
+      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 16px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       opacity: 0; transition: opacity 0.3s ease;
     }
     .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Bottom White Fade */
+    /* Bottom White Fade - Mirrored with a 24px solid block so text disappears safely above the bottom curve */
     .bottom-fade-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 64px;
-      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 24px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
       transition: opacity 0.25s ease;
     }
@@ -359,7 +356,7 @@
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
-    /* Floating Island Counter Bar (No longer absolute, stacks natively in Flexbox) */
+    /* Floating Island Counter Bar */
     .counter-bar {
       width: 100%; max-width: 440px; flex-shrink: 0;
       background: var(--color-bar-bg);
