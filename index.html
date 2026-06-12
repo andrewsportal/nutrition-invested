@@ -316,6 +316,27 @@
     }
     .scroll-up:active { background: rgba(118,118,128,0.2); transform: scale(0.95); }
 
+    /* "More below" cue — same chevron language as page 1. Only shown when
+       there is hidden content below; hidden at the bottom and when it all fits. */
+    .more-cue {
+      position: absolute; left: 50%; bottom: 4px;
+      transform: translateX(-50%);
+      display: flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px;
+      color: var(--color-muted);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 6;
+    }
+    .page-2-platter.has-more .more-cue { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .page-2-platter.has-more .more-cue svg { animation: cue-flash 1.7s ease-in-out infinite; }
+    }
+    @keyframes cue-flash {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 1; }
+    }
+
     .page-2-rule {
       width: calc(100% - 48px); height: 1px;
       background: rgba(0, 0, 0, 0.08); 
@@ -569,6 +590,12 @@
             
           </div>
         </div>
+
+        <div class="more-cue" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
 
       <footer id="counter-bar" class="counter-bar">
@@ -593,6 +620,7 @@
     var slideContainer = document.getElementById('slide-container');
     var blurbList = document.getElementById('blurb-list');
     var blurbWrapper = document.getElementById('blurb-wrapper');
+    var blurbPlatter = blurbWrapper ? blurbWrapper.closest('.page-2-platter') : null;
     var counterBar = document.getElementById('counter-bar');
     var currentPage = 0;
     var isAnimating = false;
@@ -608,6 +636,8 @@
       var atBottom = st >= max - 1;
       blurbWrapper.classList.toggle('at-top', atTop);
       blurbWrapper.classList.toggle('at-bottom', atBottom);
+      // Show the "more below" cue only when there's hidden content below.
+      if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && !atBottom);
     }
     if (blurbList) {
       blurbList.addEventListener('scroll', updateFades, { passive: true });
