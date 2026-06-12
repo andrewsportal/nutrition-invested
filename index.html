@@ -322,30 +322,37 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      padding: 32px 20px 40px 20px; 
+      /* Perfect Static Padding System - Replaces Javascript toggling */
+      padding: 40px 20px 150px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
 
-    /* Top fade blocker */
+    /* Static Fades - Always On, No Javascript Required */
     .top-fade-blocker {
-      position: absolute; top: 0; left: 0; right: 0; height: 96px;
-      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 32px, rgba(255,255,255,0) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 8px, rgba(255,255,255,0) 100%);
       pointer-events: none; z-index: 4;
-      opacity: 0; transition: opacity 0.15s ease;
+      opacity: 1; 
     }
-    .blurb-scroll-wrapper.scrolled .top-fade-blocker { opacity: 1; }
     
-    /* Bottom Fade Blocker: Accelerated CSS transition */
-    .bottom-fade-blocker {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 96px;
-      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 32px, rgba(255,255,255,0) 100%);
+    /* Solid gray blocker permanently covers the space behind the green card */
+    .bottom-solid-blocker {
+      position: absolute; bottom: 0; left: 0; right: 0; 
+      height: 88px;
+      background: rgba(255,255,255,1);
       pointer-events: none; z-index: 4;
-      opacity: 1; transition: opacity 0.15s ease;
     }
-    .blurb-scroll-wrapper.at-bottom .bottom-fade-blocker { opacity: 0; }
+
+    /* Gradient sits permanently on top of the solid block */
+    .bottom-fade-blocker {
+      position: absolute; bottom: 88px; left: 0; right: 0; height: 40px;
+      background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none; z-index: 4;
+      opacity: 1; 
+    }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -477,6 +484,7 @@
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
           <div class="top-fade-blocker"></div>
+          <div class="bottom-solid-blocker"></div>
           <div class="bottom-fade-blocker"></div>
           
           <div id="blurb-list" class="blurb-list" role="list">
@@ -562,7 +570,6 @@
   document.addEventListener('DOMContentLoaded', function () {
     var slideContainer = document.getElementById('slide-container');
     var blurbList = document.getElementById('blurb-list');
-    var blurbWrapper = document.getElementById('blurb-scroll-wrapper') || document.querySelector('.blurb-scroll-wrapper');
     var counterBar = document.getElementById('counter-bar');
     var currentPage = 0;
     var isAnimating = false;
@@ -661,10 +668,6 @@
       slideContainer.classList.remove('no-transition');
       slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
       
-      if (index === 1) {
-        setTimeout(updateFade, 50); 
-      }
-      
       if (index === 1 && !animated) {
         animated = true;
         setTimeout(function () {
@@ -725,24 +728,6 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
-    
-    function updateFade() {
-      if (!blurbList || !blurbWrapper) return;
-      var st = blurbList.scrollTop;
-      blurbWrapper.classList.toggle('scrolled', st > 4);
-      
-      // Strict safeguard: The bottom fade CANNOT turn off if the user is at the top of the list (st <= 10).
-      // This mathematically guarantees no Safari "flicker" on load.
-      var isScrollable = blurbList.scrollHeight > blurbList.clientHeight + 10;
-      var isAtBottom = isScrollable && st > 10 && (st + blurbList.clientHeight >= blurbList.scrollHeight - 16);
-      
-      blurbWrapper.classList.toggle('at-bottom', isAtBottom);
-    }
-
-    if (blurbList) {
-      blurbList.addEventListener('scroll', updateFade);
-      updateFade();
-    }
   });
 </script>
 
