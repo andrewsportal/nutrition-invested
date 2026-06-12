@@ -152,7 +152,7 @@
     .hero-page .page-shell {
       display: flex;
       flex-direction: column;
-      gap: clamp(12px, 2vh, 18px);
+      gap: clamp(10px, 1.7vh, 16px);
     }
 
     .floating-controls {
@@ -220,7 +220,7 @@
     }
 
     .hero-card {
-      margin-top: 56px;
+      margin-top: 54px;
       flex: 1 1 auto;
       min-height: 0;
       border-radius: var(--radius-xl);
@@ -231,38 +231,23 @@
       box-shadow: var(--shadow-elevated);
       backdrop-filter: blur(20px) saturate(130%);
       -webkit-backdrop-filter: blur(20px) saturate(130%);
-      padding: clamp(16px, 3vw, 22px);
+      padding: clamp(14px, 2.8vw, 20px);
       display: flex;
       flex-direction: column;
-      gap: clamp(12px, 1.8vh, 18px);
-    }
-
-    .label-row {
-      display: inline-flex;
-      align-self: flex-start;
-      gap: 8px;
-      align-items: center;
-      min-height: 30px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(78, 139, 97, 0.26);
-      background: rgba(78, 139, 97, 0.1);
-      color: var(--accent);
-      letter-spacing: 0.01em;
-      font-size: 0.74rem;
-      font-weight: 650;
-      padding: 0 12px;
-      text-transform: uppercase;
+      gap: clamp(10px, 1.5vh, 14px);
     }
 
     .cover-shell {
+      flex: 1 1 auto;
       border-radius: calc(var(--radius-xl) - 6px);
       border: 1px solid var(--line);
       background: linear-gradient(170deg, #ffffff, #f3f5f3);
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), var(--shadow-soft);
-      padding: clamp(14px, 3.6vw, 22px);
+      padding: clamp(12px, 3.2vw, 20px);
       display: grid;
       place-items: center;
-      min-height: clamp(215px, 42vh, 380px);
+      min-height: clamp(130px, 30vh, 310px);
+      max-height: clamp(170px, 40vh, 360px);
     }
 
     .cover-shell a {
@@ -425,7 +410,7 @@
 
     .inside-trigger-wrap {
       margin-top: auto;
-      padding-top: 4px;
+      padding-top: 2px;
       display: flex;
       justify-content: center;
     }
@@ -456,6 +441,105 @@
     .inside-trigger svg {
       width: 16px;
       height: 16px;
+    }
+
+    body.compact .page {
+      padding: calc(var(--safe-top) + 10px) var(--edge) calc(var(--safe-bottom) + 12px);
+    }
+
+    body.compact .hero-card {
+      margin-top: 48px;
+      padding: 12px;
+      gap: 9px;
+    }
+
+    body.compact .cover-shell {
+      min-height: clamp(112px, 25vh, 220px);
+      max-height: clamp(145px, 34vh, 250px);
+      padding: 11px;
+    }
+
+    body.compact .preview-chip {
+      padding: 6px 10px;
+      font-size: 0.74rem;
+    }
+
+    body.compact .hero-title {
+      font-size: clamp(1.06rem, 4.9vw, 1.45rem);
+    }
+
+    body.compact .purchase-grid {
+      gap: 8px;
+    }
+
+    body.compact .btn {
+      min-height: 48px;
+      font-size: 0.86rem;
+    }
+
+    body.compact .trust-card {
+      padding: 10px 11px;
+      gap: 6px;
+    }
+
+    body.compact .trust-card p,
+    body.compact .secure-row {
+      font-size: 0.73rem;
+    }
+
+    body.compact .payment-logos {
+      gap: 8px;
+    }
+
+    body.compact .inside-trigger {
+      min-height: 40px;
+      font-size: 0.83rem;
+      padding: 0 12px;
+    }
+
+    body.ultra-compact .floating-controls {
+      gap: 8px;
+    }
+
+    body.ultra-compact .icon-fab {
+      width: 42px;
+      height: 42px;
+    }
+
+    body.ultra-compact .hero-card {
+      margin-top: 44px;
+      padding: 10px;
+      gap: 7px;
+    }
+
+    body.ultra-compact .cover-shell {
+      min-height: 96px;
+      max-height: 150px;
+      padding: 10px;
+    }
+
+    body.ultra-compact .hero-title {
+      font-size: 0.98rem;
+    }
+
+    body.ultra-compact .btn {
+      min-height: 42px;
+      font-size: 0.8rem;
+      border-radius: 14px;
+    }
+
+    body.ultra-compact .btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    body.ultra-compact .payment-logos img {
+      height: 14px;
+    }
+
+    body.ultra-compact .inside-trigger {
+      min-height: 36px;
+      font-size: 0.77rem;
     }
 
     .inside-page .page-shell {
@@ -723,15 +807,13 @@
           </div>
 
           <article class="hero-card">
-            <p class="label-row" data-reveal style="--reveal-delay:70ms;">The Tactical Nutrition Playbook</p>
-
-            <div class="cover-shell" data-reveal style="--reveal-delay:130ms;">
+            <div class="cover-shell" data-reveal style="--reveal-delay:80ms;">
               <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
                 <img src="./cover.png" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
               </a>
             </div>
 
-            <p class="preview-chip" data-reveal style="--reveal-delay:160ms;">
+            <p class="preview-chip" data-reveal style="--reveal-delay:120ms;">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path>
                 <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
@@ -739,11 +821,11 @@
               Tap to preview
             </p>
 
-            <h1 class="hero-title" data-reveal style="--reveal-delay:190ms;">
+            <h1 class="hero-title" data-reveal style="--reveal-delay:145ms;">
               Get the Playbook<span class="divider">—</span><span class="price">$9.99</span>
             </h1>
 
-            <div class="purchase-grid" data-reveal style="--reveal-delay:220ms;">
+            <div class="purchase-grid" data-reveal style="--reveal-delay:175ms;">
               <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="btn btn-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
@@ -762,7 +844,7 @@
               </a>
             </div>
 
-            <div class="trust-card" data-reveal style="--reveal-delay:250ms;">
+            <div class="trust-card" data-reveal style="--reveal-delay:205ms;">
               <p>Opens in Apple Books, Google Play Books and Amazon Kindle.</p>
               <div class="secure-row">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -780,7 +862,7 @@
               </div>
             </div>
 
-            <div class="inside-trigger-wrap" data-reveal style="--reveal-delay:280ms;">
+            <div class="inside-trigger-wrap" data-reveal style="--reveal-delay:235ms;">
               <button id="scroll-down" class="inside-trigger" type="button" aria-label="Scroll to more info">
                 <span>What's Inside</span>
                 <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -942,7 +1024,8 @@
       function syncViewport() {
         viewportHeight = getViewportHeight();
         docEl.style.setProperty('--app-height', viewportHeight + 'px');
-        body.classList.toggle('compact', viewportHeight < 760);
+        body.classList.toggle('compact', viewportHeight < 860);
+        body.classList.toggle('ultra-compact', viewportHeight < 690);
       }
 
       function updateTrackPosition(immediate) {
