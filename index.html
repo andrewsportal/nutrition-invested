@@ -178,8 +178,8 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      min-height: 36px;
-      padding: 6px 16px;
+      height: 40px; 
+      padding: 0 20px; 
       font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
       font-weight: 600;
       border-radius: var(--radius-pill);
@@ -190,8 +190,8 @@
     }
 
     .preview-hint {
-      margin-top: 24px; 
-      margin-bottom: 24px;
+      margin-top: 20px; 
+      margin-bottom: 20px;
       color: var(--color-body);
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px);
@@ -205,7 +205,7 @@
 
     .scroll-hint {
       margin-top: 0; 
-      margin-bottom: var(--sp-4);
+      margin-bottom: 20px;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       color: var(--color-label);
@@ -222,23 +222,20 @@
       max-width: 440px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      /* UNIFIED: Snapped to pure 20px symmetrical padding to match Page 2 */
       padding: 20px 20px 24px 20px; 
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 0; 
-      margin-bottom: 24px; 
+      margin-bottom: 20px; 
       flex-shrink: 0;
       z-index: 5;
     }
 
     .headline {
       width: 100%;
-      text-align: center; 
-      /* UNIFIED: Snapped to 16px bottom margin, scaled font perfectly to match Page 2 Header */
-      margin-bottom: 16px; 
+      text-align: center; margin-bottom: 16px; 
       font-size: clamp(1.125rem, 4.5vw, 1.3125rem); 
       font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
@@ -262,7 +259,6 @@
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-btn); }
     .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
 
-    /* UNIFIED: Standardized Apple spacing increments */
     .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
     .payment-logos { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; opacity: 0.45; margin-top: 4px; }
@@ -318,21 +314,21 @@
       flex-shrink: 0;
     }
 
-    /* UNIFIED: Zeroed out the margin. The CSS Mask is natively glued right under the divider line */
+    /* THE FIX: Native Apple GPU Masking. Zero HTML blockers. Zero JavaScript. */
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
       margin-top: 0; 
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+      /* Perfect Symmetrical Fade: 24px mask at top, 24px mask at bottom */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 24px, black calc(100% - 24px), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0px, black 24px, black calc(100% - 24px), transparent 100%);
     }
     
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* UNIFIED: Perfect Symmetrical 28px Padding. 
-         Provides exactly 4px of pure clear "Safe Buffer" outside of the 24px fade masks */
-      padding: 28px 20px 28px 20px; 
+      /* Perfect Symmetrical Space: 24px padding precisely matches the 24px mask above it */
+      padding: 24px 20px 24px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
@@ -468,7 +464,6 @@
         <div class="page-2-rule" aria-hidden="true"></div>
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
-          
           <div id="blurb-list" class="blurb-list" role="list">
             
             <article class="blurb-item" role="listitem">
@@ -710,6 +705,8 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
+    
+    // Javascript scroll listeners completely removed for native Apple Mask performance
   });
 </script>
 
