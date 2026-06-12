@@ -211,7 +211,7 @@
       max-width: 480px;
       background: var(--color-surface);
       border-radius: 24px;
-      padding: var(--sp-5) var(--sp-4);
+      padding: var(--sp-5) var(--sp-4) var(--sp-6);
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
@@ -225,7 +225,7 @@
       width: 100%;
       text-align: center; margin-bottom: var(--sp-3);
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
-      letter-spacing: var(--track-tight); color: var(--color-label);
+      letter-spacing: var(--track-tight); color: var(--color-body);
     }
     .headline .price { color: var(--color-body); font-weight: 600; }
     .headline .divider { color: #aaaaaa; margin: 0 var(--sp-2); font-weight: 400; }
@@ -249,7 +249,12 @@
     .payment-logos { display: flex; justify-content: center; align-items: center; gap: var(--sp-3); flex-wrap: wrap; opacity: 0.5; margin-top: 4px; }
     .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
 
-    .scroll-hint-spacer { width: 100%; flex: 1 1 0px; min-height: 0; max-height: 16px; }
+    .scroll-hint-spacer { 
+      width: 100%; 
+      flex: 1 1 0px; 
+      min-height: 16px; 
+      max-height: 24px; 
+    }
     
     /* Pill-Shaped Button for Scroll Down */
     .scroll-hint {
@@ -302,12 +307,12 @@
       flex-shrink: 0; gap: var(--sp-3);
       margin-top: 4px;
     }
-    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-label); }
+    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-body); }
 
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
       background: rgba(60, 60, 67, 0.29);
-      margin: var(--sp-3) 0 var(--sp-4);
+      margin: var(--sp-4) 0 var(--sp-5);
       flex-shrink: 0;
     }
 
@@ -350,7 +355,7 @@
     /* Floating Island Counter Bar */
     .counter-bar {
       position: absolute;
-      bottom: max(calc(var(--safe-bottom) + var(--sp-4)), 24px);
+      bottom: max(calc(var(--safe-bottom) + 24px), 32px);
       left: var(--sp-4);
       right: var(--sp-4);
       max-width: 440px;
@@ -617,7 +622,6 @@
 
     function setBlurbPadding() {
       if (counterBar && blurbWrapper) {
-        // Updated to account for the floating offset of the counter-bar
         blurbWrapper.style.marginBottom = (counterBar.offsetHeight + 48) + 'px';
       }
     }
