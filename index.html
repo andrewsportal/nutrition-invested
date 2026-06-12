@@ -53,7 +53,7 @@
       --text-caption: clamp(0.6875rem, 2.8vw, 0.75rem);
       --text-label: clamp(0.75rem, 3vw, 0.8125rem);
       --text-body: clamp(0.8125rem, 3.4vw, 0.9375rem);
-      --text-headline: clamp(0.9375rem, 4vw, 1.0625rem);
+      --text-headline: clamp(0.9rem, 3.5vw, 1rem);
       --text-counter: clamp(1.5rem, 6vw, 1.875rem);
 
       --track-tight: -0.022em;
@@ -77,10 +77,9 @@
       --radius-pill: 980px;
       --radius-circle: 50%;
 
-      --shadow-cover: drop-shadow(0 12px 40px rgba(0,0,0,0.15))
-                      drop-shadow(0 4px 12px rgba(0,0,0,0.08));
+      --shadow-cover: drop-shadow(0 12px 40px rgba(0,0,0,0.15)) drop-shadow(0 4px 12px rgba(0,0,0,0.08));
       --shadow-btn: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
-      --shadow-surface: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-surface: 0 4px 24px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); /* Smoother HIG shadow */
       --shadow-primary: 0 2px 8px rgba(78,139,97,0.2), 0 8px 24px rgba(78,139,97,0.15);
 
       --safe-top: env(safe-area-inset-top, 0px);
@@ -136,12 +135,8 @@
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
-    body.vp-short .headline { font-size: clamp(0.85rem, 3.4vw, 0.95rem); margin-top: var(--sp-1); margin-bottom: var(--sp-1); }
-    body.vp-short .preview-hint { margin-top: -8px; }
-    body.vp-short .buttons { gap: var(--sp-2); }
-    body.vp-short .buy-btn { min-height: 48px; padding: 10px var(--sp-4); font-size: var(--text-caption); }
-    body.vp-short .payment-section { margin-top: var(--sp-2); }
-    body.vp-short .scroll-hint { min-height: 36px; margin-bottom: 0; }
+    body.vp-short .content-platter { padding: 12px 12px 16px; margin-top: 16px; }
+    body.vp-short .scroll-hint { margin-top: 16px; min-height: 40px; margin-bottom: 0; }
 
     .menu-btn {
       position: absolute; top: calc(var(--safe-top) + 16px); left: var(--sp-5);
@@ -189,7 +184,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      margin-top: -12px; 
+      margin-top: -16px; /* Pulled slightly tighter */
       font-size: var(--text-label);
       font-weight: 600;
       color: var(--color-body);
@@ -205,37 +200,38 @@
       z-index: 10;
     }
 
-    /* Content Platter for Main Page */
+    /* Content Platter for Main Page - Compacted */
     .content-platter {
       width: 100%;
       max-width: 480px;
       background: var(--color-surface);
       border-radius: 24px;
-      padding: var(--sp-5) var(--sp-4) var(--sp-6);
+      padding: 16px 16px 20px; /* Reduced internal padding */
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: var(--sp-3);
+      margin-top: 20px; /* Exact spacing below preview pill */
       flex-shrink: 0;
       z-index: 5;
     }
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: var(--sp-3);
+      text-align: center; margin-bottom: 12px; /* Tighter spacing */
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
     }
     .headline .price { color: var(--color-body); font-weight: 600; }
     .headline .divider { color: #aaaaaa; margin: 0 var(--sp-2); font-weight: 400; }
 
-    .buttons { width: 100%; display: flex; flex-direction: column; gap: var(--sp-3); }
+    .buttons { width: 100%; display: flex; flex-direction: column; gap: 10px; /* Tighter button gap */ }
     .buy-btn {
       display: flex; align-items: center;
-      justify-content: center; gap: var(--sp-3); width: 100%; min-height: 56px;
-      background: var(--color-surface); color: var(--color-body); border: 1px solid rgba(0,0,0,0.08); border-radius: var(--radius-lg);
-      padding: var(--sp-4) var(--sp-6); font-family: var(--font); font-size: var(--text-label); font-weight: 600;
+      justify-content: center; gap: var(--sp-3); width: 100%; 
+      min-height: 50px; /* Smaller button height */
+      background: var(--color-surface); color: var(--color-body); border: 1px solid rgba(0,0,0,0.08); border-radius: 18px; /* Slightly rounder inner radius */
+      padding: 12px var(--sp-4); font-family: var(--font); font-size: var(--text-label); font-weight: 600;
       font-synthesis: none; letter-spacing: var(--track-normal); text-decoration: none; box-shadow: var(--shadow-btn);
       user-select: none;
       -webkit-user-select: none; transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s ease, opacity 0.15s ease;
@@ -244,28 +240,21 @@
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-primary); }
     .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
 
-    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: var(--sp-4); }
+    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; /* Tighter top margin */ }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
-    .payment-logos { display: flex; justify-content: center; align-items: center; gap: var(--sp-3); flex-wrap: wrap; opacity: 0.5; margin-top: 4px; }
+    .payment-logos { display: flex; justify-content: center; align-items: center; gap: var(--sp-3); flex-wrap: wrap; opacity: 0.5; margin-top: 2px; }
     .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
-
-    .scroll-hint-spacer { 
-      width: 100%; 
-      flex: 1 1 0px; 
-      min-height: 16px; 
-      max-height: 24px; 
-    }
     
     /* Pill-Shaped Button for Scroll Down */
     .scroll-hint {
       flex-shrink: 0;
-      min-height: 48px;
-      margin-top: var(--sp-1);
+      min-height: 44px; /* Slightly smaller */
+      margin-top: 20px; /* Exact spacing below content platter */
       margin-bottom: var(--sp-4);
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       cursor: pointer;
-      padding: var(--sp-2) var(--sp-5);
+      padding: 8px var(--sp-5);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -320,9 +309,10 @@
     
     .blurb-list {
       width: 100%; height: 100%;
-      display: flex; flex-direction: column; gap: var(--sp-6);
+      display: flex; flex-direction: column; gap: var(--sp-5); /* Tighter line gaps */
       overflow-x: hidden; overflow-y: auto;
-      padding-bottom: var(--sp-6); touch-action: pan-y; overscroll-behavior-y: contain;
+      padding-bottom: max(calc(var(--safe-bottom) + 120px), 120px); /* Perfect hard-stop padding behind the floating bar */
+      touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
@@ -451,8 +441,6 @@
           </div>
         </div>
       </div>
-
-      <div class="scroll-hint-spacer"></div>
 
       <button id="scroll-down" class="scroll-hint" aria-label="Scroll to more info">
         <span class="scroll-hint-label">What's Inside</span>
@@ -620,12 +608,6 @@
       requestAnimationFrame(tick);
     }
 
-    function setBlurbPadding() {
-      if (counterBar && blurbWrapper) {
-        blurbWrapper.style.marginBottom = (counterBar.offsetHeight + 48) + 'px';
-      }
-    }
-
     var coverWrapper = document.querySelector('.cover-wrapper');
     function setAdaptiveLayout() {
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
@@ -643,17 +625,15 @@
 
     setViewportClass();
     setAdaptiveLayout();
-    setBlurbPadding();
+    
     window.addEventListener('resize', function() {
       setViewportClass();
       setAdaptiveLayout();
-      setBlurbPadding();
     });
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', function() {
         setViewportClass();
         setAdaptiveLayout();
-        setBlurbPadding();
       });
     }
 
