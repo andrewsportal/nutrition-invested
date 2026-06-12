@@ -235,6 +235,25 @@
       display: flex;
       flex-direction: column;
       gap: clamp(10px, 1.5vh, 14px);
+      
+      /* NEW ADDITIONS */
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
+    }
+
+    /* NEW ADDITION */
+    .hero-card::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* NEW ADDITION */
+    .preview-chip,
+    .hero-title,
+    .purchase-grid,
+    .trust-card,
+    .inside-trigger-wrap {
+      flex-shrink: 0;
     }
 
     .cover-shell {
@@ -1034,7 +1053,6 @@
         }
 
         track.style.transform = 'translate3d(0,' + (-currentPage * viewportHeight) + 'px,0)';
-
         if (immediate) {
           requestAnimationFrame(function () {
             track.classList.remove('no-transition');
@@ -1081,7 +1099,6 @@
         isTransitioning = true;
         currentPage = pageIndex;
         updateTrackPosition(false);
-
         if (currentPage === 1 && !counterAnimated && counterTarget > 0) {
           counterAnimated = true;
           counterDisplay.textContent = '0';
@@ -1127,7 +1144,6 @@
         var touch = event.touches[0];
         var deltaY = touch.clientY - touchStartY;
         var inList = Boolean(benefitsList && benefitsList.contains(event.target));
-
         if (inList && currentPage === 1) {
           var atTop = benefitsList.scrollTop <= 0;
           var atBottom = benefitsList.scrollTop + benefitsList.clientHeight >= benefitsList.scrollHeight - 2;
@@ -1144,7 +1160,6 @@
         var deltaX = touch.clientX - touchStartX;
         var deltaY = touch.clientY - touchStartY;
         var elapsed = Date.now() - touchStartTime;
-
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
           return;
         }
@@ -1174,7 +1189,6 @@
       requestAnimationFrame(function () {
         body.classList.add('ready');
       });
-
       menuToggle.addEventListener('click', function (event) {
         event.stopPropagation();
         if (menuOpen) {
@@ -1183,7 +1197,6 @@
           openMenu();
         }
       });
-
       document.addEventListener('click', function (event) {
         if (!menuOpen) {
           return;
@@ -1192,25 +1205,20 @@
           closeMenu();
         }
       });
-
       document.addEventListener('touchstart', function (event) {
         if (menuOpen && event.target !== menuToggle && !menuToggle.contains(event.target) && event.target !== emailFab && !emailFab.contains(event.target)) {
           closeMenu();
         }
       }, { passive: true });
-
       emailFab.addEventListener('click', function () {
         window.setTimeout(closeMenu, 180);
       });
-
       scrollDownBtn.addEventListener('click', function () {
         goToPage(1);
       });
-
       scrollUpBtn.addEventListener('click', function () {
         goToPage(0);
       });
-
       benefitsList.addEventListener('scroll', updateBenefitShadows, { passive: true });
       document.addEventListener('touchstart', onTouchStart, { passive: true });
       document.addEventListener('touchmove', onTouchMove, { passive: false });
@@ -1221,7 +1229,6 @@
         updateTrackPosition(true);
         updateBenefitShadows();
       });
-
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', function () {
           syncViewport();
