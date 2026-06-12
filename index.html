@@ -50,7 +50,7 @@
       --text-caption: clamp(0.6875rem, 2.8vw, 0.75rem);
       --text-label: clamp(0.75rem, 3vw, 0.8125rem);
       --text-body: clamp(0.8125rem, 3.4vw, 0.9375rem);
-      --text-headline: clamp(1rem, 4vw, 1.1875rem); /* Scaled down headline */
+      --text-headline: clamp(1rem, 4vw, 1.1875rem);
       --text-counter: clamp(1.5rem, 6vw, 1.875rem);
 
       --track-tight: -0.022em;
@@ -161,7 +161,7 @@
     .cover-wrapper {
       width: 100%; max-width: 380px;
       display: flex; align-items: center; justify-content: center;
-      flex: 1 1 0%; min-height: 15vh; max-height: var(--cover-mh, 48dvh); /* Allowed slightly more max-height for cover scaling */
+      flex: 1 1 0%; min-height: 15vh; max-height: var(--cover-mh, 48dvh);
     }
     .cover-wrapper a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
     .cover-wrapper img {
@@ -172,14 +172,14 @@
     }
     .cover-wrapper img:active { transform: scale(0.99); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10)); }
 
-    /* Scaled down Pill buttons to compact layout */
+    /* Apple HIG polished pill buttons — scaled for maximum cover impact */
     .preview-hint, .scroll-hint {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      height: 36px; /* Reduced from 40px */
-      padding: 0 16px; /* Tighter side padding */
+      height: 36px;
+      padding: 0 16px;
       font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
       font-weight: 600;
       border-radius: var(--radius-pill);
@@ -190,7 +190,7 @@
     }
 
     .preview-hint {
-      margin-top: 16px; /* Tightened margins */
+      margin-top: 16px;
       margin-bottom: 16px;
       color: var(--color-body);
       background: rgba(255, 255, 255, 0.75);
@@ -205,37 +205,38 @@
 
     .scroll-hint {
       margin-top: 0; 
-      margin-bottom: 16px; /* Tightened margins */
+      margin-bottom: 16px;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       color: var(--color-label);
       cursor: pointer;
       box-shadow: var(--shadow-btn);
+      gap: 6px; /* Even spacing with preview-hint */
       transition: background 0.15s ease, transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
     }
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
-    /* Condensed Content Platter */
+    /* Condensed, even content platter */
     .content-platter {
       width: 100%;
       max-width: 440px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      padding: 16px 16px 20px 16px; /* Reduced padding footprint */
+      padding: 16px; /* Fully even 16px footprint for Apple consistency */
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 0; 
-      margin-bottom: 16px; /* Tighter gap below */
+      margin-bottom: 16px;
       flex-shrink: 0;
       z-index: 5;
     }
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: 12px; /* Tighter */
+      text-align: center; margin-bottom: 12px;
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
     }
@@ -246,7 +247,7 @@
     .buy-btn {
       display: flex; align-items: center;
       justify-content: center; gap: var(--sp-2); width: 100%; 
-      min-height: 44px; /* Retained 44px minimum for Apple touch accessibility */
+      min-height: 44px;
       background: var(--color-surface); color: var(--color-body); 
       border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
       padding: 8px 16px; font-family: var(--font); font-size: var(--text-label); font-weight: 600;
@@ -266,7 +267,7 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-    /* PAGE 2 */
+    /* PAGE 2 — Unified tight stack with luxurious 48px fade */
 
     .page-2-inner {
       width: 100%; height: 100vh; height: 100dvh;
@@ -289,12 +290,11 @@
       position: relative;
     }
 
-    /* Tightened Page 2 Header Structure */
     .page-2-header {
       width: 100%;
       display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0; gap: var(--sp-3);
-      padding: 16px 20px 0 20px; /* Reduced top padding */
+      padding: 16px 20px 0 20px;
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
@@ -310,16 +310,15 @@
     .page-2-rule {
       width: calc(100% - 40px); height: 1px;
       background: rgba(0, 0, 0, 0.08); 
-      margin: 12px 20px 0 20px; /* Pulled tighter to header */
+      margin: 12px 20px 0 20px;
       flex-shrink: 0;
     }
 
-    /* Enhanced Native Fade Masks - Deeper bottom gradient */
+    /* Enhanced 48px luxurious bottom fade + 12px top fade */
     .blurb-scroll-wrapper { 
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
       margin-top: 0; 
-      /* 12px top fade, 48px deep bottom fade */
       -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 12px, black calc(100% - 48px), transparent 100%);
       mask-image: linear-gradient(to bottom, transparent 0px, black 12px, black calc(100% - 48px), transparent 100%);
     }
@@ -327,7 +326,6 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* 12px top padding matches 12px fade. 48px bottom padding matches 48px deep fade. */
       padding: 12px 20px 48px 20px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
@@ -471,56 +469,56 @@
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Eat</span><span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Eat</span> <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Measure</span><span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Measure</span> <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Compound</span><span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Compound</span> <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Fix</span><span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Fix</span> <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Stack</span><span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Stack</span> <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Audit</span><span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Audit</span> <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Recover</span><span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Recover</span> <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
             </article>
             
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Deploy</span><span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Deploy</span> <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
             </article>
             
           </div>
@@ -609,7 +607,7 @@
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       var low = 700, high = 830;
       var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-      var cvh = 58 + (72 - 58) * t; /* Slightly increased max cover height */
+      var cvh = 58 + (72 - 58) * t;
       var coverVal = cvh.toFixed(1) + 'dvh';
       if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
     }
