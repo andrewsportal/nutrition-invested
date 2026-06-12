@@ -44,10 +44,6 @@
       --color-muted: #8E8E93;
       --color-white: #ffffff;
       --color-bar-bg: #4E8B61;
-
-      --fade-from: rgba(232,232,232,0);
-      --fade-mid: rgba(232,232,232,0.6);
-      --fade-to: rgb(232,232,232);
       
       --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
 
@@ -67,7 +63,6 @@
       --sp-4: 16px;
       --sp-5: 20px;
       --sp-6: 24px;
-      --sp-8: 32px;
 
       --radius-sm: 12px;
       --radius-md: 16px;
@@ -129,13 +124,13 @@
       .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
     }
 
-    /* Adjusted short-viewport spacing to maintain proportional distance */
+    /* Aggressively compact short-viewport spacing */
     body.vp-short .page-inner {
       padding-top: calc(var(--safe-top) + 24px);
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
-    body.vp-short .preview-hint { margin-top: 16px; margin-bottom: 16px; }
-    body.vp-short .content-platter { padding: 12px; margin-top: 0; margin-bottom: 16px; }
+    body.vp-short .preview-hint { margin-top: 12px; margin-bottom: 12px; }
+    body.vp-short .content-platter { padding: 12px; margin-top: 0; margin-bottom: 12px; }
     body.vp-short .scroll-hint { margin-top: 0; margin-bottom: 0; }
 
     .menu-btn {
@@ -178,14 +173,14 @@
     }
     .cover-wrapper img:active { transform: scale(0.99); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10)); }
 
-    /* Shared Pill Styling for Cohesion */
+    /* Shared Pill Styling for Cohesion - Compacted */
     .preview-hint, .scroll-hint {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      min-height: 38px;
-      padding: 6px 18px;
+      min-height: 36px; /* Scaled down for more cover space */
+      padding: 6px 16px;
       font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
       font-weight: 600;
       border-radius: var(--radius-pill);
@@ -194,10 +189,9 @@
       z-index: 10;
     }
 
-    /* Equidistant Spacing System - 24px standard gap */
     .preview-hint {
-      margin-top: 24px; 
-      margin-bottom: 24px;
+      margin-top: 16px; 
+      margin-bottom: 16px;
       color: var(--color-body);
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px);
@@ -219,37 +213,38 @@
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
-    /* Content Platter for Main Page */
+    /* Content Platter for Main Page - Highly Compacted */
     .content-platter {
       width: 100%;
-      max-width: 440px; 
+      max-width: 400px; /* Narrowed width */
       background: var(--color-surface);
       border-radius: 24px;
-      padding: 16px 16px 20px; 
+      padding: 16px; /* Reduced padding */
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 0; 
-      margin-bottom: 24px; /* Matches preview-hint margin-bottom */
+      margin-bottom: 16px; /* Symmetrical margin */
       flex-shrink: 0;
       z-index: 5;
     }
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: 12px; 
+      text-align: center; margin-bottom: 10px; 
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
     }
-    .headline .price { color: var(--color-body); font-weight: 600; }
+    /* Green HIG Accent Price */
+    .headline .price { color: var(--color-accent); font-weight: 700; }
     .headline .divider { color: #aaaaaa; margin: 0 var(--sp-2); font-weight: 400; }
 
     .buttons { width: 100%; display: flex; flex-direction: column; gap: 8px; }
     .buy-btn {
       display: flex; align-items: center;
       justify-content: center; gap: var(--sp-2); width: 100%; 
-      min-height: 44px; /* Apple HIG standard */
+      min-height: 44px; /* Strict Apple HIG minimum target */
       background: var(--color-surface); color: var(--color-body); 
       border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
       padding: 8px 16px; font-family: var(--font); font-size: var(--text-label); font-weight: 600;
@@ -261,7 +256,7 @@
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-btn); }
     .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
 
-    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
+    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 10px; }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
     .payment-logos { display: flex; justify-content: center; align-items: center; gap: var(--sp-3); flex-wrap: wrap; opacity: 0.5; margin-top: 2px; }
     .payment-logos img { height: 16px; width: auto; display: block; -webkit-user-drag: none; }
@@ -295,7 +290,8 @@
       flex-shrink: 0; gap: var(--sp-3);
       margin-top: 4px;
     }
-    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-body); }
+    /* Green HIG Accent Header */
+    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
     .page-2-rule {
       width: 100%; max-width: 480px; height: 1px;
@@ -304,36 +300,29 @@
       flex-shrink: 0;
     }
 
-    .blurb-wrapper { width: 100%; max-width: 480px; flex: 1; position: relative; min-height: 0; margin-bottom: 0; z-index: 1; }
+    .blurb-wrapper { 
+      width: 100%; 
+      max-width: 480px; 
+      flex: 1; 
+      position: relative; 
+      min-height: 0; 
+      margin-bottom: 0; 
+      z-index: 1; 
+      /* Native Apple Webkit Mask replacing buggy CSS gradients */
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    }
     
     .blurb-list {
       width: 100%; height: 100%;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      /* Ensures Deploy hits a hard stop safely above the fade mask */
-      padding-bottom: 160px; 
+      /* Ensures Deploy hits a perfect lock flush above the green bar */
+      padding-bottom: max(calc(var(--safe-bottom) + 120px), 120px); 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
-
-    /* Top fade-in gradient */
-    .blurb-wrapper::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 64px;
-      background: linear-gradient(to top, var(--fade-from) 0%, var(--fade-mid) 40%, var(--fade-to) 100%);
-      pointer-events: none; transition: opacity 0.25s ease; opacity: 0;
-      z-index: 4; transform: translateZ(0);
-    }
-    .blurb-wrapper.at-top::before { opacity: 0; }
-    .blurb-wrapper.scrolled::before { opacity: 1; }
-
-    /* Bottom Permanent Fade Mask - Solid at bottom to cleanly hide text */
-    .blurb-wrapper::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
-      background: linear-gradient(to bottom, var(--fade-from) 0%, var(--fade-to) 30%, var(--fade-to) 100%);
-      pointer-events: none; opacity: 1;
-      z-index: 4; transform: translateZ(0);
-    }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
@@ -362,7 +351,6 @@
       justify-content: space-between;
       gap: var(--sp-4);
       flex-shrink: 0;
-      /* Ensures the bar completely dominates the z-index stacking context */
       z-index: 100; 
     }
     .counter-bar-left { display: flex; flex-direction: column; gap: 3px; }
@@ -471,7 +459,7 @@
 
       <div class="page-2-rule" aria-hidden="true"></div>
 
-      <div id="blurb-wrapper" class="blurb-wrapper at-top">
+      <div id="blurb-wrapper" class="blurb-wrapper">
         <div id="blurb-list" class="blurb-list" role="list">
           
           <article class="blurb-item" role="listitem">
@@ -616,8 +604,8 @@
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       var low = 700, high = 830;
       var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-      // Enlarged book cover proportions 
-      var cvh = 48 + (60 - 48) * t;
+      // Enhanced Book scaling math given the new compact buttons
+      var cvh = 52 + (65 - 52) * t;
       var coverVal = cvh.toFixed(1) + 'dvh';
       if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
     }
@@ -713,19 +701,6 @@
         else if (dy < 0 && currentPage === 1) { goToPage(0); }
       }
     }, { passive: true });
-    
-    function updateFade() {
-      if (!blurbList || !blurbWrapper) return;
-      var st = blurbList.scrollTop;
-      /* Notice the bottom toggle has been removed so the text is always masked behind the bar */
-      blurbWrapper.classList.toggle('at-top', st <= 0);
-      blurbWrapper.classList.toggle('scrolled', st > 4);
-    }
-
-    if (blurbList) {
-      blurbList.addEventListener('scroll', updateFade);
-      updateFade();
-    }
   });
 </script>
 
