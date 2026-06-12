@@ -338,8 +338,9 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-4); 
-      /* Resting inset. Margin(14) + padding(10) = 24px at-rest gap, even. */
-      padding: 10px 24px 10px 24px; 
+      /* Resting inset. Top 14+10=24. Bottom trimmed 4px for optical balance
+         against the card's rounded corner. Scroll cushion (margin) untouched. */
+      padding: 10px 24px 6px 24px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
