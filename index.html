@@ -319,14 +319,16 @@
       flex: 1; position: relative; min-height: 0;
       display: flex; flex-direction: column;
       margin-top: 0; 
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 16px, black calc(100% - 16px), transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0px, black 16px, black calc(100% - 16px), transparent 100%);
+      --fade-top: 24px;
+      --fade-bottom: 40px;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
     }
     
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-4); 
-      padding: 16px 24px 16px 24px; 
+      padding: var(--fade-top) 24px var(--fade-bottom) 24px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
@@ -336,7 +338,7 @@
     .blurb-list::after {
       content: '';
       display: block;
-      height: 8px;
+      height: 0;
     }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
