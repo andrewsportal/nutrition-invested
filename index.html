@@ -59,10 +59,13 @@
 
       --sp-1: 4px;
       --sp-2: 8px;
-      --sp-3: 12px;
+      --sp-3: 16px;
       --sp-4: 16px;
-      --sp-5: 20px;
+      --sp-5: 24px;
       --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 48px;
+      --sp-9: 64px;
 
       --radius-sm: 12px;
       --radius-md: 16px;
@@ -114,7 +117,7 @@
     .page-inner {
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-      padding-top: calc(var(--safe-top) + 40px);
+      padding-top: calc(var(--safe-top) + 32px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
       overflow: hidden; position: relative;
@@ -129,13 +132,13 @@
       padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
     }
     body.vp-short .preview-hint { margin-top: 8px; margin-bottom: 8px; }
-    body.vp-short .content-platter { padding: 12px; margin-top: 0; margin-bottom: 12px; }
+    body.vp-short .content-platter { padding: 16px; margin-top: 0; margin-bottom: 16px; }
     body.vp-short .scroll-hint { margin-top: 0; margin-bottom: 0; }
 
     .menu-btn {
       position: absolute; top: calc(var(--safe-top) + 16px); left: var(--sp-5);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
-      width: 44px; height: 44px; padding: 10px; background: none; border: none;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+      width: 44px; height: 44px; padding: 8px; background: none; border: none;
       cursor: pointer; z-index: 20; transition: opacity 0.15s ease;
     }
     .menu-btn:active { opacity: 0.4; }
@@ -176,8 +179,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      height: 36px;
+      gap: 8px;
+      height: 44px;
       padding: 0 16px;
       font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
       font-weight: 600;
@@ -210,7 +213,7 @@
       color: var(--color-label);
       cursor: pointer;
       box-shadow: var(--shadow-btn);
-      gap: 6px;
+      gap: 8px;
       transition: background 0.15s ease, transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
     }
     .scroll-hint:active { transform: scale(0.96); }
@@ -218,7 +221,7 @@
 
     .content-platter {
       width: 100%;
-      max-width: 440px;
+      max-width: 448px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
       padding: 16px;
@@ -234,9 +237,10 @@
 
     .headline {
       width: 100%;
-      text-align: center; margin-bottom: 12px;
+      text-align: center; margin-bottom: 16px;
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
       letter-spacing: var(--track-tight); color: var(--color-body);
+      line-height: 1.4;
     }
     .headline .price { color: var(--color-accent); font-weight: 700; }
     .headline .divider { color: #aaaaaa; margin: 0 var(--sp-2); font-weight: 400; }
@@ -257,9 +261,9 @@
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-btn); }
     .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
 
-    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
+    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; }
     .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
-    .payment-logos { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; opacity: 0.45; margin-top: 4px; }
+    .payment-logos { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; opacity: 0.45; margin-top: 8px; }
     .payment-logos img { height: 12px; width: auto; display: block; -webkit-user-drag: none; }
 
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
@@ -269,15 +273,15 @@
     .page-2-inner {
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      padding-top: 32px;
-      padding-bottom: 32px;
+      padding-top: calc(var(--safe-top) + 32px);
+      padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
       padding-left: var(--sp-6); padding-right: var(--sp-6);
       gap: 16px;
       overflow: hidden;
     }
 
     .page-2-platter {
-      width: 100%; max-width: 440px; 
+      width: 100%; max-width: 448px; 
       flex: 1; min-height: 0; 
       background: var(--color-surface);
       border-radius: var(--radius-lg);
@@ -290,8 +294,8 @@
     .page-2-header {
       width: 100%;
       display: flex; align-items: center; justify-content: space-between;
-      flex-shrink: 0; gap: var(--sp-3);
-      padding: 16px 20px 0 20px;
+      flex-shrink: 0; gap: var(--sp-4);
+      padding: 16px 24px 0 24px;
     }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
@@ -305,9 +309,9 @@
     .scroll-up:active { opacity: 0.7; transform: scale(0.95); }
 
     .page-2-rule {
-      width: calc(100% - 40px); height: 1px;
+      width: calc(100% - 48px); height: 1px;
       background: rgba(0, 0, 0, 0.08); 
-      margin: 12px 20px 0 20px;
+      margin: 16px 24px 0 24px;
       flex-shrink: 0;
     }
 
@@ -322,7 +326,7 @@
     .blurb-list {
       flex: 1;
       display: flex; flex-direction: column; gap: var(--sp-5); 
-      padding: 32px 20px 32px 20px; 
+      padding: 32px 24px 32px 24px; 
       overflow-x: hidden; overflow-y: auto;
       touch-action: pan-y; overscroll-behavior-y: contain;
       scrollbar-width: none; -ms-overflow-style: none;
@@ -332,12 +336,12 @@
     .blurb-list::after {
       content: '';
       display: block;
-      height: 28px;
+      height: 32px;
     }
 
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
 
-    .blurb-icon { flex-shrink: 0; width: 22px; height: 22px; color: var(--color-label); margin-top: 1px; }
+    .blurb-icon { flex-shrink: 0; width: 24px; height: 24px; color: var(--color-label); margin-top: 0; }
     .blurb-icon svg { width: 100%; height: 100%; display: block; }
 
     .blurb-text { flex: 1; }
@@ -345,7 +349,7 @@
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
     .counter-bar {
-      width: 100%; max-width: 440px; flex-shrink: 0;
+      width: 100%; max-width: 448px; flex-shrink: 0;
       background: var(--color-bar-bg);
       border-radius: var(--radius-lg);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -355,12 +359,34 @@
       gap: var(--sp-4);
       z-index: 100; 
     }
-    .counter-bar-left { display: flex; flex-direction: column; gap: 3px; }
+    .counter-bar-left { display: flex; flex-direction: column; gap: 4px; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
     .counter-bar-number { font-size: var(--text-counter); font-weight: 700; color: var(--color-white); line-height: 1; }
-    .counter-bar-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.3); flex-shrink: 0; }
+    .counter-bar-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.3); flex-shrink: 0; }
     .counter-bar-right { flex: 1; text-align: right; display: flex; align-items: center; justify-content: flex-end; }
-    .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); }
+    .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; }
+
+    @media (min-width: 768px) {
+      .page-inner,
+      .page-2-inner {
+        padding-left: var(--sp-8);
+        padding-right: var(--sp-8);
+      }
+      .cover-wrapper { max-width: 448px; }
+    }
+
+    @media (min-width: 1024px) {
+      .page-inner {
+        padding-top: calc(var(--safe-top) + 48px);
+        padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px);
+      }
+
+      .page-2-inner {
+        padding-top: calc(var(--safe-top) + 48px);
+        padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px);
+        gap: 24px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -385,7 +411,7 @@
       </div>
 
       <a href="nutrition-invested^preview" class="preview-hint">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px; height:16px;">
           <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
           <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
         </svg>
@@ -418,8 +444,8 @@
 
         <div class="payment-section">
           <p>Opens in Apple Books, Google Play Books and Amazon Kindle.</p>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--text-caption); color: var(--color-muted); font-weight: 500;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:14px; height:14px;">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: var(--text-caption); color: var(--color-muted); font-weight: 500;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px; height:16px;">
               <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
             </svg>
             Secure Checkout
