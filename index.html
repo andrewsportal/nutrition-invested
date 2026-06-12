@@ -159,7 +159,7 @@
       left: var(--sp-5);
       width: 48px; height: 48px; background: rgba(255, 255, 255, 0.75);
       backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle); box-shadow: var(--shadow-surface);
+      border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius-circle); box-shadow: var(--shadow-surface);
       display: flex; align-items: center; justify-content: center; text-decoration: none;
       z-index: 20; opacity: 0;
       pointer-events: none; transform: translateY(-6px);
@@ -212,11 +212,13 @@
 
     .scroll-hint {
       margin: 0;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       color: var(--color-label);
       cursor: pointer;
-      box-shadow: var(--shadow-btn);
+      box-shadow: var(--shadow-surface);
       gap: 8px;
       transition: background 0.15s ease, transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
     }
@@ -304,12 +306,15 @@
 
     .scroll-up {
       margin-left: auto; flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.75); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-circle); width: 44px; height: 44px; padding: 0;
-      display: inline-flex; align-items: center; justify-content: center; box-shadow: var(--shadow-surface); z-index: 10;
-      transition: transform 0.2s ease, opacity 0.15s ease;
+      /* On the white card: filled gray body + hairline so the control reads
+         against white (Apple's on-surface button), instead of glass that
+         dissolves into the card behind it. */
+      background: rgba(118,118,128,0.12);
+      border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-circle); width: 44px; height: 44px; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04); z-index: 10;
+      transition: background 0.15s ease, transform 0.2s ease, opacity 0.15s ease;
     }
-    .scroll-up:active { opacity: 0.7; transform: scale(0.95); }
+    .scroll-up:active { background: rgba(118,118,128,0.2); transform: scale(0.95); }
 
     .page-2-rule {
       width: calc(100% - 48px); height: 1px;
