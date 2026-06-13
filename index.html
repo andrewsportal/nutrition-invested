@@ -17,8 +17,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 
   <style>
-    @property --fade-top { syntax: '<length>'; inherits: false; initial-value: 56px; }
-    @property --clear-top { syntax: '<length>'; inherits: false; initial-value: 14px; }
+    @property --fade-top { syntax: '<length>'; inherits: false; initial-value: 48px; }
+    @property --clear-top { syntax: '<length>'; inherits: false; initial-value: 7px; }
     @property --fade-bottom { syntax: '<length>'; inherits: false; initial-value: 66px; }
     @property --clear-bottom { syntax: '<length>'; inherits: false; initial-value: 36px; }
 
@@ -353,8 +353,8 @@
          content, so even the faintest faded text never touches the line. */
       margin: 14px 0 8px 0;
       /* Fade ramp happens INSIDE that band. Bottom > top. */
-      --fade-top: 56px;
-      --clear-top: 14px;
+      --fade-top: 48px;
+      --clear-top: 7px;
       --fade-bottom: 66px;
       --clear-bottom: 36px;
       transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
