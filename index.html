@@ -170,7 +170,7 @@
     .cover-wrapper {
       width: 100%; max-width: 416px;
       display: flex; align-items: center; justify-content: center;
-      flex: 1.25 1 0%; min-height: 20vh; max-height: var(--cover-mh, 60dvh);
+      flex: 1.25 1 0%; min-height: 20vh; max-height: var(--cover-mh, 64dvh);
     }
     .cover-wrapper a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
     .cover-wrapper img {
@@ -230,7 +230,7 @@
       max-width: 432px;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
-      padding: 12px 12px 14px 12px;
+      padding: 10px 10px 12px 10px;
       box-shadow: var(--shadow-surface);
       display: flex;
       flex-direction: column;
@@ -254,7 +254,7 @@
     .buy-btn {
       display: flex; align-items: center;
       justify-content: center; gap: var(--sp-2); width: 100%; 
-      min-height: 40px;
+      min-height: 38px;
       background: var(--color-surface); color: var(--color-body); 
       border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
       padding: 8px 16px; font-family: var(--font); font-size: var(--text-label); font-weight: 600;
@@ -319,20 +319,20 @@
     /* "More below" cue — same chevron language as page 1. Only shown when
        there is hidden content below; hidden at the bottom and when it all fits. */
     .more-cue {
-      display: none;
-      flex-direction: row; align-items: center; justify-content: center; gap: 5px;
-      flex-shrink: 0;
-      margin-top: 18px;
-      padding-bottom: 14px;
+      position: absolute; left: 50%; bottom: 18px;
+      transform: translateX(-50%);
+      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 5px;
       color: var(--color-muted);
-      pointer-events: none;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 6;
     }
     .more-cue-label {
       font-size: 10px; font-weight: 600; line-height: 1;
       letter-spacing: 0.08em; text-transform: uppercase;
     }
     .more-cue svg { display: block; }
-    .page-2-platter.has-more .more-cue { display: flex; }
+    .page-2-platter.has-more .more-cue { opacity: 1; }
     @media (prefers-reduced-motion: no-preference) {
       .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
     }
@@ -704,7 +704,7 @@
       var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       var low = 700, high = 830;
       var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
-      var cvh = 70 + (82 - 70) * t;
+      var cvh = 74 + (86 - 74) * t;
       var coverVal = cvh.toFixed(1) + 'dvh';
       if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
     }
