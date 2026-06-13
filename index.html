@@ -17,7 +17,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 
   <style>
-    @property --fade-top { syntax: '<length>'; inherits: false; initial-value: 36px; }
+    @property --fade-top { syntax: '<length>'; inherits: false; initial-value: 66px; }
+    @property --clear-top { syntax: '<length>'; inherits: false; initial-value: 36px; }
     @property --fade-bottom { syntax: '<length>'; inherits: false; initial-value: 66px; }
     @property --clear-bottom { syntax: '<length>'; inherits: false; initial-value: 36px; }
 
@@ -352,15 +353,16 @@
          content, so even the faintest faded text never touches the line. */
       margin: 14px 0 8px 0;
       /* Fade ramp happens INSIDE that band. Bottom > top. */
-      --fade-top: 36px;
+      --fade-top: 66px;
+      --clear-top: 36px;
       --fade-bottom: 66px;
       --clear-bottom: 36px;
-      transition: --fade-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
+      transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
     }
     /* Edge-aware: kill the fade once you've reached that end (Apple pattern) */
-    .blurb-scroll-wrapper.at-top { --fade-top: 0px; }
+    .blurb-scroll-wrapper.at-top { --fade-top: 0px; --clear-top: 0px; }
     .blurb-scroll-wrapper.at-bottom { --fade-bottom: 0px; --clear-bottom: 0px; }
     
     .blurb-list {
