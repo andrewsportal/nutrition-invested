@@ -19,8 +19,8 @@
   <style>
     @property --fade-top { syntax: '<length>'; inherits: false; initial-value: 48px; }
     @property --clear-top { syntax: '<length>'; inherits: false; initial-value: 7px; }
-    @property --fade-bottom { syntax: '<length>'; inherits: false; initial-value: 66px; }
-    @property --clear-bottom { syntax: '<length>'; inherits: false; initial-value: 36px; }
+    @property --fade-bottom { syntax: '<length>'; inherits: false; initial-value: 96px; }
+    @property --clear-bottom { syntax: '<length>'; inherits: false; initial-value: 40px; }
 
     *, *::before, *::after {
       box-sizing: border-box;
@@ -319,12 +319,17 @@
     .scroll-up:active { background: rgba(118,118,128,0.2); transform: scale(0.95); }
 
     /* "More below" cue — same chevron language as page 1. Only shown when
-       there is hidden content below; hidden at the bottom and when it all fits. */
+       there is hidden content below; hidden at the bottom and when it all fits.
+       A solid white scrim sits behind it so the SCROLL label always lands on
+       clean white — never colliding with a half-faded line, regardless of how
+       short the browser's usable viewport is (Safari bottom bar, etc.). */
     .more-cue {
-      position: absolute; left: 50%; bottom: 18px;
-      transform: translateX(-50%);
-      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 5px;
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 72px;
+      display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 5px;
+      padding-bottom: 16px;
       color: var(--color-muted);
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 55%, #ffffff 100%);
       opacity: 0; pointer-events: none;
       transition: opacity 0.25s ease;
       z-index: 6;
@@ -352,11 +357,15 @@
       /* Solid pure-white band between the rule/card-edge and the masked
          content, so even the faintest faded text never touches the line. */
       margin: 14px 0 8px 0;
-      /* Fade ramp happens INSIDE that band. Bottom > top. */
+      /* Fade ramp happens INSIDE that band. Bottom > top.
+         Bottom fade is deepened so a partially-revealed last line always
+         dissolves well before it reaches the SCROLL cue — even on Safari,
+         where the bottom toolbar shrinks the card and would otherwise leave
+         a still-legible line crammed against the cue. */
       --fade-top: 48px;
       --clear-top: 7px;
-      --fade-bottom: 66px;
-      --clear-bottom: 36px;
+      --fade-bottom: 96px;
+      --clear-bottom: 40px;
       transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
       -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
       mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
@@ -641,9 +650,9 @@
       var atBottom = st >= max - 1;
       blurbWrapper.classList.toggle('at-top', atTop);
       blurbWrapper.classList.toggle('at-bottom', atBottom);
-      // Show the scroll hint only at the very top; the first scroll dismisses
-      // it (its job is done the moment you engage).
-      if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && atTop);
+      // Show the scroll cue whenever there is hidden content below — not only
+      // at the very top — so it keeps masking partially-revealed lines mid-scroll.
+      if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && !atBottom);
     }
     if (blurbList) {
       blurbList.addEventListener('scroll', updateFades, { passive: true });
@@ -729,6 +738,7 @@
       window.visualViewport.addEventListener('resize', function() {
         setViewportClass();
         setAdaptiveLayout();
+        updateFades();
       });
     }
 
