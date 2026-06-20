@@ -347,7 +347,7 @@
     .counter-bar-right.show-quote .counter-right-default { transform: translateX(112%); opacity: 0; pointer-events: none; }
     .counter-bar-right.show-quote .counter-right-quote { transform: translateX(0); opacity: 1; pointer-events: auto; }
     .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; }
-    .counter-rating { display: inline-flex; align-items: center; gap: 1px; color: rgba(255,255,255,0.88); font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; }
+    .counter-rating { display: inline-flex; align-items: center; gap: 1px; color: #D4A24E; font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; }
     .counter-receipts-link {
       appearance: none; border: 0; background: none; color: rgba(255,255,255,0.9); font: inherit; font-size: var(--text-caption);
       font-weight: 600; letter-spacing: 0.02em; text-decoration: underline; text-underline-offset: 2px; padding: 0; cursor: pointer; transition: opacity 0.2s ease, transform var(--timing-spring);
@@ -619,7 +619,6 @@
     }
 
     function readerAssetPath(fileName) {
-      // Appends .jpg automatically if you only provide the core name (e.g., 'pic1')
       var ext = fileName.includes('.') ? '' : '.jpg';
       return './' + fileName + ext;
     }
