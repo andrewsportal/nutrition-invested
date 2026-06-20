@@ -33,9 +33,9 @@
 
     :focus:not(:focus-visible) { outline: none; }
     :focus-visible {
-      outline: 2px solid rgba(78,139,97,0.6);
+      outline: 2px solid rgba(0,122,255,0.45);
       outline-offset: 2px;
-      border-radius: 2px;
+      border-radius: 10px;
     }
 
     :root {
@@ -85,6 +85,12 @@
       --shadow-btn: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
       --shadow-surface: 0 4px 24px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
       --shadow-primary: 0 8px 32px rgba(78,139,97,0.25), 0 2px 8px rgba(0,0,0,0.1);
+      --shadow-control: 0 2px 10px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-control-hover: 0 5px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+      --control-glass-bg: rgba(255, 255, 255, 0.76);
+      --control-glass-bg-hover: rgba(255, 255, 255, 0.88);
+      --control-glass-border: rgba(255,255,255,0.52);
+      --timing-spring: 0.22s cubic-bezier(0.32, 0.72, 0, 1);
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -147,25 +153,25 @@
       position: absolute; top: calc(var(--safe-top) + 16px); left: var(--sp-5);
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
       width: 44px; height: 44px; padding: 0;
-      background: rgba(255, 255, 255, 0.78);
+      background: var(--control-glass-bg);
       backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
-      border: 1px solid rgba(255,255,255,0.5);
+      border: 1px solid var(--control-glass-border);
       border-radius: var(--radius-circle);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-control);
       cursor: pointer; z-index: 22;
-      transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s ease, background 0.2s ease, opacity 0.15s ease;
+      transition: transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease, opacity 0.15s ease;
     }
     .menu-btn:active { transform: scale(0.95); opacity: 0.92; }
     .menu-btn.open {
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+      background: var(--control-glass-bg-hover);
+      box-shadow: var(--shadow-control-hover);
     }
     .menu-btn span {
       display: block; width: 16px; height: 2px;
-      background: rgba(0,0,0,0.48);
+      background: rgba(0,0,0,0.5);
       border-radius: 1px;
       transform-origin: center;
-      transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease, background 0.2s ease;
+      transition: transform var(--timing-spring), opacity 0.2s ease, background 0.2s ease;
     }
     .menu-btn.open span { background: rgba(0,0,0,0.62); }
     .menu-btn.open span:nth-child(1) { transform: translateY(3px) rotate(45deg); }
@@ -174,30 +180,36 @@
     .menu-envelope {
       position: absolute; top: calc(var(--safe-top) + 68px);
       left: var(--sp-5);
-      width: 44px; height: 44px; background: rgba(255, 255, 255, 0.68);
+      width: 44px; height: 44px; background: var(--control-glass-bg);
       backdrop-filter: saturate(170%) blur(16px); -webkit-backdrop-filter: saturate(170%) blur(16px);
-      border: 1px solid rgba(255,255,255,0.48); border-radius: var(--radius-circle);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+      border: 1px solid var(--control-glass-border); border-radius: var(--radius-circle);
+      box-shadow: var(--shadow-control);
       display: flex; align-items: center; justify-content: center; text-decoration: none;
       z-index: 21; opacity: 0;
       pointer-events: none; transform: translateY(-10px) scale(0.9);
-      transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s ease, background 0.2s ease;
+      transition: opacity 0.2s ease, transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
     }
     .menu-envelope.open {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0) scale(1);
-      background: rgba(255, 255, 255, 0.76);
+      background: var(--control-glass-bg);
     }
     .menu-envelope:active { transform: translateY(0) scale(0.95); }
     @media (hover: hover) and (pointer: fine) {
       .menu-btn:hover {
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 4px 14px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+        background: var(--control-glass-bg-hover);
+        box-shadow: var(--shadow-control-hover);
       }
       .menu-envelope.open:hover {
-        background: rgba(255, 255, 255, 0.84);
-        box-shadow: 0 4px 14px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+        background: var(--control-glass-bg-hover);
+        box-shadow: var(--shadow-control-hover);
+      }
+      .preview-hint:hover,
+      .scroll-hint:hover {
+        background: var(--control-glass-bg-hover);
+        box-shadow: var(--shadow-control-hover);
+        transform: translateY(-1px);
       }
     }
 
@@ -234,27 +246,27 @@
     .preview-hint {
       margin: 0;
       color: var(--color-body);
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      box-shadow: var(--shadow-surface);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: var(--control-glass-bg);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: var(--shadow-control);
+      border: 1px solid var(--control-glass-border);
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+      transition: transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
     }
     .preview-hint:active { transform: scale(0.96); }
 
     .scroll-hint {
       margin: 0;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: var(--control-glass-bg);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      border: 1px solid var(--control-glass-border);
       color: var(--color-label);
       cursor: pointer;
-      box-shadow: var(--shadow-surface);
+      box-shadow: var(--shadow-control);
       gap: 8px;
-      transition: background 0.15s ease, transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform var(--timing-spring), color 0.2s ease;
     }
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
@@ -262,8 +274,9 @@
     .content-platter {
       width: 100%;
       max-width: 432px;
-      background: var(--color-surface);
+      background: rgba(255,255,255,0.92);
       border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.5);
       padding: 10px 10px 12px 10px;
       box-shadow: var(--shadow-surface);
       display: flex;
@@ -322,8 +335,9 @@
     .page-2-platter {
       width: 100%; max-width: 448px; 
       flex: 1; min-height: 0; 
-      background: var(--color-surface);
+      background: rgba(255,255,255,0.92);
       border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.5);
       box-shadow: var(--shadow-surface);
       display: flex; flex-direction: column;
       overflow: hidden;
@@ -358,8 +372,8 @@
     .more-cue {
       position: absolute; left: 0; right: 0; bottom: 0;
       height: 72px;
-      display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 5px;
-      padding-bottom: 20px;
+      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px;
+      padding-bottom: 16px;
       color: var(--color-muted);
       background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 55%, #ffffff 100%);
       opacity: 0; pointer-events: none;
@@ -368,9 +382,10 @@
     }
     .more-cue-label {
       font-size: 10px; font-weight: 600; line-height: 1;
+      display: inline-flex; align-items: center;
       letter-spacing: 0.08em; text-transform: uppercase;
     }
-    .more-cue svg { display: block; }
+    .more-cue svg { display: block; transform: translateY(1px); }
     .page-2-platter.has-more .more-cue { opacity: 1; }
     @media (prefers-reduced-motion: no-preference) {
       .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
@@ -440,16 +455,139 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: var(--shadow-primary);
       padding: var(--sp-4) var(--sp-5);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: stretch; justify-content: space-between;
       gap: var(--sp-4);
       z-index: 100; 
     }
-    .counter-bar-left { display: flex; flex-direction: column; gap: 4px; }
+    .counter-bar-left { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
     .counter-bar-number { font-size: var(--text-counter); font-weight: 700; color: var(--color-white); line-height: 1; }
-    .counter-bar-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.3); flex-shrink: 0; }
-    .counter-bar-right { flex: 1; text-align: right; display: flex; align-items: center; justify-content: flex-end; }
+    .counter-avatar-stack {
+      display: flex;
+      align-items: center;
+      margin-top: 2px;
+      padding-left: 1px;
+      min-height: 20px;
+    }
+    .counter-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(255,255,255,0.95);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      display: block;
+      background: rgba(255,255,255,0.2);
+    }
+    .counter-avatar + .counter-avatar { margin-left: -5px; }
+    .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
+    .counter-bar-right {
+      flex: 1;
+      min-width: 0;
+      display: grid;
+      align-content: center;
+      justify-items: end;
+      text-align: right;
+      position: relative;
+      overflow: hidden;
+    }
+    .counter-right-panel {
+      grid-area: 1 / 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 3px;
+      transition: transform var(--timing-spring), opacity 0.2s ease;
+      will-change: transform, opacity;
+    }
+    .counter-right-default { transform: translateX(0); opacity: 1; }
+    .counter-right-quote { transform: translateX(-112%); opacity: 0; pointer-events: none; }
+    .counter-bar-right.show-quote .counter-right-default { transform: translateX(112%); opacity: 0; pointer-events: none; }
+    .counter-bar-right.show-quote .counter-right-quote { transform: translateX(0); opacity: 1; pointer-events: auto; }
     .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; }
+    .counter-rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 1px;
+      color: rgba(255,255,255,0.88);
+      font-size: 0.75rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+    .counter-receipts-link {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: rgba(255,255,255,0.9);
+      font: inherit;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      padding: 0;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform var(--timing-spring);
+    }
+    .counter-receipts-link:active { opacity: 0.8; transform: scale(0.97); }
+    .counter-quote-text {
+      font-size: var(--text-caption);
+      line-height: 1.35;
+      color: rgba(255,255,255,0.96);
+      text-align: right;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+    .counter-quote-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .counter-quote-photo {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(255,255,255,0.95);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.2);
+      display: block;
+    }
+    .counter-quote-name {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.01em;
+    }
+    .counter-quote-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .counter-quote-btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.36);
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.12);
+      color: var(--color-white);
+      font: inherit;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      line-height: 1;
+      min-width: 26px;
+      height: 24px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease, transform var(--timing-spring), opacity 0.2s ease;
+    }
+    .counter-quote-btn:active { background: rgba(255,255,255,0.2); transform: scale(0.96); }
 
     @media (min-width: 768px) {
       .page-inner,
@@ -649,10 +787,34 @@
           <span class="counter-bar-label">In the Market</span>
           <span class="counter-bar-number" data-target="87"><span id="counter-display">—</span></span>
           <span class="counter-bar-word">Investors</span>
+          <div class="counter-avatar-stack" aria-label="Reader avatar stack">
+            <img class="counter-avatar" src="/assets/images/readers/pic1.jpg" alt="Reader avatar 1" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="/assets/images/readers/pic2.jpg" alt="Reader avatar 2" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="/assets/images/readers/pic3.jpg" alt="Reader avatar 3" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="/assets/images/readers/pic4.jpg" alt="Reader avatar 4" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="/assets/images/readers/pic5.jpg" alt="Reader avatar 5" loading="lazy" decoding="async">
+          </div>
         </div>
         <div class="counter-bar-divider" aria-hidden="true"></div>
-        <div class="counter-bar-right">
-          <span class="counter-bar-tagline">Drip on.<br>Compounds up.</span>
+        <div id="counter-bar-right" class="counter-bar-right">
+          <div class="counter-right-panel counter-right-default">
+            <span class="counter-bar-tagline">Drip on.<br>Compounds up.</span>
+            <div class="counter-rating" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+            </div>
+            <button id="read-receipts" class="counter-receipts-link" type="button">Read the Receipts</button>
+          </div>
+          <div class="counter-right-panel counter-right-quote" aria-live="polite">
+            <p id="reader-quote-text" class="counter-quote-text"></p>
+            <div class="counter-quote-meta">
+              <img id="reader-quote-photo" class="counter-quote-photo" src="/assets/images/readers/pic1.jpg" alt="Reader photo" loading="lazy" decoding="async">
+              <span id="reader-quote-name" class="counter-quote-name"></span>
+            </div>
+            <div class="counter-quote-controls">
+              <button id="reader-quote-back" class="counter-quote-btn" type="button" aria-label="Back to receipts intro">←</button>
+              <button id="reader-quote-next" class="counter-quote-btn" type="button" aria-label="Next reader quote">→</button>
+            </div>
+          </div>
         </div>
       </footer>
 
@@ -699,6 +861,57 @@
     if (displayEl) {
       displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
     }
+
+    var counterBarRight = document.getElementById('counter-bar-right');
+    var readReceiptsBtn = document.getElementById('read-receipts');
+    var quoteTextEl = document.getElementById('reader-quote-text');
+    var quoteNameEl = document.getElementById('reader-quote-name');
+    var quotePhotoEl = document.getElementById('reader-quote-photo');
+    var quoteNextBtn = document.getElementById('reader-quote-next');
+    var quoteBackBtn = document.getElementById('reader-quote-back');
+    var quoteIndex = 0;
+    var readerQuotes = [
+      { quote: 'Short. Tactical. Exactly what I needed to stop overthinking meals.', name: 'Alex R.', photo: '/assets/images/readers/pic1.jpg' },
+      { quote: 'I used the plate framework for one week and felt in control again.', name: 'Jordan T.', photo: '/assets/images/readers/pic2.jpg' },
+      { quote: 'Simple language, clear actions, no fluff. I reread it every Sunday.', name: 'Maya L.', photo: '/assets/images/readers/pic3.jpg' },
+      { quote: 'The recovery section kept me from quitting after a rough travel week.', name: 'Chris D.', photo: '/assets/images/readers/pic4.jpg' },
+      { quote: 'I finally understand what to track and what to ignore.', name: 'Nina S.', photo: '/assets/images/readers/pic5.jpg' },
+      { quote: 'It feels like having a coach in my pocket, minus the complexity.', name: 'Evan P.', photo: '/assets/images/readers/pic1.jpg' }
+    ];
+
+    function renderReaderQuote(index) {
+      if (!quoteTextEl || !quoteNameEl || !quotePhotoEl || readerQuotes.length === 0) return;
+      var item = readerQuotes[index % readerQuotes.length];
+      quoteTextEl.textContent = '"' + item.quote + '"';
+      quoteNameEl.textContent = item.name;
+      quotePhotoEl.src = item.photo;
+      quotePhotoEl.alt = item.name + ' photo';
+    }
+
+    function openReceipts() {
+      if (!counterBarRight) return;
+      renderReaderQuote(quoteIndex);
+      counterBarRight.classList.add('show-quote');
+    }
+
+    function closeReceipts() {
+      if (!counterBarRight) return;
+      counterBarRight.classList.remove('show-quote');
+    }
+
+    if (readReceiptsBtn) {
+      readReceiptsBtn.addEventListener('click', openReceipts);
+    }
+    if (quoteNextBtn) {
+      quoteNextBtn.addEventListener('click', function () {
+        quoteIndex = (quoteIndex + 1) % readerQuotes.length;
+        renderReaderQuote(quoteIndex);
+      });
+    }
+    if (quoteBackBtn) {
+      quoteBackBtn.addEventListener('click', closeReceipts);
+    }
+    renderReaderQuote(quoteIndex);
 
     var menuBtn = document.getElementById('menu-btn');
     var menuEnvelope = document.getElementById('menu-envelope');
