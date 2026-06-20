@@ -298,12 +298,12 @@
 
     .more-cue {
       position: absolute; left: 0; right: 0; bottom: 0; height: 72px;
-      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; padding-bottom: 16px; color: var(--color-muted);
+      display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 6px; padding-bottom: 13px; color: var(--color-muted);
       background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 55%, #ffffff 100%);
       opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 6;
     }
     .more-cue-label { font-size: 10px; font-weight: 600; line-height: 1; display: inline-flex; align-items: center; letter-spacing: 0.08em; text-transform: uppercase; }
-    .more-cue svg { display: block; transform: translateY(1px); }
+    .more-cue svg { display: block; transform: translateY(-1px); }
     .page-2-platter.has-more .more-cue { opacity: 1; }
     @media (prefers-reduced-motion: no-preference) { .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; } }
 
@@ -340,7 +340,7 @@
     .counter-bar-left { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
     .counter-bar-number { font-size: var(--text-counter); font-weight: 700; color: var(--color-white); line-height: 1; }
-    .counter-avatar-stack { display: flex; align-items: center; margin-top: 2px; padding-left: 1px; min-height: 20px; }
+    .counter-avatar-stack { display: flex; align-items: center; margin-top: 7px; padding-left: 1px; min-height: 20px; }
     .counter-avatar {
       width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95);
       box-shadow: 0 1px 2px rgba(0,0,0,0.12); display: block; background: rgba(255,255,255,0.2);
@@ -349,9 +349,10 @@
     .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
     .counter-bar-right { flex: 1; min-width: 0; display: grid; align-content: center; justify-items: end; text-align: right; position: relative; overflow: hidden; }
     .counter-right-panel {
-      grid-area: 1 / 1; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 3px;
+      grid-area: 1 / 1; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;
       transition: transform var(--timing-spring), opacity 0.2s ease; will-change: transform, opacity;
     }
+    .counter-rating-group { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
     .counter-right-default { transform: translateX(0); opacity: 1; }
     .counter-right-quote { transform: translateX(-112%); opacity: 0; pointer-events: none; }
     .counter-bar-right.show-quote .counter-right-default { transform: translateX(112%); opacity: 0; pointer-events: none; }
@@ -570,10 +571,12 @@
         <div id="counter-bar-right" class="counter-bar-right">
           <div class="counter-right-panel counter-right-default">
             <span class="counter-bar-tagline">Drip on.<br>Compounds up.</span>
-            <div class="counter-rating" aria-label="5 out of 5 stars">
-              <span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+            <div class="counter-rating-group">
+              <div class="counter-rating" aria-label="5 out of 5 stars">
+                <span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              </div>
+              <button id="read-receipts" class="counter-receipts-link" type="button">Read the Receipts</button>
             </div>
-            <button id="read-receipts" class="counter-receipts-link" type="button">Read the Receipts</button>
           </div>
           <div class="counter-right-panel counter-right-quote" aria-live="polite">
             <p id="reader-quote-text" class="counter-quote-text"></p>
