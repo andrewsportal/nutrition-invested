@@ -336,7 +336,6 @@
       width: 100%; max-width: 448px; flex-shrink: 0; background: var(--color-bar-bg); border-radius: var(--radius-lg);
       border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: var(--shadow-primary); padding: var(--sp-4) var(--sp-5);
       display: flex; align-items: stretch; justify-content: space-between; gap: var(--sp-4); z-index: 100;
-      min-height: 7.75rem;
     }
     .counter-bar-left { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
@@ -348,9 +347,10 @@
     }
     .counter-avatar + .counter-avatar { margin-left: -5px; }
     .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
-    .counter-bar-right { flex: 1; min-width: 0; display: grid; align-content: center; justify-items: end; text-align: right; position: relative; overflow: hidden; }
+    .counter-bar-right { flex: 1; min-width: 0; position: relative; overflow: hidden; text-align: right; }
     .counter-right-panel {
-      grid-area: 1 / 1; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;
       transition: transform var(--timing-spring), opacity 0.2s ease; will-change: transform, opacity;
     }
     .counter-rating-group { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
@@ -633,6 +633,7 @@
     }
 
     function readerAssetPath(fileName) {
+      // Appends .jpg automatically if you only provide the core name (e.g., 'pic1')
       var ext = fileName.includes('.') ? '' : '.jpg';
       return './' + fileName + ext;
     }
