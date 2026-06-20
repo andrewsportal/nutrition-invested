@@ -49,7 +49,6 @@
       --color-muted: #8E8E93;
       --color-white: #ffffff;
       --color-bar-bg: #4E8B61;
-      
       --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
 
       --text-caption: clamp(0.6875rem, 2.8vw, 0.75rem);
@@ -71,10 +70,7 @@
       --sp-7: 32px;
       --sp-8: 48px;
       --sp-9: 64px;
-
-      /* Unified Apple-HIG vertical rhythm for the page-1 stack */
       --stack-gap: clamp(12px, 2.2dvh, 20px);
-
       --radius-sm: 12px;
       --radius-md: 16px;
       --radius-lg: 24px;
@@ -162,10 +158,7 @@
       transition: transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease, opacity 0.15s ease;
     }
     .menu-btn:active { transform: scale(0.95); opacity: 0.92; }
-    .menu-btn.open {
-      background: var(--control-glass-bg-hover);
-      box-shadow: var(--shadow-control-hover);
-    }
+    .menu-btn.open { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
     .menu-btn span {
       display: block; width: 16px; height: 2px;
       background: rgba(0,0,0,0.5);
@@ -189,28 +182,12 @@
       pointer-events: none; transform: translateY(-10px) scale(0.9);
       transition: opacity 0.2s ease, transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
     }
-    .menu-envelope.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-      background: var(--control-glass-bg);
-    }
+    .menu-envelope.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); background: var(--control-glass-bg); }
     .menu-envelope:active { transform: translateY(0) scale(0.95); }
     @media (hover: hover) and (pointer: fine) {
-      .menu-btn:hover {
-        background: var(--control-glass-bg-hover);
-        box-shadow: var(--shadow-control-hover);
-      }
-      .menu-envelope.open:hover {
-        background: var(--control-glass-bg-hover);
-        box-shadow: var(--shadow-control-hover);
-      }
-      .preview-hint:hover,
-      .scroll-hint:hover {
-        background: var(--control-glass-bg-hover);
-        box-shadow: var(--shadow-control-hover);
-        transform: translateY(-1px);
-      }
+      .menu-btn:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
+      .menu-envelope.open:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
+      .preview-hint:hover, .scroll-hint:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); transform: translateY(-1px); }
     }
 
     .cover-wrapper {
@@ -221,93 +198,56 @@
     .cover-wrapper a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
     .cover-wrapper img {
       display: block; width: auto; max-width: 100%; height: 100%;
-      object-fit: contain;
-      filter: var(--shadow-cover); will-change: filter; cursor: pointer; -webkit-user-drag: none;
+      object-fit: contain; filter: var(--shadow-cover); will-change: filter; cursor: pointer; -webkit-user-drag: none;
       transition: transform 0.22s ease, filter 0.22s ease;
     }
     .cover-wrapper img:active { transform: scale(0.99); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10)); }
 
     .preview-hint, .scroll-hint {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      height: 36px;
-      padding: 0 15px;
-      font-size: clamp(0.75rem, 2.8vw, 0.8125rem);
-      font-weight: 600;
-      border-radius: var(--radius-pill);
-      letter-spacing: var(--track-wide);
-      flex-shrink: 0;
-      z-index: 10;
-      text-decoration: none; 
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      height: 36px; padding: 0 15px; font-size: clamp(0.75rem, 2.8vw, 0.8125rem); font-weight: 600;
+      border-radius: var(--radius-pill); letter-spacing: var(--track-wide); flex-shrink: 0; z-index: 10; text-decoration: none; 
     }
 
     .preview-hint {
-      margin: 0;
-      color: var(--color-body);
-      background: var(--control-glass-bg);
-      backdrop-filter: saturate(180%) blur(18px);
-      -webkit-backdrop-filter: saturate(180%) blur(18px);
-      box-shadow: var(--shadow-control);
-      border: 1px solid var(--control-glass-border);
-      cursor: pointer;
+      margin: 0; color: var(--color-body); background: var(--control-glass-bg);
+      backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: var(--shadow-control); border: 1px solid var(--control-glass-border); cursor: pointer;
       transition: transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
     }
     .preview-hint:active { transform: scale(0.96); }
 
     .scroll-hint {
-      margin: 0;
-      background: var(--control-glass-bg);
-      backdrop-filter: saturate(180%) blur(18px);
-      -webkit-backdrop-filter: saturate(180%) blur(18px);
-      border: 1px solid var(--control-glass-border);
-      color: var(--color-label);
-      cursor: pointer;
-      box-shadow: var(--shadow-control);
-      gap: 8px;
+      margin: 0; background: var(--control-glass-bg); backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px); border: 1px solid var(--control-glass-border); color: var(--color-label);
+      cursor: pointer; box-shadow: var(--shadow-control); gap: 8px;
       transition: background 0.2s ease, box-shadow 0.2s ease, transform var(--timing-spring), color 0.2s ease;
     }
     .scroll-hint:active { transform: scale(0.96); }
     .scroll-hint-chevron { display: flex; align-items: center; }
 
     .content-platter {
-      width: 100%;
-      max-width: 432px;
-      background: rgba(255,255,255,0.92);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,0.5);
-      padding: 10px 10px 12px 10px;
-      box-shadow: var(--shadow-surface);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      flex-shrink: 0;
-      z-index: 5;
+      width: 100%; max-width: 432px; background: rgba(255,255,255,0.92); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.5); padding: 10px 10px 12px 10px; box-shadow: var(--shadow-surface);
+      display: flex; flex-direction: column; align-items: center; margin: 0; flex-shrink: 0; z-index: 5;
     }
 
     .headline {
-      width: 100%;
-      text-align: center; margin-bottom: 10px;
+      width: 100%; text-align: center; margin-bottom: 10px;
       font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
-      letter-spacing: var(--track-tight); color: var(--color-body);
-      line-height: 1.4;
+      letter-spacing: var(--track-tight); color: var(--color-body); line-height: 1.4;
     }
     .headline .price { color: var(--color-accent); font-weight: 700; }
     .headline .divider { color: #aaaaaa; margin: 0 var(--sp-2); font-weight: 400; }
 
     .buttons { width: 100%; display: flex; flex-direction: column; gap: 8px; }
     .buy-btn {
-      display: flex; align-items: center;
-      justify-content: center; gap: var(--sp-2); width: 100%; 
-      min-height: 38px;
-      background: var(--color-surface); color: var(--color-body); 
-      border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
-      padding: 8px 16px; font-family: var(--font); font-size: var(--text-label); font-weight: 600;
-      font-synthesis: none; letter-spacing: var(--track-normal); text-decoration: none; box-shadow: var(--shadow-btn);
-      user-select: none;
-      -webkit-user-select: none; transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s ease, opacity 0.15s ease;
+      display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+      width: 100%; min-height: 38px; background: var(--color-surface); color: var(--color-body); 
+      border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 8px 16px; font-family: var(--font);
+      font-size: var(--text-label); font-weight: 600; font-synthesis: none; letter-spacing: var(--track-normal); text-decoration: none; box-shadow: var(--shadow-btn);
+      user-select: none; -webkit-user-select: none;
+      transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s ease, opacity 0.15s ease;
     }
     .buy-btn:active { transform: scale(0.96); opacity: 0.9; }
     .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: var(--shadow-btn); }
@@ -321,42 +261,24 @@
     @media (prefers-reduced-motion: no-preference) { .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; } }
     @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-    /* PAGE 2 — Apple HIG perfect 32px symmetric spacing + fade */
     .page-2-inner {
       width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center;
-      padding-top: calc(var(--safe-top) + 32px);
-      padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
-      padding-left: var(--sp-6); padding-right: var(--sp-6);
-      gap: 16px;
-      overflow: hidden;
+      padding-top: calc(var(--safe-top) + 32px); padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
+      padding-left: var(--sp-6); padding-right: var(--sp-6); gap: 16px; overflow: hidden;
     }
 
     .page-2-platter {
-      width: 100%; max-width: 448px; 
-      flex: 1; min-height: 0; 
-      background: rgba(255,255,255,0.92);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,0.5);
-      box-shadow: var(--shadow-surface);
-      display: flex; flex-direction: column;
-      overflow: hidden;
-      position: relative;
+      width: 100%; max-width: 448px; flex: 1; min-height: 0; 
+      background: rgba(255,255,255,0.92); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: var(--shadow-surface); display: flex; flex-direction: column; overflow: hidden; position: relative;
     }
 
-    .page-2-header {
-      width: 100%;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-shrink: 0; gap: var(--sp-4);
-      padding: 16px 24px 0 24px;
-    }
+    .page-2-header { width: 100%; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: var(--sp-4); padding: 16px 24px 0 24px; }
     .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.3125rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
 
     .scroll-up {
       margin-left: auto; flex-shrink: 0;
-      /* On the white card: filled gray body + hairline so the control reads
-         against white (Apple's on-surface button), instead of glass that
-         dissolves into the card behind it. */
       background: rgba(118,118,128,0.12);
       border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-circle); width: 44px; height: 44px; padding: 0;
       display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04); z-index: 10;
@@ -364,251 +286,92 @@
     }
     .scroll-up:active { background: rgba(118,118,128,0.2); transform: scale(0.95); }
 
-    /* "More below" cue — same chevron language as page 1. Only shown when
-       there is hidden content below; hidden at the bottom and when it all fits.
-       A solid white scrim sits behind it so the SCROLL label always lands on
-       clean white — never colliding with a half-faded line, regardless of how
-       short the browser's usable viewport is (Safari bottom bar, etc.). */
     .more-cue {
-      position: absolute; left: 0; right: 0; bottom: 0;
-      height: 72px;
-      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px;
-      padding-bottom: 16px;
-      color: var(--color-muted);
+      position: absolute; left: 0; right: 0; bottom: 0; height: 72px;
+      display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px; padding-bottom: 16px; color: var(--color-muted);
       background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 55%, #ffffff 100%);
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease;
-      z-index: 6;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 6;
     }
-    .more-cue-label {
-      font-size: 10px; font-weight: 600; line-height: 1;
-      display: inline-flex; align-items: center;
-      letter-spacing: 0.08em; text-transform: uppercase;
-    }
+    .more-cue-label { font-size: 10px; font-weight: 600; line-height: 1; display: inline-flex; align-items: center; letter-spacing: 0.08em; text-transform: uppercase; }
     .more-cue svg { display: block; transform: translateY(1px); }
     .page-2-platter.has-more .more-cue { opacity: 1; }
-    @media (prefers-reduced-motion: no-preference) {
-      .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
-    }
+    @media (prefers-reduced-motion: no-preference) { .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; } }
 
-    .page-2-rule {
-      width: calc(100% - 48px); height: 1px;
-      background: rgba(0, 0, 0, 0.08); 
-      margin: 16px 24px 0 24px;
-      flex-shrink: 0;
-    }
+    .page-2-rule { width: calc(100% - 48px); height: 1px; background: rgba(0, 0, 0, 0.08); margin: 16px 24px 0 24px; flex-shrink: 0; }
 
     .blurb-scroll-wrapper { 
-      flex: 1; position: relative; min-height: 0;
-      display: flex; flex-direction: column;
-      /* Solid pure-white band between the rule/card-edge and the masked
-         content, so even the faintest faded text never touches the line. */
-      margin: 14px 0 8px 0;
-      /* Fade ramp happens INSIDE that band. Bottom > top.
-         Bottom fade is deepened so a partially-revealed last line always
-         dissolves well before it reaches the SCROLL cue — even on Safari,
-         where the bottom toolbar shrinks the card and would otherwise leave
-         a still-legible line crammed against the cue. */
-      --fade-top: 48px;
-      --clear-top: 7px;
-      --fade-bottom: 82px;
-      --clear-bottom: 38px;
+      flex: 1; position: relative; min-height: 0; display: flex; flex-direction: column; margin: 14px 0 8px 0;
+      --fade-top: 48px; --clear-top: 7px; --fade-bottom: 82px; --clear-bottom: 38px;
       transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
       -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
       mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
     }
-    /* Edge-aware: kill the fade once you've reached that end (Apple pattern) */
     .blurb-scroll-wrapper.at-top { --fade-top: 0px; --clear-top: 0px; }
     .blurb-scroll-wrapper.at-bottom { --fade-bottom: 0px; --clear-bottom: 0px; }
     
     .blurb-list {
-      flex: 1;
-      display: flex; flex-direction: column; gap: var(--sp-4); 
-      /* Resting inset. Top 14+10=24. Bottom trimmed 4px for optical balance
-         against the card's rounded corner. Scroll cushion (margin) untouched. */
-      padding: 6px 24px 4px 24px; 
-      overflow-x: hidden; overflow-y: auto;
-      touch-action: pan-y; overscroll-behavior-y: contain;
-      scrollbar-width: none; -ms-overflow-style: none;
+      flex: 1; display: flex; flex-direction: column; gap: var(--sp-4); padding: 6px 24px 4px 24px; 
+      overflow-x: hidden; overflow-y: auto; touch-action: pan-y; overscroll-behavior-y: contain; scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
-    
-    .blurb-list::after {
-      content: '';
-      display: block;
-      height: 0;
-    }
-
+    .blurb-list::after { content: ''; display: block; height: 0; }
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); }
-
     .blurb-icon { flex-shrink: 0; width: 24px; height: 24px; color: var(--color-label); margin-top: 0; }
     .blurb-icon svg { width: 100%; height: 100%; display: block; }
-
     .blurb-text { flex: 1; }
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
 
     .counter-bar {
-      width: 100%; max-width: 448px; flex-shrink: 0;
-      background: var(--color-bar-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: var(--shadow-primary);
-      padding: var(--sp-4) var(--sp-5);
-      display: flex; align-items: stretch; justify-content: space-between;
-      gap: var(--sp-4);
-      z-index: 100; 
+      width: 100%; max-width: 448px; flex-shrink: 0; background: var(--color-bar-bg); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: var(--shadow-primary); padding: var(--sp-4) var(--sp-5);
+      display: flex; align-items: stretch; justify-content: space-between; gap: var(--sp-4); z-index: 100; 
     }
     .counter-bar-left { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
     .counter-bar-number { font-size: var(--text-counter); font-weight: 700; color: var(--color-white); line-height: 1; }
-    .counter-avatar-stack {
-      display: flex;
-      align-items: center;
-      margin-top: 2px;
-      padding-left: 1px;
-      min-height: 20px;
-    }
+    .counter-avatar-stack { display: flex; align-items: center; margin-top: 2px; padding-left: 1px; min-height: 20px; }
     .counter-avatar {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid rgba(255,255,255,0.95);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
-      display: block;
-      background: rgba(255,255,255,0.2);
+      width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); display: block; background: rgba(255,255,255,0.2);
     }
     .counter-avatar + .counter-avatar { margin-left: -5px; }
     .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
-    .counter-bar-right {
-      flex: 1;
-      min-width: 0;
-      display: grid;
-      align-content: center;
-      justify-items: end;
-      text-align: right;
-      position: relative;
-      overflow: hidden;
-    }
+    .counter-bar-right { flex: 1; min-width: 0; display: grid; align-content: center; justify-items: end; text-align: right; position: relative; overflow: hidden; }
     .counter-right-panel {
-      grid-area: 1 / 1;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 3px;
-      transition: transform var(--timing-spring), opacity 0.2s ease;
-      will-change: transform, opacity;
+      grid-area: 1 / 1; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 3px;
+      transition: transform var(--timing-spring), opacity 0.2s ease; will-change: transform, opacity;
     }
     .counter-right-default { transform: translateX(0); opacity: 1; }
     .counter-right-quote { transform: translateX(-112%); opacity: 0; pointer-events: none; }
     .counter-bar-right.show-quote .counter-right-default { transform: translateX(112%); opacity: 0; pointer-events: none; }
     .counter-bar-right.show-quote .counter-right-quote { transform: translateX(0); opacity: 1; pointer-events: auto; }
     .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; }
-    .counter-rating {
-      display: inline-flex;
-      align-items: center;
-      gap: 1px;
-      color: rgba(255,255,255,0.88);
-      font-size: 0.75rem;
-      line-height: 1;
-      letter-spacing: 0.02em;
-    }
+    .counter-rating { display: inline-flex; align-items: center; gap: 1px; color: rgba(255,255,255,0.88); font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; }
     .counter-receipts-link {
-      appearance: none;
-      border: 0;
-      background: none;
-      color: rgba(255,255,255,0.9);
-      font: inherit;
-      font-size: var(--text-caption);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      padding: 0;
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform var(--timing-spring);
+      appearance: none; border: 0; background: none; color: rgba(255,255,255,0.9); font: inherit; font-size: var(--text-caption);
+      font-weight: 600; letter-spacing: 0.02em; text-decoration: underline; text-underline-offset: 2px; padding: 0; cursor: pointer; transition: opacity 0.2s ease, transform var(--timing-spring);
     }
     .counter-receipts-link:active { opacity: 0.8; transform: scale(0.97); }
-    .counter-quote-text {
-      font-size: var(--text-caption);
-      line-height: 1.35;
-      color: rgba(255,255,255,0.96);
-      text-align: right;
-      max-width: 100%;
-      overflow-wrap: anywhere;
-    }
-    .counter-quote-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 2px;
-    }
-    .counter-quote-photo {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid rgba(255,255,255,0.95);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.2);
-      display: block;
-    }
-    .counter-quote-name {
-      font-size: var(--text-caption);
-      font-weight: 600;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: 0.01em;
-    }
-    .counter-quote-controls {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 2px;
-    }
+    .counter-quote-text { font-size: var(--text-caption); line-height: 1.35; color: rgba(255,255,255,0.96); text-align: right; max-width: 100%; overflow-wrap: anywhere; }
+    .counter-quote-meta { display: inline-flex; align-items: center; gap: 8px; margin-top: 2px; }
+    .counter-quote-photo { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95); box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: rgba(255,255,255,0.2); display: block; }
+    .counter-quote-name { font-size: var(--text-caption); font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 0.01em; }
+    .counter-quote-controls { display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; }
     .counter-quote-btn {
-      appearance: none;
-      border: 1px solid rgba(255,255,255,0.36);
-      border-radius: var(--radius-pill);
-      background: rgba(255,255,255,0.12);
-      color: var(--color-white);
-      font: inherit;
-      font-size: var(--text-caption);
-      font-weight: 600;
-      line-height: 1;
-      min-width: 26px;
-      height: 24px;
-      padding: 0 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s ease, transform var(--timing-spring), opacity 0.2s ease;
+      appearance: none; border: 1px solid rgba(255,255,255,0.36); border-radius: var(--radius-pill); background: rgba(255,255,255,0.12);
+      color: var(--color-white); font: inherit; font-size: var(--text-caption); font-weight: 600; line-height: 1; min-width: 26px; height: 24px; padding: 0 8px;
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s ease, transform var(--timing-spring), opacity 0.2s ease;
     }
     .counter-quote-btn:active { background: rgba(255,255,255,0.2); transform: scale(0.96); }
 
     @media (min-width: 768px) {
-      .page-inner,
-      .page-2-inner {
-        padding-left: var(--sp-8);
-        padding-right: var(--sp-8);
-      }
+      .page-inner, .page-2-inner { padding-left: var(--sp-8); padding-right: var(--sp-8); }
       .cover-wrapper { max-width: 480px; }
     }
-
     @media (min-width: 1024px) {
-      .page-inner {
-        padding-top: calc(var(--safe-top) + 32px);
-        padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px);
-      }
-
-      .page-2-inner {
-        padding-top: calc(var(--safe-top) + 48px);
-        padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px);
-        gap: 24px;
-      }
+      .page-inner { padding-top: calc(var(--safe-top) + 32px); padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px); }
+      .page-2-inner { padding-top: calc(var(--safe-top) + 48px); padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px); gap: 24px; }
     }
   </style>
 </head>
@@ -642,9 +405,7 @@
       </a>
 
       <div class="content-platter">
-        <h1 class="headline">
-          Get the Playbook<span class="divider">—</span><span class="price">$9.99</span>
-        </h1>
+        <h1 class="headline">Get the Playbook<span class="divider">—</span><span class="price">$9.99</span></h1>
 
         <div class="buttons">
           <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
@@ -712,7 +473,6 @@
         <div class="page-2-rule" aria-hidden="true"></div>
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
-          
           <div id="blurb-list" class="blurb-list" role="list">
             
             <article class="blurb-item" role="listitem">
@@ -788,12 +548,12 @@
           <span class="counter-bar-number" data-target="87"><span id="counter-display">—</span></span>
           <span class="counter-bar-word">Investors</span>
           <div class="counter-avatar-stack" aria-label="Reader avatar stack">
-            <img class="counter-avatar" src="assets/images/readers/pic1.jpg" data-reader-file="pic1.jpg" alt="Reader avatar 1" loading="lazy" decoding="async">
-            <img class="counter-avatar" src="assets/images/readers/pic2.jpg" data-reader-file="pic2.jpg" alt="Reader avatar 2" loading="lazy" decoding="async">
-            <img class="counter-avatar" src="assets/images/readers/pic3.jpg" data-reader-file="pic3.jpg" alt="Reader avatar 3" loading="lazy" decoding="async">
-            <img class="counter-avatar" src="assets/images/readers/pic4.jpg" data-reader-file="pic4.jpg" alt="Reader avatar 4" loading="lazy" decoding="async">
-            <img class="counter-avatar" src="assets/images/readers/pic5.jpg" data-reader-file="pic5.jpg" alt="Reader avatar 5" loading="lazy" decoding="async">
-            <img class="counter-avatar" src="assets/images/readers/pic6.jpg" data-reader-file="pic6.jpg" alt="Reader avatar 6" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic1.jpg" data-reader-file="pic1" alt="Reader avatar 1" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic2.jpg" data-reader-file="pic2" alt="Reader avatar 2" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic3.jpg" data-reader-file="pic3" alt="Reader avatar 3" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic4.jpg" data-reader-file="pic4" alt="Reader avatar 4" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic5.jpg" data-reader-file="pic5" alt="Reader avatar 5" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic6.jpg" data-reader-file="pic6" alt="Reader avatar 6" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="counter-bar-divider" aria-hidden="true"></div>
@@ -808,7 +568,7 @@
           <div class="counter-right-panel counter-right-quote" aria-live="polite">
             <p id="reader-quote-text" class="counter-quote-text"></p>
             <div class="counter-quote-meta">
-              <img id="reader-quote-photo" class="counter-quote-photo" src="assets/images/readers/pic1.jpg" data-reader-file="pic1.jpg" alt="Reader photo" loading="lazy" decoding="async">
+              <img id="reader-quote-photo" class="counter-quote-photo" src="./pic1.jpg" data-reader-file="pic1" alt="Reader photo" loading="lazy" decoding="async">
               <span id="reader-quote-name" class="counter-quote-name"></span>
             </div>
             <div class="counter-quote-controls">
@@ -834,9 +594,6 @@
     var currentPage = 0;
     var isAnimating = false;
 
-    // Edge-aware scroll fades: a fade only exists when content is hidden
-    // in that direction. At an edge, that fade collapses so the first/last
-    // item rests fully opaque with even breathing room.
     function updateFades() {
       if (!blurbList || !blurbWrapper) return;
       var st = blurbList.scrollTop;
@@ -845,8 +602,6 @@
       var atBottom = st >= max - 1;
       blurbWrapper.classList.toggle('at-top', atTop);
       blurbWrapper.classList.toggle('at-bottom', atBottom);
-      // Show the scroll cue whenever there is hidden content below — not only
-      // at the very top — so it keeps masking partially-revealed lines mid-scroll.
       if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && !atBottom);
     }
     if (blurbList) {
@@ -864,12 +619,9 @@
     }
 
     function readerAssetPath(fileName) {
-      // Directly reference assets from the repository structure (relative path).
-      // This ensures images load correctly on GitHub Pages from the published branch
-      // by utilizing the folder + filename (e.g. pic1.jpg, pic2.jpg, etc.) exactly as committed.
-      // No base path calculation needed — relative URLs resolve correctly
-      // whether this is a user site (root) or project site (subfolder).
-      return 'assets/images/readers/' + fileName;
+      // Appends .jpg automatically if you only provide the core name (e.g., 'pic1')
+      var ext = fileName.includes('.') ? '' : '.jpg';
+      return './' + fileName + ext;
     }
 
     var counterBarRight = document.getElementById('counter-bar-right');
@@ -881,12 +633,12 @@
     var quoteBackBtn = document.getElementById('reader-quote-back');
     var quoteIndex = 0;
     var readerQuotes = [
-      { quote: 'Short. Tactical. Exactly what I needed to stop overthinking meals.', name: 'Alex R.', photo: 'pic1.jpg' },
-      { quote: 'I used the plate framework for one week and felt in control again.', name: 'Jordan T.', photo: 'pic2.jpg' },
-      { quote: 'Simple language, clear actions, no fluff. I reread it every Sunday.', name: 'Maya L.', photo: 'pic3.jpg' },
-      { quote: 'The recovery section kept me from quitting after a rough travel week.', name: 'Chris D.', photo: 'pic4.jpg' },
-      { quote: 'I finally understand what to track and what to ignore.', name: 'Nina S.', photo: 'pic5.jpg' },
-      { quote: 'It feels like having a coach in my pocket, minus the complexity.', name: 'Evan P.', photo: 'pic6.jpg' }
+      { quote: 'Short. Tactical. Exactly what I needed to stop overthinking meals.', name: 'Alex R.', photo: 'pic1' },
+      { quote: 'I used the plate framework for one week and felt in control again.', name: 'Jordan T.', photo: 'pic2' },
+      { quote: 'Simple language, clear actions, no fluff. I reread it every Sunday.', name: 'Maya L.', photo: 'pic3' },
+      { quote: 'The recovery section kept me from quitting after a rough travel week.', name: 'Chris D.', photo: 'pic4' },
+      { quote: 'I finally understand what to track and what to ignore.', name: 'Nina S.', photo: 'pic5' },
+      { quote: 'It feels like having a coach in my pocket, minus the complexity.', name: 'Evan P.', photo: 'pic6' }
     ];
 
     function hydrateReaderImages() {
@@ -896,7 +648,6 @@
         if (!fileName) return;
         el.src = readerAssetPath(fileName);
       });
-
       if (quotePhotoEl) {
         var defaultFile = quotePhotoEl.getAttribute('data-reader-file');
         if (defaultFile) quotePhotoEl.src = readerAssetPath(defaultFile);
@@ -923,24 +674,22 @@
       counterBarRight.classList.remove('show-quote');
     }
 
-    if (readReceiptsBtn) {
-      readReceiptsBtn.addEventListener('click', openReceipts);
-    }
+    if (readReceiptsBtn) { readReceiptsBtn.addEventListener('click', openReceipts); }
     if (quoteNextBtn) {
       quoteNextBtn.addEventListener('click', function () {
         quoteIndex = (quoteIndex + 1) % readerQuotes.length;
         renderReaderQuote(quoteIndex);
       });
     }
-    if (quoteBackBtn) {
-      quoteBackBtn.addEventListener('click', closeReceipts);
-    }
+    if (quoteBackBtn) { quoteBackBtn.addEventListener('click', closeReceipts); }
+    
     hydrateReaderImages();
     renderReaderQuote(quoteIndex);
 
     var menuBtn = document.getElementById('menu-btn');
     var menuEnvelope = document.getElementById('menu-envelope');
     var menuOpen = false;
+    
     function openMenu() {
       menuOpen = true;
       menuEnvelope.classList.add('open');
@@ -959,16 +708,19 @@
       e.stopPropagation();
       if (menuOpen) { closeMenu(); } else { openMenu(); }
     });
+    
     document.addEventListener('touchstart', function (e) {
       if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
         closeMenu();
       }
     }, { passive: true });
+    
     document.addEventListener('click', function (e) {
       if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target)) {
         closeMenu();
       }
     });
+    
     menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
 
     function animateCount(from, to, dur) {
@@ -1006,6 +758,7 @@
       setViewportClass();
       setAdaptiveLayout();
     });
+    
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', function() {
         setViewportClass();
@@ -1014,9 +767,7 @@
       });
     }
 
-    function getSlideOffset(index) {
-      return -(index * window.innerHeight);
-    }
+    function getSlideOffset(index) { return -(index * window.innerHeight); }
 
     function goToPage(index) {
       if (isAnimating) return;
@@ -1026,7 +777,6 @@
       currentPage = index;
       slideContainer.classList.remove('no-transition');
       slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
-      
       if (index === 1 && !animated) {
         animated = true;
         setTimeout(function () {
@@ -1034,12 +784,10 @@
           animateCount(0, counterTarget, 1800);
         }, 480);
       }
-
       if (index === 0) {
         animated = false;
         if (displayEl) displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
       }
-
       setTimeout(function () { isAnimating = false; }, 480);
     }
 
@@ -1050,15 +798,19 @@
         slideContainer.classList.remove('no-transition');
       });
     });
+    
     document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
     document.getElementById('scroll-up').addEventListener('click', function () { goToPage(0); });
+    
     var touchStartY = 0, touchStartX = 0, touchStartTime = 0, touchStartScrollTop = 0;
+    
     document.addEventListener('touchstart', function (e) {
       touchStartY = e.touches[0].clientY;
       touchStartX = e.touches[0].clientX;
       touchStartTime = Date.now();
       touchStartScrollTop = blurbList ? blurbList.scrollTop : 0;
     }, { passive: true });
+    
     document.addEventListener('touchmove', function (e) {
       var isInList = blurbList && blurbList.contains(e.target);
       if (isInList) {
@@ -1070,6 +822,7 @@
         e.preventDefault();
       }
     }, { passive: false });
+    
     document.addEventListener('touchend', function (e) {
       var dy = touchStartY - e.changedTouches[0].clientY;
       var dx = touchStartX - e.changedTouches[0].clientX;
