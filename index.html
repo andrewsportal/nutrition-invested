@@ -334,10 +334,10 @@
 
     .counter-bar {
       width: 100%; max-width: 448px; flex-shrink: 0; background: var(--color-bar-bg); border-radius: var(--radius-lg);
-      border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: var(--shadow-primary); padding: var(--sp-4) var(--sp-5);
-      display: flex; align-items: stretch; justify-content: space-between; gap: var(--sp-4); z-index: 100;
+      border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: var(--shadow-primary); padding: var(--sp-4) 20px;
+      display: flex; align-items: stretch; justify-content: space-between; gap: 10px; z-index: 100;
     }
-    .counter-bar-left { display: flex; flex-direction: column; gap: 4px; flex: none; width: 140px; min-height: 76px; justify-content: center; }
+    .counter-bar-left { display: flex; flex-direction: column; gap: 4px; flex: none; width: 126px; min-height: 76px; justify-content: center; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
     .counter-avatar-stack { display: flex; align-items: center; padding-left: 1px; min-height: 20px; }
     .counter-avatar {
@@ -361,7 +361,7 @@
     }
     .counter-rating-group { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
     .counter-right-default { transform: translateX(0); opacity: 1; justify-content: space-between; padding-top: 4px; padding-bottom: 4px; }
-    .counter-right-quote { transform: translateX(-112%); opacity: 0; pointer-events: none; padding: 4px 0; }
+    .counter-right-quote { transform: translateX(-112%); opacity: 0; pointer-events: none; padding: 2px 0; justify-content: center; gap: 5px; }
     .counter-bar-right.show-quote .counter-right-default { transform: translateX(112%); opacity: 0; pointer-events: none; }
     .counter-bar-right.show-quote .counter-right-quote { transform: translateX(0); opacity: 1; pointer-events: auto; }
     .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; }
