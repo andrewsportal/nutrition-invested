@@ -644,9 +644,6 @@
     if (overflowEl) {
       overflowEl.textContent = formatOverflow(counterTarget - avatarCount);
     }
-    if (counterCountEl) {
-      counterCountEl.textContent = formatInvestorCount(counterTarget) + ' investors in the market';
-    }
 
     function readerAssetPath(fileName) {
       // Appends .jpg automatically if you only provide the core name (e.g., 'pic1')
@@ -656,6 +653,9 @@
 
     var counterBarEl = document.getElementById('counter-bar');
     var counterCountEl = document.getElementById('counter-count-text');
+    if (counterCountEl) {
+      counterCountEl.textContent = formatInvestorCount(counterTarget) + ' investors in the market';
+    }
     var readReceiptsBtn = document.getElementById('read-receipts');
     var quoteTextEl = document.getElementById('reader-quote-text');
     var quoteNameEl = document.getElementById('reader-quote-name');
