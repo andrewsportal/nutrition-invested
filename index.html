@@ -339,13 +339,19 @@
     }
     .counter-bar-left { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .counter-bar-label, .counter-bar-word { font-size: var(--text-caption); font-weight: 500; letter-spacing: var(--track-wide); color: rgba(255,255,255,0.8); }
-    .counter-bar-number { font-size: var(--text-counter); font-weight: 700; color: var(--color-white); line-height: 1; }
-    .counter-avatar-stack { display: flex; align-items: center; margin-top: 7px; padding-left: 1px; min-height: 20px; }
+    .counter-avatar-stack { display: flex; align-items: center; padding-left: 1px; min-height: 20px; }
     .counter-avatar {
       width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.12); display: block; background: rgba(255,255,255,0.2);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); display: block; background: rgba(255,255,255,0.2); flex-shrink: 0;
     }
     .counter-avatar + .counter-avatar { margin-left: -5px; }
+    .counter-avatar-overflow {
+      width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.95);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: rgba(0,0,0,0.28);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; color: var(--color-white); letter-spacing: -0.02em;
+      flex-shrink: 0; margin-left: -5px;
+    }
     .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
     .counter-bar-right { flex: 1; min-width: 0; position: relative; overflow: hidden; text-align: right; }
     .counter-right-panel {
@@ -557,16 +563,16 @@
       <footer id="counter-bar" class="counter-bar">
         <div class="counter-bar-left">
           <span class="counter-bar-label">In the Market</span>
-          <span class="counter-bar-number" data-target="87"><span id="counter-display">—</span></span>
-          <span class="counter-bar-word">Investors</span>
-          <div class="counter-avatar-stack" aria-label="Reader avatar stack">
+          <div class="counter-avatar-stack" data-target="87" aria-label="87 investors">
             <img class="counter-avatar" src="./pic1.jpg" data-reader-file="pic1" alt="Reader avatar 1" loading="lazy" decoding="async">
             <img class="counter-avatar" src="./pic2.jpg" data-reader-file="pic2" alt="Reader avatar 2" loading="lazy" decoding="async">
             <img class="counter-avatar" src="./pic3.jpg" data-reader-file="pic3" alt="Reader avatar 3" loading="lazy" decoding="async">
             <img class="counter-avatar" src="./pic4.jpg" data-reader-file="pic4" alt="Reader avatar 4" loading="lazy" decoding="async">
             <img class="counter-avatar" src="./pic5.jpg" data-reader-file="pic5" alt="Reader avatar 5" loading="lazy" decoding="async">
             <img class="counter-avatar" src="./pic6.jpg" data-reader-file="pic6" alt="Reader avatar 6" loading="lazy" decoding="async">
+            <span class="counter-avatar-overflow" id="counter-overflow" aria-hidden="true"></span>
           </div>
+          <span class="counter-bar-word">Investors</span>
         </div>
         <div class="counter-bar-divider" aria-hidden="true"></div>
         <div id="counter-bar-right" class="counter-bar-right">
@@ -624,12 +630,16 @@
       updateFades();
     }
 
-    var counterEl = document.querySelector('.counter-bar-number');
-    var displayEl = document.getElementById('counter-display');
-    var counterTarget = counterEl ? parseInt(counterEl.getAttribute('data-target'), 10) : 0;
+    var avatarStackEl = document.querySelector('.counter-avatar-stack');
+    var overflowEl = document.getElementById('counter-overflow');
+    var counterTarget = avatarStackEl ? parseInt(avatarStackEl.getAttribute('data-target'), 10) : 0;
+    var avatarCount = avatarStackEl ? avatarStackEl.querySelectorAll('.counter-avatar').length : 0;
     var animated = false;
-    if (displayEl) {
-      displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
+    if (avatarStackEl && counterTarget > 0) {
+      avatarStackEl.setAttribute('aria-label', counterTarget + ' investors');
+    }
+    if (overflowEl) {
+      overflowEl.textContent = '+' + (counterTarget - avatarCount);
     }
 
     function readerAssetPath(fileName) {
@@ -738,13 +748,12 @@
     menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
 
     function animateCount(from, to, dur) {
-      if (!displayEl) return;
-      if (to === 0) { displayEl.textContent = '—'; return; }
+      if (!overflowEl) return;
       var t0 = performance.now();
       function tick(now) {
         var p = Math.min((now - t0) / dur, 1);
         var ease = 1 - Math.pow(1 - p, 3);
-        displayEl.textContent = Math.floor(from + (to - from) * ease).toLocaleString();
+        overflowEl.textContent = '+' + Math.floor(from + (to - from) * ease);
         if (p < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
@@ -794,13 +803,13 @@
       if (index === 1 && !animated) {
         animated = true;
         setTimeout(function () {
-          if (displayEl) displayEl.textContent = '0';
-          animateCount(0, counterTarget, 1800);
+          if (overflowEl) overflowEl.textContent = '+0';
+          animateCount(0, counterTarget - avatarCount, 1800);
         }, 480);
       }
       if (index === 0) {
         animated = false;
-        if (displayEl) displayEl.textContent = counterTarget === 0 ? '—' : counterTarget.toLocaleString();
+        if (overflowEl) overflowEl.textContent = '+' + (counterTarget - avatarCount);
       }
       setTimeout(function () { isAnimating = false; }, 480);
     }
