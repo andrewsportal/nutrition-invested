@@ -214,6 +214,7 @@
       .about-back:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
       .page-2-back:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
       .preview-hint:hover, .scroll-hint:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); transform: translateY(-1px); }
+      .about-social-link:hover { background: rgba(78,139,97,0.12); }
     }
 
     .about-page {
@@ -291,6 +292,17 @@
       text-align: center; user-select: text; -webkit-user-select: text; margin-bottom: 12px;
     }
     .about-bio:last-child { margin-bottom: 0; }
+
+    .about-social-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 40px; padding: 0 16px; margin-top: 20px;
+      background: rgba(78,139,97,0.08); border: 1px solid rgba(78,139,97,0.16);
+      border-radius: var(--radius-pill); text-decoration: none;
+      color: var(--color-accent); font-size: var(--text-label); font-weight: 600;
+      letter-spacing: var(--track-normal);
+      transition: transform var(--timing-spring), background 0.2s ease;
+    }
+    .about-social-link:active { transform: scale(0.96); background: rgba(78,139,97,0.14); }
 
     .cover-wrapper {
       width: 100%; max-width: 416px;
@@ -1094,6 +1106,15 @@
       <p class="about-bio">Andrew Rios built Nutrition, Invested from a simple conviction: the gap between knowing what to eat and actually doing it isn't a knowledge problem — it's a system problem.</p>
       <p class="about-bio">The playbook strips nutrition down to decisions that run on autopilot. One plate. One framework. No app required.</p>
       <p class="about-bio">Andrew lives by the same rules he wrote.</p>
+      <div class="about-rule" aria-hidden="true" style="margin-top: 20px; margin-bottom: 0;"></div>
+      <a href="https://instagram.com/whatsupandrewrios" target="_blank" rel="noopener" class="about-social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        @whatsupandrewrios
+      </a>
     </div>
   </div>
 </div>
