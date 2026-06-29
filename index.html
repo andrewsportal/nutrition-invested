@@ -381,7 +381,11 @@
     .counter-quote-meta-text { display: flex; flex-direction: column; gap: 1px; }
     .counter-quote-photo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95); box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: rgba(255,255,255,0.2); display: block; }
     .counter-quote-name { font-size: var(--text-label); font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 0.01em; }
-    .counter-quote-handle { font-size: var(--text-caption); color: rgba(255,255,255,0.5); letter-spacing: 0.01em; }
+    .counter-quote-verified {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: var(--text-caption); font-weight: 500; color: rgba(255,255,255,0.62); letter-spacing: 0.01em;
+    }
+    .counter-quote-verified svg { flex-shrink: 0; }
     .counter-quote-nav {
       appearance: none; border: 1px solid rgba(255,255,255,0.36); border-radius: 50%; background: rgba(255,255,255,0.12);
       color: var(--color-white); font: inherit; font-size: var(--text-label); font-weight: 700; line-height: 1;
@@ -594,7 +598,12 @@
               <img id="reader-quote-photo" class="counter-quote-photo" src="./pic1.jpg" data-reader-file="pic1" alt="Reader photo" loading="lazy" decoding="async">
               <div class="counter-quote-meta-text">
                 <span id="reader-quote-name" class="counter-quote-name"></span>
-                <span id="reader-quote-handle" class="counter-quote-handle"></span>
+                <span id="reader-quote-handle" class="counter-quote-verified">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="rgba(255,255,255,0.72)" aria-hidden="true">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.707 7.707-5.657 5.657a1 1 0 0 1-1.414 0l-2.829-2.828a1 1 0 0 1 1.414-1.414L10.293 13.293l4.95-4.95a1 1 0 0 1 1.414 1.414z"/>
+                  </svg>
+                  Verified Purchase
+                </span>
               </div>
             </div>
             <button id="reader-quote-next" class="counter-quote-nav" type="button" aria-label="Next reader quote">→</button>
@@ -690,7 +699,6 @@
       var item = readerQuotes[index % readerQuotes.length];
       quoteTextEl.textContent = '"' + item.quote + '"';
       quoteNameEl.textContent = item.name;
-      if (quoteHandleEl) quoteHandleEl.textContent = item.handle || '';
       quotePhotoEl.src = readerAssetPath(item.photo);
       quotePhotoEl.alt = item.name + ' photo';
     }
