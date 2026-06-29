@@ -207,6 +207,23 @@
     .menu-about.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
     .menu-about:active { transform: translateY(0) scale(0.95); }
 
+    .email-fallback {
+      position: absolute; top: calc(var(--safe-top) + 172px); left: var(--sp-5);
+      display: flex; align-items: center; gap: 7px;
+      height: 36px; padding: 0 12px;
+      background: var(--control-glass-bg);
+      backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+      border: 1px solid var(--control-glass-border); border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-control);
+      font-size: var(--text-caption); font-weight: 600; color: var(--color-body);
+      white-space: nowrap; cursor: pointer; z-index: 20; user-select: none; -webkit-user-select: none;
+      opacity: 0; pointer-events: none; transform: translateY(-6px) scale(0.95);
+      transition: opacity 0.2s ease, transform var(--timing-spring), color 0.2s ease;
+    }
+    .email-fallback.show { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+    .email-fallback.copied { color: var(--color-accent); }
+    .email-fallback:active { transform: scale(0.96); }
+
     @media (hover: hover) and (pointer: fine) {
       .menu-btn:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
       .menu-envelope.open:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
@@ -528,6 +545,11 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
       </a>
 
+      <div id="email-fallback" class="email-fallback" role="button" tabindex="-1" aria-label="Copy email address">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span class="email-fallback-text">riosandrew9@gmail.com</span>
+      </div>
+
       <div class="cover-wrapper">
         <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
           <img src="./cover.png" alt="Nutrition, Invested book cover" fetchpriority="high" decoding="async">
@@ -844,8 +866,16 @@
     var menuAbout = document.getElementById('menu-about');
     var aboutPage = document.getElementById('about-page');
     var aboutBack = document.getElementById('about-back');
+    var emailFallback = document.getElementById('email-fallback');
+    var emailAddr = 'riosandrew9@gmail.com';
     var menuOpen = false;
     var menuTimers = [];
+
+    function hideFallback() {
+      if (!emailFallback) return;
+      emailFallback.classList.remove('show', 'copied');
+      emailFallback.querySelector('.email-fallback-text').textContent = emailAddr;
+    }
 
     function openMenu() {
       menuTimers.forEach(clearTimeout); menuTimers = [];
@@ -863,6 +893,7 @@
       menuEnvelope.classList.remove('open');
       menuBtn.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
+      hideFallback();
     }
 
     function openAbout() {
@@ -932,7 +963,37 @@
       }
     });
 
-    menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
+    menuEnvelope.addEventListener('click', function () {
+      setTimeout(closeMenu, 200);
+      setTimeout(function () {
+        if (document.hasFocus() && emailFallback) {
+          emailFallback.classList.add('show');
+          setTimeout(hideFallback, 5000);
+        }
+      }, 700);
+    });
+
+    if (emailFallback) {
+      emailFallback.addEventListener('click', function () {
+        var textEl = emailFallback.querySelector('.email-fallback-text');
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(emailAddr).then(function () {
+            emailFallback.classList.add('copied');
+            textEl.textContent = 'Copied!';
+            setTimeout(hideFallback, 1500);
+          });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = emailAddr; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          emailFallback.classList.add('copied');
+          textEl.textContent = 'Copied!';
+          setTimeout(hideFallback, 1500);
+        }
+      });
+    }
 
     function formatOverflow(n) {
       if (n >= 1000000) {
