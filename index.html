@@ -434,14 +434,19 @@
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-3); padding-bottom: var(--sp-4); }
     .blurb-item:last-child { padding-bottom: 0; }
     .blurb-icon {
-      flex-shrink: 0; width: 24px; color: var(--color-label); margin-top: 0;
+      flex-shrink: 0; width: 36px; color: var(--color-label); margin-top: 0;
       display: flex; flex-direction: column; align-items: center; align-self: stretch;
     }
-    .blurb-icon svg { width: 24px; height: 24px; display: block; flex-shrink: 0; }
+    .blurb-icon-badge {
+      width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%;
+      background: rgba(78,139,97,0.10); border: 1px solid rgba(78,139,97,0.28);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blurb-icon-badge svg { width: 18px; height: 18px; display: block; flex-shrink: 0; }
     .blurb-item:not(:last-child) .blurb-icon::after {
       content: ''; flex: 1; width: 1.5px; min-height: 10px;
       background: linear-gradient(to bottom, rgba(78,139,97,0.32) 0%, rgba(78,139,97,0.12) 100%);
-      border-radius: 1px; margin-top: 10px; margin-bottom: 10px;
+      border-radius: 1px; margin-top: 8px; margin-bottom: 8px;
     }
     .blurb-text { flex: 1; }
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-2); }
@@ -625,56 +630,72 @@
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Eat</span> <span class="blurb-body">Protein. Carbs. Fat. Color. One plate system. No app. No meal plan. Runs itself.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Measure</span> <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Compound</span> <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next — automatically. That's the DRIP.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Fix</span> <span class="blurb-body">Gut. Inflammation — The Corrosion. Mitochondria — The Power Grid. The systems under the hood most people never touch — and wonder why nothing works.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Stack</span> <span class="blurb-body">Five evidence-backed supplements. Food always comes first. The stack multiplies what the foundation built. Skip the foundation and it does nothing.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Audit</span> <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Recover</span> <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </span>
               </span>
               <div class="blurb-text"><span class="blurb-title">Deploy</span> <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
             </article>
