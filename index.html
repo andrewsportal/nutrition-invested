@@ -416,7 +416,7 @@
     .page-2-rule { width: calc(100% - 48px); height: 1px; background: rgba(0, 0, 0, 0.08); margin: 16px 24px 0 24px; flex-shrink: 0; }
 
     .blurb-scroll-wrapper {
-      flex: 1; position: relative; min-height: 0; display: flex; flex-direction: column; margin: 14px 0 8px 0;
+      flex: 1; position: relative; min-height: 0; display: flex; flex-direction: column; margin: 14px 0 14px 0;
       --fade-top: 48px; --clear-top: 7px; --fade-bottom: 82px; --clear-bottom: 38px;
       transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
       -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
@@ -426,7 +426,7 @@
     .blurb-scroll-wrapper.at-bottom { --fade-bottom: 0px; --clear-bottom: 0px; }
 
     .blurb-list {
-      flex: 1; display: flex; flex-direction: column; gap: 0; padding: 6px 24px 4px 24px;
+      flex: 1; display: flex; flex-direction: column; gap: 0; padding: 6px 24px 6px 24px;
       overflow-x: hidden; overflow-y: auto; touch-action: pan-y; overscroll-behavior-y: contain; scrollbar-width: none; -ms-overflow-style: none;
     }
     .blurb-list::-webkit-scrollbar { display: none; }
