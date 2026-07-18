@@ -431,6 +431,10 @@
     }
     .blurb-list::-webkit-scrollbar { display: none; }
     .blurb-list:focus-visible { outline-offset: -2px; }
+    .blurb-intro { padding: 2px 0 18px; user-select: text; -webkit-user-select: text; }
+    .blurb-intro-hook { font-size: var(--text-body); font-weight: 600; color: var(--color-body); line-height: 1.45; letter-spacing: var(--track-normal); margin-bottom: 10px; }
+    .blurb-intro-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; margin-bottom: 14px; }
+    .blurb-intro-lead { font-size: var(--text-label); font-weight: 600; color: var(--color-accent); letter-spacing: var(--track-normal); }
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-2); padding-bottom: var(--sp-2); }
     .blurb-item:last-child { padding-bottom: 0; }
     .blurb-icon {
@@ -651,13 +655,21 @@
               <path d="M15 18l-6-6 6-6"/>
             </svg>
           </button>
-          <h2 id="quick-bites-heading" class="info-section-sublabel">The Quick Bites</h2>
+          <h2 id="whats-inside-heading" class="info-section-sublabel">What's Inside</h2>
         </header>
 
         <div class="page-2-rule" aria-hidden="true"></div>
 
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
-          <div id="blurb-list" class="blurb-list" role="list" tabindex="0" aria-labelledby="quick-bites-heading">
+          <div id="blurb-list" class="blurb-list" tabindex="0" aria-labelledby="whats-inside-heading">
+
+            <div class="blurb-intro">
+              <p class="blurb-intro-hook">Tired of the 2 PM crash, yo-yo diets, and plans that collapse when life gets busy?</p>
+              <p class="blurb-intro-body"><em>Nutrition, Invested</em> is the tactical playbook for reliable energy, lasting strength, and results that stick. No apps. No trackers. No fussy meal plans. Just simple choices measured with your hands that fix the systems driving your output — so smart choices compound instead of collapsing.</p>
+              <p class="blurb-intro-lead">Here's how it breaks down:</p>
+            </div>
+
+            <div class="blurb-items" role="list">
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
@@ -730,6 +742,8 @@
               </span>
               <div class="blurb-text"><span class="blurb-title">Deploy</span> <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
             </article>
+
+            </div>
 
           </div>
         </div>
