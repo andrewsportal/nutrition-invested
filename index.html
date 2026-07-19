@@ -32,4 +32,1157 @@
     :focus-visible {
       outline: 2px solid var(--color-accent);
       outline-offset: 2px;
-      border-rad
+      border-radius: 10px;
+    }
+
+    :root {
+      color-scheme: light;
+      --color-bg: #F1F4EF;
+      --color-surface: #ffffff;
+      --color-accent: #35714B;
+      --accent-rgb: 53, 113, 75;
+      --color-label: var(--color-accent);
+      --color-body: #333333;
+      --color-muted: #6E6E73;
+      --color-gold: #D4AF37;
+      --teal-rgb: 44, 110, 99;
+      --line-teal: rgba(var(--teal-rgb), 0.32);
+      --color-white: #ffffff;
+      --color-bar-bg: var(--color-accent);
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+      --text-caption: clamp(0.75rem, 2.8vw, 0.8125rem);
+      --text-label: clamp(0.875rem, 3.2vw, 0.9375rem);
+      --text-body: clamp(1rem, 3.8vw, 1.0625rem);
+      --text-headline: clamp(1.0625rem, 4vw, 1.25rem);
+
+      --track-tight: -0.022em;
+      --track-normal: -0.011em;
+      --track-wide: 0.02em;
+
+      --sp-1: 8px;
+      --sp-2: 16px;
+      --sp-3: 24px;
+      --sp-6: 48px;
+      --stack-gap: clamp(12px, 2.2dvh, 20px);
+      --radius-lg: 24px;
+      --radius-pill: 980px;
+      --radius-circle: 50%;
+
+      --shadow-cover: drop-shadow(0 12px 40px rgba(0,0,0,0.15)) drop-shadow(0 4px 12px rgba(0,0,0,0.08));
+      --shadow-btn: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-surface: 0 2px 20px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-primary: 0 8px 32px rgba(var(--accent-rgb), 0.25), 0 2px 8px rgba(0,0,0,0.1);
+      --shadow-control: 0 2px 10px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-control-hover: 0 5px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+      --control-glass-bg: rgba(255, 255, 255, 0.76);
+      --control-glass-bg-hover: rgba(255, 255, 255, 0.88);
+      --control-glass-border: rgba(255,255,255,0.52);
+      --surface-veil:
+        radial-gradient(ellipse 92% 62% at 50% -8%, rgba(255,255,255,0.84) 0%, transparent 66%),
+        radial-gradient(ellipse 58% 42% at 6% 94%, rgba(255,255,255,0.52) 0%, transparent 58%),
+        radial-gradient(ellipse 54% 38% at 97% 76%, rgba(255,255,255,0.40) 0%, transparent 55%);
+      --timing-spring: 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    html {
+      width: 100%; height: 100vh; height: 100dvh;
+      background: var(--color-bg);
+      overscroll-behavior: none;
+    }
+
+    body {
+      width: 100%; height: 100vh; height: 100dvh;
+      overflow: hidden;
+      background: var(--color-bg); font-family: var(--font);
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none; -webkit-user-select: none;
+    }
+
+    svg { pointer-events: none; }
+
+    .slide-container {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh;
+      background: var(--color-bg); will-change: transform;
+      transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .slide-container.no-transition { transition: none; }
+
+    .page {
+      position: absolute; width: 100%; height: 100vh; height: 100dvh;
+      overflow: hidden; background: var(--color-bg);
+    }
+    .page-1 { top: 0; }
+    .page-2 { top: 100vh; top: 100dvh; }
+
+    .page-inner {
+      width: 100%; height: 100vh; height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--stack-gap);
+      padding-top: calc(var(--safe-top) + 24px);
+      padding-left: var(--sp-3); padding-right: var(--sp-3);
+      padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
+      overflow: hidden; position: relative;
+    }
+
+    .page-1 .page-inner {
+      background-image: var(--surface-veil);
+      background-color: var(--color-bg);
+    }
+
+    @media (max-height: 900px) {
+      .page-1 .page-inner { overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; }
+    }
+
+    body.vp-short .page-1 .page-inner {
+      gap: clamp(8px, 1.6dvh, 14px);
+      padding-top: calc(var(--safe-top) + 24px);
+      padding-bottom: max(calc(var(--safe-bottom) + 16px), 24px);
+    }
+    body.vp-short .content-platter { padding: 10px; }
+
+    .menu-btn {
+      position: absolute; top: calc(var(--safe-top) + 16px); left: var(--sp-3);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+      width: 44px; height: 44px; padding: 0;
+      background: var(--control-glass-bg);
+      backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+      border: 1px solid var(--control-glass-border);
+      border-radius: var(--radius-circle);
+      box-shadow: var(--shadow-control);
+      cursor: pointer; z-index: 22;
+      transition: transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease, opacity 0.15s ease;
+    }
+    .menu-btn:active { transform: scale(0.95); opacity: 0.92; }
+    .menu-btn.open { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
+    .menu-btn span {
+      display: block; width: 16px; height: 2px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 1px;
+      transform-origin: center;
+      transition: transform var(--timing-spring), opacity 0.2s ease, background 0.2s ease;
+    }
+    .menu-btn.open span { background: rgba(0,0,0,0.62); }
+    .menu-btn.open span:nth-child(1) { transform: translateY(3px) rotate(45deg); }
+    .menu-btn.open span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
+
+    .menu-envelope {
+      position: absolute; top: calc(var(--safe-top) + 120px);
+      left: var(--sp-3);
+      width: 44px; height: 44px; background: var(--control-glass-bg);
+      backdrop-filter: saturate(170%) blur(16px); -webkit-backdrop-filter: saturate(170%) blur(16px);
+      border: 1px solid var(--control-glass-border); border-radius: var(--radius-circle);
+      box-shadow: var(--shadow-control);
+      display: flex; align-items: center; justify-content: center; text-decoration: none;
+      z-index: 21; opacity: 0;
+      pointer-events: none; transform: translateY(-10px) scale(0.9);
+      transition: opacity 0.2s ease, transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-touch-callout: none;
+    }
+    .menu-envelope.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); background: var(--control-glass-bg); }
+    .menu-envelope:active { transform: translateY(0) scale(0.95); }
+
+    .menu-about {
+      appearance: none; padding: 0; border: 1px solid var(--control-glass-border);
+      position: absolute; top: calc(var(--safe-top) + 68px); left: var(--sp-3);
+      width: 44px; height: 44px; background: var(--control-glass-bg);
+      backdrop-filter: saturate(170%) blur(16px); -webkit-backdrop-filter: saturate(170%) blur(16px);
+      border-radius: var(--radius-circle); box-shadow: var(--shadow-control);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 21; opacity: 0; cursor: pointer;
+      pointer-events: none; transform: translateY(-10px) scale(0.9);
+      transition: opacity 0.2s ease, transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .menu-about.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+    .menu-about:active { transform: translateY(0) scale(0.95); }
+
+    @media (hover: hover) and (pointer: fine) {
+      .menu-btn:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
+      .menu-envelope.open:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
+      .menu-about.open:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); }
+      .about-back:hover { background: rgba(0,0,0,0.04); }
+      .page-2-back:hover { background: rgba(0,0,0,0.04); }
+      .preview-hint:hover, .scroll-hint:hover { background: var(--control-glass-bg-hover); box-shadow: var(--shadow-control-hover); transform: translateY(-1px); }
+      .about-social-link:hover { background: rgba(var(--accent-rgb), 0.12); }
+      .cover-wrapper img:hover { transform: scale(1.01); }
+      .buy-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06); }
+      .buy-btn.primary:hover { box-shadow: 0 6px 22px rgba(var(--accent-rgb), 0.38), 0 2px 8px rgba(0,0,0,0.10); }
+      .counter-receipts-link:hover { opacity: 0.75; }
+      .counter-quote-nav:hover { background: rgba(255,255,255,0.22); }
+    }
+
+    .about-page {
+      position: fixed; inset: 0; z-index: 201;
+      background: var(--color-bg);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+      will-change: transform; overflow-y: auto; overscroll-behavior: contain;
+    }
+    .about-page.open { transform: translateX(0); }
+
+    .about-page-inner {
+      width: 100%; min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--stack-gap);
+      padding-top: calc(var(--safe-top) + 24px);
+      padding-left: var(--sp-3); padding-right: var(--sp-3);
+      padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px);
+      position: relative;
+      background-image: var(--surface-veil);
+      background-color: var(--color-bg);
+    }
+
+    .about-back {
+      position: absolute; top: 14px; left: 14px;
+      width: 44px; height: 44px; padding: 0;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: var(--radius-circle);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 2;
+      transition: transform var(--timing-spring), background 0.2s ease;
+    }
+    .about-back:active { transform: scale(0.93); background: rgba(0,0,0,0.06); }
+
+    .about-platter {
+      width: 100%; max-width: 432px; position: relative;
+      background: rgba(255,255,255,0.86); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.78); padding: 32px 28px 28px 28px;
+      box-shadow: var(--shadow-surface);
+      backdrop-filter: saturate(160%) blur(24px); -webkit-backdrop-filter: saturate(160%) blur(24px);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .about-photo-wrap {
+      position: relative; width: 80px; height: 80px; border-radius: 50%;
+      background: var(--color-accent); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.28), 0 1px 4px rgba(0,0,0,0.10);
+    }
+    .about-photo {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: 50%; opacity: 0; transition: opacity 0.2s ease;
+    }
+    .about-photo-initials {
+      font-size: 1.75rem; font-weight: 700; color: rgba(255,255,255,0.92);
+      letter-spacing: -0.02em; line-height: 1; user-select: none; -webkit-user-select: none;
+    }
+    .about-name {
+      font-size: clamp(1.125rem, 4.5vw, 1.25rem); font-weight: 700;
+      color: var(--color-body); letter-spacing: var(--track-tight); text-align: center; margin-bottom: 4px;
+    }
+    .about-role {
+      font-size: var(--text-caption); font-weight: 600; color: var(--color-accent);
+      letter-spacing: var(--track-wide); text-transform: uppercase; text-align: center;
+      line-height: 1; margin-bottom: 20px;
+    }
+    .about-rule { width: 100%; height: 1px; background: rgba(var(--teal-rgb), 0.16); margin-bottom: 20px; flex-shrink: 0; }
+    .about-bio {
+      font-size: var(--text-body); color: var(--color-body); line-height: 1.6;
+      text-align: center; user-select: text; -webkit-user-select: text; margin-bottom: 12px;
+    }
+    .about-bio:last-child { margin-bottom: 0; }
+
+    .about-social-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 40px; padding: 0 16px; margin-top: 20px; position: relative;
+      background: rgba(var(--accent-rgb), 0.08); border: 1px solid var(--line-teal);
+      border-radius: var(--radius-pill); text-decoration: none;
+      color: var(--color-accent); font-size: var(--text-label); font-weight: 600;
+      letter-spacing: var(--track-normal);
+      transition: transform var(--timing-spring), background 0.2s ease;
+    }
+    .about-social-link::after { content: ''; position: absolute; inset: -2px 0; }
+    .about-social-link:active { transform: scale(0.96); background: rgba(var(--accent-rgb), 0.14); }
+
+    .cover-wrapper {
+      width: 100%; max-width: 416px;
+      display: flex; align-items: center; justify-content: center;
+      flex: 1.25 1 0%; min-height: 20vh; max-height: var(--cover-mh, 64dvh);
+    }
+    .cover-wrapper a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+    .cover-wrapper img {
+      display: block; width: auto; max-width: 100%; height: 100%;
+      object-fit: contain; filter: var(--shadow-cover); will-change: filter; cursor: pointer; -webkit-user-drag: none;
+      transition: transform 0.22s ease, filter 0.22s ease;
+    }
+    .cover-wrapper img:active { transform: scale(0.99); filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10)); }
+
+    .preview-hint, .scroll-hint {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      height: 36px; padding: 0 15px; font-size: var(--text-label); font-weight: 600;
+      border-radius: var(--radius-pill); letter-spacing: var(--track-wide); flex-shrink: 0; z-index: 10; text-decoration: none;
+      position: relative;
+    }
+    .preview-hint::after, .scroll-hint::after { content: ''; position: absolute; inset: -4px 0; }
+
+    .preview-hint {
+      margin: 0; color: var(--color-body); background: var(--control-glass-bg);
+      backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: var(--shadow-control); border: 1px solid var(--control-glass-border); cursor: pointer;
+      transition: transform var(--timing-spring), box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .preview-hint:active { transform: scale(0.96); }
+
+    .scroll-hint {
+      margin: 0; background: var(--control-glass-bg); backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px); border: 1px solid var(--control-glass-border); color: var(--color-label);
+      cursor: pointer; box-shadow: var(--shadow-control); gap: 8px;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform var(--timing-spring), color 0.2s ease;
+    }
+    .scroll-hint:active { transform: scale(0.96); }
+    .scroll-hint-chevron { display: flex; align-items: center; }
+
+    .content-platter {
+      width: 100%; max-width: 432px; background: rgba(255,255,255,0.86); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.78); padding: 10px 10px 12px 10px; box-shadow: var(--shadow-surface);
+      backdrop-filter: saturate(160%) blur(24px); -webkit-backdrop-filter: saturate(160%) blur(24px);
+      display: flex; flex-direction: column; align-items: center; margin: 0; flex-shrink: 0; z-index: 5;
+    }
+
+    .headline {
+      width: 100%; text-align: center; margin-bottom: 10px;
+      font-size: var(--text-headline); font-weight: 600; font-synthesis: none;
+      letter-spacing: var(--track-tight); color: var(--color-body); line-height: 1.4;
+    }
+    .headline .price { color: var(--color-accent); font-weight: 700; }
+    .headline .divider { color: var(--color-gold); margin: 0 var(--sp-1); font-weight: 400; }
+
+    .buttons { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+    .buy-btn {
+      display: flex; align-items: center; justify-content: center; gap: var(--sp-1);
+      width: 100%; min-height: 44px; background: var(--color-surface); color: var(--color-body);
+      border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 8px 16px; font-family: var(--font);
+      font-size: var(--text-label); font-weight: 600; font-synthesis: none; letter-spacing: var(--track-normal); text-decoration: none; box-shadow: var(--shadow-btn);
+      user-select: none; -webkit-user-select: none;
+      transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.2s ease, opacity 0.15s ease;
+    }
+    .buy-btn:active { transform: scale(0.96); opacity: 0.9; }
+    .buy-btn.primary { background: var(--color-accent); color: var(--color-white); border-color: transparent; box-shadow: 0 4px 18px rgba(var(--accent-rgb), 0.32), 0 2px 6px rgba(0,0,0,0.10); }
+    .buy-btn.secondary { background: var(--color-surface); border-color: rgba(0,0,0,0.1); }
+
+    .payment-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px; margin-bottom: 6px; }
+    .payment-section p { font-size: var(--text-caption); color: var(--color-muted); margin-bottom: 0; font-weight: 500; letter-spacing: var(--track-normal); line-height: 1.4; text-align: center; }
+    .payment-logos { display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap; opacity: 0.45; margin-top: 4px; }
+    .payment-logos img { height: 12px; width: auto; display: block; -webkit-user-drag: none; }
+
+    @keyframes chevron-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    .page-2-inner {
+      width: 100%; height: 100vh; height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; position: relative;
+      padding-top: calc(var(--safe-top) + 32px); padding-bottom: max(calc(var(--safe-bottom) + 24px), 32px);
+      padding-left: var(--sp-3); padding-right: var(--sp-3); gap: 16px; overflow: hidden;
+    }
+
+    .page-2-platter {
+      width: 100%; max-width: 448px; flex: 1; min-height: 0;
+      background: rgba(255,255,255,0.86); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.78);
+      backdrop-filter: saturate(160%) blur(24px); -webkit-backdrop-filter: saturate(160%) blur(24px);
+      box-shadow: var(--shadow-surface); display: flex; flex-direction: column; overflow: hidden; position: relative;
+    }
+
+    .page-2-header { width: 100%; display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding: 14px 20px 0 14px; }
+    .info-section-sublabel { font-size: clamp(1.125rem, 4.5vw, 1.375rem); letter-spacing: var(--track-tight); font-weight: 600; color: var(--color-accent); }
+
+    .page-2-back {
+      flex-shrink: 0; width: 44px; height: 44px; padding: 0;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.12); border-radius: var(--radius-circle);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: transform var(--timing-spring), background 0.2s ease;
+    }
+    .page-2-back:active { transform: scale(0.93); background: rgba(0,0,0,0.06); }
+
+    .more-cue {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 72px;
+      display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 6px; padding-bottom: 22px; color: var(--color-muted);
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 55%, #ffffff 100%);
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 6;
+    }
+    .more-cue-label { font-size: 11px; font-weight: 600; line-height: 1; display: inline-flex; align-items: center; letter-spacing: 0.08em; text-transform: uppercase; }
+    .more-cue svg { display: block; transform: translateY(2px); }
+    .page-2-platter.has-more .more-cue { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .scroll-hint-chevron { animation: chevron-pulse 1.6s ease-in-out infinite; }
+      .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
+    }
+
+    .blurb-scroll-wrapper {
+      flex: 1; position: relative; min-height: 0; display: flex; flex-direction: column; margin: 14px 0 14px 0;
+      --fade-top: 48px; --clear-top: 7px; --fade-bottom: 82px; --clear-bottom: 38px;
+      transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
+    }
+    .blurb-scroll-wrapper.at-top { --fade-top: 0px; --clear-top: 0px; }
+    .blurb-scroll-wrapper.at-bottom { --fade-bottom: 0px; --clear-bottom: 0px; }
+
+    .blurb-list {
+      flex: 1; display: flex; flex-direction: column; gap: 0; padding: 6px 24px 6px 24px;
+      overflow-x: hidden; overflow-y: auto; touch-action: pan-y; overscroll-behavior-y: contain; scrollbar-width: none;
+    }
+    .blurb-list::-webkit-scrollbar { display: none; }
+    .blurb-list:focus-visible { outline-offset: -2px; }
+    .blurb-intro { padding: 2px 0 var(--sp-2); user-select: text; -webkit-user-select: text; }
+    .blurb-intro-hook { font-size: var(--text-body); font-weight: 600; color: var(--color-body); line-height: 1.4; letter-spacing: var(--track-normal); margin-bottom: 10px; }
+    .blurb-intro-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; margin-bottom: var(--sp-2); }
+    .blurb-intro-rule { height: 1px; background: rgba(var(--teal-rgb), 0.18); margin: 0 0 var(--sp-2); }
+    .blurb-intro-lead { font-size: var(--text-body); font-weight: 600; color: var(--color-accent); letter-spacing: var(--track-tight); }
+    .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-2); padding-bottom: var(--sp-2); }
+    .blurb-item:last-child { padding-bottom: 0; }
+    .blurb-icon {
+      flex-shrink: 0; width: 36px; color: var(--color-label); margin-top: 0;
+      display: flex; flex-direction: column; align-items: center; align-self: stretch;
+    }
+    .blurb-icon-badge {
+      width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%;
+      background: rgba(var(--accent-rgb), 0.10); border: 1px solid var(--line-teal);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blurb-icon-badge svg { width: 18px; height: 18px; display: block; flex-shrink: 0; }
+    .blurb-text { flex: 1; }
+    .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-1); }
+    .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
+
+    .counter-bar {
+      width: 100%; max-width: 448px; flex-shrink: 0; background: var(--color-bar-bg); border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: var(--shadow-primary); padding: var(--sp-2) 20px;
+      display: flex; align-items: stretch; justify-content: space-between; gap: 10px; z-index: 100;
+      position: relative; overflow: hidden;
+    }
+    .counter-bar-left { display: flex; flex-direction: column; gap: 5px; flex: none; width: 126px; min-height: 100px; justify-content: center; }
+    .counter-bar-stars { color: var(--color-gold); font-size: 0.6875rem; letter-spacing: 1px; line-height: 1; }
+    .counter-bar-count { font-size: var(--text-caption); font-weight: 500; color: rgba(255,255,255,0.9); line-height: 1.35; letter-spacing: var(--track-normal); }
+    .counter-avatar-stack { display: flex; align-items: center; padding-left: 1px; min-height: 26px; }
+    .counter-avatar {
+      width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); display: block; background: rgba(255,255,255,0.2); flex-shrink: 0;
+    }
+    .counter-avatar + .counter-avatar { margin-left: -7px; }
+    .counter-avatar-overflow {
+      min-width: 20px; width: auto; height: 20px; border-radius: var(--radius-pill); border: 1.5px solid rgba(255,255,255,0.95);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: var(--color-gold);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; color: #3A3313; letter-spacing: -0.02em;
+      flex-shrink: 0; margin-left: -5px; padding: 0 4px;
+    }
+    .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
+    .counter-bar-right { flex: 1; min-width: 0; position: relative; overflow: hidden; text-align: right; }
+    .counter-right-panel {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;
+      transition: transform var(--timing-spring), opacity 0.2s ease; will-change: transform, opacity;
+    }
+    .counter-right-default { transform: translateX(0); opacity: 1; justify-content: center; gap: 6px; padding: 4px 0; transition: opacity 0.2s ease; }
+    .counter-right-quote {
+      background: var(--color-bar-bg); border-radius: var(--radius-lg); padding: 12px 20px;
+      align-items: center; justify-content: center; gap: 6px;
+      transform: translateX(110%); opacity: 0; pointer-events: none; z-index: 10;
+    }
+    .counter-bar.show-quote .counter-right-default { opacity: 0; pointer-events: none; }
+    .counter-bar.show-quote .counter-right-quote { transform: translateX(0); opacity: 1; pointer-events: auto; }
+    .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; text-align: right; }
+    .counter-receipts-link {
+      appearance: none; border: 0; background: none; color: rgba(255,255,255,0.9); font: inherit; font-size: var(--text-caption);
+      font-weight: 600; letter-spacing: 0.02em; text-decoration: underline; text-decoration-color: var(--color-gold); text-underline-offset: 2px; padding: 0; cursor: pointer; transition: opacity 0.2s ease, transform var(--timing-spring);
+      position: relative;
+    }
+    .counter-receipts-link::after { content: ''; position: absolute; inset: -13px -8px; }
+    .counter-receipts-link:active { opacity: 0.8; transform: scale(0.97); }
+    .counter-quote-text { font-size: var(--text-body); line-height: 1.3; color: rgba(255,255,255,0.96); text-align: center; width: 100%; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .counter-quote-footer { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .counter-quote-meta { display: inline-flex; align-items: center; gap: 6px; }
+    .counter-quote-meta-text { display: flex; flex-direction: column; gap: 1px; }
+    .counter-quote-photo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95); box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: rgba(255,255,255,0.2); display: block; }
+    .counter-quote-name { font-size: var(--text-label); font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 0.01em; }
+    .counter-quote-verified {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: var(--text-caption); font-weight: 500; color: rgba(255,255,255,0.82); letter-spacing: 0.01em;
+    }
+    .counter-quote-verified svg { flex-shrink: 0; }
+    .counter-quote-nav {
+      appearance: none; border: 1px solid rgba(255,255,255,0.36); border-radius: 50%; background: rgba(255,255,255,0.12);
+      color: var(--color-white); font: inherit; font-size: var(--text-label); font-weight: 700; line-height: 1;
+      width: 32px; height: 32px; padding: 0; flex-shrink: 0; position: relative;
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s ease, transform var(--timing-spring);
+    }
+    .counter-quote-nav::after { content: ''; position: absolute; inset: -6px; }
+    .counter-quote-nav:active { background: rgba(255,255,255,0.22); transform: scale(0.93); }
+    .counter-bar :focus-visible { outline-color: rgba(255,255,255,0.92); }
+
+    @media (min-width: 768px) {
+      .page-inner, .page-2-inner { padding-left: var(--sp-6); padding-right: var(--sp-6); }
+      .cover-wrapper { max-width: 480px; }
+      .page-2-platter, .counter-bar { max-width: 520px; }
+      .about-platter { max-width: 480px; padding: 36px 32px 32px; }
+    }
+
+    @media (min-width: 1024px) {
+      .page-inner { padding-top: calc(var(--safe-top) + 32px); padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px); }
+      .page-1 .page-inner, body.vp-short .page-1 .page-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        grid-template-areas: 'cover platter' 'hint platter';
+        column-gap: clamp(48px, 6vw, 88px);
+        row-gap: 24px;
+        align-content: center; align-items: center; justify-items: center;
+        max-width: 1140px; margin: 0 auto;
+      }
+      .page-1 .cover-wrapper {
+        grid-area: cover; align-self: end; max-width: 560px; min-height: 0;
+        height: min(62vh, 600px); height: min(62dvh, 600px); max-height: none;
+      }
+      .page-1 .preview-hint { grid-area: hint; align-self: start; }
+      .page-1 .content-platter { grid-area: platter; }
+      .page-1 .scroll-hint { grid-column: 1 / -1; align-self: end; }
+      .page-2-inner { padding-top: calc(var(--safe-top) + 48px); padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px); gap: 24px; }
+      .page-2-platter, .counter-bar { max-width: 560px; }
+      .page-2-header { padding: 18px 24px 0 18px; }
+      .blurb-list { padding: 8px 32px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="slide-container" class="slide-container">
+
+  <section class="page page-1">
+    <div class="page-inner">
+
+      <button id="menu-btn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu-envelope">
+        <span></span><span></span>
+      </button>
+
+      <button id="menu-about" class="menu-about" aria-label="About the author">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </button>
+
+      <a id="menu-envelope" class="menu-envelope" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
+      </a>
+
+      <div class="cover-wrapper">
+        <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
+          <img src="./cover.png" alt="Nutrition, Invested book cover" width="832" height="1248" fetchpriority="high" decoding="async"
+               onerror="if (!this.dataset.retried) { this.dataset.retried = '1'; this.src = './cover.PNG'; }">
+        </a>
+      </div>
+
+      <a href="nutrition-invested^preview" class="preview-hint">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px; height:16px;">
+          <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+          <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+        </svg>
+        Tap to preview
+      </a>
+
+      <div class="content-platter">
+        <h1 class="headline">Get the Playbook<span class="divider" aria-hidden="true">—</span><span class="price">$9.99</span></h1>
+
+        <div class="buttons">
+          <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
+            <span style="display:flex; align-items:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </span>
+            <span>Buy on Amazon</span>
+          </a>
+          <a href="https://payhip.com/b/eBook-Nutrition-Invested" target="_blank" rel="noopener" class="buy-btn secondary">
+            <span style="display:flex; align-items:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+              </svg>
+            </span>
+            <span>Buy on Payhip</span>
+          </a>
+        </div>
+
+        <div class="payment-section">
+          <p>Opens in Apple Books, Google Play Books and Amazon Kindle.</p>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: var(--text-caption); color: var(--color-muted); font-weight: 500;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px; height:16px;">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+            Secure Checkout
+          </div>
+          <div class="payment-logos">
+            <img src="./applepay.svg" alt="Apple Pay" width="38" height="12" decoding="async" onerror="this.style.display='none'">
+            <img src="./googlepay.svg" alt="Google Pay" width="38" height="12" decoding="async" onerror="this.style.display='none'">
+            <img src="./paypal.svg" alt="PayPal" width="50" height="12" decoding="async" onerror="this.style.display='none'">
+            <img src="./visa.svg" alt="Visa" width="38" height="12" decoding="async" onerror="this.style.display='none'">
+            <img src="./mastercard.svg" alt="Mastercard" width="24" height="12" decoding="async" onerror="this.style.display='none'">
+            <img src="./americanexpress.svg" alt="Amex" width="24" height="12" decoding="async" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+
+      <button id="scroll-down" class="scroll-hint" aria-label="Scroll to more info">
+        <span class="scroll-hint-label">What's Inside</span>
+        <span class="scroll-hint-chevron">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+
+    </div>
+  </section>
+
+  <section class="page page-2">
+    <div class="page-2-inner">
+
+      <div class="page-2-platter">
+        <header class="page-2-header">
+          <button id="page-2-back" class="page-2-back" aria-label="Back to homepage">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.45)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <h2 id="whats-inside-heading" class="info-section-sublabel">What's Inside</h2>
+        </header>
+
+        <div id="blurb-wrapper" class="blurb-scroll-wrapper">
+          <div id="blurb-list" class="blurb-list" tabindex="0" aria-labelledby="whats-inside-heading">
+
+            <div class="blurb-intro">
+              <p class="blurb-intro-hook">Tired of the 2 PM wall, yo-yo diets, and plans that collapse when life gets busy?</p>
+              <p class="blurb-intro-body"><em>Nutrition, Invested</em> is the tactical playbook for all-day energy, lasting strength, and results that stick. No apps. No trackers. No fussy meal plans. Just simple choices measured with your hands that fix the systems driving your output. Smart choices compound instead of collapsing.</p>
+              <div class="blurb-intro-rule" aria-hidden="true"></div>
+              <h3 id="breakdown-heading" class="blurb-intro-lead">The Breakdown</h3>
+            </div>
+
+            <div class="blurb-items" role="list" aria-labelledby="breakdown-heading">
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Eat</span> <span class="blurb-body">Protein. Carbs. Fat. Color. Water. One plate system. No app. No meal plan. Runs itself.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Measure</span> <span class="blurb-body">Forget the tracker. Your hand scales to your body. Palm. Fist. Cupped palm. Thumb. Built in. Zero equipment.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Compound</span> <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next. Automatically. That's the DRIP.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Fix</span> <span class="blurb-body">Gut. Inflammation: The Corrosion. Mitochondria: The Power Grid. The systems under the hood most people never touch. Then they wonder why nothing works.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Stack</span> <span class="blurb-body">Food-first boosters. Coffee, dark chocolate, ginger, green tea. Dab, not flood. The stack caps at three. Skip the foundation and it multiplies nothing.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Audit</span> <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Recover</span> <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Deploy</span> <span class="blurb-body">The grocery list: The Foundation Holds. The budget guide: The Frugal Haul. Sunday cook times. Blood panel cheat sheet. Open the appendix. Motion beats planning.</span></div>
+            </article>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="more-cue" aria-hidden="true">
+          <span class="more-cue-label">Scroll</span>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <footer id="counter-bar" class="counter-bar">
+        <div class="counter-bar-left">
+          <div class="counter-bar-stars" aria-hidden="true">★★★★★</div>
+          <div class="counter-avatar-stack" data-target="87" aria-label="87 investors">
+            <img class="counter-avatar" src="./pic1.jpg" data-reader-file="pic1" alt="Reader avatar 1" width="747" height="770" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic2.jpg" data-reader-file="pic2" alt="Reader avatar 2" width="679" height="777" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic3.jpg" data-reader-file="pic3" alt="Reader avatar 3" width="818" height="760" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic4.jpg" data-reader-file="pic4" alt="Reader avatar 4" width="706" height="745" loading="lazy" decoding="async">
+            <img class="counter-avatar" src="./pic5.jpg" data-reader-file="pic5" alt="Reader avatar 5" width="747" height="758" loading="lazy" decoding="async">
+            <span class="counter-avatar-overflow" id="counter-overflow" aria-hidden="true"></span>
+          </div>
+          <span id="counter-count-text" class="counter-bar-count">87 investors in the market</span>
+        </div>
+        <div class="counter-bar-divider" aria-hidden="true"></div>
+        <div id="counter-bar-right" class="counter-bar-right">
+          <div class="counter-right-panel counter-right-default">
+            <span class="counter-bar-tagline">Drip on.<br>Compounds up.</span>
+            <button id="read-receipts" class="counter-receipts-link" type="button">Read the Receipts</button>
+          </div>
+        </div>
+        <div class="counter-right-panel counter-right-quote" aria-live="polite">
+          <p id="reader-quote-text" class="counter-quote-text"></p>
+          <div class="counter-quote-footer">
+            <div class="counter-quote-meta">
+              <img id="reader-quote-photo" class="counter-quote-photo" src="./pic1.jpg" data-reader-file="pic1" alt="Reader photo" width="747" height="770" loading="lazy" decoding="async">
+              <div class="counter-quote-meta-text">
+                <span id="reader-quote-name" class="counter-quote-name"></span>
+                <span id="reader-quote-handle" class="counter-quote-verified">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="var(--color-gold)" aria-hidden="true">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.707 7.707-5.657 5.657a1 1 0 0 1-1.414 0l-2.829-2.828a1 1 0 0 1 1.414-1.414L10.293 13.293l4.95-4.95a1 1 0 0 1 1.414 1.414z"/>
+                  </svg>
+                  Verified Purchase
+                </span>
+              </div>
+            </div>
+            <button id="reader-quote-next" class="counter-quote-nav" type="button" aria-label="Next reader quote">→</button>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var slideContainer = document.getElementById('slide-container');
+    var blurbList = document.getElementById('blurb-list');
+    var blurbWrapper = document.getElementById('blurb-wrapper');
+    var blurbPlatter = blurbWrapper ? blurbWrapper.closest('.page-2-platter') : null;
+    var counterBar = document.getElementById('counter-bar');
+    var currentPage = 0;
+    var isAnimating = false;
+
+    function updateFades() {
+      if (!blurbList || !blurbWrapper) return;
+      var st = blurbList.scrollTop;
+      var max = blurbList.scrollHeight - blurbList.clientHeight;
+      var atTop = st <= 1;
+      var atBottom = st >= max - 1;
+      blurbWrapper.classList.toggle('at-top', atTop);
+      blurbWrapper.classList.toggle('at-bottom', atBottom);
+      if (blurbPlatter) blurbPlatter.classList.toggle('has-more', max > 2 && !atBottom);
+    }
+    if (blurbList) {
+      blurbList.addEventListener('scroll', updateFades, { passive: true });
+      window.addEventListener('resize', updateFades);
+      updateFades();
+    }
+
+    var avatarStackEl = document.querySelector('.counter-avatar-stack');
+    var overflowEl = document.getElementById('counter-overflow');
+    var counterTarget = avatarStackEl ? parseInt(avatarStackEl.getAttribute('data-target'), 10) : 0;
+    var avatarCount = avatarStackEl ? avatarStackEl.querySelectorAll('.counter-avatar').length : 0;
+    var animated = false;
+    if (avatarStackEl && counterTarget > 0) {
+      avatarStackEl.setAttribute('aria-label', counterTarget + ' investors');
+    }
+    if (overflowEl) {
+      overflowEl.textContent = formatOverflow(counterTarget - avatarCount);
+    }
+
+    function readerAssetPath(fileName) {
+      var ext = fileName.includes('.') ? '' : '.jpg';
+      return './' + fileName + ext;
+    }
+
+    var counterBarEl = document.getElementById('counter-bar');
+    var counterCountEl = document.getElementById('counter-count-text');
+    if (counterCountEl) {
+      counterCountEl.textContent = formatInvestorCount(counterTarget) + ' investors in the market';
+    }
+    var readReceiptsBtn = document.getElementById('read-receipts');
+    var quoteTextEl = document.getElementById('reader-quote-text');
+    var quoteNameEl = document.getElementById('reader-quote-name');
+    var quotePhotoEl = document.getElementById('reader-quote-photo');
+    var quoteNextBtn = document.getElementById('reader-quote-next');
+    var quoteIndex = 0;
+    var readerQuotes = [
+      { quote: 'Short. Tactical. Exactly what I needed to stop overthinking meals.', name: 'Alex R.', photo: 'pic1' },
+      { quote: 'I used the plate framework for one week and felt in control again.', name: 'Jordan T.', photo: 'pic2' },
+      { quote: 'Simple language, clear actions, no fluff. I reread it every Sunday.', name: 'Maya L.', photo: 'pic3' },
+      { quote: 'The recovery section kept me from quitting after a rough travel week.', name: 'Chris D.', photo: 'pic4' },
+      { quote: 'I finally understand what to track and what to ignore.', name: 'Nina S.', photo: 'pic5' },
+      { quote: 'It feels like having a coach in my pocket, minus the complexity.', name: 'Evan P.', photo: 'pic6' }
+    ];
+
+    function hydrateReaderImages() {
+      var avatarEls = document.querySelectorAll('.counter-avatar[data-reader-file]');
+      avatarEls.forEach(function (el) {
+        var fileName = el.getAttribute('data-reader-file');
+        if (!fileName) return;
+        el.src = readerAssetPath(fileName);
+      });
+      if (quotePhotoEl) {
+        var defaultFile = quotePhotoEl.getAttribute('data-reader-file');
+        if (defaultFile) quotePhotoEl.src = readerAssetPath(defaultFile);
+      }
+    }
+
+    function renderReaderQuote(index) {
+      if (!quoteTextEl || !quoteNameEl || !quotePhotoEl || readerQuotes.length === 0) return;
+      var item = readerQuotes[index % readerQuotes.length];
+      quoteTextEl.textContent = '"' + item.quote + '"';
+      quoteNameEl.textContent = item.name;
+      quotePhotoEl.src = readerAssetPath(item.photo);
+      quotePhotoEl.alt = item.name + ' photo';
+    }
+
+    function openReceipts() {
+      if (!counterBarEl) return;
+      quoteIndex = 0;
+      renderReaderQuote(quoteIndex);
+      counterBarEl.classList.add('show-quote');
+    }
+
+    function closeReceipts() {
+      if (!counterBarEl) return;
+      counterBarEl.classList.remove('show-quote');
+    }
+
+    if (readReceiptsBtn) { readReceiptsBtn.addEventListener('click', openReceipts); }
+    if (quoteNextBtn) {
+      quoteNextBtn.addEventListener('click', function () {
+        if (quoteIndex >= readerQuotes.length - 1) {
+          closeReceipts();
+        } else {
+          quoteIndex++;
+          renderReaderQuote(quoteIndex);
+        }
+      });
+    }
+
+    hydrateReaderImages();
+    renderReaderQuote(quoteIndex);
+
+    var menuBtn = document.getElementById('menu-btn');
+    var menuEnvelope = document.getElementById('menu-envelope');
+    var menuAbout = document.getElementById('menu-about');
+    var aboutPage = document.getElementById('about-page');
+    var aboutBack = document.getElementById('about-back');
+    var menuOpen = false;
+    var menuTimers = [];
+
+    function openMenu() {
+      menuTimers.forEach(clearTimeout); menuTimers = [];
+      menuOpen = true;
+      menuBtn.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menuTimers.push(setTimeout(function () { if (menuAbout) menuAbout.classList.add('open'); }, 40));
+      menuTimers.push(setTimeout(function () { menuEnvelope.classList.add('open'); }, 90));
+    }
+
+    function closeMenu() {
+      menuTimers.forEach(clearTimeout); menuTimers = [];
+      menuOpen = false;
+      if (menuAbout) menuAbout.classList.remove('open');
+      menuEnvelope.classList.remove('open');
+      menuBtn.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    function openAbout() {
+      closeMenu();
+      if (!aboutPage) return;
+      aboutPage.classList.add('open');
+    }
+
+    function closeAbout() {
+      if (!aboutPage) return;
+      aboutPage.classList.remove('open');
+    }
+
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (menuOpen) { closeMenu(); } else { openMenu(); }
+    });
+
+    if (menuAbout) {
+      menuAbout.addEventListener('click', function (e) { e.stopPropagation(); openAbout(); });
+    }
+
+    if (aboutBack) { aboutBack.addEventListener('click', closeAbout); }
+
+    if (aboutPage) {
+      var aboutTouchStartX = 0, aboutDragging = false;
+      aboutPage.addEventListener('touchstart', function (e) {
+        aboutTouchStartX = e.touches[0].clientX;
+        aboutDragging = true;
+      }, { passive: true });
+      aboutPage.addEventListener('touchmove', function (e) {
+        if (!aboutDragging) return;
+        var dx = e.touches[0].clientX - aboutTouchStartX;
+        if (dx > 0) {
+          aboutPage.style.transition = 'none';
+          aboutPage.style.transform = 'translateX(' + dx + 'px)';
+        }
+      }, { passive: true });
+      aboutPage.addEventListener('touchend', function (e) {
+        if (!aboutDragging) return;
+        aboutDragging = false;
+        var dx = e.changedTouches[0].clientX - aboutTouchStartX;
+        if (dx > 80) {
+          aboutPage.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+          aboutPage.style.transform = 'translateX(100%)';
+          setTimeout(function () {
+            aboutPage.style.transition = '';
+            aboutPage.style.transform = '';
+            aboutPage.classList.remove('open');
+          }, 310);
+        } else {
+          aboutPage.style.transition = '';
+          aboutPage.style.transform = '';
+        }
+      }, { passive: true });
+    }
+
+    document.addEventListener('touchstart', function (e) {
+      if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target) && e.target !== menuAbout && !(menuAbout && menuAbout.contains(e.target))) {
+        closeMenu();
+      }
+    }, { passive: true });
+
+    document.addEventListener('click', function (e) {
+      if (menuOpen && !menuBtn.contains(e.target) && e.target !== menuEnvelope && !menuEnvelope.contains(e.target) && e.target !== menuAbout && !(menuAbout && menuAbout.contains(e.target))) {
+        closeMenu();
+      }
+    });
+
+    menuEnvelope.addEventListener('click', function () { setTimeout(closeMenu, 200); });
+
+    function formatOverflow(n) {
+      if (n >= 1000000) {
+        var m = n / 1000000;
+        return '+' + (m >= 10 ? Math.floor(m) : Math.floor(m * 10) / 10) + 'M';
+      }
+      if (n >= 1000) {
+        var k = n / 1000;
+        return '+' + (k >= 10 ? Math.floor(k) : Math.floor(k * 10) / 10) + 'K';
+      }
+      return '+' + n;
+    }
+
+    function formatInvestorCount(n) {
+      if (n >= 1000000) {
+        var m = n / 1000000;
+        return (m >= 10 ? Math.floor(m) : Math.floor(m * 10) / 10) + 'M';
+      }
+      if (n >= 1000) {
+        var k = n / 1000;
+        return (k >= 10 ? Math.floor(k) : Math.floor(k * 10) / 10) + 'K';
+      }
+      return String(n);
+    }
+
+    function animateCount(from, to, dur) {
+      if (!overflowEl) return;
+      var t0 = performance.now();
+      function tick(now) {
+        var p = Math.min((now - t0) / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        var current = Math.floor(from + (to - from) * ease);
+        overflowEl.textContent = formatOverflow(current);
+        if (counterCountEl) counterCountEl.textContent = formatInvestorCount(current + avatarCount) + ' investors in the market';
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    var coverWrapper = document.querySelector('.cover-wrapper');
+    function setAdaptiveLayout() {
+      var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+      var low = 700, high = 830;
+      var t = Math.max(0, Math.min(1, (vvh - low) / (high - low)));
+      var cvh = 74 + (86 - 74) * t;
+      var coverVal = cvh.toFixed(1) + 'dvh';
+      if (coverWrapper) coverWrapper.style.setProperty('--cover-mh', coverVal);
+    }
+
+    function setViewportClass() {
+      var vvh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+      document.body.classList.toggle('vp-short', vvh < 780);
+    }
+
+    setViewportClass();
+    setAdaptiveLayout();
+
+    window.addEventListener('resize', function() {
+      setViewportClass();
+      setAdaptiveLayout();
+    });
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function() {
+        setViewportClass();
+        setAdaptiveLayout();
+        updateFades();
+      });
+    }
+
+    function getSlideOffset(index) { return -(index * window.innerHeight); }
+
+    function goToPage(index) {
+      if (isAnimating) return;
+      if (index === currentPage) return;
+      closeMenu();
+      isAnimating = true;
+      currentPage = index;
+      slideContainer.classList.remove('no-transition');
+      slideContainer.style.transform = 'translateY(' + getSlideOffset(index) + 'px)';
+      if (index === 1 && !animated) {
+        animated = true;
+        setTimeout(function () {
+          if (overflowEl) overflowEl.textContent = formatOverflow(0);
+          if (counterCountEl) counterCountEl.textContent = formatInvestorCount(avatarCount) + ' investors in the market';
+          animateCount(0, counterTarget - avatarCount, 1800);
+        }, 480);
+      }
+      if (index === 0) {
+        animated = false;
+        if (overflowEl) overflowEl.textContent = formatOverflow(counterTarget - avatarCount);
+        if (counterCountEl) counterCountEl.textContent = formatInvestorCount(counterTarget) + ' investors in the market';
+      }
+      setTimeout(function () { isAnimating = false; }, 480);
+    }
+
+    window.addEventListener('resize', function () {
+      slideContainer.classList.add('no-transition');
+      slideContainer.style.transform = 'translateY(' + getSlideOffset(currentPage) + 'px)';
+      requestAnimationFrame(function () {
+        slideContainer.classList.remove('no-transition');
+      });
+    });
+
+    document.getElementById('scroll-down').addEventListener('click', function () { goToPage(1); });
+    document.getElementById('page-2-back').addEventListener('click', function () { goToPage(0); });
+
+    var touchStartY = 0, touchStartX = 0, touchStartTime = 0, touchStartScrollTop = 0;
+
+    document.addEventListener('touchstart', function (e) {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
+      touchStartScrollTop = blurbList ? blurbList.scrollTop : 0;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      var isInList = blurbList && blurbList.contains(e.target);
+      if (isInList) {
+        var dy = touchStartY - e.touches[0].clientY;
+        var atTop = blurbList.scrollTop <= 0;
+        var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+        if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
+      } else {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchend', function (e) {
+      var dy = touchStartY - e.changedTouches[0].clientY;
+      var dx = touchStartX - e.changedTouches[0].clientX;
+      var dt = Date.now() - touchStartTime;
+      var isInList = blurbList && blurbList.contains(e.target);
+
+      if (Math.abs(dx) > Math.abs(dy)) return;
+      if (!(Math.abs(dy) > 50 || (Math.abs(dy) > 20 && dt < 300))) return;
+
+      if (isInList) {
+        if (dy > 0 && currentPage === 0) { goToPage(1); }
+        else if (dy < 0 && currentPage === 1 && touchStartScrollTop <= 0) { goToPage(0); }
+      } else {
+        if (dy > 0 && currentPage === 0) { goToPage(1); }
+        else if (dy < 0 && currentPage === 1) { goToPage(0); }
+      }
+    }, { passive: true });
+  });
+</script>
+
+<div id="about-page" class="about-page">
+  <div class="about-page-inner">
+    <div class="about-platter">
+      <button id="about-back" class="about-back" aria-label="Back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.45)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <div class="about-photo-wrap">
+        <span class="about-photo-initials" aria-hidden="true">AR</span>
+        <img class="about-photo" src="./author.jpg" alt="Andrew Rios"
+             onload="this.style.opacity='1';" onerror="this.remove();" decoding="async">
+      </div>
+      <h2 class="about-name">Andrew Rios</h2>
+      <p class="about-role">Author · Nutrition Strategist</p>
+      <div class="about-rule" aria-hidden="true"></div>
+      <p class="about-bio">Andrew Rios built Nutrition, Invested from a simple conviction: the gap between knowing what to eat and actually doing it isn't a knowledge problem. It's a system problem.</p>
+      <p class="about-bio">The playbook strips nutrition down to decisions that run on autopilot. One plate. One framework. No app required.</p>
+      <p class="about-bio">Andrew lives by the same rules he wrote.</p>
+      <div class="about-rule" aria-hidden="true" style="margin-top: 20px; margin-bottom: 0;"></div>
+      <a href="https://instagram.com/whatsupandrewrios" target="_blank" rel="noopener" class="about-social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        @whatsupandrewrios
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
