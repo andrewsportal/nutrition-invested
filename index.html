@@ -413,8 +413,6 @@
       .page-2-platter.has-more .more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
     }
 
-    .page-2-rule { width: calc(100% - 48px); height: 1px; background: rgba(var(--teal-rgb), 0.18); margin: 16px 24px 0 24px; flex-shrink: 0; }
-
     .blurb-scroll-wrapper {
       flex: 1; position: relative; min-height: 0; display: flex; flex-direction: column; margin: 14px 0 14px 0;
       --fade-top: 48px; --clear-top: 7px; --fade-bottom: 82px; --clear-bottom: 38px;
@@ -431,6 +429,11 @@
     }
     .blurb-list::-webkit-scrollbar { display: none; }
     .blurb-list:focus-visible { outline-offset: -2px; }
+    .blurb-intro { padding: 2px 0 var(--sp-2); user-select: text; -webkit-user-select: text; }
+    .blurb-intro-hook { font-size: var(--text-body); font-weight: 600; color: var(--color-body); line-height: 1.4; letter-spacing: var(--track-normal); margin-bottom: 10px; }
+    .blurb-intro-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; margin-bottom: var(--sp-2); }
+    .blurb-intro-rule { height: 1px; background: rgba(var(--teal-rgb), 0.18); margin: 0 0 var(--sp-2); }
+    .blurb-intro-lead { font-size: var(--text-body); font-weight: 600; color: var(--color-accent); letter-spacing: var(--track-tight); }
     .blurb-item { display: flex; align-items: flex-start; gap: var(--sp-2); padding-bottom: var(--sp-2); }
     .blurb-item:last-child { padding-bottom: 0; }
     .blurb-icon {
@@ -464,9 +467,9 @@
     .counter-avatar + .counter-avatar { margin-left: -7px; }
     .counter-avatar-overflow {
       min-width: 20px; width: auto; height: 20px; border-radius: var(--radius-pill); border: 1.5px solid rgba(255,255,255,0.95);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: rgba(0,0,0,0.28);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: var(--color-gold);
       display: inline-flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 700; color: var(--color-white); letter-spacing: -0.02em;
+      font-size: 9px; font-weight: 700; color: #3A3313; letter-spacing: -0.02em;
       flex-shrink: 0; margin-left: -5px; padding: 0 4px;
     }
     .counter-bar-divider { width: 1px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; margin: 4px 0; }
@@ -541,7 +544,6 @@
       .page-2-inner { padding-top: calc(var(--safe-top) + 48px); padding-bottom: max(calc(var(--safe-bottom) + 32px), 48px); gap: 24px; }
       .page-2-platter, .counter-bar { max-width: 560px; }
       .page-2-header { padding: 18px 24px 0 18px; }
-      .page-2-rule { width: calc(100% - 64px); margin: 16px 32px 0; }
       .blurb-list { padding: 8px 32px; }
     }
 
@@ -651,13 +653,20 @@
               <path d="M15 18l-6-6 6-6"/>
             </svg>
           </button>
-          <h2 id="quick-bites-heading" class="info-section-sublabel">The Quick Bites</h2>
+          <h2 id="whats-inside-heading" class="info-section-sublabel">What's Inside</h2>
         </header>
 
-        <div class="page-2-rule" aria-hidden="true"></div>
-
         <div id="blurb-wrapper" class="blurb-scroll-wrapper">
-          <div id="blurb-list" class="blurb-list" role="list" tabindex="0" aria-labelledby="quick-bites-heading">
+          <div id="blurb-list" class="blurb-list" tabindex="0" aria-labelledby="whats-inside-heading">
+
+            <div class="blurb-intro">
+              <p class="blurb-intro-hook">Tired of the 2 PM crash, yo-yo diets, and plans that collapse when life gets busy?</p>
+              <p class="blurb-intro-body"><em>Nutrition, Invested</em> is the tactical playbook for reliable energy, lasting strength, and results that stick. No apps. No trackers. No fussy meal plans. Just simple choices measured with your hands that fix the systems driving your output — so smart choices compound instead of collapsing.</p>
+              <div class="blurb-intro-rule" aria-hidden="true"></div>
+              <h3 id="breakdown-heading" class="blurb-intro-lead">The Breakdown</h3>
+            </div>
+
+            <div class="blurb-items" role="list" aria-labelledby="breakdown-heading">
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
@@ -730,6 +739,8 @@
               </span>
               <div class="blurb-text"><span class="blurb-title">Deploy</span> <span class="blurb-body">Grocery list. 7-Day Kickstart. Blood panel cheat sheet. Budget guide. Open the appendix. Motion beats planning.</span></div>
             </article>
+
+            </div>
 
           </div>
         </div>
