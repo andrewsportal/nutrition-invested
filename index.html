@@ -487,7 +487,16 @@
     }
     .counter-bar.show-quote .counter-right-default { opacity: 0; pointer-events: none; }
     .counter-bar.show-quote .counter-right-quote { transform: translateX(0); opacity: 1; pointer-events: auto; }
-    .counter-bar-tagline { font-size: var(--text-body); font-weight: 500; color: var(--color-white); line-height: 1.4; text-align: right; }
+    .counter-bar-tagline { text-align: right; color: var(--color-white); }
+    .tagline-setup {
+      display: block; font-size: var(--text-caption); font-weight: 500;
+      line-height: 1.35; color: rgba(255,255,255,0.72);
+      letter-spacing: var(--track-normal); margin-bottom: 5px;
+    }
+    .tagline-punch {
+      display: block; font-size: var(--text-headline); font-weight: 700;
+      line-height: 1.1; letter-spacing: var(--track-tight);
+    }
     .counter-receipts-link {
       appearance: none; border: 0; background: none; color: rgba(255,255,255,0.9); font: inherit; font-size: var(--text-caption);
       font-weight: 600; letter-spacing: 0.02em; text-decoration: underline; text-decoration-color: var(--color-gold); text-underline-offset: 2px; padding: 0; cursor: pointer; transition: opacity 0.2s ease, transform var(--timing-spring);
@@ -770,7 +779,10 @@
         <div class="counter-bar-divider" aria-hidden="true"></div>
         <div id="counter-bar-right" class="counter-bar-right">
           <div class="counter-right-panel counter-right-default">
-            <span class="counter-bar-tagline">The market opens every morning.<br>Show up.</span>
+            <span class="counter-bar-tagline">
+              <span class="tagline-setup">The market opens every morning.</span>
+              <span class="tagline-punch">Show up.</span>
+            </span>
             <button id="read-receipts" class="counter-receipts-link" type="button">Read the Receipts</button>
           </div>
         </div>
