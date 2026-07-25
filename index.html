@@ -1262,7 +1262,8 @@
         </svg>
       </button>
       <img class="about-hero" src="./author-full.jpg" alt="Andrew Rios at the Grand Palace in Bangkok, Thailand"
-           width="1400" height="787" decoding="async" onerror="this.remove();">
+           width="1280" height="720" decoding="async"
+           onerror="if (!this.dataset.retried) { this.dataset.retried = '1'; this.src = './author-full.JPG'; } else { this.remove(); }">
       <div id="about-body" class="about-platter-body">
       <div id="about-id" class="about-id">
         <h2 class="about-name">Andrew Rios</h2>
