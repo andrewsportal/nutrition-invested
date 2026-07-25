@@ -303,7 +303,7 @@
     .about-role {
       font-size: var(--text-caption); font-weight: 600; color: var(--color-accent);
       letter-spacing: var(--track-wide); text-transform: uppercase; text-align: center;
-      line-height: 1; margin-bottom: 20px;
+      line-height: 1; margin-bottom: 14px;
     }
     .about-rule { width: 100%; height: 1px; background: rgba(var(--teal-rgb), 0.16); margin-bottom: 20px; flex-shrink: 0; }
     .about-bio {
@@ -314,7 +314,7 @@
 
     .about-social-link {
       display: inline-flex; align-items: center; gap: 8px;
-      height: 40px; padding: 0 16px; margin-top: 20px; position: relative;
+      height: 40px; padding: 0 16px; margin: 0 0 18px; position: relative;
       background: rgba(var(--accent-rgb), 0.08); border: 1px solid var(--line-teal);
       border-radius: var(--radius-pill); text-decoration: none;
       color: var(--color-accent); font-size: var(--text-label); font-weight: 600;
@@ -1018,14 +1018,22 @@
     if (aboutBack) { aboutBack.addEventListener('click', closeAbout); }
 
     if (aboutPage) {
-      var aboutTouchStartX = 0, aboutDragging = false;
+      var aboutTouchStartX = 0, aboutTouchStartY = 0, aboutDragging = false, aboutAxis = null;
       aboutPage.addEventListener('touchstart', function (e) {
         aboutTouchStartX = e.touches[0].clientX;
+        aboutTouchStartY = e.touches[0].clientY;
         aboutDragging = true;
+        aboutAxis = null;
       }, { passive: true });
       aboutPage.addEventListener('touchmove', function (e) {
         if (!aboutDragging) return;
         var dx = e.touches[0].clientX - aboutTouchStartX;
+        var dy = e.touches[0].clientY - aboutTouchStartY;
+        if (!aboutAxis) {
+          if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+          aboutAxis = (Math.abs(dx) > Math.abs(dy) && dx > 0) ? 'x' : 'y';
+        }
+        if (aboutAxis !== 'x') return;
         if (dx > 0) {
           aboutPage.style.transition = 'none';
           aboutPage.style.transform = 'translateX(' + dx + 'px)';
@@ -1034,8 +1042,10 @@
       aboutPage.addEventListener('touchend', function (e) {
         if (!aboutDragging) return;
         aboutDragging = false;
+        var wasHorizontal = aboutAxis === 'x';
+        aboutAxis = null;
         var dx = e.changedTouches[0].clientX - aboutTouchStartX;
-        if (dx > 80) {
+        if (wasHorizontal && dx > 80) {
           aboutPage.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
           aboutPage.style.transform = 'translateX(100%)';
           setTimeout(function () {
@@ -1180,11 +1190,13 @@
     }, { passive: true });
 
     document.addEventListener('touchmove', function (e) {
-      var isInList = blurbList && blurbList.contains(e.target);
-      if (isInList) {
+      var scroller = null;
+      if (blurbList && blurbList.contains(e.target)) { scroller = blurbList; }
+      else if (aboutBioScroll && aboutBioScroll.contains(e.target)) { scroller = aboutBioScroll; }
+      if (scroller) {
         var dy = touchStartY - e.touches[0].clientY;
-        var atTop = blurbList.scrollTop <= 0;
-        var atBottom = blurbList.scrollTop + blurbList.clientHeight >= blurbList.scrollHeight - 2;
+        var atTop = scroller.scrollTop <= 0;
+        var atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
         if ((dy < 0 && atTop) || (dy > 0 && atBottom)) { e.preventDefault(); }
       } else {
         e.preventDefault();
@@ -1192,6 +1204,7 @@
     }, { passive: false });
 
     document.addEventListener('touchend', function (e) {
+      if (aboutPage && aboutPage.classList.contains('open')) return;
       var dy = touchStartY - e.changedTouches[0].clientY;
       var dx = touchStartX - e.changedTouches[0].clientX;
       var dt = Date.now() - touchStartTime;
@@ -1224,6 +1237,14 @@
       <div class="about-platter-body">
       <h2 class="about-name">Andrew Rios</h2>
       <p class="about-role">Author · Nutrition Strategist</p>
+      <a href="https://instagram.com/whatsupandrewrios" target="_blank" rel="noopener" class="about-social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        @whatsupandrewrios
+      </a>
       <div class="about-rule" aria-hidden="true"></div>
       <div id="about-bio-wrap" class="about-bio-wrap">
       <div id="about-bio-scroll" class="about-bio-scroll" tabindex="0" aria-label="Author bio">
@@ -1241,15 +1262,6 @@
           <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="about-rule" aria-hidden="true" style="margin-top: 20px; margin-bottom: 0;"></div>
-      <a href="https://instagram.com/whatsupandrewrios" target="_blank" rel="noopener" class="about-social-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
-        </svg>
-        @whatsupandrewrios
-      </a>
       </div>
     </div>
   </div>
