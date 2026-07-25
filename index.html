@@ -290,6 +290,8 @@
       width: 100%; flex-shrink: 0; overflow: hidden;
       display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
     }
+    .about-id > * { flex-shrink: 0; }
+    .about-bio-content { will-change: transform; }
     .about-more-cue {
       align-self: center; height: 24px; margin-top: -24px;
       display: flex; align-items: center; gap: 6px; color: var(--color-muted);
@@ -983,6 +985,7 @@
 
     var aboutBioScroll = document.getElementById('about-bio-scroll');
     var aboutBioWrap = document.getElementById('about-bio-wrap');
+    var aboutBioContent = document.getElementById('about-bio-content');
     var aboutId = document.getElementById('about-id');
     var aboutIdH = 0;
     function measureAboutId() {
@@ -991,19 +994,25 @@
       aboutId.style.opacity = '';
       aboutId.style.visibility = '';
       aboutIdH = aboutId.offsetHeight;
+      if (aboutBioScroll) { aboutBioScroll.style.paddingBottom = (14 + aboutIdH) + 'px'; }
     }
     function updateAboutFades() {
       if (!aboutBioScroll || !aboutBioWrap) return;
       var st = aboutBioScroll.scrollTop;
       var max = aboutBioScroll.scrollHeight - aboutBioScroll.clientHeight;
-      aboutBioWrap.classList.toggle('at-top', st <= 1);
+      var shrink = Math.max(0, Math.min(st, aboutIdH));
+      var reading = st - shrink;
+      aboutBioWrap.classList.toggle('at-top', reading <= 1);
       aboutBioWrap.classList.toggle('at-bottom', st >= max - 1);
       aboutBioWrap.classList.toggle('has-more', max > 2 && st < max - 1);
       if (aboutId && aboutIdH > 0) {
-        var h = Math.max(0, aboutIdH - Math.max(0, st));
+        var h = aboutIdH - shrink;
         aboutId.style.height = h + 'px';
         aboutId.style.opacity = String(h / aboutIdH);
         aboutId.style.visibility = h === 0 ? 'hidden' : '';
+      }
+      if (aboutBioContent) {
+        aboutBioContent.style.transform = 'translateY(' + shrink + 'px)';
       }
     }
     if (aboutBioScroll) {
@@ -1270,12 +1279,14 @@
       <div class="about-rule" aria-hidden="true"></div>
       <div id="about-bio-wrap" class="about-bio-wrap">
       <div id="about-bio-scroll" class="about-bio-scroll" tabindex="0" aria-label="Author bio">
+      <div id="about-bio-content" class="about-bio-content">
       <p class="about-bio">Andrew Rios didn&rsquo;t study nutrition. He took it apart.</p>
       <p class="about-bio">Before food was ever the subject, he worked in a room where it was already too late. Every morning he pushed the wheelchair to the window and counted the pills into the cup that got one body through a day, while they looked out at a street they used to walk.</p>
       <p class="about-bio">Raised in the San Fernando Valley on family pozole and a boulevard of drive-thrus. A valet stand in Death Valley: a paycheck with nowhere to go, nights on a screen watching strangers eight thousand miles away live out of one bag. Minimalism had already cut his life to the same size. They looked rich. A teaching certificate. Then the one-way ticket. Two years across Southeast Asia, where eating well wasn&rsquo;t a project. Just dinner.</p>
       <p class="about-bio">Then the room came back to him.</p>
       <p class="about-bio">Home, onto delivery routes. Thirty packages left and energy to spare. Every break became food research, every grocery run the day&rsquo;s prize. He kept notes, one food at a time.</p>
       <p class="about-bio">Nutrition, Invested is the notes. Eight thousand miles of them, in a system anyone can run. The book he needed didn&rsquo;t exist. He wrote it.</p>
+      </div>
       </div>
       </div>
       <div class="about-more-cue" aria-hidden="true">
