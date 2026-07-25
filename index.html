@@ -221,12 +221,12 @@
       background: var(--color-bg);
       transform: translateX(100%);
       transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-      will-change: transform; overflow-y: auto; overscroll-behavior: contain;
+      will-change: transform; overflow: hidden; overscroll-behavior: contain;
     }
     .about-page.open { transform: translateX(0); }
 
     .about-page-inner {
-      width: 100%; min-height: 100vh; min-height: 100dvh;
+      width: 100%; height: 100vh; height: 100dvh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: var(--stack-gap);
       padding-top: calc(var(--safe-top) + 24px);
@@ -256,15 +256,45 @@
       box-shadow: var(--shadow-surface);
       backdrop-filter: saturate(160%) blur(24px); -webkit-backdrop-filter: saturate(160%) blur(24px);
       display: flex; flex-direction: column; overflow: hidden;
+      min-height: 0; max-height: 100%;
     }
     .about-hero {
       display: block; width: 100%; height: clamp(160px, 56vw, 250px);
       object-fit: cover; flex-shrink: 0;
       background: rgba(var(--accent-rgb), 0.10); -webkit-user-drag: none;
     }
+    @media (max-height: 560px) { .about-hero { height: 120px; } }
     .about-platter-body {
       width: 100%; padding: 24px 28px 28px 28px;
       display: flex; flex-direction: column; align-items: center;
+      flex: 1 1 auto; min-height: 0;
+    }
+    .about-bio-wrap {
+      width: 100%; flex: 1 1 auto; min-height: 64px; position: relative;
+      display: flex; flex-direction: column;
+      --fade-top: 40px; --clear-top: 6px; --fade-bottom: 56px; --clear-bottom: 18px;
+      transition: --fade-top 0.18s ease, --clear-top 0.18s ease, --fade-bottom 0.18s ease, --clear-bottom 0.18s ease;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, transparent var(--clear-top), rgba(0,0,0,0.1) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.25), rgba(0,0,0,0.5) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.55), rgba(0,0,0,0.9) calc(var(--clear-top) + (var(--fade-top) - var(--clear-top)) * 0.8), #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent calc(100% - var(--clear-bottom)), transparent 100%);
+    }
+    .about-bio-wrap.at-top { --fade-top: 0px; --clear-top: 0px; }
+    .about-bio-wrap.at-bottom { --fade-bottom: 0px; --clear-bottom: 0px; }
+    .about-bio-scroll {
+      flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto;
+      touch-action: pan-y; overscroll-behavior-y: contain; scrollbar-width: none;
+      padding: 2px 2px 14px;
+    }
+    .about-bio-scroll::-webkit-scrollbar { display: none; }
+    .about-bio-scroll:focus-visible { outline-offset: -2px; }
+    .about-more-cue {
+      align-self: center; height: 24px; margin-top: -24px;
+      display: flex; align-items: center; gap: 6px; color: var(--color-muted);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 3; flex-shrink: 0;
+    }
+    .about-bio-wrap.has-more + .about-more-cue { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .about-bio-wrap.has-more + .about-more-cue svg { animation: chevron-pulse 1.6s ease-in-out infinite; }
     }
     .about-name {
       font-size: clamp(1.125rem, 4.5vw, 1.25rem); font-weight: 700;
@@ -947,10 +977,28 @@
       menuBtn.setAttribute('aria-expanded', 'false');
     }
 
+    var aboutBioScroll = document.getElementById('about-bio-scroll');
+    var aboutBioWrap = document.getElementById('about-bio-wrap');
+    function updateAboutFades() {
+      if (!aboutBioScroll || !aboutBioWrap) return;
+      var st = aboutBioScroll.scrollTop;
+      var max = aboutBioScroll.scrollHeight - aboutBioScroll.clientHeight;
+      aboutBioWrap.classList.toggle('at-top', st <= 1);
+      aboutBioWrap.classList.toggle('at-bottom', st >= max - 1);
+      aboutBioWrap.classList.toggle('has-more', max > 2 && st < max - 1);
+    }
+    if (aboutBioScroll) {
+      aboutBioScroll.addEventListener('scroll', updateAboutFades, { passive: true });
+      window.addEventListener('resize', updateAboutFades);
+      updateAboutFades();
+    }
+
     function openAbout() {
       closeMenu();
       if (!aboutPage) return;
+      if (aboutBioScroll) aboutBioScroll.scrollTop = 0;
       aboutPage.classList.add('open');
+      updateAboutFades();
     }
 
     function closeAbout() {
@@ -1177,12 +1225,22 @@
       <h2 class="about-name">Andrew Rios</h2>
       <p class="about-role">Author · Nutrition Strategist</p>
       <div class="about-rule" aria-hidden="true"></div>
+      <div id="about-bio-wrap" class="about-bio-wrap">
+      <div id="about-bio-scroll" class="about-bio-scroll" tabindex="0" aria-label="Author bio">
       <p class="about-bio">Andrew Rios didn&rsquo;t study nutrition. He took it apart.</p>
       <p class="about-bio">Before food was ever the subject, he worked in a room where it was already too late. Every morning he pushed the wheelchair to the window and counted the pills into the cup that got one body through a day, while they looked out at a street they used to walk.</p>
       <p class="about-bio">Raised in the San Fernando Valley on family pozole and a boulevard of drive-thrus. A valet stand in Death Valley: a paycheck with nowhere to go, nights on a screen watching strangers eight thousand miles away live out of one bag. Minimalism had already cut his life to the same size. They looked rich. A teaching certificate. Then the one-way ticket. Two years across Southeast Asia, where eating well wasn&rsquo;t a project. Just dinner.</p>
       <p class="about-bio">Then the room came back to him.</p>
       <p class="about-bio">Home, onto delivery routes. Thirty packages left and energy to spare. Every break became food research, every grocery run the day&rsquo;s prize. He kept notes, one food at a time.</p>
       <p class="about-bio">Nutrition, Invested is the notes. Eight thousand miles of them, in a system anyone can run. The book he needed didn&rsquo;t exist. He wrote it.</p>
+      </div>
+      </div>
+      <div class="about-more-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <div class="about-rule" aria-hidden="true" style="margin-top: 20px; margin-bottom: 0;"></div>
       <a href="https://instagram.com/whatsupandrewrios" target="_blank" rel="noopener" class="about-social-link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
