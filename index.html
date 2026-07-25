@@ -252,24 +252,19 @@
     .about-platter {
       width: 100%; max-width: 432px; position: relative;
       background: rgba(255,255,255,0.86); border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,0.78); padding: 32px 28px 28px 28px;
+      border: 1px solid rgba(255,255,255,0.78); padding: 0;
       box-shadow: var(--shadow-surface);
       backdrop-filter: saturate(160%) blur(24px); -webkit-backdrop-filter: saturate(160%) blur(24px);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .about-hero {
+      display: block; width: 100%; height: clamp(160px, 56vw, 250px);
+      object-fit: cover; flex-shrink: 0;
+      background: rgba(var(--accent-rgb), 0.10); -webkit-user-drag: none;
+    }
+    .about-platter-body {
+      width: 100%; padding: 24px 28px 28px 28px;
       display: flex; flex-direction: column; align-items: center;
-    }
-    .about-photo-wrap {
-      position: relative; width: 80px; height: 80px; border-radius: 50%;
-      background: var(--color-accent); display: flex; align-items: center; justify-content: center;
-      margin-bottom: 16px; overflow: hidden; flex-shrink: 0;
-      box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.28), 0 1px 4px rgba(0,0,0,0.10);
-    }
-    .about-photo {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; border-radius: 50%; opacity: 0; transition: opacity 0.2s ease;
-    }
-    .about-photo-initials {
-      font-size: 1.75rem; font-weight: 700; color: rgba(255,255,255,0.92);
-      letter-spacing: -0.02em; line-height: 1; user-select: none; -webkit-user-select: none;
     }
     .about-name {
       font-size: clamp(1.125rem, 4.5vw, 1.25rem); font-weight: 700;
@@ -531,7 +526,8 @@
       .page-inner, .page-2-inner { padding-left: var(--sp-6); padding-right: var(--sp-6); }
       .cover-wrapper { max-width: 480px; }
       .page-2-platter, .counter-bar { max-width: 520px; }
-      .about-platter { max-width: 480px; padding: 36px 32px 32px; }
+      .about-platter { max-width: 480px; }
+      .about-platter-body { padding: 28px 32px 32px; }
     }
 
     @media (min-width: 1024px) {
@@ -1175,11 +1171,9 @@
           <path d="M15 18l-6-6 6-6"/>
         </svg>
       </button>
-      <div class="about-photo-wrap">
-        <span class="about-photo-initials" aria-hidden="true">AR</span>
-        <img class="about-photo" src="./author.jpg" alt="Andrew Rios"
-             onload="this.style.opacity='1';" onerror="this.remove();" decoding="async">
-      </div>
+      <img class="about-hero" src="./author-full.jpg" alt="Andrew Rios at the Grand Palace in Bangkok, Thailand"
+           width="1400" height="787" decoding="async" onerror="this.remove();">
+      <div class="about-platter-body">
       <h2 class="about-name">Andrew Rios</h2>
       <p class="about-role">Author · Nutrition Strategist</p>
       <div class="about-rule" aria-hidden="true"></div>
@@ -1198,6 +1192,7 @@
         </svg>
         @whatsupandrewrios
       </a>
+      </div>
     </div>
   </div>
 </div>
