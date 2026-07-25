@@ -1047,6 +1047,21 @@
 
     if (aboutBack) { aboutBack.addEventListener('click', closeAbout); }
 
+    var aboutSocial = document.getElementById('about-social');
+    if (aboutSocial) {
+      aboutSocial.addEventListener('click', function (e) {
+        var ua = navigator.userAgent;
+        var webUrl = this.href;
+        if (/android/i.test(ua)) {
+          e.preventDefault();
+          window.location.href = 'intent://www.instagram.com/whatsupandrewriosx/#Intent;package=com.instagram.android;scheme=https;S.browser_fallback_url=' + encodeURIComponent(webUrl) + ';end';
+        } else if (/iPad|iPhone|iPod/.test(ua)) {
+          e.preventDefault();
+          window.location.href = webUrl;
+        }
+      });
+    }
+
     if (aboutPage) {
       var aboutTouchStartX = 0, aboutTouchStartY = 0, aboutDragging = false, aboutAxis = null;
       aboutPage.addEventListener('touchstart', function (e) {
@@ -1269,13 +1284,13 @@
       <div id="about-id" class="about-id">
         <h2 class="about-name">Andrew Rios</h2>
         <p class="about-role">Author</p>
-        <a href="https://instagram.com/whatsupandrewrios" target="_blank" rel="noopener" class="about-social-link">
+        <a id="about-social" href="https://www.instagram.com/whatsupandrewriosx" target="_blank" rel="noopener" class="about-social-link">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
             <circle cx="12" cy="12" r="4"/>
             <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
           </svg>
-          @whatsupandrewrios
+          @whatsupandrewriosx
         </a>
       </div>
       <div class="about-rule" aria-hidden="true"></div>
