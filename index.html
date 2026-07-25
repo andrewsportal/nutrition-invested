@@ -1057,7 +1057,15 @@
           window.location.href = 'intent://www.instagram.com/whatsupandrewriosx/#Intent;package=com.instagram.android;scheme=https;S.browser_fallback_url=' + encodeURIComponent(webUrl) + ';end';
         } else if (/iPad|iPhone|iPod/.test(ua)) {
           e.preventDefault();
-          window.location.href = webUrl;
+          var fallback = setTimeout(function () {
+            if (document.visibilityState === 'visible') { window.location.href = webUrl; }
+          }, 1200);
+          var cancel = function () { clearTimeout(fallback); };
+          window.addEventListener('pagehide', cancel, { once: true });
+          document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'hidden') cancel();
+          }, { once: true });
+          window.location.href = 'instagram://user?username=whatsupandrewriosx';
         }
       });
     }
