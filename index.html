@@ -6,8 +6,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#F1F4EF">
-  <meta name="description" content="The Tactical Nutrition Playbook. Time is money. Pay yourself interest. A practical guide to building sustainable nutrition habits.">
-  <title>Nutrition, Invested</title>
+  <meta name="description" content="Nutrition, Invested by Andrew Rios. Five anchors. One plate. Ninety days. Time is money. Pay yourself interest.">
+  <meta property="og:title" content="Nutrition, Invested">
+  <meta property="og:description" content="Five anchors. One plate. Ninety days.">
+  <meta property="og:type" content="book">
+  <meta property="og:url" content="https://nutritioninvested.com/">
+  <meta property="og:image" content="https://nutritioninvested.com/cover.png">
+  <link rel="canonical" href="https://nutritioninvested.com/">
+  <title>Nutrition, Invested — Five anchors. One plate. Ninety days.</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -432,7 +438,7 @@
     .page-2-back:active { transform: scale(0.93); background: rgba(0,0,0,0.06); }
 
     .more-cue {
-      position: absolute; left: 0; right: 0; bottom: 0; height: 72px;
+      position: absolute; left: 0; right: 0; bottom: 58px; height: 72px;
       display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 6px; padding-bottom: 22px; color: var(--color-muted);
       background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 55%, #ffffff 100%);
       opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 6;
@@ -481,6 +487,18 @@
     .blurb-text { flex: 1; }
     .blurb-title { font-size: var(--text-label); font-weight: 600; color: var(--color-label); margin-right: var(--sp-1); }
     .blurb-body { font-size: var(--text-body); color: var(--color-body); line-height: 1.6; user-select: text; -webkit-user-select: text; }
+
+    .kit-link {
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: 7px;
+      margin: 0 14px 14px; min-height: 44px; padding: 0 16px;
+      background: rgba(var(--accent-rgb), 0.08); border: 1px solid var(--line-teal);
+      border-radius: 14px; text-decoration: none;
+      color: var(--color-accent); font-size: var(--text-label); font-weight: 600;
+      letter-spacing: var(--track-normal); z-index: 7;
+      transition: transform var(--timing-spring), background 0.2s ease;
+    }
+    .kit-link:active { transform: scale(0.97); background: rgba(var(--accent-rgb), 0.14); }
+    @media (hover: hover) and (pointer: fine) { .kit-link:hover { background: rgba(var(--accent-rgb), 0.13); } }
 
     .counter-bar {
       width: 100%; max-width: 448px; flex-shrink: 0; background: var(--color-bar-bg); border-radius: var(--radius-lg);
@@ -542,13 +560,11 @@
     .counter-quote-footer { display: flex; align-items: center; justify-content: space-between; width: 100%; }
     .counter-quote-meta { display: inline-flex; align-items: center; gap: 6px; }
     .counter-quote-meta-text { display: flex; flex-direction: column; gap: 1px; }
-    .counter-quote-photo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.95); box-shadow: 0 1px 2px rgba(0,0,0,0.12); background: rgba(255,255,255,0.2); display: block; }
     .counter-quote-name { font-size: var(--text-label); font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 0.01em; }
-    .counter-quote-verified {
-      display: inline-flex; align-items: center; gap: 3px;
-      font-size: var(--text-caption); font-weight: 500; color: rgba(255,255,255,0.82); letter-spacing: 0.01em;
+    .counter-quote-source {
+      font-size: var(--text-caption); font-weight: 500; color: rgba(255,255,255,0.7);
+      letter-spacing: var(--track-wide); text-transform: uppercase;
     }
-    .counter-quote-verified svg { flex-shrink: 0; }
     .counter-quote-nav {
       appearance: none; border: 1px solid rgba(255,255,255,0.36); border-radius: 50%; background: rgba(255,255,255,0.12);
       color: var(--color-white); font: inherit; font-size: var(--text-label); font-weight: 700; line-height: 1;
@@ -599,6 +615,38 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Nutrition, Invested",
+  "author": {
+    "@type": "Person",
+    "name": "Andrew Rios"
+  },
+  "bookFormat": "https://schema.org/EBook",
+  "inLanguage": "en",
+  "url": "https://nutritioninvested.com/",
+  "image": "https://nutritioninvested.com/cover.png",
+  "description": "Five anchors. One plate. Ninety days. Time is money. Pay yourself interest.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "price": "9.99",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.amazon.com/dp/B0F1RX4JWV"
+    },
+    {
+      "@type": "Offer",
+      "price": "9.99",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://payhip.com/b/eBook-Nutrition-Invested"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 
@@ -615,18 +663,18 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       </button>
 
-      <a id="menu-envelope" class="menu-envelope" href="mailto:riosandrew9@gmail.com" aria-label="Send email">
+      <a id="menu-envelope" class="menu-envelope" href="mailto:contact@nutritioninvested.com" aria-label="Send email">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6 12 13 2 6"/></svg>
       </a>
 
       <div class="cover-wrapper">
         <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&id=m63qwfvltfhkvpcw4t4djigtte&reshareId=NTSJ2YDH4KJ5RT2F1EXV&reshareChannel=system" target="_blank" rel="noopener">
-          <img src="./cover.png" alt="Nutrition, Invested book cover" width="832" height="1248" fetchpriority="high" decoding="async"
+          <img src="./cover.png" alt="Nutrition, Invested by Andrew Rios. Five anchors. One plate. Ninety days." width="832" height="1248" fetchpriority="high" decoding="async"
                onerror="if (!this.dataset.retried) { this.dataset.retried = '1'; this.src = './cover.PNG'; }">
         </a>
       </div>
 
-      <a href="nutrition-invested^preview" class="preview-hint">
+      <a href="https://read.amazon.com/kp/kshare?asin=B0F1RX4JWV&amp;id=m63qwfvltfhkvpcw4t4djigtte&amp;reshareId=NTSJ2YDH4KJ5RT2F1EXV&amp;reshareChannel=system" target="_blank" rel="noopener" class="preview-hint">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px; height:16px;">
           <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
           <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
@@ -635,7 +683,7 @@
       </a>
 
       <div class="content-platter">
-        <h1 class="headline">Get the Playbook<span class="divider" aria-hidden="true">—</span><span class="price">$10.99</span></h1>
+        <h1 class="headline">Get the Playbook<span class="divider" aria-hidden="true">—</span><span class="price">$9.99</span></h1>
 
         <div class="buttons">
           <a href="https://www.amazon.com/dp/B0F1RX4JWV" target="_blank" rel="noopener" class="buy-btn primary">
@@ -704,7 +752,7 @@
           <div id="blurb-list" class="blurb-list" tabindex="0" aria-labelledby="whats-inside-heading">
 
             <div class="blurb-intro">
-              <p class="blurb-intro-hook">Tired of the 2 PM wall, yo-yo diets, and plans that collapse when life gets busy?</p>
+              <p class="blurb-intro-hook">Tired of the two PM wall, the diet you keep restarting, and plans that collapse when life gets busy?</p>
               <p class="blurb-intro-body"><em>Nutrition, Invested</em> is the playbook for all-day energy, lasting strength, and results that hold. No apps. No trackers. No meal plans. Your hand is already calibrated to your body. It's the only tool this takes.</p>
               <p class="blurb-intro-body">Plans don't compound. Deposits do.</p>
               <div class="blurb-intro-rule" aria-hidden="true"></div>
@@ -716,10 +764,19 @@
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Purge</span> <span class="blurb-body">The cart is the decision. The kitchen is assembly. Empty it once, cold turkey, three to five days. Willpower isn't resistance. It's removal.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Eat</span> <span class="blurb-body">Protein. Carbs. Fat. Color. Water. One plate system. No app. No meal plan. Runs itself.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Build</span> <span class="blurb-body">Protein builds. Carbs fuel. Fat protects. Color activates. Water runs it. The Five Anchors. Every diet, decoded.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
@@ -728,16 +785,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Measure</span> <span class="blurb-body">Forget the tracker. Your hand measures every portion. Palm. Fist. Cupped palm. Thumb. Calibrated to your body. Zero equipment.</span></div>
-            </article>
-
-            <article class="blurb-item" role="listitem">
-              <span class="blurb-icon" aria-hidden="true">
-                <span class="blurb-icon-badge">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-                </span>
-              </span>
-              <div class="blurb-text"><span class="blurb-title">Compound</span> <span class="blurb-body">Every good choice pays a dividend. One deposit funds the next. Automatically. That's the DRIP.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Run</span> <span class="blurb-body">Forget counting. Palm. Fist. Cupped palm. Thumb. Your hand is calibrated to your body and it never forgets to show up. One Sunday, ninety minutes, ten to fifteen meals.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
@@ -746,7 +794,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Fix</span> <span class="blurb-body">Gut. Inflammation: The Corrosion. Mitochondria: The Power Grid. Most people never touch the systems under the hood. Then they wonder why nothing works.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Fix</span> <span class="blurb-body">The gut. The corrosion. The power grid. The cleanup. Nobody tours the infrastructure. Everybody feels it fail.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
@@ -755,16 +803,16 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Stack</span> <span class="blurb-body">Food-first boosters. One at a time. Dab, not flood. The stack caps at three. Skip the foundation and it multiplies nothing.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Stack</span> <span class="blurb-body">Food-first boosters. One variable at a time. Dab, not flood. The stack caps at three. Skip the foundation and you're bolting a spoiler to a car with no engine.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <span class="blurb-icon-badge">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Audit</span> <span class="blurb-body">Blood panel guidance. Exactly what to test, what it means, what to do when the numbers land. Most standard physicals miss half of it.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Compound</span> <span class="blurb-body">Every healthy choice pays a dividend. Each return reinvests itself. That's the DRIP. Ninety percent holds at home. The ten is for everywhere else.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
@@ -773,22 +821,36 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Recover</span> <span class="blurb-body">The plan will break. Travel, stress, a bad week. Each one has a specific fix. You don't start over. You pick up the next plate.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Recover</span> <span class="blurb-body">It'll break. Every plan does. The plateau, the travel collapse, the relapse week, the stress spiral. Each one has a triage protocol. The system resumes on the next plate, not next Monday.</span></div>
             </article>
 
             <article class="blurb-item" role="listitem">
               <span class="blurb-icon" aria-hidden="true">
                 <span class="blurb-icon-badge">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
                 </span>
               </span>
-              <div class="blurb-text"><span class="blurb-title">Carry</span> <span class="blurb-body">The grocery list: The Foundation Holds. The budget guide: The Frugal Haul. Meal-prep cook times. Blood panel cheat sheet. Open the appendix. Motion beats planning.</span></div>
+              <div class="blurb-text"><span class="blurb-title">Audit</span> <span class="blurb-body">Eleven markers, one draw, and the script to order them without a referral. A standard physical orders fewer than half.</span></div>
+            </article>
+
+            <article class="blurb-item" role="listitem">
+              <span class="blurb-icon" aria-hidden="true">
+                <span class="blurb-icon-badge">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                </span>
+              </span>
+              <div class="blurb-text"><span class="blurb-title">Carry</span> <span class="blurb-body">The Field Kit. The full haul, the cook times, the frugal math, the panel cheat sheet, the three deficiencies, the ninety-day clock. Six tools that keep it paying.</span></div>
             </article>
 
             </div>
 
           </div>
         </div>
+
+        <a class="kit-link" href="./kit/">
+          <span>Open the Field Kit</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+        </a>
 
         <div class="more-cue" aria-hidden="true">
           <span class="more-cue-label">Scroll</span>
@@ -816,7 +878,7 @@
           <div class="counter-right-panel counter-right-default">
             <span class="counter-bar-tagline">
               <span class="tagline-setup">The market opens every morning.</span>
-              <span class="tagline-punch">Show up.</span>
+              <span class="tagline-punch">The clock starts tonight.</span>
             </span>
             <button id="read-receipts" class="counter-receipts-link" type="button">Read the Receipts</button>
           </div>
@@ -825,15 +887,9 @@
           <p id="reader-quote-text" class="counter-quote-text"></p>
           <div class="counter-quote-footer">
             <div class="counter-quote-meta">
-              <img id="reader-quote-photo" class="counter-quote-photo" src="./pic1.jpg" data-reader-file="pic1" alt="Reader photo" width="747" height="770" loading="lazy" decoding="async">
               <div class="counter-quote-meta-text">
                 <span id="reader-quote-name" class="counter-quote-name"></span>
-                <span id="reader-quote-handle" class="counter-quote-verified">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="var(--color-verified)" aria-hidden="true">
-                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.707 7.707-5.657 5.657a1 1 0 0 1-1.414 0l-2.829-2.828a1 1 0 0 1 1.414-1.414L10.293 13.293l4.95-4.95a1 1 0 0 1 1.414 1.414z"/>
-                  </svg>
-                  Verified Purchase
-                </span>
+                <span class="counter-quote-source">From the book</span>
               </div>
             </div>
             <button id="reader-quote-next" class="counter-quote-nav" type="button" aria-label="Next reader quote">→</button>
@@ -897,16 +953,21 @@
     var readReceiptsBtn = document.getElementById('read-receipts');
     var quoteTextEl = document.getElementById('reader-quote-text');
     var quoteNameEl = document.getElementById('reader-quote-name');
-    var quotePhotoEl = document.getElementById('reader-quote-photo');
     var quoteNextBtn = document.getElementById('reader-quote-next');
     var quoteIndex = 0;
+    // Placeholder until real reader reviews arrive. To swap one in:
+    // { quote: 'Their words.', name: 'Reader Name' } — and change the
+    // "From the book" label in the quote panel markup above.
     var readerQuotes = [
-      { quote: 'Short. Tactical. Exactly what I needed to stop overthinking meals.', name: 'Alex R.', photo: 'pic1' },
-      { quote: 'I used the plate framework for one week and felt in control again.', name: 'Jordan T.', photo: 'pic2' },
-      { quote: 'Simple language, clear actions, no fluff. I reread it every Sunday.', name: 'Maya L.', photo: 'pic3' },
-      { quote: 'The recovery section kept me from quitting after a rough travel week.', name: 'Chris D.', photo: 'pic4' },
-      { quote: 'I finally understand what to track and what to ignore.', name: 'Nina S.', photo: 'pic5' },
-      { quote: 'It feels like having a coach in my pocket, minus the complexity.', name: 'Evan P.', photo: 'pic6' }
+      { quote: 'You get one body. You can\'t trade it in or buy a second.', name: 'The Foundation' },
+      { quote: 'Time is the principal. Meals pay the interest.', name: 'The Foundation' },
+      { quote: 'The ingredients changed. The body didn\'t.', name: 'The Foundation' },
+      { quote: 'The Purge isn\'t deprivation. It\'s eviction.', name: '01 The Input' },
+      { quote: 'Every meal is a trade. You\'re always in the market.', name: 'The Inflation Tax' },
+      { quote: 'The supplement aisle is a casino. The plate is the only stack that pays.', name: '05 The Edge' },
+      { quote: 'Missing a day isn\'t the failure. Quitting after a missed day is.', name: '06 Compound' },
+      { quote: 'The panel is the confirmation. The plate is the cause.', name: '07 The Audit' },
+      { quote: 'Ninety days was never the exit. It was the proof the deposits clear.', name: 'The Close' }
     ];
 
     function hydrateReaderImages() {
@@ -916,19 +977,13 @@
         if (!fileName) return;
         el.src = readerAssetPath(fileName);
       });
-      if (quotePhotoEl) {
-        var defaultFile = quotePhotoEl.getAttribute('data-reader-file');
-        if (defaultFile) quotePhotoEl.src = readerAssetPath(defaultFile);
-      }
     }
 
     function renderReaderQuote(index) {
-      if (!quoteTextEl || !quoteNameEl || !quotePhotoEl || readerQuotes.length === 0) return;
+      if (!quoteTextEl || !quoteNameEl || readerQuotes.length === 0) return;
       var item = readerQuotes[index % readerQuotes.length];
-      quoteTextEl.textContent = '"' + item.quote + '"';
+      quoteTextEl.textContent = '“' + item.quote + '”';
       quoteNameEl.textContent = item.name;
-      quotePhotoEl.src = readerAssetPath(item.photo);
-      quotePhotoEl.alt = item.name + ' photo';
     }
 
     function openReceipts() {
@@ -1310,7 +1365,7 @@
       <p class="about-bio">Raised in L.A.&rsquo;s San Fernando Valley on family pozole and a boulevard of drive-thrus. A valet stand in Death Valley: a paycheck with nowhere to go, nights on a screen watching strangers eight thousand miles away live out of one bag. Minimalism had already cut his life to the same size. They looked rich. A teaching certificate. Then the one-way ticket. Two years across Southeast Asia, where eating well wasn&rsquo;t a project. Just dinner.</p>
       <p class="about-bio">Then the room came back to him.</p>
       <p class="about-bio">Home, onto delivery routes. Thirty packages left and energy to spare. Every break became food research, every grocery run the day&rsquo;s prize. He kept notes, one food at a time.</p>
-      <p class="about-bio">Nutrition, Invested is the notes. Eight thousand miles of them, in a system anyone can run. The book he needed didn&rsquo;t exist. He wrote it.</p>
+      <p class="about-bio"><em>Nutrition, Invested</em> is the notes. Eight thousand miles of them, in a system anyone can run. The book he needed didn&rsquo;t exist. He wrote it.</p>
       </div>
       </div>
       </div>
